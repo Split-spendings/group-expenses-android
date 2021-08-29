@@ -9,4 +9,7 @@
 
     <string name="submit_new_group_button">Submit</string>
     <string name="add_new_group_button">New group</string>
+    <string name="groups_list_fragment_label">Groups</string>
+    <string name="group_fragment_label">Group</string>
+    <string name="new_group_fragment_label">New group</string>
 </resources>

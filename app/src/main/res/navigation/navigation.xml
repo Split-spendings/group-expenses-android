@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/groupsListFragment"
         android:name="com.splitspendings.groupexpensesandroid.groupslist.GroupsListFragment"
-        android:label="fragment_groups_list"
+        android:label="@string/groups_list_fragment_label"
         tools:layout="@layout/fragment_groups_list">
         <action
             android:id="@+id/action_groupsListFragment_to_groupFragment"
@@ -20,12 +20,12 @@
     <fragment
         android:id="@+id/groupFragment"
         android:name="com.splitspendings.groupexpensesandroid.group.GroupFragment"
-        android:label="fragment_group"
+        android:label="@string/group_fragment_label"
         tools:layout="@layout/fragment_group" />
     <fragment
         android:id="@+id/newGroupFragment"
         android:name="com.splitspendings.groupexpensesandroid.newgroup.NewGroupFragment"
-        android:label="fragment_new_group"
+        android:label="@string/new_group_fragment_label"
         tools:layout="@layout/fragment_new_group" >
         <action
             android:id="@+id/action_newGroupFragment_to_groupFragment"
