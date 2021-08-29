@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Group expenses</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="placeholder_groups_list">List of user\'s groups will be here</string>
 </resources>
