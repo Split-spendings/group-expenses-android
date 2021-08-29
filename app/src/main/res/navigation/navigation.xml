@@ -32,4 +32,9 @@
             app:destination="@id/groupFragment"
             app:popUpTo="@id/groupsListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.splitspendings.groupexpensesandroid.about.AboutFragment"
+        android:label="@string/about_label"
+        tools:layout="@layout/fragment_about" />
 </navigation>

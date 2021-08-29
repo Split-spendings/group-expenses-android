@@ -12,4 +12,6 @@
     <string name="groups_list_fragment_label">Groups</string>
     <string name="group_fragment_label">Group</string>
     <string name="new_group_fragment_label">New group</string>
+    <string name="about_text">\"Application for splitting group expenses\" thesis project at Polish-Japanese Academy of Information Technology developed by Oleksandr Bieliakov and Volodymyr Dovhyi.</string>
+    <string name="about_label">About</string>
 </resources>
