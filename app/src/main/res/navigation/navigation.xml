@@ -13,10 +13,23 @@
         <action
             android:id="@+id/action_groupsListFragment_to_groupFragment"
             app:destination="@id/groupFragment" />
+        <action
+            android:id="@+id/action_groupsListFragment_to_newGroupFragment"
+            app:destination="@id/newGroupFragment" />
     </fragment>
     <fragment
         android:id="@+id/groupFragment"
         android:name="com.splitspendings.groupexpensesandroid.group.GroupFragment"
         android:label="fragment_group"
         tools:layout="@layout/fragment_group" />
+    <fragment
+        android:id="@+id/newGroupFragment"
+        android:name="com.splitspendings.groupexpensesandroid.newgroup.NewGroupFragment"
+        android:label="fragment_new_group"
+        tools:layout="@layout/fragment_new_group" >
+        <action
+            android:id="@+id/action_newGroupFragment_to_groupFragment"
+            app:destination="@id/groupFragment"
+            app:popUpTo="@id/groupsListFragment" />
+    </fragment>
 </navigation>

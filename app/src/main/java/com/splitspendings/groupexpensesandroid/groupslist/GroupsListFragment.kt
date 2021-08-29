@@ -23,6 +23,10 @@ class GroupsListFragment : Fragment() {
             view.findNavController().navigate(R.id.action_groupsListFragment_to_groupFragment)
         }
 
+        binding.addNewGroupButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_groupsListFragment_to_newGroupFragment)
+        }
+
         return binding.root
     }
 }
