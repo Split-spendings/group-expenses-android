@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">Group expenses</string>
+    <string name="app_name">Group expenses app</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="placeholder_groups_list">List of user\'s groups will be here</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="placeholder_group_info_and_expenses">Group info and expenses will be here</string>
+    <string name="placeholder_to_group_button">To Group</string>
 </resources>

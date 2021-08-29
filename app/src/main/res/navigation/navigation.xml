@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/groupsListFragment">
+
+    <fragment
+        android:id="@+id/groupsListFragment"
+        android:name="com.splitspendings.groupexpensesandroid.groupslist.GroupsListFragment"
+        android:label="fragment_groups_list"
+        tools:layout="@layout/fragment_groups_list">
+        <action
+            android:id="@+id/action_groupsListFragment_to_groupFragment"
+            app:destination="@id/groupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupFragment"
+        android:name="com.splitspendings.groupexpensesandroid.group.GroupFragment"
+        android:label="fragment_group"
+        tools:layout="@layout/fragment_group" />
+</navigation>

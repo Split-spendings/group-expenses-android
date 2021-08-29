@@ -1,4 +1,4 @@
-package com.splitspendings.groupexpensesandroid.fragment
+package com.splitspendings.groupexpensesandroid.group
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.splitspendings.groupexpensesandroid.R
-import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
+import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
 
-class GroupsListFragment : Fragment() {
+class GroupFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val binding = DataBindingUtil.inflate<FragmentGroupsListBinding>(
-            inflater, R.layout.fragment_groups_list, container, false
+        val binding = DataBindingUtil.inflate<FragmentGroupBinding>(
+            inflater, R.layout.fragment_group, container, false
         )
         return binding.root
     }
