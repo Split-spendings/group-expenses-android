@@ -2,6 +2,7 @@
 buildscript {
     ext {
         navigationVersion = "2.3.5"
+        materialVersion = "1.4.0"
     }
     repositories {
         google()
