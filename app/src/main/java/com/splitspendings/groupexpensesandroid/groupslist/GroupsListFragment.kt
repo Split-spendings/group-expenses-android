@@ -19,11 +19,13 @@ class GroupsListFragment : Fragment() {
         )
 
         binding.placeholderToGroupButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_groupsListFragment_to_groupFragment)
+            view.findNavController()
+                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment())
         }
 
         binding.addNewGroupButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_groupsListFragment_to_newGroupFragment)
+            view.findNavController()
+                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment())
         }
 
         setHasOptionsMenu(true)

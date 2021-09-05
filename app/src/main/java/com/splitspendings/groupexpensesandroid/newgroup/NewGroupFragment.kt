@@ -21,7 +21,8 @@ class NewGroupFragment : Fragment() {
         )
 
         binding.submitNewGroupButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_newGroupFragment_to_groupFragment)
+            view.findNavController()
+                .navigate(NewGroupFragmentDirections.actionNewGroupFragmentToGroupFragment())
         }
 
         return binding.root
