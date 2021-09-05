@@ -19,8 +19,11 @@ class GroupsListFragment : Fragment() {
         )
 
         binding.placeholderToGroupButton.setOnClickListener { view: View ->
+
+            val groupName = "Placeholder from GroupsListFragment"
+
             view.findNavController()
-                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment())
+                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupName))
         }
 
         binding.addNewGroupButton.setOnClickListener { view: View ->

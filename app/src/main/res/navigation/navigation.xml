@@ -21,7 +21,11 @@
         android:id="@+id/groupFragment"
         android:name="com.splitspendings.groupexpensesandroid.group.GroupFragment"
         android:label="@string/group_fragment_label"
-        tools:layout="@layout/fragment_group" />
+        tools:layout="@layout/fragment_group" >
+        <argument
+            android:name="groupName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/newGroupFragment"
         android:name="com.splitspendings.groupexpensesandroid.newgroup.NewGroupFragment"
