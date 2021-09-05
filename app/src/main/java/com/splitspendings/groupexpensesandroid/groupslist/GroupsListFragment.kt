@@ -1,5 +1,6 @@
 package com.splitspendings.groupexpensesandroid.groupslist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -23,7 +24,11 @@ class GroupsListFragment : Fragment() {
             val groupName = "Placeholder from GroupsListFragment"
 
             view.findNavController()
-                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupName))
+                .navigate(
+                    GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(
+                        groupName
+                    )
+                )
         }
 
         binding.addNewGroupButton.setOnClickListener { view: View ->
@@ -39,10 +44,43 @@ class GroupsListFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.options_menu, menu)
+
+        // example of using an implicit intent
+            // e.g. can be used to open a camera app for taking a receipt photo or to send group
+            // invite code/link via email/some messenger
+        setShareVisibility(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        // example of using an implicit intent
+        if (item.itemId == R.id.shareAction) {
+            share()
+            return super.onOptionsItemSelected(item)
+        }
+
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
                 || super.onOptionsItemSelected(item)
+    }
+
+    // example of using an implicit intent
+    private fun getShareIntent(): Intent {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.setType("text/plain")
+            .putExtra(Intent.EXTRA_TEXT, "Share text placeholder")
+        return shareIntent
+        // TODO check ShareCompat.IntentBuilder from trivia solution
+    }
+
+    // example of using an implicit intent
+    private fun share() {
+        startActivity(getShareIntent())
+    }
+
+    // example of using an implicit intent
+    private fun setShareVisibility(menu: Menu) {
+        if (getShareIntent().resolveActivity(requireActivity().packageManager) == null) {
+            menu.findItem(R.id.shareAction).isVisible = false
+        }
     }
 }
