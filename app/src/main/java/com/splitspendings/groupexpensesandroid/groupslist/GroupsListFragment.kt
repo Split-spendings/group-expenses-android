@@ -5,12 +5,16 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
+import timber.log.Timber
 
 class GroupsListFragment : Fragment() {
+
+    private lateinit var viewModel: GroupsListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -18,6 +22,10 @@ class GroupsListFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentGroupsListBinding>(
             inflater, R.layout.fragment_groups_list, container, false
         )
+
+        // TODO tmp log
+        Timber.i("onCreateView called ViewModelProvider(this).get(GroupsListViewModel::class.java)")
+        viewModel = ViewModelProvider(this).get(GroupsListViewModel::class.java)
 
         binding.placeholderToGroupButton.setOnClickListener { view: View ->
 
@@ -46,8 +54,8 @@ class GroupsListFragment : Fragment() {
         inflater.inflate(R.menu.options_menu, menu)
 
         // example of using an implicit intent
-            // e.g. can be used to open a camera app for taking a receipt photo or to send group
-            // invite code/link via email/some messenger
+        // e.g. can be used to open a camera app for taking a receipt photo or to send group
+        // invite code/link via email/some messenger
         setShareVisibility(menu)
     }
 
