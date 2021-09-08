@@ -7,10 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
 
 class GroupFragment : Fragment() {
+
+    private lateinit var viewModelFactory: GroupViewModelFactory
+    private lateinit var viewModel: GroupViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -20,7 +24,12 @@ class GroupFragment : Fragment() {
         )
 
         val args = GroupFragmentArgs.fromBundle(requireArguments())
-        Toast.makeText(context, "groupName: ${args.groupName}", Toast.LENGTH_LONG).show()
+        val groupName = args.groupName
+
+        viewModelFactory = GroupViewModelFactory(groupName)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(GroupViewModel::class.java)
+
+        Toast.makeText(context, "groupName: ${viewModel.groupName}", Toast.LENGTH_LONG).show()
 
         return binding.root
     }
