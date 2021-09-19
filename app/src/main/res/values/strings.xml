@@ -7,13 +7,15 @@
     <string name="placeholder_to_group_button">To group</string>
     <string name="placeholder_new_group">Form for adding a new group will be here</string>
 
-    <string name="submit_new_group_button">Submit</string>
+    <string name="reset_button">Reset</string>
+    <string name="submit_button">Submit</string>
     <string name="add_new_group_button">New group</string>
     <string name="groups_list_fragment_label">Groups</string>
     <string name="group_fragment_label">Group</string>
     <string name="new_group_fragment_label">New group</string>
-    <string name="about_text">\"Application for splitting group expenses\" thesis project at Polish-Japanese Academy of Information Technology developed by Oleksandr Bieliakov and Volodymyr Dovhyi.</string>
-    <string name="about_label">About</string>
     <string name="share_label">Share</string>
+    <string name="about_label">About</string>
+    <string name="about_text">\"Application for splitting group expenses\" thesis project at Polish-Japanese Academy of Information Technology developed by Oleksandr Bieliakov and Volodymyr Dovhyi.</string>
     <string name="group_name">Group name</string>
+    <string name="invalid_group_name_error">Invalid group name</string>
 </resources>

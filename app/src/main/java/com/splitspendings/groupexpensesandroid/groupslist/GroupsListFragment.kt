@@ -7,17 +7,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
 
 class GroupsListFragment : Fragment() {
 
+    private lateinit var binding: FragmentGroupsListBinding
     private lateinit var viewModelFactory: GroupsListViewModelFactory
     private lateinit var viewModel: GroupsListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val binding = DataBindingUtil.inflate<FragmentGroupsListBinding>(inflater, R.layout.fragment_groups_list, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_groups_list, container, false)
 
         viewModelFactory = GroupsListViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(GroupsListViewModel::class.java)
@@ -31,14 +33,14 @@ class GroupsListFragment : Fragment() {
     }
 
     private fun onNewGroupButtonClicked() = { view: View ->
-        view.findNavController()
-            .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment())
+        val action = GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment()
+        findNavController().navigate(action)
     }
 
     private fun onPlaceholderToGroupButtonClicked() = { view: View ->
-        val groupName = "Placeholder from GroupsListFragment"
-        view.findNavController()
-            .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupName))
+        val groupName = "The name of the selected group"
+        val action = GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupName)
+        findNavController().navigate(action)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

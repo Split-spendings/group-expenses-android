@@ -12,11 +12,12 @@ import com.splitspendings.groupexpensesandroid.databinding.FragmentAboutBinding
 
 class AboutFragment : Fragment() {
 
+    private lateinit var binding: FragmentAboutBinding
     private lateinit var viewModelFactory: AboutViewModelFactory
     private lateinit var viewModel: AboutViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val binding = DataBindingUtil.inflate<FragmentAboutBinding>(inflater, R.layout.fragment_about, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false)
 
         viewModelFactory = AboutViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(AboutViewModel::class.java)
