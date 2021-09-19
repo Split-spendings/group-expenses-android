@@ -16,12 +16,8 @@ class GroupFragment : Fragment() {
     private lateinit var viewModelFactory: GroupViewModelFactory
     private lateinit var viewModel: GroupViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        val binding = DataBindingUtil.inflate<FragmentGroupBinding>(
-            inflater, R.layout.fragment_group, container, false
-        )
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val binding = DataBindingUtil.inflate<FragmentGroupBinding>(inflater, R.layout.fragment_group, container, false)
 
         val args = GroupFragmentArgs.fromBundle(requireArguments())
         val groupName = args.groupName

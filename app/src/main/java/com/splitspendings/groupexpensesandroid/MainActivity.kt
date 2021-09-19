@@ -19,8 +19,7 @@ class MainActivity : AppCompatActivity() {
         // TODO tmp
         Timber.i("onCreate Called")
 
-        val binding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
         drawerLayout = binding.drawerLayout
 

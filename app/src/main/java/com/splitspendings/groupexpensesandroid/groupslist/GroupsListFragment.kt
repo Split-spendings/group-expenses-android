@@ -10,43 +10,35 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
-import timber.log.Timber
 
 class GroupsListFragment : Fragment() {
 
+    private lateinit var viewModelFactory: GroupsListViewModelFactory
     private lateinit var viewModel: GroupsListViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        val binding = DataBindingUtil.inflate<FragmentGroupsListBinding>(
-            inflater, R.layout.fragment_groups_list, container, false
-        )
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val binding = DataBindingUtil.inflate<FragmentGroupsListBinding>(inflater, R.layout.fragment_groups_list, container, false)
 
-        // TODO tmp log
-        Timber.i("onCreateView called ViewModelProvider(this).get(GroupsListViewModel::class.java)")
-        viewModel = ViewModelProvider(this).get(GroupsListViewModel::class.java)
+        viewModelFactory = GroupsListViewModelFactory()
+        viewModel = ViewModelProvider(this, viewModelFactory).get(GroupsListViewModel::class.java)
 
-        binding.placeholderToGroupButton.setOnClickListener { view: View ->
-
-            val groupName = "Placeholder from GroupsListFragment"
-
-            view.findNavController()
-                .navigate(
-                    GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(
-                        groupName
-                    )
-                )
-        }
-
-        binding.addNewGroupButton.setOnClickListener { view: View ->
-            view.findNavController()
-                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment())
-        }
+        binding.placeholderToGroupButton.setOnClickListener(onPlaceholderToGroupButtonClicked())
+        binding.addNewGroupButton.setOnClickListener(onNewGroupButtonClicked())
 
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    private fun onNewGroupButtonClicked() = { view: View ->
+        view.findNavController()
+            .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment())
+    }
+
+    private fun onPlaceholderToGroupButtonClicked() = { view: View ->
+        val groupName = "Placeholder from GroupsListFragment"
+        view.findNavController()
+            .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupName))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -60,13 +52,11 @@ class GroupsListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         // example of using an implicit intent
         if (item.itemId == R.id.shareAction) {
             share()
             return super.onOptionsItemSelected(item)
         }
-
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
                 || super.onOptionsItemSelected(item)
     }

@@ -6,17 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentAboutBinding
 
 class AboutFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        val binding = DataBindingUtil.inflate<FragmentAboutBinding>(
-            inflater, R.layout.fragment_about, container, false
-        )
+    private lateinit var viewModelFactory: AboutViewModelFactory
+    private lateinit var viewModel: AboutViewModel
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val binding = DataBindingUtil.inflate<FragmentAboutBinding>(inflater, R.layout.fragment_about, container, false)
+
+        viewModelFactory = AboutViewModelFactory()
+        viewModel = ViewModelProvider(this, viewModelFactory).get(AboutViewModel::class.java)
+
         return binding.root
     }
 }
