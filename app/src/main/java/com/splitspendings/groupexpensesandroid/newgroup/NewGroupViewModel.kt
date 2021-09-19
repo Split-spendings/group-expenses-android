@@ -34,13 +34,17 @@ class NewGroupViewModel : ViewModel() {
 
     fun onSubmit(groupName: String) {
         when {
-            groupName.isEmpty() -> _eventInvalidGroupName.value = true
+            groupName.isEmpty() -> onInvalidGroupName()
             else -> _eventSubmit.value = true
         }
     }
 
     fun onEventSubmitComplete() {
         _eventSubmit.value = false
+    }
+
+    private fun onInvalidGroupName() {
+        _eventInvalidGroupName.value = true
     }
 
     fun onEventInvalidGroupNameComplete() {
