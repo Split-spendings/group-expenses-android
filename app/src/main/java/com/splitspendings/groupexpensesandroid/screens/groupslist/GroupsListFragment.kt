@@ -1,4 +1,4 @@
-package com.splitspendings.groupexpensesandroid.groupslist
+package com.splitspendings.groupexpensesandroid.screens.groupslist
 
 import android.content.Intent
 import android.os.Bundle

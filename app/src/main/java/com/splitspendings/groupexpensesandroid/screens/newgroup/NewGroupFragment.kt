@@ -1,4 +1,4 @@
-package com.splitspendings.groupexpensesandroid.newgroup
+package com.splitspendings.groupexpensesandroid.screens.newgroup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.splitspendings.groupexpensesandroid.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.R
+import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewGroupBinding
 
 class NewGroupFragment : Fragment() {

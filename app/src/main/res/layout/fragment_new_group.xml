@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".newgroup.NewGroupFragment">
+    tools:context=".screens.newgroup.NewGroupFragment">
 
     <data>
         <variable
             name="newGroupViewModel"
-            type="com.splitspendings.groupexpensesandroid.newgroup.NewGroupViewModel" />
+            type="com.splitspendings.groupexpensesandroid.screens.newgroup.NewGroupViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

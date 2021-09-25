@@ -1,4 +1,4 @@
-package com.splitspendings.groupexpensesandroid.about
+package com.splitspendings.groupexpensesandroid.screens.about
 
 import android.os.Bundle
 import android.view.LayoutInflater

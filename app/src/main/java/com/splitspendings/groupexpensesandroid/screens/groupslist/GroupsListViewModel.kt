@@ -1,7 +1,10 @@
-package com.splitspendings.groupexpensesandroid.groupslist
+package com.splitspendings.groupexpensesandroid.screens.groupslist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+
+class GroupsListViewModel : ViewModel()
+
 
 class GroupsListViewModelFactory : ViewModelProvider.Factory {
 

@@ -1,8 +1,9 @@
-package com.splitspendings.groupexpensesandroid.newgroup
+package com.splitspendings.groupexpensesandroid.screens.newgroup
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 class NewGroupViewModel : ViewModel() {
 
@@ -49,5 +50,16 @@ class NewGroupViewModel : ViewModel() {
 
     fun onEventInvalidGroupNameComplete() {
         _eventInvalidGroupName.value = false
+    }
+}
+
+
+class NewGroupViewModelFactory : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (!modelClass.isAssignableFrom(NewGroupViewModel::class.java)) {
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+        return NewGroupViewModel() as T
     }
 }
