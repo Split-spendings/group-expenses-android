@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -26,7 +25,12 @@ class GroupFragment : Fragment() {
         viewModelFactory = GroupViewModelFactory(groupName)
         viewModel = ViewModelProvider(this, viewModelFactory).get(GroupViewModel::class.java)
 
-        Toast.makeText(context, "groupName: ${viewModel.groupName}", Toast.LENGTH_LONG).show()
+        // Set the viewmodel for databinding - this allows the bound layout access all the data in the ViewModel
+        binding.groupViewModel = viewModel
+
+        // Specify the fragment view as the lifecycle owner of the binding.
+        // This is used so that the binding can observe LiveData updates
+        binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
     }

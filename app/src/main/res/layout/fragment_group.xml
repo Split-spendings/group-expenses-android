@@ -4,12 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".group.GroupFragment">
 
+    <data>
+
+        <variable
+            name="groupViewModel"
+            type="com.splitspendings.groupexpensesandroid.group.GroupViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!-- TODO: Update blank fragment layout -->
         <TextView
+            android:id="@+id/placeholder_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_group_info_and_expenses"
@@ -17,6 +25,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/group_name_format(groupViewModel.groupName)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/placeholder_description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

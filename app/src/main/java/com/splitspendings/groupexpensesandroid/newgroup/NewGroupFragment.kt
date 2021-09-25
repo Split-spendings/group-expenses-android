@@ -24,11 +24,15 @@ class NewGroupFragment : Fragment() {
         viewModelFactory = NewGroupViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(NewGroupViewModel::class.java)
 
+        // Set the viewmodel for databinding - this allows the bound layout access all the data in the ViewModel
+        binding.newGroupViewModel = viewModel
+
         viewModel.eventReset.observe(viewLifecycleOwner, this::onReset)
         viewModel.eventSubmit.observe(viewLifecycleOwner, this::onSubmitted)
         viewModel.eventInvalidGroupName.observe(viewLifecycleOwner, this::onInvalidGroupName)
 
-        binding.resetNewGroupButton.setOnClickListener { viewModel.onReset() }
+        // no need for click listener anymore as it is set in the layout xml
+        //binding.resetNewGroupButton.setOnClickListener { viewModel.onReset() }
         binding.submitNewGroupButton.setOnClickListener { viewModel.onSubmit(groupName()) }
 
         return binding.root
