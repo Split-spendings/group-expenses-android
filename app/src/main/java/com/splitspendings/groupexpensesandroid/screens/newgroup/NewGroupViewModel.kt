@@ -1,27 +1,29 @@
 package com.splitspendings.groupexpensesandroid.screens.newgroup
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import android.app.Application
+import androidx.lifecycle.*
+import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
 
-class NewGroupViewModel : ViewModel() {
+class NewGroupViewModel(
+    val groupDao: GroupDao,
+    application: Application
+) : AndroidViewModel(application) {
 
     private val _eventReset = MutableLiveData<Boolean>()
-    val eventReset : LiveData<Boolean>
+    val eventReset: LiveData<Boolean>
         get() = _eventReset
 
-    private val _eventSubmit = MutableLiveData<Boolean>()
-    val eventSubmit : LiveData<Boolean>
-        get() = _eventSubmit
+    private val _eventNavigateToGroup = MutableLiveData<Boolean>()
+    val eventNavigateToGroup: LiveData<Boolean>
+        get() = _eventNavigateToGroup
 
     private val _eventInvalidGroupName = MutableLiveData<Boolean>()
-    val eventInvalidGroupName : LiveData<Boolean>
+    val eventInvalidGroupName: LiveData<Boolean>
         get() = _eventInvalidGroupName
 
     init {
         _eventReset.value = false
-        _eventSubmit.value = false
+        _eventNavigateToGroup.value = false
         _eventInvalidGroupName.value = false
     }
 
@@ -36,12 +38,12 @@ class NewGroupViewModel : ViewModel() {
     fun onSubmit(groupName: String) {
         when {
             groupName.isEmpty() -> onInvalidGroupName()
-            else -> _eventSubmit.value = true
+            else -> _eventNavigateToGroup.value = true
         }
     }
 
-    fun onEventSubmitComplete() {
-        _eventSubmit.value = false
+    fun onEventNavigateToGroupComplete() {
+        _eventNavigateToGroup.value = false
     }
 
     private fun onInvalidGroupName() {
@@ -54,12 +56,14 @@ class NewGroupViewModel : ViewModel() {
 }
 
 
-class NewGroupViewModelFactory : ViewModelProvider.Factory {
+class NewGroupViewModelFactory(
+    private val groupDao: GroupDao,
+    private val application: Application) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (!modelClass.isAssignableFrom(NewGroupViewModel::class.java)) {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
-        return NewGroupViewModel() as T
+        return NewGroupViewModel(groupDao, application) as T
     }
 }

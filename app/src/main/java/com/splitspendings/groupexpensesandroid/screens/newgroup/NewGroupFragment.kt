@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewGroupBinding
+import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
 
 class NewGroupFragment : Fragment() {
 
@@ -21,19 +22,26 @@ class NewGroupFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_group, container, false)
-        viewModelFactory = NewGroupViewModelFactory()
+
+        val application = requireNotNull(this.activity).application
+        val groupDao = GroupExpensesDatabase.getInstance(application).groupDao
+
+        viewModelFactory = NewGroupViewModelFactory(groupDao, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(NewGroupViewModel::class.java)
 
         // Set the viewmodel for databinding - this allows the bound layout access all the data in the ViewModel
         binding.newGroupViewModel = viewModel
 
         viewModel.eventReset.observe(viewLifecycleOwner, this::onReset)
-        viewModel.eventSubmit.observe(viewLifecycleOwner, this::onSubmitted)
+        viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, this::onNavigateToGroup)
         viewModel.eventInvalidGroupName.observe(viewLifecycleOwner, this::onInvalidGroupName)
 
         // no need for click listener anymore as it is set in the layout xml
         //binding.resetNewGroupButton.setOnClickListener { viewModel.onReset() }
+
         binding.submitNewGroupButton.setOnClickListener { viewModel.onSubmit(groupName()) }
+
+        binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
     }
@@ -51,10 +59,10 @@ class NewGroupFragment : Fragment() {
         binding.editTextGroupName.setText(EMPTY_STRING)
     }
 
-    private fun onSubmitted(submitted: Boolean) {
-        if(submitted) {
+    private fun onNavigateToGroup(navigateToGroup: Boolean) {
+        if(navigateToGroup) {
             navigateToGroupFragment()
-            viewModel.onEventSubmitComplete()
+            viewModel.onEventNavigateToGroupComplete()
         }
     }
 
