@@ -6,6 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.repository.entities.Group
 import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -39,15 +40,17 @@ class GroupDaoTest {
     }
 
     @Test
-    fun insertAndGet() {
-        groupDao.insert(group1)
+    fun insertAndGet() = runBlocking {
+        val group1Id = groupDao.insert(group1)
+        assertEquals(group1.id, group1Id)
         assertEquals(group1, groupDao.get(group1.id!!))
-        groupDao.insert(group2)
+        val group2Id = groupDao.insert(group2)
+        assertEquals(group2.id, group2Id)
         assertEquals(group2, groupDao.get(group2.id!!))
     }
 
     @Test
-    fun getAll() {
+    fun getAll() = runBlocking {
         assertEquals(0, groupDao.getAll().size)
         groupDao.insert(group1)
         assertEquals(1, groupDao.getAll().size)
@@ -56,15 +59,21 @@ class GroupDaoTest {
     }
 
     @Test
-    fun update() {
+    fun update() = runBlocking {
         groupDao.insert(group1)
+        groupDao.insert(group2)
         group1.name = "updated_name"
-        groupDao.update(group1)
+        group2.name = "updated_name_2"
+        val updatedCountGroup1 = groupDao.update(group1)
+        val updatedCountGroup2 = groupDao.update(group2)
+        assertEquals(1, updatedCountGroup1)
+        assertEquals(1, updatedCountGroup2)
         assertEquals("updated_name", groupDao.get(group1.id!!)!!.name)
+        assertEquals("updated_name_2", groupDao.get(group2.id!!)!!.name)
     }
 
     @Test
-    fun clear() {
+    fun clear() = runBlocking {
         groupDao.insert(group1)
         groupDao.insert(group2)
         assertEquals(2, groupDao.getAll().size)

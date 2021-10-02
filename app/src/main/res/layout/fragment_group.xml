@@ -27,15 +27,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_group_name"
+            android:id="@+id/text_group_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/group_name_format(groupViewModel.groupName)}"
+            android:text="@{@string/group_id_format(groupViewModel.groupId)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/placeholder_description"
             tools:text="Group name" />
+
+        <TextView
+            android:id="@+id/text_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{groupViewModel.groupString}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_group_id"
+            tools:text="Group string" />
 
         <TextView
             android:id="@+id/text_counter"
@@ -46,7 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_group_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_group"
             app:layout_constraintVertical_bias="0.489"
             tools:text="Counter" />
 
@@ -54,12 +64,12 @@
             android:id="@+id/button_increase_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
             android:onClick="@{() -> groupViewModel.onIncreaseCounter()}"
             android:text="Increment"
-            android:layout_marginLeft="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_counter"
-            app:layout_constraintTop_toBottomOf="@+id/text_group_name" />
+            app:layout_constraintTop_toBottomOf="@+id/text_group" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

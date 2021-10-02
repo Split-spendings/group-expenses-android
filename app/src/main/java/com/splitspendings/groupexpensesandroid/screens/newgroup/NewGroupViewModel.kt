@@ -2,10 +2,27 @@ package com.splitspendings.groupexpensesandroid.screens.newgroup
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
+import com.splitspendings.groupexpensesandroid.repository.entities.Group
+import kotlinx.coroutines.launch
+
+class NewGroupViewModelFactory(
+    private val groupDao: GroupDao,
+    private val application: Application
+) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (!modelClass.isAssignableFrom(NewGroupViewModel::class.java)) {
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+        return NewGroupViewModel(groupDao, application) as T
+    }
+}
+
 
 class NewGroupViewModel(
-    val groupDao: GroupDao,
+    private val groupDao: GroupDao,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -21,49 +38,58 @@ class NewGroupViewModel(
     val eventInvalidGroupName: LiveData<Boolean>
         get() = _eventInvalidGroupName
 
+    private val _eventUpdateGroupName = MutableLiveData<Boolean>()
+    val eventUpdateGroupName: LiveData<Boolean>
+        get() = _eventUpdateGroupName
+
+    var groupId: Long = 0
+    var groupName: String = EMPTY_STRING
+
     init {
         _eventReset.value = false
         _eventNavigateToGroup.value = false
         _eventInvalidGroupName.value = false
+        _eventUpdateGroupName.value = false
     }
 
     fun onReset() {
         _eventReset.value = true
     }
 
+    fun onSubmit() {
+        _eventUpdateGroupName.value = true
+        when {
+            groupName.isEmpty() -> _eventInvalidGroupName.value = true
+            else -> {
+                saveGroupAndNavigateToGroup()
+            }
+        }
+    }
+
     fun onEventResetComplete() {
         _eventReset.value = false
     }
 
-    fun onSubmit(groupName: String) {
-        when {
-            groupName.isEmpty() -> onInvalidGroupName()
-            else -> _eventNavigateToGroup.value = true
-        }
+    fun onEventInvalidGroupNameComplete() {
+        _eventInvalidGroupName.value = false
+    }
+
+    fun onEventUpdateGroupNameComplete() {
+        _eventUpdateGroupName.value = false
     }
 
     fun onEventNavigateToGroupComplete() {
         _eventNavigateToGroup.value = false
     }
 
-    private fun onInvalidGroupName() {
-        _eventInvalidGroupName.value = true
-    }
-
-    fun onEventInvalidGroupNameComplete() {
-        _eventInvalidGroupName.value = false
-    }
-}
-
-
-class NewGroupViewModelFactory(
-    private val groupDao: GroupDao,
-    private val application: Application) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (!modelClass.isAssignableFrom(NewGroupViewModel::class.java)) {
-            throw IllegalArgumentException("Unknown ViewModel class")
+    private fun saveGroupAndNavigateToGroup() {
+        viewModelScope.launch {
+            groupId = groupDao.insert(Group(name = groupName))
+            _eventNavigateToGroup.value = true
         }
-        return NewGroupViewModel(groupDao, application) as T
     }
 }
+
+
+
+

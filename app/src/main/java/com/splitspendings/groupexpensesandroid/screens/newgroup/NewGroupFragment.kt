@@ -23,58 +23,49 @@ class NewGroupFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_group, container, false)
 
-        val application = requireNotNull(this.activity).application
+        val application = requireNotNull(activity).application
         val groupDao = GroupExpensesDatabase.getInstance(application).groupDao
 
         viewModelFactory = NewGroupViewModelFactory(groupDao, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(NewGroupViewModel::class.java)
 
-        // Set the viewmodel for databinding - this allows the bound layout access all the data in the ViewModel
         binding.newGroupViewModel = viewModel
-
-        viewModel.eventReset.observe(viewLifecycleOwner, this::onReset)
-        viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, this::onNavigateToGroup)
-        viewModel.eventInvalidGroupName.observe(viewLifecycleOwner, this::onInvalidGroupName)
-
-        // no need for click listener anymore as it is set in the layout xml
-        //binding.resetNewGroupButton.setOnClickListener { viewModel.onReset() }
-
-        binding.submitNewGroupButton.setOnClickListener { viewModel.onSubmit(groupName()) }
-
         binding.lifecycleOwner = viewLifecycleOwner
+
+        viewModel.eventReset.observe(viewLifecycleOwner, ::onReset)
+        viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
+        viewModel.eventInvalidGroupName.observe(viewLifecycleOwner, ::onInvalidGroupName)
+        viewModel.eventUpdateGroupName.observe(viewLifecycleOwner, ::onUpdateGroupName)
 
         return binding.root
     }
 
-    private fun groupName() = binding.editTextGroupName.text.toString()
-
     private fun onReset(reset: Boolean) {
         if(reset) {
-            resetEditTextGroupName()
+            binding.editTextGroupName.setText(EMPTY_STRING)
             viewModel.onEventResetComplete()
         }
     }
 
-    private fun resetEditTextGroupName() {
-        binding.editTextGroupName.setText(EMPTY_STRING)
-    }
-
     private fun onNavigateToGroup(navigateToGroup: Boolean) {
         if(navigateToGroup) {
-            navigateToGroupFragment()
+            val action = NewGroupFragmentDirections.actionNewGroupFragmentToGroupFragment(viewModel.groupId)
+            findNavController().navigate(action)
             viewModel.onEventNavigateToGroupComplete()
         }
-    }
-
-    private fun navigateToGroupFragment() {
-        val action = NewGroupFragmentDirections.actionNewGroupFragmentToGroupFragment(groupName())
-        findNavController().navigate(action)
     }
 
     private fun onInvalidGroupName(invalidGroupName: Boolean) {
         if(invalidGroupName) {
             Toast.makeText(context, getString(R.string.invalid_group_name_error), Toast.LENGTH_LONG).show()
             viewModel.onEventInvalidGroupNameComplete()
+        }
+    }
+
+    private fun onUpdateGroupName(updateGroupName: Boolean) {
+        if(updateGroupName) {
+            viewModel.groupName = binding.editTextGroupName.text.toString()
+            viewModel.onEventUpdateGroupNameComplete()
         }
     }
 }

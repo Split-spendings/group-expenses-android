@@ -5,6 +5,7 @@
     tools:context=".screens.newgroup.NewGroupFragment">
 
     <data>
+
         <variable
             name="newGroupViewModel"
             type="com.splitspendings.groupexpensesandroid.screens.newgroup.NewGroupViewModel" />
@@ -51,6 +52,7 @@
             android:id="@+id/submit_new_group_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> newGroupViewModel.onSubmit()}"
             android:text="@string/submit_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

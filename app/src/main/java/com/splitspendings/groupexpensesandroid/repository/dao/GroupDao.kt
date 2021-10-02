@@ -11,20 +11,20 @@ import com.splitspendings.groupexpensesandroid.repository.entities.Group
 interface GroupDao {
 
     @Insert
-    fun insert(group: Group)
+    suspend fun insert(group: Group): Long
 
     @Query("SELECT * from user_group where id = :id")
-    fun get(id: Long) : Group?
+    suspend fun get(id: Long): Group?
 
     @Update
-    fun update(group: Group)
+    suspend fun update(group: Group): Int
 
     @Query("SELECT * FROM user_group")
-    fun getAll(): List<Group>
+    suspend fun getAll(): List<Group>
 
     @Query("SELECT * FROM user_group")
     fun getAllLive(): LiveData<List<Group>>
 
     @Query("DELETE FROM user_group")
-    fun clear()
+    suspend fun clear()
 }

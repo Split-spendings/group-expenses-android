@@ -38,8 +38,8 @@ class GroupsListFragment : Fragment() {
     }
 
     private fun onPlaceholderToGroupButtonClicked() = { view: View ->
-        val groupName = "The name of the selected group"
-        val action = GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupName)
+        val groupId = 1L
+        val action = GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupId)
         findNavController().navigate(action)
     }
 

@@ -23,8 +23,8 @@
         android:label="@string/group_fragment_label"
         tools:layout="@layout/fragment_group" >
         <argument
-            android:name="groupName"
-            app:argType="string" />
+            android:name="groupId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/newGroupFragment"
