@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewGroupBinding
@@ -57,7 +57,12 @@ class NewGroupFragment : Fragment() {
 
     private fun onInvalidGroupName(invalidGroupName: Boolean) {
         if(invalidGroupName) {
-            Toast.makeText(context, getString(R.string.invalid_group_name_error), Toast.LENGTH_LONG).show()
+            //Toast.makeText(context, getString(R.string.invalid_group_name_error), Toast.LENGTH_LONG).show()
+            Snackbar.make(
+                requireActivity().findViewById(android.R.id.content),
+                getString(R.string.invalid_group_name_error),
+                Snackbar.LENGTH_SHORT
+            ).show()
             viewModel.onEventInvalidGroupNameComplete()
         }
     }
