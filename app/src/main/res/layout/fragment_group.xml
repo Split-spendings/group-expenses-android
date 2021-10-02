@@ -66,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:onClick="@{() -> groupViewModel.onIncreaseCounter()}"
+            android:enabled="@{groupViewModel.counterButtonEnabled}"
             android:text="Increment"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_counter"

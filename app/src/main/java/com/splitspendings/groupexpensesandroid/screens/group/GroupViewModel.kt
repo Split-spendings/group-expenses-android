@@ -24,6 +24,10 @@ class GroupViewModel(
         if (group != null) formatGroup(group, application.resources) else application.resources.getString(R.string.group_is_null)
     }
 
+    var counterButtonEnabled = Transformations.map(_group) {
+        it != null
+    }
+
     init {
         _counter.value = 0
         initializeGroup()
