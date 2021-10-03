@@ -42,14 +42,14 @@ class NewGroupFragment : Fragment() {
 
     private fun onReset(reset: Boolean) {
         if(reset) {
-            binding.editTextGroupName.setText(EMPTY_STRING)
+            binding.editGroupName.setText(EMPTY_STRING)
             viewModel.onEventResetComplete()
         }
     }
 
-    private fun onNavigateToGroup(navigateToGroup: Boolean) {
-        if(navigateToGroup) {
-            val action = NewGroupFragmentDirections.actionNewGroupFragmentToGroupFragment(viewModel.groupId)
+    private fun onNavigateToGroup(groupId: Long?) {
+        groupId?.let {
+            val action = NewGroupFragmentDirections.actionNewGroupFragmentToGroupFragment(groupId)
             findNavController().navigate(action)
             viewModel.onEventNavigateToGroupComplete()
         }
@@ -69,7 +69,7 @@ class NewGroupFragment : Fragment() {
 
     private fun onUpdateGroupName(updateGroupName: Boolean) {
         if(updateGroupName) {
-            viewModel.groupName = binding.editTextGroupName.text.toString()
+            viewModel.groupName = binding.editGroupName.text.toString()
             viewModel.onEventUpdateGroupNameComplete()
         }
     }

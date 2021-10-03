@@ -21,14 +21,14 @@ fun formatGroup(group: Group, resources: Resources): Spanned {
 }
 
 @BindingAdapter("groupNameFormattedPlaceholder")
-fun TextView.setGroupNameFormattedPlaceholder(group: Group) {
-    text = formatGroup(group, context.resources)
+fun TextView.setGroupNameFormattedPlaceholder(group: Group?) {
+    text = group?.let { formatGroup(it, context.resources) }
 }
 
 @BindingAdapter("groupAvatarPlaceholder")
-fun ImageView.setGroupAvatarPlaceholder(group: Group) {
+fun ImageView.setGroupAvatarPlaceholder(group: Group?) {
     setImageResource(
-        when (group.id?.mod(2)) {
+        when (group?.id?.mod(2)) {
             0 -> R.drawable.ic_placeholder_group_avatar
             else -> R.drawable.ic_placeholder_group_avatar_2
         }

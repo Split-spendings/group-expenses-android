@@ -33,11 +33,14 @@ class GroupsListFragment : Fragment() {
         binding.groupsListViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        adapter = GroupAdapter()
+        adapter = GroupAdapter(GroupListener { groupId ->
+            viewModel.onGroupClicked(groupId)
+        })
         binding.groupsList.adapter = adapter
 
         viewModel.groups.observe(viewLifecycleOwner, ::onGroupsListUpdate)
         viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
+        viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
 
         setHasOptionsMenu(true)
 
@@ -55,6 +58,14 @@ class GroupsListFragment : Fragment() {
             val action = GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment()
             findNavController().navigate(action)
             viewModel.onEventNavigateToNewGroupComplete()
+        }
+    }
+
+    private fun onNavigateToGroup(groupId: Long?) {
+        groupId?.let {
+            val action = GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupId)
+            findNavController().navigate(action)
+            viewModel.onEventNavigateToGroupComplete()
         }
     }
 

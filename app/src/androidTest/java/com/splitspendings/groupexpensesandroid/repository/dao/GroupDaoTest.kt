@@ -19,8 +19,8 @@ class GroupDaoTest {
     private lateinit var db: GroupExpensesDatabase
 
     companion object {
-        private val group1: Group = Group(id = 1, name = "group_1")
-        private val group2: Group = Group(id = 2, name = "group_2")
+        private val group1: Group = Group(id = -1, name = "group_1")
+        private val group2: Group = Group(id = -2, name = "group_2")
     }
 
     @Before
@@ -43,10 +43,10 @@ class GroupDaoTest {
     fun insertAndGet() = runBlocking {
         val group1Id = groupDao.insert(group1)
         assertEquals(group1.id, group1Id)
-        assertEquals(group1, groupDao.get(group1.id!!))
+        assertEquals(group1, groupDao.get(group1.id))
         val group2Id = groupDao.insert(group2)
         assertEquals(group2.id, group2Id)
-        assertEquals(group2, groupDao.get(group2.id!!))
+        assertEquals(group2, groupDao.get(group2.id))
     }
 
     @Test
@@ -68,8 +68,8 @@ class GroupDaoTest {
         val updatedCountGroup2 = groupDao.update(group2)
         assertEquals(1, updatedCountGroup1)
         assertEquals(1, updatedCountGroup2)
-        assertEquals("updated_name", groupDao.get(group1.id!!)!!.name)
-        assertEquals("updated_name_2", groupDao.get(group2.id!!)!!.name)
+        assertEquals("updated_name", groupDao.get(group1.id)!!.name)
+        assertEquals("updated_name_2", groupDao.get(group2.id)!!.name)
     }
 
     @Test

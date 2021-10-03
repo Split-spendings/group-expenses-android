@@ -16,7 +16,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/edit_text_group_name"
+            android:id="@+id/edit_group_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_fragment_frame"
@@ -30,24 +30,24 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/reset_new_group_button"
+            android:id="@+id/reset_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{() -> newGroupViewModel.onReset()}"
             android:text="@string/reset_button"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/submit_new_group_button"
+            app:layout_constraintEnd_toStartOf="@+id/submit_button"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/submit_new_group_button"
+            android:id="@+id/submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{() -> newGroupViewModel.onSubmit()}"
             android:text="@string/submit_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/reset_new_group_button" />
+            app:layout_constraintStart_toEndOf="@+id/reset_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

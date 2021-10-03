@@ -13,7 +13,7 @@
     <string name="invalid_group_name_error">Invalid group name</string>
 
     <!-- tmp -->
-    <string name="group_id_format">Group id: \"%s\"</string>
+    <string name="group_name_format">Group name: \"%s\"</string>
     <string name="group_format"><![CDATA[<b>Group:</b> id=%d, name=%s]]></string>
-    <string name="group_is_null">Group is NULL</string>
+    <string name="clear_button">Clear</string>
 </resources>

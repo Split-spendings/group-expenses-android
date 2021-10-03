@@ -30,8 +30,8 @@ class NewGroupViewModel(
     val eventReset: LiveData<Boolean>
         get() = _eventReset
 
-    private val _eventNavigateToGroup = MutableLiveData<Boolean>()
-    val eventNavigateToGroup: LiveData<Boolean>
+    private val _eventNavigateToGroup = MutableLiveData<Long>()
+    val eventNavigateToGroup: LiveData<Long>
         get() = _eventNavigateToGroup
 
     private val _eventInvalidGroupName = MutableLiveData<Boolean>()
@@ -42,12 +42,11 @@ class NewGroupViewModel(
     val eventUpdateGroupName: LiveData<Boolean>
         get() = _eventUpdateGroupName
 
-    var groupId: Long = 0
     var groupName: String = EMPTY_STRING
 
     init {
         _eventReset.value = false
-        _eventNavigateToGroup.value = false
+        _eventNavigateToGroup.value = null
         _eventInvalidGroupName.value = false
         _eventUpdateGroupName.value = false
     }
@@ -79,13 +78,12 @@ class NewGroupViewModel(
     }
 
     fun onEventNavigateToGroupComplete() {
-        _eventNavigateToGroup.value = false
+        _eventNavigateToGroup.value = null
     }
 
     private fun saveGroupAndNavigateToGroup() {
         viewModelScope.launch {
-            groupId = groupDao.insert(Group(name = groupName))
-            _eventNavigateToGroup.value = true
+            _eventNavigateToGroup.value = groupDao.insert(Group(name = groupName))
         }
     }
 }
