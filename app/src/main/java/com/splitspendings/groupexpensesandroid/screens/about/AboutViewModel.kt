@@ -3,9 +3,6 @@ package com.splitspendings.groupexpensesandroid.screens.about
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class AboutViewModel : ViewModel()
-
-
 class AboutViewModelFactory : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -15,3 +12,6 @@ class AboutViewModelFactory : ViewModelProvider.Factory {
         return AboutViewModel() as T
     }
 }
+
+
+class AboutViewModel : ViewModel()

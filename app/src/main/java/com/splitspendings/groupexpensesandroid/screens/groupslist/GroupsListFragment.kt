@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
+import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
 
 class GroupsListFragment : Fragment() {
 
@@ -21,8 +22,20 @@ class GroupsListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_groups_list, container, false)
 
-        viewModelFactory = GroupsListViewModelFactory()
+        val application = requireNotNull(activity).application
+        val groupDao = GroupExpensesDatabase.getInstance(application).groupDao
+
+        viewModelFactory = GroupsListViewModelFactory(groupDao, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(GroupsListViewModel::class.java)
+
+        val adapter = GroupAdapter()
+        binding.groupsList.adapter = adapter
+
+        viewModel.groups.observe(viewLifecycleOwner, {
+            it?.let {
+                adapter.groups = it
+            }
+        })
 
         binding.placeholderToGroupButton.setOnClickListener(onPlaceholderToGroupButtonClicked())
         binding.addNewGroupButton.setOnClickListener(onNewGroupButtonClicked())
@@ -32,12 +45,12 @@ class GroupsListFragment : Fragment() {
         return binding.root
     }
 
-    private fun onNewGroupButtonClicked() = { view: View ->
+    private fun onNewGroupButtonClicked() = { _: View ->
         val action = GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment()
         findNavController().navigate(action)
     }
 
-    private fun onPlaceholderToGroupButtonClicked() = { view: View ->
+    private fun onPlaceholderToGroupButtonClicked() = { _: View ->
         val groupId = 1L
         val action = GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupId)
         findNavController().navigate(action)

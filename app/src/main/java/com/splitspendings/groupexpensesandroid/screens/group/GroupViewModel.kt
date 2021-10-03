@@ -8,6 +8,21 @@ import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
 import com.splitspendings.groupexpensesandroid.repository.entities.Group
 import kotlinx.coroutines.launch
 
+class GroupViewModelFactory(
+    private val groupId: Long,
+    private val groupDao: GroupDao,
+    private val application: Application
+) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (!modelClass.isAssignableFrom(GroupViewModel::class.java)) {
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+        return GroupViewModel(groupId, groupDao, application) as T
+    }
+}
+
+
 class GroupViewModel(
     var groupId: Long,
     private val groupDao: GroupDao,
@@ -45,20 +60,5 @@ class GroupViewModel(
 
     private suspend fun getGroupFromRepository(): Group? {
         return groupDao.get(groupId)
-    }
-}
-
-
-class GroupViewModelFactory(
-    private val groupId: Long,
-    private val groupDao: GroupDao,
-    private val application: Application
-) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (!modelClass.isAssignableFrom(GroupViewModel::class.java)) {
-            throw IllegalArgumentException("Unknown ViewModel class")
-        }
-        return GroupViewModel(groupId, groupDao, application) as T
     }
 }

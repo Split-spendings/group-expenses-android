@@ -13,11 +13,14 @@ interface GroupDao {
     @Insert
     suspend fun insert(group: Group): Long
 
+    @Update
+    suspend fun update(group: Group): Int
+
     @Query("SELECT * from user_group where id = :id")
     suspend fun get(id: Long): Group?
 
-    @Update
-    suspend fun update(group: Group): Int
+    @Query("SELECT * from user_group where id = :id")
+    fun getLive(id: Long): LiveData<Group>
 
     @Query("SELECT * FROM user_group")
     suspend fun getAll(): List<Group>
