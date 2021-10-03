@@ -15,28 +15,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/fragment_description"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/edit_text_group_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/placeholder_new_group"
+            android:layout_marginStart="@dimen/margin_fragment_frame"
+            android:layout_marginEnd="@dimen/margin_fragment_frame"
+            android:hint="@string/group_name"
+            android:importantForAutofill="no"
+            android:inputType="text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/edit_text_group_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/group_name"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            app:layout_constraintBottom_toTopOf="@+id/submit_new_group_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_description" />
 
         <Button
             android:id="@+id/reset_new_group_button"

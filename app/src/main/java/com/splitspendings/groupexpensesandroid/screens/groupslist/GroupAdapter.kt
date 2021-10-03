@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.splitspendings.groupexpensesandroid.R
-import com.splitspendings.groupexpensesandroid.common.formatGroup
 import com.splitspendings.groupexpensesandroid.databinding.ListItemGroupBinding
 import com.splitspendings.groupexpensesandroid.repository.entities.Group
 
@@ -24,14 +22,8 @@ class GroupAdapter : ListAdapter<Group, GroupAdapter.ViewHolder>(GroupDiffCallba
     class ViewHolder private constructor(val binding: ListItemGroupBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(group: Group) {
-            val resources = itemView.context.resources
-            binding.groupName.text = formatGroup(group, resources)
-            binding.groupAvatar.setImageResource(
-                when (group.id?.mod(2)) {
-                    0 -> R.drawable.ic_placeholder_group_avatar
-                    else -> R.drawable.ic_placeholder_group_avatar_2
-                }
-            )
+            binding.group = group
+            binding.executePendingBindings()
         }
 
         companion object {

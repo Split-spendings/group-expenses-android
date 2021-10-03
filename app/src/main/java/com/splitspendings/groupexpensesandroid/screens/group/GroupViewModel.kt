@@ -3,7 +3,7 @@ package com.splitspendings.groupexpensesandroid.screens.group
 import android.app.Application
 import androidx.lifecycle.*
 import com.splitspendings.groupexpensesandroid.R
-import com.splitspendings.groupexpensesandroid.common.formatGroup
+import com.splitspendings.groupexpensesandroid.common.bindingutils.formatGroup
 import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
 import com.splitspendings.groupexpensesandroid.repository.entities.Group
 import kotlinx.coroutines.launch

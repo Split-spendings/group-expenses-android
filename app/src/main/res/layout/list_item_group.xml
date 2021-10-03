@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="group"
             type="com.splitspendings.groupexpensesandroid.repository.entities.Group" />
@@ -15,11 +16,12 @@
 
         <ImageView
             android:id="@+id/group_avatar"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="@dimen/size_avatar"
+            android:layout_height="@dimen/size_avatar"
+            android:layout_marginStart="@dimen/margin_fragment_frame"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            app:groupAvatarPlaceholder="@{group}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,13 +31,14 @@
             android:id="@+id/group_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_fragment_frame"
+            app:groupNameFormattedPlaceholder="@{group}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/group_avatar"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Group 1" />
+            tools:text="Group name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
