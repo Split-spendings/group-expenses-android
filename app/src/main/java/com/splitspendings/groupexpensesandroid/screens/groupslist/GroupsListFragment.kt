@@ -12,12 +12,14 @@ import androidx.navigation.ui.NavigationUI
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
 import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
+import com.splitspendings.groupexpensesandroid.repository.entities.Group
 
 class GroupsListFragment : Fragment() {
 
     private lateinit var binding: FragmentGroupsListBinding
     private lateinit var viewModelFactory: GroupsListViewModelFactory
     private lateinit var viewModel: GroupsListViewModel
+    private lateinit var adapter: GroupAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_groups_list, container, false)
@@ -28,14 +30,10 @@ class GroupsListFragment : Fragment() {
         viewModelFactory = GroupsListViewModelFactory(groupDao, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(GroupsListViewModel::class.java)
 
-        val adapter = GroupAdapter()
+        adapter = GroupAdapter()
         binding.groupsList.adapter = adapter
 
-        viewModel.groups.observe(viewLifecycleOwner, {
-            it?.let {
-                adapter.groups = it
-            }
-        })
+        viewModel.groups.observe(viewLifecycleOwner, ::onGroupsListUpdate)
 
         binding.placeholderToGroupButton.setOnClickListener(onPlaceholderToGroupButtonClicked())
         binding.addNewGroupButton.setOnClickListener(onNewGroupButtonClicked())
@@ -43,6 +41,12 @@ class GroupsListFragment : Fragment() {
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    private fun onGroupsListUpdate(groups: List<Group>?) {
+        groups?.let {
+            adapter.submitList(it)
+        }
     }
 
     private fun onNewGroupButtonClicked() = { _: View ->
