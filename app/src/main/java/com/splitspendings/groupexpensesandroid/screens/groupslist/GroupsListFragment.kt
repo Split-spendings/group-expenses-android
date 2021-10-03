@@ -30,13 +30,14 @@ class GroupsListFragment : Fragment() {
         viewModelFactory = GroupsListViewModelFactory(groupDao, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(GroupsListViewModel::class.java)
 
+        binding.groupsListViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         adapter = GroupAdapter()
         binding.groupsList.adapter = adapter
 
         viewModel.groups.observe(viewLifecycleOwner, ::onGroupsListUpdate)
-
-        binding.placeholderToGroupButton.setOnClickListener(onPlaceholderToGroupButtonClicked())
-        binding.addNewGroupButton.setOnClickListener(onNewGroupButtonClicked())
+        viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
 
         setHasOptionsMenu(true)
 
@@ -49,15 +50,12 @@ class GroupsListFragment : Fragment() {
         }
     }
 
-    private fun onNewGroupButtonClicked() = { _: View ->
-        val action = GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment()
-        findNavController().navigate(action)
-    }
-
-    private fun onPlaceholderToGroupButtonClicked() = { _: View ->
-        val groupId = 1L
-        val action = GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupId)
-        findNavController().navigate(action)
+    private fun onNavigateToNewGroup(navigateToNewGroup: Boolean) {
+        if (navigateToNewGroup) {
+            val action = GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment()
+            findNavController().navigate(action)
+            viewModel.onEventNavigateToNewGroupComplete()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

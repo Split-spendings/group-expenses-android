@@ -22,6 +22,7 @@ class GroupAdapter : ListAdapter<Group, GroupAdapter.ViewHolder>(GroupDiffCallba
         holder.bind(getItem(position))
     }
 
+
     class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val groupName: TextView = itemView.findViewById(R.id.group_name)
@@ -47,6 +48,7 @@ class GroupAdapter : ListAdapter<Group, GroupAdapter.ViewHolder>(GroupDiffCallba
         }
     }
 }
+
 
 class GroupDiffCallback : DiffUtil.ItemCallback<Group>() {
 

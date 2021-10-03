@@ -1,9 +1,7 @@
 package com.splitspendings.groupexpensesandroid.screens.groupslist
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
 
 class GroupsListViewModelFactory(
@@ -26,6 +24,22 @@ class GroupsListViewModel(
 ) : AndroidViewModel(application) {
 
     val groups = groupDao.getAllLive()
+
+    private val _eventNavigateToNewGroup = MutableLiveData<Boolean>()
+    val eventNavigateToNewGroup: LiveData<Boolean>
+        get() = _eventNavigateToNewGroup
+
+    init {
+        _eventNavigateToNewGroup.value = false
+    }
+
+    fun onNewGroup() {
+        _eventNavigateToNewGroup.value = true
+    }
+
+    fun onEventNavigateToNewGroupComplete() {
+        _eventNavigateToNewGroup.value = false
+    }
 }
 
 
