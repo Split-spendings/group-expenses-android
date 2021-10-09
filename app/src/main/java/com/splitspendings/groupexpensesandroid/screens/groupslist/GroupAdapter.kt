@@ -9,12 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.ListItemGroupBinding
 import com.splitspendings.groupexpensesandroid.repository.entities.Group
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private const val ITEM_VIEW_TYPE_HEADER = 0
 private const val ITEM_VIEW_TYPE_GROUP_ITEM = 1
 
 class GroupAdapter(private val groupItemClickListener: GroupItemClickListener) :
     ListAdapter<GroupsListItem, RecyclerView.ViewHolder>(GroupDiffCallback()) {
+
+    private val adapterScope = CoroutineScope(Dispatchers.Default)
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
@@ -32,11 +38,15 @@ class GroupAdapter(private val groupItemClickListener: GroupItemClickListener) :
     }
 
     fun addHeaderAndSubmitList(list: List<Group>?) {
-        val items = when (list) {
-            null -> listOf(GroupsListItem.HeaderItem)
-            else -> listOf(GroupsListItem.HeaderItem) + list.map { GroupsListItem.GroupItem(it) }
+        adapterScope.launch {
+            val items = when (list) {
+                null -> listOf(GroupsListItem.HeaderItem)
+                else -> listOf(GroupsListItem.HeaderItem) + list.map { GroupsListItem.GroupItem(it) }
+            }
+            withContext(Dispatchers.Main) {
+                submitList(items)
+            }
         }
-        submitList(items)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
