@@ -33,7 +33,7 @@ class GroupsListFragment : Fragment() {
         binding.groupsListViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        adapter = GroupAdapter(GroupListener { groupId ->
+        adapter = GroupAdapter(GroupItemClickListener { groupId ->
             viewModel.onGroupClicked(groupId)
         })
         binding.groupsList.adapter = adapter
@@ -49,7 +49,7 @@ class GroupsListFragment : Fragment() {
 
     private fun onGroupsListUpdate(groups: List<Group>?) {
         groups?.let {
-            adapter.submitList(it)
+            adapter.addHeaderAndSubmitList(it)
         }
     }
 

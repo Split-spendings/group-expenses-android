@@ -1,55 +1,108 @@
 package com.splitspendings.groupexpensesandroid.screens.groupslist
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.ListItemGroupBinding
 import com.splitspendings.groupexpensesandroid.repository.entities.Group
 
-class GroupAdapter(val clickListener: GroupListener) : ListAdapter<Group, GroupAdapter.ViewHolder>(GroupDiffCallback()) {
+private const val ITEM_VIEW_TYPE_HEADER = 0
+private const val ITEM_VIEW_TYPE_GROUP_ITEM = 1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+class GroupAdapter(private val groupItemClickListener: GroupItemClickListener) :
+    ListAdapter<GroupsListItem, RecyclerView.ViewHolder>(GroupDiffCallback()) {
+
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is GroupsListItem.HeaderItem -> ITEM_VIEW_TYPE_HEADER
+            is GroupsListItem.GroupItem -> ITEM_VIEW_TYPE_GROUP_ITEM
+        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), clickListener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            ITEM_VIEW_TYPE_HEADER -> HeaderItemViewHolder.from(parent)
+            ITEM_VIEW_TYPE_GROUP_ITEM -> GroupItemViewHolder.from(parent)
+            else -> throw ClassCastException("Unknown viewType $viewType")
+        }
     }
 
+    fun addHeaderAndSubmitList(list: List<Group>?) {
+        val items = when (list) {
+            null -> listOf(GroupsListItem.HeaderItem)
+            else -> listOf(GroupsListItem.HeaderItem) + list.map { GroupsListItem.GroupItem(it) }
+        }
+        submitList(items)
+    }
 
-    class ViewHolder private constructor(val binding: ListItemGroupBinding) : RecyclerView.ViewHolder(binding.root) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is GroupItemViewHolder -> {
+                val groupItem = getItem(position) as GroupsListItem.GroupItem
+                holder.bind(groupItem.group, groupItemClickListener)
+            }
+        }
+    }
 
-        fun bind(group: Group, clickListener: GroupListener) {
+    class HeaderItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        companion object {
+            fun from(parent: ViewGroup): HeaderItemViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = layoutInflater.inflate(R.layout.list_item_groups_header, parent, false)
+                return HeaderItemViewHolder(view)
+            }
+        }
+    }
+
+    class GroupItemViewHolder private constructor(val binding: ListItemGroupBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(group: Group, clickItemClickListener: GroupItemClickListener) {
             binding.group = group
-            binding.clickListener = clickListener
+            binding.clickListener = clickItemClickListener
             binding.executePendingBindings()
         }
 
         companion object {
-            fun from(parent: ViewGroup): ViewHolder {
+            fun from(parent: ViewGroup): GroupItemViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ListItemGroupBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
+                return GroupItemViewHolder(binding)
             }
         }
     }
 }
 
 
-class GroupDiffCallback : DiffUtil.ItemCallback<Group>() {
+class GroupDiffCallback : DiffUtil.ItemCallback<GroupsListItem>() {
 
-    override fun areItemsTheSame(oldItem: Group, newItem: Group): Boolean {
+    override fun areItemsTheSame(oldItem: GroupsListItem, newItem: GroupsListItem): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Group, newItem: Group): Boolean {
+    override fun areContentsTheSame(oldItem: GroupsListItem, newItem: GroupsListItem): Boolean {
         return oldItem == newItem
     }
 }
 
 
-class GroupListener(val clickListener: (groupId: Long) -> Unit) {
+class GroupItemClickListener(val clickListener: (groupId: Long) -> Unit) {
     fun onClick(group: Group) = clickListener(group.id)
+}
+
+
+sealed class GroupsListItem {
+
+    abstract val id: Long
+
+    object HeaderItem : GroupsListItem() {
+        override val id = Long.MIN_VALUE
+    }
+
+    data class GroupItem(val group: Group) : GroupsListItem() {
+        override val id: Long = group.id
+    }
 }

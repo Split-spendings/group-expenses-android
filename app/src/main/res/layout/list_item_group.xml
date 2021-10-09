@@ -11,7 +11,7 @@
 
         <variable
             name="clickListener"
-            type="com.splitspendings.groupexpensesandroid.screens.groupslist.GroupListener" />
+            type="com.splitspendings.groupexpensesandroid.screens.groupslist.GroupItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
