@@ -3,12 +3,8 @@ package com.splitspendings.groupexpensesandroid.screens.groupslist
 import android.app.Application
 import androidx.lifecycle.*
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
-import com.splitspendings.groupexpensesandroid.network.dto.GroupDto
 import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import timber.log.Timber
 
 class GroupsListViewModelFactory(
@@ -73,16 +69,14 @@ class GroupsListViewModel(
     }
 
     private fun getGroupsFromServer() {
-        GroupExpensesApi.retrofitService.getAllGroups().enqueue(
-            object: Callback<List<GroupDto>> {
-                override fun onResponse(call: Call<List<GroupDto>>, response: Response<List<GroupDto>>) {
-                    Timber.i("getGroupsFromServer onResponse statusCode: ${response.code()} body: ${response.body()}")
-                }
-
-                override fun onFailure(call: Call<List<GroupDto>>, t: Throwable) {
-                    Timber.i("getGroupsFromServer onFailure: ${t.message}")
-                }
-            })
+        viewModelScope.launch {
+            try {
+                val groups = GroupExpensesApi.retrofitService.getAllGroups()
+                Timber.i("groupsSize: ${groups.size}")
+            } catch (e: Exception) {
+                Timber.i("Failure: ${e.message}")
+            }
+        }
     }
 }
 
