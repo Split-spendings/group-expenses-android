@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.splitspendings.groupexpensesandroid"
-        minSdk 22
+        minSdk 23
         targetSdk 30
         versionCode 1
         versionName "1.0"
@@ -57,4 +57,7 @@ dependencies {
 
     // Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$roomVersion"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
 }
