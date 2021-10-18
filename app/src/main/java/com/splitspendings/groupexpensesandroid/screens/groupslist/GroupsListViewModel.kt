@@ -2,6 +2,7 @@ package com.splitspendings.groupexpensesandroid.screens.groupslist
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.splitspendings.groupexpensesandroid.common.mapper.groupDtoListToGroupList
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
 import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
 import kotlinx.coroutines.launch
@@ -72,7 +73,9 @@ class GroupsListViewModel(
         viewModelScope.launch {
             try {
                 val groups = GroupExpensesApi.retrofitService.getAllGroups()
-                Timber.i("groupsSize: ${groups.size}")
+                Timber.i("Groups from server size: ${groups.size}")
+                groupDao.clear()
+                groupDao.insertAll(groupDtoListToGroupList(groups))
             } catch (e: Exception) {
                 Timber.i("Failure: ${e.message}")
             }

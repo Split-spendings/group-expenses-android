@@ -13,6 +13,9 @@ interface GroupDao {
     @Insert
     suspend fun insert(group: Group): Long
 
+    @Insert
+    suspend fun insertAll(groupList: List<Group>)
+
     @Update
     suspend fun update(group: Group): Int
 
