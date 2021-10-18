@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
-import com.splitspendings.groupexpensesandroid.repository.entities.Group
+import com.splitspendings.groupexpensesandroid.repository.model.Group
 import kotlinx.coroutines.launch
 
 class NewGroupViewModelFactory(

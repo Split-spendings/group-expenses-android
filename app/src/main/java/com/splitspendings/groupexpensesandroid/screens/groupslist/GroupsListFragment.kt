@@ -12,7 +12,7 @@ import androidx.navigation.ui.NavigationUI
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
 import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
-import com.splitspendings.groupexpensesandroid.repository.entities.Group
+import com.splitspendings.groupexpensesandroid.repository.model.Group
 
 class GroupsListFragment : Fragment() {
 

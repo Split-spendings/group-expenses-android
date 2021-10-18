@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.splitspendings.groupexpensesandroid.repository.entities.Group
+import com.splitspendings.groupexpensesandroid.repository.model.Group
 
 @Dao
 interface GroupDao {
