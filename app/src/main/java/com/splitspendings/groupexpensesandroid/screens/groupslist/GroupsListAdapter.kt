@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 private const val ITEM_VIEW_TYPE_HEADER = 0
 private const val ITEM_VIEW_TYPE_GROUP_ITEM = 1
 
-class GroupAdapter(private val groupItemClickListener: GroupItemClickListener) :
+class GroupsListAdapter(private val groupItemClickListener: GroupItemClickListener) :
     ListAdapter<GroupsListItem, RecyclerView.ViewHolder>(GroupDiffCallback()) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)

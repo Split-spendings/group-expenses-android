@@ -19,7 +19,7 @@ class GroupsListFragment : Fragment() {
     private lateinit var binding: FragmentGroupsListBinding
     private lateinit var viewModelFactory: GroupsListViewModelFactory
     private lateinit var viewModel: GroupsListViewModel
-    private lateinit var adapter: GroupAdapter
+    private lateinit var adapter: GroupsListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_groups_list, container, false)
@@ -33,7 +33,7 @@ class GroupsListFragment : Fragment() {
         binding.groupsListViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        adapter = GroupAdapter(GroupItemClickListener { groupId ->
+        adapter = GroupsListAdapter(GroupItemClickListener { groupId ->
             viewModel.onGroupClicked(groupId)
         })
         binding.groupsList.adapter = adapter
