@@ -19,6 +19,7 @@
             android:id="@+id/groups_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:groupsList="@{groupsListViewModel.groups}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/add_new_group_button"
             app:layout_constraintEnd_toEndOf="parent"

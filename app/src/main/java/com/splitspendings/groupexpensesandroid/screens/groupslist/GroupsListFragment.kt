@@ -38,7 +38,7 @@ class GroupsListFragment : Fragment() {
         })
         binding.groupsList.adapter = adapter
 
-        viewModel.groups.observe(viewLifecycleOwner, ::onGroupsListUpdate)
+        //viewModel.groups.observe(viewLifecycleOwner, ::onGroupsListUpdate)
         viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
 
