@@ -45,5 +45,11 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Group name" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

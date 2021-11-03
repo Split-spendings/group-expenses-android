@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
 import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
@@ -42,6 +43,7 @@ class GroupsListFragment : Fragment() {
         //viewModel.groups.observe(viewLifecycleOwner, ::onGroupsListUpdate)
         viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
+        viewModel.eventSuccessfulGroupUpload.observe(viewLifecycleOwner, ::onSuccessfulGroupUpload)
 
         setHasOptionsMenu(true)
 
@@ -67,6 +69,17 @@ class GroupsListFragment : Fragment() {
             val action = GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupId)
             findNavController().navigate(action)
             viewModel.onEventNavigateToGroupComplete()
+        }
+    }
+
+    private fun onSuccessfulGroupUpload(successfulGroupUpload: Boolean) {
+        if (successfulGroupUpload) {
+            Snackbar.make(
+                requireActivity().findViewById(android.R.id.content),
+                getString(R.string.successful_groups_upload),
+                Snackbar.LENGTH_SHORT
+            ).show()
+            viewModel.onEventSuccessfulGroupUploadComplete()
         }
     }
 
