@@ -38,6 +38,7 @@ class GroupsListFragment : Fragment() {
         })
         binding.groupsList.adapter = adapter
 
+        // no longer need since recycler view uses data binding to track groups list updates
         //viewModel.groups.observe(viewLifecycleOwner, ::onGroupsListUpdate)
         viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
