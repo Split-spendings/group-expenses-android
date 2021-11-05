@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
+import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
 import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.repository.model.Group
@@ -94,13 +95,15 @@ class GroupsListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // example of using an implicit intent
-        if (item.itemId == R.id.shareAction) {
-            share()
-            return super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.filterAll -> viewModel.updateFilter(GroupsFilter.ALL)
+            R.id.filterPersonal -> viewModel.updateFilter(GroupsFilter.PERSONAL)
+            R.id.filterNotPersonal -> viewModel.updateFilter(GroupsFilter.NOT_PERSONAL)
+            R.id.aboutFragment -> NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+            // example of using an implicit intent
+            R.id.shareAction -> share()
         }
-        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-                || super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(item)
     }
 
     // example of using an implicit intent

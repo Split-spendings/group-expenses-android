@@ -2,6 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/filtering"
+        android:enabled="false"
+        android:title="@string/filtering_menu_group"
+        android:checkable="false" />
+    <item
+        android:id="@+id/filterAll"
+        android:title="@string/filtering_all_menu_item" />
+    <item
+        android:id="@+id/filterPersonal"
+        android:title="@string/filtering_personal_menu_item" />
+    <item
+        android:id="@+id/filterNotPersonal"
+        android:title="@string/filtering_not_personal_menu_item" />
+    <item
+        android:id="@+id/general"
+        android:enabled="false"
+        android:title="@string/general_menu_group" />
+    <item
         android:id="@+id/aboutFragment"
         android:title="@string/about_label" />
     <item
