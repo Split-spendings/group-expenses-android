@@ -2,5 +2,6 @@
 <resources>
     <dimen name="margin_fragment_frame">16dp</dimen>
     <dimen name="size_avatar">64dp</dimen>
+    <dimen name="size_avatar_small">32dp</dimen>
     <dimen name="margin_small">8dp</dimen>
 </resources>

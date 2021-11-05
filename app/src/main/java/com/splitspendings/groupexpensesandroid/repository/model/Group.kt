@@ -11,5 +11,8 @@ data class Group(
     var id: Long = 0L,
 
     @ColumnInfo(name = "group_name")
-    var name: String
+    var name: String,
+
+    @ColumnInfo(name = "personal")
+    var personal: Boolean
 )

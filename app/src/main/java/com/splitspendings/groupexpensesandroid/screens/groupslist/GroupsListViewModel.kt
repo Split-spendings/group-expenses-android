@@ -3,6 +3,7 @@ package com.splitspendings.groupexpensesandroid.screens.groupslist
 import android.app.Application
 import androidx.lifecycle.*
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
+import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.common.mapper.groupDtoListToGroupList
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
 import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
@@ -54,7 +55,7 @@ class GroupsListViewModel(
         _eventNavigateToNewGroup.value = false
         _eventNavigateToGroup.value = null
         _eventSuccessfulGroupUpload.value = false
-        getGroupsFromServer()
+        getGroupsFromServer(GroupsFilter.ALL)
     }
 
     fun onNewGroup() {
@@ -82,14 +83,13 @@ class GroupsListViewModel(
     fun onEventSuccessfulGroupUploadComplete() {
         _eventSuccessfulGroupUpload.value = false
     }
-
-
-    private fun getGroupsFromServer() {
+    
+    private fun getGroupsFromServer(filter: GroupsFilter) {
         viewModelScope.launch {
             _apiStatus.value = ApiStatus.LOADING
             try {
-                val groups = GroupExpensesApi.retrofitService.getAllGroups()
-                Timber.i("Groups from server size: ${groups.size}")
+                val groups = GroupExpensesApi.retrofitService.getGroups(filter.value)
+                Timber.i("Groups from server size: $groups")
                 groupDao.clear()
                 groupDao.insertAll(groupDtoListToGroupList(groups))
                 _apiStatus.value = ApiStatus.DONE
@@ -99,6 +99,10 @@ class GroupsListViewModel(
                 _apiStatus.value = ApiStatus.ERROR
             }
         }
+    }
+
+    fun updateFilter(filter: GroupsFilter) {
+        getGroupsFromServer(filter)
     }
 }
 

@@ -12,6 +12,8 @@
         <variable
             name="clickListener"
             type="com.splitspendings.groupexpensesandroid.screens.groupslist.GroupItemClickListener" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,14 +38,27 @@
             android:id="@+id/group_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_small"
-            android:layout_marginEnd="@dimen/margin_fragment_frame"
+            android:layout_marginHorizontal="@dimen/margin_small"
             app:groupNameFormattedPlaceholder="@{group}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/group_personal_icon"
             app:layout_constraintStart_toEndOf="@+id/group_avatar"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Group name" />
+
+        <ImageView
+            android:id="@+id/group_personal_icon"
+            android:layout_width="@dimen/size_avatar_small"
+            android:layout_height="@dimen/size_avatar_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_fragment_frame"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:src="@drawable/ic_placeholder_personal_group"
+            android:visibility="@{group.personal ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_placeholder_personal_group" />
 
         <View
             android:layout_width="match_parent"

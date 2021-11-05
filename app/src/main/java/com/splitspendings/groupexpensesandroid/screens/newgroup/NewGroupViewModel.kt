@@ -83,7 +83,7 @@ class NewGroupViewModel(
 
     private fun saveGroupAndNavigateToGroup() {
         viewModelScope.launch {
-            _eventNavigateToGroup.value = groupDao.insert(Group(name = groupName))
+            _eventNavigateToGroup.value = groupDao.insert(Group(name = groupName, personal = true))
         }
     }
 }
