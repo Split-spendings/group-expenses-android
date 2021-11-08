@@ -23,5 +23,5 @@
     <!-- tmp -->
     <string name="group_name_format">Group name: \"%s\"</string>
     <string name="group_format"><![CDATA[<b>Group:</b> id=%d, name=%s]]></string>
-    <string name="clear_button">Clear</string>
+    <string name="clear_button">Clear cache</string>
 </resources>
