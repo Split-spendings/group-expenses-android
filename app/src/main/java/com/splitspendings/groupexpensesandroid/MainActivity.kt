@@ -38,6 +38,11 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController, drawerLayout)
     }
 
+    override fun onDestroy() {
+        viewModel.dispose()
+        super.onDestroy()
+    }
+
     fun navigateToLogin() {
         navController.navigate(R.id.action_groupsListFragment_to_loginFragment)
     }
