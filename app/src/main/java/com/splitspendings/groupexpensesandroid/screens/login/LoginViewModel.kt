@@ -1,5 +1,6 @@
 package com.splitspendings.groupexpensesandroid.screens.login
 
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,19 +19,30 @@ class LoginViewModelFactory : ViewModelProvider.Factory {
 
 class LoginViewModel : ViewModel() {
 
-    private val _eventNavigateToGroupsList = MutableLiveData<Boolean>()
-    val eventNavigateToGroupsList: LiveData<Boolean>
-        get() = _eventNavigateToGroupsList
+    private val _eventNavigateToLoggedIn = MutableLiveData<Boolean>()
+    val eventNavigateToLoggedIn: LiveData<Boolean>
+        get() = _eventNavigateToLoggedIn
+
+    private val _eventLoginRedirectStart = MutableLiveData<Intent>()
+    val eventLoginRedirectStart: LiveData<Intent>
+        get() = _eventLoginRedirectStart
 
     init {
-        _eventNavigateToGroupsList.value = false
+        _eventNavigateToLoggedIn.value = false
+        _eventLoginRedirectStart.value = null
     }
 
+    // TODO tmp
     fun onLogin() {
-        _eventNavigateToGroupsList.value = true
+        // TO do handle login button clicked
     }
 
-    fun onEventNavigateToGroupsListComplete() {
-        _eventNavigateToGroupsList.value = false
+    fun onEventNavigateToLoggedInComplete() {
+        _eventNavigateToLoggedIn.value = false
+    }
+
+    fun endLogin(data: Intent?) {
+        // TODO copy logic
+        _eventNavigateToLoggedIn.value = true
     }
 }

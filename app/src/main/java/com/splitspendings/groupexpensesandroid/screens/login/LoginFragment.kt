@@ -1,9 +1,13 @@
 package com.splitspendings.groupexpensesandroid.screens.login
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -18,6 +22,8 @@ class LoginFragment : Fragment() {
     private lateinit var viewModelFactory: LoginViewModelFactory
     private lateinit var viewModel: LoginViewModel
 
+    private lateinit var loginRedirectLauncher: ActivityResultLauncher<Intent>
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
@@ -27,23 +33,29 @@ class LoginFragment : Fragment() {
         binding.loginViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.eventNavigateToGroupsList.observe(viewLifecycleOwner, ::onLoggedInNavigate)
+        loginRedirectLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                viewModel.endLogin(result.data)
+            }
+        }
+
+        viewModel.eventLoginRedirectStart.observe(viewLifecycleOwner, ::startLoginRedirect)
+        viewModel.eventNavigateToLoggedIn.observe(viewLifecycleOwner, ::navigateToLoggedIn)
 
         (activity as AppCompatActivity).supportActionBar?.hide()
 
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        activity?.actionBar?.hide()
+    private fun startLoginRedirect(intent: Intent?) {
+        intent.let { loginRedirectLauncher.launch(intent) }
     }
 
-    private fun onLoggedInNavigate(navigateToGroupsList: Boolean) {
+    private fun navigateToLoggedIn(navigateToGroupsList: Boolean) {
         if (navigateToGroupsList) {
             val mainActivity = activity as MainActivity
-            mainActivity.onLoggedInNavigate()
-            viewModel.onEventNavigateToGroupsListComplete()
+            mainActivity.navigateToLoggedIn()
+            viewModel.onEventNavigateToLoggedInComplete()
         }
     }
 }
