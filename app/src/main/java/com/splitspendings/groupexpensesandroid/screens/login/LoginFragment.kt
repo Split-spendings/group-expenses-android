@@ -27,7 +27,9 @@ class LoginFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
-        viewModelFactory = LoginViewModelFactory()
+        val application = requireNotNull(activity).application
+
+        viewModelFactory = LoginViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
 
         binding.loginViewModel = viewModel
@@ -48,7 +50,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun startLoginRedirect(intent: Intent?) {
-        intent.let { loginRedirectLauncher.launch(intent) }
+        intent.let {
+            loginRedirectLauncher.launch(intent)
+            viewModel.onEventLoginRedirectStartComplete()
+        }
     }
 
     private fun navigateToLoggedIn(navigateToGroupsList: Boolean) {

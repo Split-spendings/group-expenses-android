@@ -1,23 +1,37 @@
 package com.splitspendings.groupexpensesandroid.screens.login
 
+import android.app.Application
 import android.content.Intent
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
+import com.splitspendings.groupexpensesandroid.common.auth.AppAuthHandler
+import com.splitspendings.groupexpensesandroid.common.auth.AuthException
+import com.splitspendings.groupexpensesandroid.common.auth.AuthStateManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import net.openid.appauth.AuthorizationException
+import net.openid.appauth.AuthorizationResponse
+import timber.log.Timber
 
-class LoginViewModelFactory : ViewModelProvider.Factory {
+class LoginViewModelFactory(
+    private val application: Application
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (!modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
-        return LoginViewModel() as T
+        return LoginViewModel(application) as T
     }
 }
 
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(
+    application: Application
+) : AndroidViewModel(application) {
+
+    private val authStateManager: AuthStateManager = AuthStateManager.getInstance(application)
+    private val appAuthHandler: AppAuthHandler = AppAuthHandler.getInstance(application)
 
     private val _eventNavigateToLoggedIn = MutableLiveData<Boolean>()
     val eventNavigateToLoggedIn: LiveData<Boolean>
@@ -32,17 +46,70 @@ class LoginViewModel : ViewModel() {
         _eventLoginRedirectStart.value = null
     }
 
-    // TODO tmp
-    fun onLogin() {
-        // TO do handle login button clicked
-    }
-
     fun onEventNavigateToLoggedInComplete() {
         _eventNavigateToLoggedIn.value = false
     }
 
+    fun onEventLoginRedirectStartComplete() {
+        _eventLoginRedirectStart.value = null
+    }
+
+    /*
+     * Build the authorization redirect URL and then ask the view to redirect
+     */
+    fun startLogin() {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                if (authStateManager.metadata == null) {
+                    Timber.d("fetchMetadata")
+                    authStateManager.metadata = appAuthHandler.fetchMetadata()
+                }
+                if (authStateManager.metadata != null) {
+                    Timber.d("before staring login redirect intent")
+                    val metadata = authStateManager.metadata!!
+                    val intent = appAuthHandler.getAuthorizationRedirectIntent(metadata)
+                    _eventLoginRedirectStart.value = intent
+                } else {
+                    Timber.e("metadata is null")
+                }
+
+            } catch (ex: AuthException) {
+                Timber.e(ex)
+            }
+        }
+    }
+
+    /*
+     * Redeem the code for tokens and also handle failures or the user cancelling the Chrome Custom Tab
+     */
     fun endLogin(data: Intent?) {
-        // TODO copy logic
-        _eventNavigateToLoggedIn.value = true
+        if (data == null) {
+            Timber.e("intent is null")
+            return
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+
+                val authorizationResponse = appAuthHandler.handleAuthorizationResponse(
+                    AuthorizationResponse.fromIntent(data),
+                    AuthorizationException.fromIntent(data)
+                )
+
+                val tokenResponse = appAuthHandler.redeemCodeForTokens(authorizationResponse)
+
+                if (tokenResponse == null) {
+                    Timber.e("tokenResponse is null")
+                } else {
+                    Timber.e("accessToken: ${tokenResponse.accessToken}")
+                    authStateManager.saveTokens(tokenResponse)
+                    _eventNavigateToLoggedIn.value = true
+                }
+
+            } catch (ex: AuthException) {
+                Timber.e(ex)
+            }
+        }
     }
 }
