@@ -6,8 +6,6 @@ import androidx.lifecycle.*
 import com.splitspendings.groupexpensesandroid.common.auth.AppAuthHandler
 import com.splitspendings.groupexpensesandroid.common.auth.AuthException
 import com.splitspendings.groupexpensesandroid.common.auth.AuthStateManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
@@ -59,7 +57,7 @@ class LoginViewModel(
      */
     fun startLogin() {
 
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             try {
                 if (authStateManager.metadata == null) {
                     Timber.d("fetchMetadata")
@@ -89,7 +87,7 @@ class LoginViewModel(
             return
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             try {
 
                 val authorizationResponse = appAuthHandler.handleAuthorizationResponse(
@@ -102,7 +100,7 @@ class LoginViewModel(
                 if (tokenResponse == null) {
                     Timber.e("tokenResponse is null")
                 } else {
-                    Timber.e("accessToken: ${tokenResponse.accessToken}")
+                    Timber.d("accessToken: ${tokenResponse.accessToken}")
                     authStateManager.saveTokens(tokenResponse)
                     _eventNavigateToLoggedIn.value = true
                 }

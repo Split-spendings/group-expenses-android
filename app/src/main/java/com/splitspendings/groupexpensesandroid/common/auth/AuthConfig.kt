@@ -5,6 +5,7 @@ import android.net.Uri
 import com.splitspendings.groupexpensesandroid.R
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okio.Buffer
 import okio.buffer
 import okio.source
@@ -60,7 +61,7 @@ class AuthConfigLoader {
         val configJson = configBuffer.readString(Charset.forName("UTF-8"))
 
         // Deserialize it into objects
-        val moshi: Moshi = Moshi.Builder().build()
+        val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         val adapter: JsonAdapter<AuthConfig> = moshi.adapter(AuthConfig::class.java)
         return adapter.fromJson(configJson) ?: throw AuthConfigLoaderException("parsed from json auth config object is null")
     }

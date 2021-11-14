@@ -50,7 +50,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun startLoginRedirect(intent: Intent?) {
-        intent.let {
+        intent?.let {
             loginRedirectLauncher.launch(intent)
             viewModel.onEventLoginRedirectStartComplete()
         }
