@@ -3,6 +3,7 @@ package com.splitspendings.groupexpensesandroid.screens.groupslist
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -47,6 +48,8 @@ class GroupsListFragment : Fragment() {
         viewModel.eventSuccessfulGroupUpload.observe(viewLifecycleOwner, ::onSuccessfulGroupUpload)
 
         setHasOptionsMenu(true)
+
+        (activity as AppCompatActivity).supportActionBar?.show()
 
         return binding.root
     }

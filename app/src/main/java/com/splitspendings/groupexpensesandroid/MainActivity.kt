@@ -24,9 +24,19 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
 
         NavigationUI.setupWithNavController(binding.navView, navController)
+
+        onNavigateToLogin()
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, drawerLayout)
+    }
+
+    fun onNavigateToLogin() {
+        navController.navigate(R.id.action_groupsListFragment_to_loginFragment)
+    }
+
+    fun onLoggedInNavigate() {
+        navController.navigate(R.id.action_loginFragment_to_groupsListFragment)
     }
 }
