@@ -1,4 +1,4 @@
-package io.curity.identityserver.client.configuration
+package com.splitspendings.groupexpensesandroid.common.auth
 
 import android.content.Context
 import com.splitspendings.groupexpensesandroid.R
@@ -15,7 +15,6 @@ class AuthConfigLoader {
      * Load configuration from the resource
      */
     fun load(context: Context): AuthConfig? {
-
         // Get the raw resource
         val stream = context.resources.openRawResource(R.raw.config)
         val configSource = stream.source().buffer()

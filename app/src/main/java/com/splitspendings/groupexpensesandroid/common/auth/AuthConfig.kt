@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.curity.identityserver.client.configuration
+package com.splitspendings.groupexpensesandroid.common.auth
 
 import android.net.Uri
 
@@ -29,15 +29,9 @@ class AuthConfig {
     lateinit var postLogoutRedirectUri: String
     lateinit var scope: String
 
-    fun getIssuerUri(): Uri {
-        return Uri.parse(issuer)
-    }
+    fun getIssuerUri(): Uri = Uri.parse(issuer)
 
-    fun getRedirectUri(): Uri {
-        return Uri.parse(redirectUri)
-    }
+    fun getRedirectUri(): Uri = Uri.parse(redirectUri)
 
-    fun getPostLogoutRedirectUri(): Uri {
-        return Uri.parse(postLogoutRedirectUri)
-    }
+    fun getPostLogoutRedirectUri(): Uri = Uri.parse(postLogoutRedirectUri)
 }
