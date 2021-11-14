@@ -15,3 +15,6 @@ class AuthServerCommunicationException(
 class InvalidIdTokenException(errorDescription: String) :
     AuthException("Invalid ID Token", errorDescription)
 
+
+class AuthConfigLoaderException(errorDescription: String) :
+    AuthException("Could not load auth config", errorDescription)
