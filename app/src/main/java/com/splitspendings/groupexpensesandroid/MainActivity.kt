@@ -31,18 +31,18 @@ class MainActivity : AppCompatActivity() {
         viewModel = model
         binding.mainActivityViewModel = viewModel
 
-        onNavigateToLogin()
+        navigateToLogin()
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, drawerLayout)
     }
 
-    fun onNavigateToLogin() {
+    fun navigateToLogin() {
         navController.navigate(R.id.action_groupsListFragment_to_loginFragment)
     }
 
-    fun onLoggedInNavigate() {
+    fun navigateToLoggedIn() {
         navController.navigate(R.id.action_loginFragment_to_groupsListFragment)
     }
 }
