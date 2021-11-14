@@ -19,8 +19,8 @@ class GroupDaoTest {
     private lateinit var db: GroupExpensesDatabase
 
     companion object {
-        private val group1: Group = Group(id = -1, name = "group_1")
-        private val group2: Group = Group(id = -2, name = "group_2")
+        private val group1: Group = Group(id = -1, name = "group_1", false)
+        private val group2: Group = Group(id = -2, name = "group_2", true)
     }
 
     @Before
