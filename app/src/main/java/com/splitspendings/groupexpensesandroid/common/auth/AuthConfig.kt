@@ -15,6 +15,22 @@ import java.nio.charset.Charset
  */
 class AuthConfig {
 
+    companion object {
+        @Volatile
+        private var INSTANCE: AuthConfig? = null
+
+        fun getInstance(context: Context): AuthConfig {
+            synchronized(this) {
+                var instance = INSTANCE
+                if (instance == null) {
+                    instance = AuthConfigLoader().load(context)
+                    INSTANCE = instance
+                }
+                return instance
+            }
+        }
+    }
+
     lateinit var issuer: String
     lateinit var clientID: String
     lateinit var redirectUri: String

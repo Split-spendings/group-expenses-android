@@ -1,5 +1,6 @@
 package com.splitspendings.groupexpensesandroid.common.auth
 
+import android.content.Context
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.TokenResponse
@@ -9,6 +10,22 @@ import net.openid.appauth.TokenResponse
  * Some or all of the auth state can be persisted to a secure location such as Encrypted Shared Preferences
  */
 class AuthStateManager {
+
+    companion object {
+        @Volatile
+        private var INSTANCE: AuthStateManager? = null
+
+        fun getInstance(context: Context): AuthStateManager {
+            synchronized(this) {
+                var instance = INSTANCE
+                if (instance == null) {
+                    instance = AuthStateManager()
+                    INSTANCE = instance
+                }
+                return instance
+            }
+        }
+    }
 
     private var authState: AuthState? = null
     var idToken: String? = null

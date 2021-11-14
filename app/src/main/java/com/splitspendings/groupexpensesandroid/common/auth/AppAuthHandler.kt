@@ -12,9 +12,25 @@ import kotlin.coroutines.suspendCoroutine
 /*
  * Manage AppAuth integration in one class in order to reduce code in the rest of the app
  */
-class AppAuthHandler(private val config: AuthConfig, val context: Context) {
+class AppAuthHandler(private val config: AuthConfig, context: Context) {
 
-    private var authService = AuthorizationService(
+    companion object {
+        @Volatile
+        private var INSTANCE: AppAuthHandler? = null
+
+        fun getInstance(context: Context): AppAuthHandler {
+            synchronized(this) {
+                var instance = INSTANCE
+                if (instance == null) {
+                    instance = AppAuthHandler(AuthConfig.getInstance(context), context)
+                    INSTANCE = instance
+                }
+                return instance
+            }
+        }
+    }
+
+    private val authService = AuthorizationService(
         context,
         AppAuthConfiguration.Builder()
             .setConnectionBuilder(HttpConnectionBuilder.INSTANCE)
