@@ -15,6 +15,6 @@ class MainActivityViewModel(app: Application) : AndroidViewModel(app) {
     private val authStateManager: AuthStateManager = AuthStateManager()
 
     fun dispose() {
-        this.appAuthHandler.dispose()
+        appAuthHandler.dispose()
     }
 }
