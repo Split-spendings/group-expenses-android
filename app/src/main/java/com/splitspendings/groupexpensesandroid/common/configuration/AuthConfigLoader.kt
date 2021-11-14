@@ -9,12 +9,12 @@ import okio.buffer
 import okio.source
 import java.nio.charset.Charset
 
-class ApplicationConfigLoader {
+class AuthConfigLoader {
 
     /*
      * Load configuration from the resource
      */
-    fun load(context: Context): ApplicationConfig? {
+    fun load(context: Context): AuthConfig? {
 
         // Get the raw resource
         val stream = context.resources.openRawResource(R.raw.config)
@@ -27,7 +27,7 @@ class ApplicationConfigLoader {
 
         // Deserialize it into objects
         val moshi: Moshi = Moshi.Builder().build()
-        val adapter: JsonAdapter<ApplicationConfig> = moshi.adapter(ApplicationConfig::class.java)
+        val adapter: JsonAdapter<AuthConfig> = moshi.adapter(AuthConfig::class.java)
         return adapter.fromJson(configJson)
     }
 }

@@ -21,7 +21,7 @@ import android.net.Uri
 /*
  * Standard mobile OAuth configuration settings
  */
-class ApplicationConfig {
+class AuthConfig {
 
     lateinit var issuer: String
     lateinit var clientID: String
