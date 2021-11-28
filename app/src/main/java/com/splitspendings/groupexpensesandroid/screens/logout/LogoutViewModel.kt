@@ -27,7 +27,7 @@ class LogoutViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
-    private val authStateManager: AuthStateManager = AuthStateManager.getInstance(application)
+    private val authStateManager: AuthStateManager = AuthStateManager.getInstance()
     private val appAuthHandler: AppAuthHandler = AppAuthHandler.getInstance(application)
 
     private val _eventNavigateToLoggedOut = MutableLiveData<Boolean>()

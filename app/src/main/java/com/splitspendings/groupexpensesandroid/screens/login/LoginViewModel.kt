@@ -28,7 +28,7 @@ class LoginViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
-    private val authStateManager: AuthStateManager = AuthStateManager.getInstance(application)
+    private val authStateManager: AuthStateManager = AuthStateManager.getInstance()
     private val appAuthHandler: AppAuthHandler = AppAuthHandler.getInstance(application)
 
     private val _eventNavigateToLoggedIn = MutableLiveData<Boolean>()

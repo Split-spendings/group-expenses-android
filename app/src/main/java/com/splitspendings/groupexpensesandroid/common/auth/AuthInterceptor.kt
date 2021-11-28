@@ -6,12 +6,14 @@ import timber.log.Timber
 
 class AuthInterceptor : Interceptor {
 
+    private val authStateManager: AuthStateManager = AuthStateManager.getInstance()
+
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
 
         // If token has been saved, add it to the request
-        fetchAuthToken()?.let {
-            Timber.i("fetched Auth Token: $it")
+        authStateManager.tokenResponse?.accessToken?.let {
+            Timber.i("Auth Token: $it")
             requestBuilder.addHeader("Authorization", "Bearer $it")
         }
 
