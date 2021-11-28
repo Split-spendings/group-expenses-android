@@ -7,6 +7,7 @@
     <string name="group_fragment_label">Group</string>
     <string name="new_group_fragment_label">New group</string>
     <string name="login_fragment_label">Login</string>
+    <string name="logout_fragment_label">Logout</string>
     <string name="share_label">Share</string>
     <string name="about_label">About</string>
     <string name="about_text">\"Application for splitting group expenses\" thesis project at Polish-Japanese Academy of Information Technology developed by Oleksandr Bieliakov and Volodymyr Dovhyi.</string>
@@ -21,6 +22,7 @@
     <string name="filtering_not_personal_menu_item">Not personal</string>
     <string name="general_menu_group">General:</string>
     <string name="login_button">Login</string>
+    <string name="logout_button">Logout</string>
 
     <!-- tmp -->
     <string name="group_name_format">Group name: \"%s\"</string>

@@ -1,4 +1,4 @@
-package com.splitspendings.groupexpensesandroid.screens.login
+package com.splitspendings.groupexpensesandroid.screens.logout
 
 import android.app.Activity
 import android.content.Intent
@@ -8,43 +8,40 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.splitspendings.groupexpensesandroid.MainActivity
 import com.splitspendings.groupexpensesandroid.R
-import com.splitspendings.groupexpensesandroid.databinding.FragmentLoginBinding
+import com.splitspendings.groupexpensesandroid.databinding.FragmentLogoutBinding
 
-class LoginFragment : Fragment() {
+class LogoutFragment : Fragment() {
 
-    private lateinit var binding: FragmentLoginBinding
-    private lateinit var viewModelFactory: LoginViewModelFactory
-    private lateinit var viewModel: LoginViewModel
+    private lateinit var binding: FragmentLogoutBinding
+    private lateinit var viewModelFactory: LogoutViewModelFactory
+    private lateinit var viewModel: LogoutViewModel
 
     private lateinit var loginRedirectLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_logout, container, false)
 
         val application = requireNotNull(activity).application
 
-        viewModelFactory = LoginViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
+        viewModelFactory = LogoutViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LogoutViewModel::class.java)
 
-        binding.loginViewModel = viewModel
+        binding.logoutViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         loginRedirectLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                viewModel.endLogin(result.data)
+                viewModel.endLogout(result.data)
             }
         }
 
-        viewModel.eventLoginRedirectStart.observe(viewLifecycleOwner, ::startLoginRedirect)
-        viewModel.eventNavigateToLoggedIn.observe(viewLifecycleOwner, ::navigateToLoggedIn)
-
-        (activity as AppCompatActivity).supportActionBar?.hide()
+        viewModel.eventLogoutRedirectStart.observe(viewLifecycleOwner, ::startLoginRedirect)
+        viewModel.eventNavigateToLoggedOut.observe(viewLifecycleOwner, ::navigateToLoggedOut)
 
         return binding.root
     }
@@ -52,15 +49,15 @@ class LoginFragment : Fragment() {
     private fun startLoginRedirect(intent: Intent?) {
         intent?.let {
             loginRedirectLauncher.launch(intent)
-            viewModel.onEventLoginRedirectStartComplete()
+            viewModel.onEventLogoutRedirectStartComplete()
         }
     }
 
-    private fun navigateToLoggedIn(navigateToLoggedIn: Boolean) {
-        if (navigateToLoggedIn) {
+    private fun navigateToLoggedOut(navigateToLoggedOut: Boolean) {
+        if (navigateToLoggedOut) {
             val mainActivity = activity as MainActivity
-            mainActivity.navigateToLoggedIn()
-            viewModel.onEventNavigateToLoggedInComplete()
+            mainActivity.navigateToLoggedOut()
+            viewModel.onEventNavigateToLoggedOutComplete()
         }
     }
 }

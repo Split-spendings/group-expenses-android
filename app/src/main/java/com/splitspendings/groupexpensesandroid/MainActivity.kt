@@ -50,4 +50,8 @@ class MainActivity : AppCompatActivity() {
     fun navigateToLoggedIn() {
         navController.navigate(R.id.action_loginFragment_to_groupsListFragment)
     }
+
+    fun navigateToLoggedOut() {
+        navController.navigate(R.id.action_logoutFragment_to_loginFragment)
+    }
 }
