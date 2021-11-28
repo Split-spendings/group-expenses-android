@@ -8,7 +8,6 @@ import com.splitspendings.groupexpensesandroid.common.auth.AuthException
 import com.splitspendings.groupexpensesandroid.common.auth.AuthStateManager
 import kotlinx.coroutines.launch
 import net.openid.appauth.AuthorizationException
-import net.openid.appauth.AuthorizationResponse
 import timber.log.Timber
 
 class LogoutViewModelFactory(
@@ -56,8 +55,8 @@ class LogoutViewModel(
      * Build the logout redirect URL and then ask the view to redirect
      */
     fun startLogout() {
-        _eventNavigateToLoggedOut.value = true
-        /*viewModelScope.launch {
+
+        viewModelScope.launch {
             try {
                 if (authStateManager.metadata == null) {
                     Timber.d("fetchMetadata")
@@ -66,7 +65,8 @@ class LogoutViewModel(
                 if (authStateManager.metadata != null) {
                     Timber.d("before staring logout redirect intent")
                     val metadata = authStateManager.metadata!!
-                    val intent = appAuthHandler.getAuthorizationRedirectIntent(metadata)
+                    val idToken = authStateManager.idToken
+                    val intent = appAuthHandler.getEndSessionRedirectIntent(metadata, idToken)
                     _eventLogoutRedirectStart.value = intent
                 } else {
                     Timber.e("metadata is null")
@@ -75,13 +75,14 @@ class LogoutViewModel(
             } catch (ex: AuthException) {
                 Timber.e(ex)
             }
-        }*/
+        }
     }
 
     /*
      * Redeem the code for tokens and also handle failures or the user cancelling the Chrome Custom Tab
      */
     fun endLogout(data: Intent?) {
+
         if (data == null) {
             Timber.e("intent is null")
             return
@@ -89,21 +90,9 @@ class LogoutViewModel(
 
         viewModelScope.launch {
             try {
-
-                val authorizationResponse = appAuthHandler.handleAuthorizationResponse(
-                    AuthorizationResponse.fromIntent(data),
-                    AuthorizationException.fromIntent(data)
-                )
-
-                val tokenResponse = appAuthHandler.redeemCodeForTokens(authorizationResponse)
-
-                if (tokenResponse == null) {
-                    Timber.e("tokenResponse is null")
-                } else {
-                    Timber.d("accessToken: ${tokenResponse.accessToken}")
-                    authStateManager.saveTokens(tokenResponse)
-                    _eventNavigateToLoggedOut.value = true
-                }
+                appAuthHandler.handleEndSessionResponse(AuthorizationException.fromIntent(data))
+                authStateManager.clearTokens()
+                _eventNavigateToLoggedOut.value = true
 
             } catch (ex: AuthException) {
                 Timber.e(ex)

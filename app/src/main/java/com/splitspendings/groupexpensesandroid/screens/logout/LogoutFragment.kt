@@ -21,7 +21,7 @@ class LogoutFragment : Fragment() {
     private lateinit var viewModelFactory: LogoutViewModelFactory
     private lateinit var viewModel: LogoutViewModel
 
-    private lateinit var loginRedirectLauncher: ActivityResultLauncher<Intent>
+    private lateinit var logoutRedirectLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_logout, container, false)
@@ -34,21 +34,21 @@ class LogoutFragment : Fragment() {
         binding.logoutViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        loginRedirectLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        logoutRedirectLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 viewModel.endLogout(result.data)
             }
         }
 
-        viewModel.eventLogoutRedirectStart.observe(viewLifecycleOwner, ::startLoginRedirect)
+        viewModel.eventLogoutRedirectStart.observe(viewLifecycleOwner, ::startLogoutRedirect)
         viewModel.eventNavigateToLoggedOut.observe(viewLifecycleOwner, ::navigateToLoggedOut)
 
         return binding.root
     }
 
-    private fun startLoginRedirect(intent: Intent?) {
+    private fun startLogoutRedirect(intent: Intent?) {
         intent?.let {
-            loginRedirectLauncher.launch(intent)
+            logoutRedirectLauncher.launch(intent)
             viewModel.onEventLogoutRedirectStartComplete()
         }
     }
