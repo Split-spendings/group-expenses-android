@@ -1,8 +1,10 @@
 package com.splitspendings.groupexpensesandroid.network
 
+import com.splitspendings.groupexpensesandroid.common.auth.AuthInterceptor
 import com.splitspendings.groupexpensesandroid.network.dto.GroupDto
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -14,8 +16,13 @@ private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
+private val okhttpClient = OkHttpClient.Builder()
+    .addInterceptor(AuthInterceptor())
+    .build()
+
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .client(okhttpClient)
     .baseUrl(BASE_URL)
     .build()
 
@@ -26,7 +33,7 @@ interface GroupExpensesApiService {
 }
 
 object GroupExpensesApi {
-    val retrofitService : GroupExpensesApiService by lazy {
+    val retrofitService: GroupExpensesApiService by lazy {
         retrofit.create(GroupExpensesApiService::class.java)
     }
 }
