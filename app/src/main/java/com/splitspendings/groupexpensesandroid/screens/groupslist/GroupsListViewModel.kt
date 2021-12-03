@@ -83,15 +83,22 @@ class GroupsListViewModel(
     fun onEventSuccessfulGroupUploadComplete() {
         _eventSuccessfulGroupUpload.value = false
     }
-    
+
     private fun getGroupsFromServer(filter: GroupsFilter) {
         viewModelScope.launch {
             _apiStatus.value = ApiStatus.LOADING
             try {
                 val groups = GroupExpensesApi.retrofitService.getGroups(filter.value)
+
+                /*val appUserGroupDto = GroupExpensesApi.retrofitService.appUserActiveGroups()
+                val groups = appUserGroupDto.groups*/
+
                 Timber.i("Groups from server size: $groups")
                 groupDao.clear()
                 groupDao.insertAll(groupDtoListToGroupList(groups))
+
+//                GroupExpensesApi.retrofitService.request()
+
                 _apiStatus.value = ApiStatus.DONE
                 _eventSuccessfulGroupUpload.value = true
             } catch (e: Exception) {

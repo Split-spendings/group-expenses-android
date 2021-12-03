@@ -14,9 +14,15 @@ class AuthInterceptor : Interceptor {
         // If token has been saved, add it to the request
         authStateManager.tokenResponse?.accessToken?.let {
             Timber.i("Auth Token: $it")
-            requestBuilder.addHeader("Authorization", "Bearer $it")
+            requestBuilder.addHeader("Authorization2", "Bearer $it")
         }
 
-        return chain.proceed(requestBuilder.build())
+        //return chain.proceed(requestBuilder.build())
+        val request = requestBuilder.build()
+        Timber.i("request: $request")
+        Timber.i("request headers: ${request.headers()}")
+        val response = chain.proceed(request)
+        Timber.i("response: $response")
+        return response
     }
 }
