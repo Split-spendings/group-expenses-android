@@ -1,6 +1,7 @@
 package com.splitspendings.groupexpensesandroid.network
 
 import com.splitspendings.groupexpensesandroid.common.auth.AuthInterceptor
+import com.splitspendings.groupexpensesandroid.network.dto.AppUserGroupsDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupDto
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -30,6 +31,12 @@ interface GroupExpensesApiService {
 
     @GET("/test/groups")
     suspend fun getGroups(@Query("type") type: String): List<GroupDto>
+
+    @GET("/test/request")
+    suspend fun request()
+
+    @GET("/api/users/groups")
+    suspend fun appUserActiveGroups(): AppUserGroupsDto
 }
 
 object GroupExpensesApi {
