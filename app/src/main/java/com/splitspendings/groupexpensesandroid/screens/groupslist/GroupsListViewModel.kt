@@ -1,7 +1,13 @@
 package com.splitspendings.groupexpensesandroid.screens.groupslist
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.common.mapper.groupDtoListToGroupList
@@ -88,16 +94,14 @@ class GroupsListViewModel(
         viewModelScope.launch {
             _apiStatus.value = ApiStatus.LOADING
             try {
-                val groups = GroupExpensesApi.retrofitService.getGroups(filter.value)
+                //val groups = GroupExpensesApi.retrofitService.getGroups(filter.value)
 
-                /*val appUserGroupDto = GroupExpensesApi.retrofitService.appUserActiveGroups()
-                val groups = appUserGroupDto.groups*/
+                val appUserGroupDto = GroupExpensesApi.retrofitService.appUserActiveGroups()
+                val groups = appUserGroupDto.groups
 
-                Timber.i("Groups from server size: $groups")
+                Timber.i("Groups from server: $groups")
                 groupDao.clear()
                 groupDao.insertAll(groupDtoListToGroupList(groups))
-
-//                GroupExpensesApi.retrofitService.request()
 
                 _apiStatus.value = ApiStatus.DONE
                 _eventSuccessfulGroupUpload.value = true

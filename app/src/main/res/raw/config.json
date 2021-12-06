@@ -1,5 +1,5 @@
 {
-  "issuer": "http://10.0.2.2:8180/auth/realms/thesis",
+  "issuer": "https://identity.thesis.net/auth/realms/thesis",
   "clientID": "se-android",
   "redirectUri": "com.splitspendings.groupexpensesandroid:/redirect",
   "postLogoutRedirectUri": "com.splitspendings.groupexpensesandroid:/logoutredirect",
