@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.splitspendings.groupexpensesandroid.common.auth.AppAuthHandler
 import com.splitspendings.groupexpensesandroid.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        viewModel.dispose()
+        AppAuthHandler.getInstance().dispose()
         super.onDestroy()
     }
 

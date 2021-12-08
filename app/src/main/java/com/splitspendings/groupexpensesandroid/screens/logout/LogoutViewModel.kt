@@ -2,7 +2,12 @@ package com.splitspendings.groupexpensesandroid.screens.logout
 
 import android.app.Application
 import android.content.Intent
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.common.auth.AppAuthHandler
 import com.splitspendings.groupexpensesandroid.common.auth.AuthException
 import com.splitspendings.groupexpensesandroid.common.auth.AuthStateManager
@@ -28,7 +33,7 @@ class LogoutViewModel(
 ) : AndroidViewModel(application) {
 
     private val authStateManager: AuthStateManager = AuthStateManager.getInstance()
-    private val appAuthHandler: AppAuthHandler = AppAuthHandler.getInstance(application)
+    private val appAuthHandler: AppAuthHandler = AppAuthHandler.getInstance()
 
     private val _eventNavigateToLoggedOut = MutableLiveData<Boolean>()
     val eventNavigateToLoggedOut: LiveData<Boolean>
