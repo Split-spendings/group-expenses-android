@@ -29,16 +29,14 @@ class AuthInterceptor : Interceptor {
         }
 
         tokenResponse?.accessToken?.let {
-            //Timber.i("Auth Token: $it")
             Timber.i("adding accessToken to header")
             requestBuilder.addHeader("Authorization", "Bearer $it")
         }
 
-        //return chain.proceed(requestBuilder.build())
-
         val request = requestBuilder.build()
         Timber.i("request: $request")
         //Timber.i("request headers: ${request.headers()}")
+
         val response = chain.proceed(request)
         Timber.i("response: $response")
         return response
