@@ -1,9 +1,13 @@
 package com.splitspendings.groupexpensesandroid.common.auth
 
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
 import timber.log.Timber
 import java.util.*
+
+const val UNAUTHORIZED = 401
+const val AUTHORIZATION_HEADER = "Authorization"
 
 class AuthInterceptor : Interceptor {
 
@@ -13,53 +17,65 @@ class AuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
 
-        var tokenResponse = authStateManager.tokenResponse
-
-        //TODO perform this after getting 401 and then resend request
-        // because token may become outdated during communication, can it?
-        tokenResponse?.accessTokenExpirationTime?.let {
-            val time = Date(it)
-            val currentTime = Date()
-            if (currentTime.before(time)) {
-                Timber.i("currentTime $currentTime accessTokenExpirationTime: $time OK")
-            } else {
-                Timber.i("currentTime $currentTime accessTokenExpirationTime: $time EXPIRED")
-                //tokenResponse = refreshToken()
-            }
+        authStateManager.tokenResponse?.accessToken?.let {
+            Timber.i("adding accessToken to Authorization header")
+            requestBuilder.addHeader(AUTHORIZATION_HEADER, "Bearer $it")
         }
 
-        tokenResponse?.accessToken?.let {
-            Timber.i("adding accessToken to header")
-            requestBuilder.addHeader("Authorization", "Bearer $it")
+        var response = sendRequest(requestBuilder.build(), chain)
+
+        if (response.code() == UNAUTHORIZED) {
+
+            // TODO add coroutine
+            val refreshedAccessToken = getRefreshedAccessToken()
+
+            requestBuilder.addHeader(AUTHORIZATION_HEADER, "Bearer $refreshedAccessToken")
+            response = sendRequest(requestBuilder.build(), chain)
         }
 
-        val request = requestBuilder.build()
+        return response
+    }
+
+    private fun sendRequest(request: Request, chain: Interceptor.Chain): Response {
         Timber.i("request: $request")
         //Timber.i("request headers: ${request.headers()}")
-
         val response = chain.proceed(request)
         Timber.i("response: $response")
         return response
     }
 
-    /*private fun refreshToken(): TokenResponse {
+    private fun checkAccessTokenExpired(message: String) {
+        authStateManager.tokenResponse?.accessTokenExpirationTime?.let {
+            val time = Date(it)
+            val currentTime = Date()
+            Timber.i(
+                "$message $currentTime accessTokenExpirationTime: $time " +
+                        if (currentTime.before(time)) "OK" else "Expired"
+            )
+        }
+    }
+
+    private suspend fun getRefreshedAccessToken(): String {
         val refreshToken = authStateManager.tokenResponse?.refreshToken
         if (refreshToken.isNullOrBlank()) {
-            Timber.e("refreshToken isNullOrBlank")
-            throw AuthException("RefreshToken isNullOrBlank", null)
+            Timber.e("refreshToken is null or blank")
+            throw AuthException("RefreshToken is null or blank", null)
         }
 
-        if (authStateManager.metadata == null) {
-            Timber.d("fetchMetadata")
-            authStateManager.metadata = appAuthHandler.fetchMetadata()
-        }
-        val metadata = authStateManager.metadata
+        checkAccessTokenExpired("Before refresh: ")
+
+        var metadata = authStateManager.metadata
         if (metadata == null) {
-            Timber.e("metadata is null")
-            throw AuthException("Metadata is null", null)
+            Timber.d("metadata is null -> fetchMetadata")
+            metadata = appAuthHandler.fetchMetadata()
+            authStateManager.metadata = metadata
         }
 
-        Timber.d("before calling refreshAccessToken")
-        return appAuthHandler.refreshAccessToken(metadata, refreshToken)
-    }*/
+        Timber.d("calling refreshAccessToken")
+        val tokenResponse = appAuthHandler.refreshAccessToken(metadata, refreshToken)
+
+        checkAccessTokenExpired("After refresh: ")
+
+        return tokenResponse?.accessToken ?: throw AuthException("Could not refresh access token", null)
+    }
 }
