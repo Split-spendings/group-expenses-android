@@ -1,5 +1,6 @@
 package com.splitspendings.groupexpensesandroid.common.auth
 
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -46,33 +47,32 @@ class AuthInterceptor : Interceptor {
         return response
     }
 
-    private fun refreshAccessToken()  {
-
+    private fun refreshAccessToken() = runBlocking {
         val refreshToken = authStateManager.tokenResponse?.refreshToken
         if (refreshToken.isNullOrBlank()) {
             Timber.e("refreshToken is null or blank")
-            return
-        }
 
-        checkAccessTokenExpired("before refresh")
-
-        var metadata = authStateManager.metadata
-        if (metadata == null) {
-            Timber.d("metadata is null -> calling fetchMetadata")
-            metadata = appAuthHandler.fetchMetadata()
-            authStateManager.metadata = metadata
-        }
-
-        Timber.d("calling refreshAccessToken")
-        val tokenResponse = appAuthHandler.refreshAccessToken(metadata, refreshToken)
-
-        if (tokenResponse == null) {
-            Timber.e("tokenResponse is null")
         } else {
-            authStateManager.saveTokens(tokenResponse)
-            checkAccessTokenExpired("after refresh")
-        }
 
+            checkAccessTokenExpired("before refresh")
+
+            var metadata = authStateManager.metadata
+            if (metadata == null) {
+                Timber.d("metadata is null -> calling fetchMetadata")
+                metadata = appAuthHandler.fetchMetadata()
+                authStateManager.metadata = metadata
+            }
+
+            Timber.d("calling refreshAccessToken")
+            val tokenResponse = appAuthHandler.refreshAccessToken(metadata, refreshToken)
+
+            if (tokenResponse == null) {
+                Timber.e("tokenResponse is null")
+            } else {
+                authStateManager.saveTokens(tokenResponse)
+                checkAccessTokenExpired("after refresh")
+            }
+        }
     }
 
     private fun checkAccessTokenExpired(message: String) {
