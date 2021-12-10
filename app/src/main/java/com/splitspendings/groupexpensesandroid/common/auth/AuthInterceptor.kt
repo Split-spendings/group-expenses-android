@@ -31,6 +31,7 @@ class AuthInterceptor : Interceptor {
 
             authStateManager.tokenResponse?.accessToken?.let {
                 Timber.i("adding accessToken to Authorization header after refresh")
+                requestBuilder.removeHeader(AUTHORIZATION_HEADER)
                 requestBuilder.addHeader(AUTHORIZATION_HEADER, "Bearer $it")
                 response = sendRequest(requestBuilder.build(), chain)
             }
@@ -80,7 +81,7 @@ class AuthInterceptor : Interceptor {
             val time = Date(it)
             val currentTime = Date()
             Timber.i(
-                "$message: $currentTime accessTokenExpirationTime: $time " +
+                "$message: accessTokenExpirationTime: $time " +
                         if (currentTime.before(time)) "OK" else "Expired"
             )
         }
