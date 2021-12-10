@@ -49,30 +49,34 @@ class AuthInterceptor : Interceptor {
     }
 
     private fun refreshAccessToken() = runBlocking {
-        val refreshToken = authStateManager.tokenResponse?.refreshToken
-        if (refreshToken.isNullOrBlank()) {
-            Timber.e("refreshToken is null or blank")
+        try {
+            val refreshToken = authStateManager.tokenResponse?.refreshToken
+            if (refreshToken.isNullOrBlank()) {
+                Timber.e("refreshToken is null or blank")
 
-        } else {
-
-            checkAccessTokenExpired("before refresh")
-
-            var metadata = authStateManager.metadata
-            if (metadata == null) {
-                Timber.d("metadata is null -> calling fetchMetadata")
-                metadata = appAuthHandler.fetchMetadata()
-                authStateManager.metadata = metadata
-            }
-
-            Timber.d("calling refreshAccessToken")
-            val tokenResponse = appAuthHandler.refreshAccessToken(metadata, refreshToken)
-
-            if (tokenResponse == null) {
-                Timber.e("tokenResponse is null")
             } else {
-                authStateManager.saveTokens(tokenResponse)
-                checkAccessTokenExpired("after refresh")
+
+                checkAccessTokenExpired("before refresh")
+
+                var metadata = authStateManager.metadata
+                if (metadata == null) {
+                    Timber.d("metadata is null -> calling fetchMetadata")
+                    metadata = appAuthHandler.fetchMetadata()
+                    authStateManager.metadata = metadata
+                }
+
+                Timber.d("calling refreshAccessToken")
+                val tokenResponse = appAuthHandler.refreshAccessToken(metadata, refreshToken)
+
+                if (tokenResponse == null) {
+                    Timber.e("tokenResponse is null")
+                } else {
+                    authStateManager.saveTokens(tokenResponse)
+                    checkAccessTokenExpired("after refresh")
+                }
             }
+        } catch (ex: Exception) {
+            Timber.e(ex)
         }
     }
 
