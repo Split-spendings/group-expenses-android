@@ -26,11 +26,13 @@ class AuthInterceptor : Interceptor {
 
         if (response.code() == UNAUTHORIZED) {
 
-            // TODO add coroutine
-            val refreshedAccessToken = getRefreshedAccessToken()
+            refreshAccessToken()
 
-            requestBuilder.addHeader(AUTHORIZATION_HEADER, "Bearer $refreshedAccessToken")
-            response = sendRequest(requestBuilder.build(), chain)
+            authStateManager.tokenResponse?.accessToken?.let {
+                Timber.i("adding accessToken to Authorization header after refresh")
+                requestBuilder.addHeader(AUTHORIZATION_HEADER, "Bearer $it")
+                response = sendRequest(requestBuilder.build(), chain)
+            }
         }
 
         return response
@@ -38,35 +40,25 @@ class AuthInterceptor : Interceptor {
 
     private fun sendRequest(request: Request, chain: Interceptor.Chain): Response {
         Timber.i("request: $request")
-        //Timber.i("request headers: ${request.headers()}")
+        Timber.i("headers: ${request.headers()}")
         val response = chain.proceed(request)
         Timber.i("response: $response")
         return response
     }
 
-    private fun checkAccessTokenExpired(message: String) {
-        authStateManager.tokenResponse?.accessTokenExpirationTime?.let {
-            val time = Date(it)
-            val currentTime = Date()
-            Timber.i(
-                "$message $currentTime accessTokenExpirationTime: $time " +
-                        if (currentTime.before(time)) "OK" else "Expired"
-            )
-        }
-    }
+    private fun refreshAccessToken()  {
 
-    private suspend fun getRefreshedAccessToken(): String {
         val refreshToken = authStateManager.tokenResponse?.refreshToken
         if (refreshToken.isNullOrBlank()) {
             Timber.e("refreshToken is null or blank")
-            throw AuthException("RefreshToken is null or blank", null)
+            return
         }
 
-        checkAccessTokenExpired("Before refresh: ")
+        checkAccessTokenExpired("before refresh")
 
         var metadata = authStateManager.metadata
         if (metadata == null) {
-            Timber.d("metadata is null -> fetchMetadata")
+            Timber.d("metadata is null -> calling fetchMetadata")
             metadata = appAuthHandler.fetchMetadata()
             authStateManager.metadata = metadata
         }
@@ -74,8 +66,23 @@ class AuthInterceptor : Interceptor {
         Timber.d("calling refreshAccessToken")
         val tokenResponse = appAuthHandler.refreshAccessToken(metadata, refreshToken)
 
-        checkAccessTokenExpired("After refresh: ")
+        if (tokenResponse == null) {
+            Timber.e("tokenResponse is null")
+        } else {
+            authStateManager.saveTokens(tokenResponse)
+            checkAccessTokenExpired("after refresh")
+        }
 
-        return tokenResponse?.accessToken ?: throw AuthException("Could not refresh access token", null)
+    }
+
+    private fun checkAccessTokenExpired(message: String) {
+        authStateManager.tokenResponse?.accessTokenExpirationTime?.let {
+            val time = Date(it)
+            val currentTime = Date()
+            Timber.i(
+                "$message: $currentTime accessTokenExpirationTime: $time " +
+                        if (currentTime.before(time)) "OK" else "Expired"
+            )
+        }
     }
 }
