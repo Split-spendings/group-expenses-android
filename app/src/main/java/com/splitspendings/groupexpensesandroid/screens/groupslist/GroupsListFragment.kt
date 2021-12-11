@@ -51,7 +51,6 @@ class GroupsListFragment : Fragment() {
 
         viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
-        viewModel.eventNavigateToLoggedOut.observe(viewLifecycleOwner, ::onNavigateToLoggedOut)
         viewModel.eventSuccessfulGroupUpload.observe(viewLifecycleOwner, ::onSuccessfulGroupUpload)
 
         setHasOptionsMenu(true)
@@ -80,14 +79,6 @@ class GroupsListFragment : Fragment() {
             findNavController()
                 .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupId))
             viewModel.onEventNavigateToGroupComplete()
-        }
-    }
-
-    private fun onNavigateToLoggedOut(navigateToLoggedOut: Boolean) {
-        if (navigateToLoggedOut) {
-            findNavController()
-                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToLoginFragment())
-            viewModel.onEventNavigateToLoggedOutComplete()
         }
     }
 
