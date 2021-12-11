@@ -49,8 +49,8 @@ class NewGroupFragment : Fragment() {
 
     private fun onNavigateToGroup(groupId: Long?) {
         groupId?.let {
-            val action = NewGroupFragmentDirections.actionNewGroupFragmentToGroupFragment(groupId)
-            findNavController().navigate(action)
+            findNavController()
+                .navigate(NewGroupFragmentDirections.actionNewGroupFragmentToGroupFragment(groupId))
             viewModel.onEventNavigateToGroupComplete()
         }
     }

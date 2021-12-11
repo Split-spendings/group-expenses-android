@@ -49,6 +49,10 @@ class GroupsListViewModel(
     val eventNavigateToGroup: LiveData<Long>
         get() = _eventNavigateToGroup
 
+    private val _eventNavigateToLoggedOut = MutableLiveData<Boolean>()
+    val eventNavigateToLoggedOut: LiveData<Boolean>
+        get() = _eventNavigateToLoggedOut
+
     private val _eventSuccessfulGroupUpload = MutableLiveData<Boolean>()
     val eventSuccessfulGroupUpload: LiveData<Boolean>
         get() = _eventSuccessfulGroupUpload
@@ -60,6 +64,7 @@ class GroupsListViewModel(
     init {
         _eventNavigateToNewGroup.value = false
         _eventNavigateToGroup.value = null
+        _eventNavigateToLoggedOut.value = false
         _eventSuccessfulGroupUpload.value = false
         getGroupsFromServer(GroupsFilter.ALL)
     }
@@ -86,6 +91,10 @@ class GroupsListViewModel(
         _eventNavigateToGroup.value = null
     }
 
+    fun onEventNavigateToLoggedOutComplete() {
+        _eventNavigateToLoggedOut.value = false
+    }
+
     fun onEventSuccessfulGroupUploadComplete() {
         _eventSuccessfulGroupUpload.value = false
     }
@@ -108,6 +117,8 @@ class GroupsListViewModel(
             } catch (e: Exception) {
                 Timber.i("Failure: ${e.message}")
                 _apiStatus.value = ApiStatus.ERROR
+
+                // TODO check for 401 and navigate to logged out
             }
         }
     }

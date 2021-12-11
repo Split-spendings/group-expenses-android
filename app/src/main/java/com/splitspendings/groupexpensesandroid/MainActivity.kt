@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity() {
         val model: MainActivityViewModel by viewModels()
         viewModel = model
         binding.mainActivityViewModel = viewModel
-
-        //navigateToLogin()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -42,17 +40,5 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         AppAuthHandler.getInstance().dispose()
         super.onDestroy()
-    }
-
-    fun navigateToLogin() {
-        navController.navigate(R.id.action_groupsListFragment_to_loginFragment)
-    }
-
-    fun navigateToLoggedIn() {
-        navController.navigate(R.id.action_loginFragment_to_groupsListFragment)
-    }
-
-    fun navigateToLoggedOut() {
-        navController.navigate(R.id.action_logoutFragment_to_loginFragment)
     }
 }

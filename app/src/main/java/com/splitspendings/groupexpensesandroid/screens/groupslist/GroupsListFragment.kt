@@ -2,7 +2,12 @@ package com.splitspendings.groupexpensesandroid.screens.groupslist
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -43,8 +48,10 @@ class GroupsListFragment : Fragment() {
 
         // no longer need since recycler view uses data binding to track groups list updates
         //viewModel.groups.observe(viewLifecycleOwner, ::onGroupsListUpdate)
+
         viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
+        viewModel.eventNavigateToLoggedOut.observe(viewLifecycleOwner, ::onNavigateToLoggedOut)
         viewModel.eventSuccessfulGroupUpload.observe(viewLifecycleOwner, ::onSuccessfulGroupUpload)
 
         setHasOptionsMenu(true)
@@ -62,17 +69,25 @@ class GroupsListFragment : Fragment() {
 
     private fun onNavigateToNewGroup(navigateToNewGroup: Boolean) {
         if (navigateToNewGroup) {
-            val action = GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment()
-            findNavController().navigate(action)
+            findNavController()
+                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment())
             viewModel.onEventNavigateToNewGroupComplete()
         }
     }
 
     private fun onNavigateToGroup(groupId: Long?) {
         groupId?.let {
-            val action = GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupId)
-            findNavController().navigate(action)
+            findNavController()
+                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupId))
             viewModel.onEventNavigateToGroupComplete()
+        }
+    }
+
+    private fun onNavigateToLoggedOut(navigateToLoggedOut: Boolean) {
+        if (navigateToLoggedOut) {
+            findNavController()
+                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToLoginFragment())
+            viewModel.onEventNavigateToLoggedOutComplete()
         }
     }
 

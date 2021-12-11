@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.splitspendings.groupexpensesandroid.MainActivity
+import androidx.navigation.fragment.findNavController
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentLoginBinding
 
@@ -58,8 +58,8 @@ class LoginFragment : Fragment() {
 
     private fun navigateToLoggedIn(navigateToLoggedIn: Boolean) {
         if (navigateToLoggedIn) {
-            val mainActivity = activity as MainActivity
-            mainActivity.navigateToLoggedIn()
+            findNavController()
+                .navigate(LoginFragmentDirections.actionLoginFragmentToGroupsListFragment())
             viewModel.onEventNavigateToLoggedInComplete()
         }
     }
