@@ -1,5 +1,6 @@
 package com.splitspendings.groupexpensesandroid.common.auth
 
+import com.splitspendings.groupexpensesandroid.NavigationHandler
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -35,6 +36,11 @@ class AuthInterceptor : Interceptor {
                 requestBuilder.addHeader(AUTHORIZATION_HEADER, "Bearer $it")
                 response = sendRequest(requestBuilder.build(), chain)
             }
+        }
+
+        if (response.code() == UNAUTHORIZED) {
+            authStateManager.clearTokens()
+            NavigationHandler.getInstance().navigateToLoggedOut()
         }
 
         return response
