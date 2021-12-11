@@ -1,14 +1,16 @@
 package com.splitspendings.groupexpensesandroid.common.auth
 
+import android.content.SharedPreferences
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.TokenResponse
+import timber.log.Timber
 
 /*
  * Wraps the AuthState class from the AppAuth library
  * Some or all of the auth state can be persisted to a secure location such as Encrypted Shared Preferences
  */
-class AuthStateManager {
+class AuthStateManager(private var authPrefs: SharedPreferences) {
 
     companion object {
         @Volatile
@@ -16,17 +18,32 @@ class AuthStateManager {
 
         fun getInstance(): AuthStateManager {
             synchronized(this) {
-                var instance = INSTANCE
-                if (instance == null) {
-                    instance = AuthStateManager()
-                    INSTANCE = instance
-                }
-                return instance
+                return INSTANCE!!
             }
+        }
+
+        fun init(authPrefs: SharedPreferences) {
+            val newInstance = AuthStateManager(authPrefs)
+            try {
+                val authStateJson = authPrefs.getString("stateJson", null)
+                authStateJson?.let {
+                    Timber.d("deserialize authStateJson: $authStateJson")
+                    val authState = AuthState.jsonDeserialize(authStateJson)
+                    newInstance.authState = authState
+
+                    //TODO check if it is needed
+                    //newInstance.idToken = authState.idToken
+                }
+            } catch (ex: Exception) {
+                Timber.e(ex)
+            }
+            INSTANCE = newInstance
         }
     }
 
     private var authState: AuthState? = null
+
+    //TODO setting after deserialization of authState? is this field really needed?
     var idToken: String? = null
 
     /*
@@ -41,6 +58,12 @@ class AuthStateManager {
         }
 
         this.authState!!.update(tokenResponse, null)
+
+        val authStateJson = authState!!.jsonSerializeString()
+        Timber.d("serialize authStateJson: $authStateJson")
+        authPrefs.edit()
+            .putString("stateJson", authStateJson)
+            .apply()
     }
 
     /*

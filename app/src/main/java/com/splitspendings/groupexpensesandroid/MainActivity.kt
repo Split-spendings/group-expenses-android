@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = model
         binding.mainActivityViewModel = viewModel
 
-        navigateToLogin()
+        //navigateToLogin()
     }
 
     override fun onSupportNavigateUp(): Boolean {
