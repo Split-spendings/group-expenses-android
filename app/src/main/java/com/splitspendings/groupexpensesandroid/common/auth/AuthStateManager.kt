@@ -25,15 +25,19 @@ class AuthStateManager(private var authPrefs: SharedPreferences) {
         fun init(authPrefs: SharedPreferences) {
             val newInstance = AuthStateManager(authPrefs)
             try {
+
                 val authStateJson = authPrefs.getString("stateJson", null)
                 authStateJson?.let {
                     Timber.d("deserialize authStateJson: $authStateJson")
-                    val authState = AuthState.jsonDeserialize(authStateJson)
-                    newInstance.authState = authState
-
-                    //TODO check if it is needed
-                    //newInstance.idToken = authState.idToken
+                    newInstance.authState = AuthState.jsonDeserialize(authStateJson)
                 }
+
+                val idToken = authPrefs.getString("idToken", null)
+                idToken?.let {
+                    newInstance.idToken = idToken
+                    Timber.d("deserialize idToken: $idToken")
+                }
+
             } catch (ex: Exception) {
                 Timber.e(ex)
             }
@@ -43,18 +47,40 @@ class AuthStateManager(private var authPrefs: SharedPreferences) {
 
     private var authState: AuthState? = null
 
-    //TODO setting after deserialization of authState? is this field really needed?
+    /*
+        When refreshing tokens, the Identity Server does not issue a new ID token
+        The AppAuth code does not allow us to update the token response with the original ID token
+        Therefore we store the ID token separately
+
+        The above original comment (from demo project) is not very clear, but it was checked and
+        saving this id separately seems to be really necessary for correct logout redirect
+    */
     var idToken: String? = null
+
+    var metadata: AuthorizationServiceConfiguration?
+        get() {
+            return this.authState?.authorizationServiceConfiguration
+        }
+        set(configuration) {
+            this.authState = AuthState(configuration!!)
+        }
+
+    val tokenResponse: TokenResponse?
+        get() {
+            return this.authState?.lastTokenResponse
+        }
 
     /*
      * Manage storing or updating the token response
      */
     fun saveTokens(tokenResponse: TokenResponse) {
-        // When refreshing tokens, the Identity Server does not issue a new ID token
-        // The AppAuth code does not allow us to update the token response with the original ID token
-        // Therefore we store the ID token separately
+
         if (tokenResponse.idToken != null) {
             this.idToken = tokenResponse.idToken
+            Timber.d("serialize idToken: $idToken")
+            authPrefs.edit()
+                .putString("idToken", idToken)
+                .apply()
         }
 
         this.authState!!.update(tokenResponse, null)
@@ -74,17 +100,7 @@ class AuthStateManager(private var authPrefs: SharedPreferences) {
         this.authState = AuthState(metadata!!)
         this.idToken = null
     }
-
-    var metadata: AuthorizationServiceConfiguration?
-        get() {
-            return this.authState?.authorizationServiceConfiguration
-        }
-        set(configuration) {
-            this.authState = AuthState(configuration!!)
-        }
-
-    val tokenResponse: TokenResponse?
-        get() {
-            return this.authState?.lastTokenResponse
-        }
 }
+
+
+
