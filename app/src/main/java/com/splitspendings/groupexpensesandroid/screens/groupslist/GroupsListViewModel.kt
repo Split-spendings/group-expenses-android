@@ -117,8 +117,6 @@ class GroupsListViewModel(
             } catch (e: Exception) {
                 Timber.i("Failure: ${e.message}")
                 _apiStatus.value = ApiStatus.ERROR
-
-                // TODO check for 401 and navigate to logged out
             }
         }
     }

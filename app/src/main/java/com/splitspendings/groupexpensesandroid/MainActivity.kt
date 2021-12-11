@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupWithNavController(binding.navView, navController)
 
+        NavigationHandler.init(navController)
+
         val model: MainActivityViewModel by viewModels()
         viewModel = model
         binding.mainActivityViewModel = viewModel

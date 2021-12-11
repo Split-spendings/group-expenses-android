@@ -11,7 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import com.splitspendings.groupexpensesandroid.NavigationHandler
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentLogoutBinding
 
@@ -55,8 +55,7 @@ class LogoutFragment : Fragment() {
 
     private fun navigateToLoggedOut(navigateToLoggedOut: Boolean) {
         if (navigateToLoggedOut) {
-            findNavController()
-                .navigate(LogoutFragmentDirections.actionLogoutFragmentToLoginFragment())
+            NavigationHandler.getInstance().navigateToLoggedOut()
             viewModel.onEventNavigateToLoggedOutComplete()
         }
     }
