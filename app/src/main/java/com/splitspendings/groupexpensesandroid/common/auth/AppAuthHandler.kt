@@ -36,10 +36,8 @@ class AppAuthHandler(private val config: AuthConfig, context: Context) {
 
         fun init(context: Context) {
             synchronized(this) {
-                var instance = INSTANCE
-                if (instance == null) {
-                    instance = AppAuthHandler(AuthConfig.getInstance(context), context)
-                    INSTANCE = instance
+                if (INSTANCE == null) {
+                    INSTANCE = AppAuthHandler(AuthConfig.getInstance(context), context)
                 }
             }
         }
