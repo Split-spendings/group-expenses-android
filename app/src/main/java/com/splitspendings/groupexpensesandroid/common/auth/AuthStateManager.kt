@@ -96,9 +96,11 @@ class AuthStateManager(private var authPrefs: SharedPreferences) {
     * Clear tokens upon logout or when the session expires
     */
     fun clearTokens() {
-        val metadata = this.authState?.authorizationServiceConfiguration
-        this.authState = AuthState(metadata!!)
+        authState?.authorizationServiceConfiguration?.let {
+            this.authState = AuthState(it)
+        }
         this.idToken = null
+        authPrefs.edit().clear().apply()
     }
 }
 
