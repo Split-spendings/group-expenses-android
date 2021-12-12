@@ -1,4 +1,4 @@
-package com.splitspendings.groupexpensesandroid.common.bindingutils
+package com.splitspendings.groupexpensesandroid.bindingutils
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView

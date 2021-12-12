@@ -1,4 +1,4 @@
-package com.splitspendings.groupexpensesandroid.common.bindingutils
+package com.splitspendings.groupexpensesandroid.bindingutils
 
 import android.content.res.Resources
 import android.os.Build
