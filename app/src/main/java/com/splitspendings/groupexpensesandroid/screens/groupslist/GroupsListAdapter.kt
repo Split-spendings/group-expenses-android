@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.ListItemGroupBinding
-import com.splitspendings.groupexpensesandroid.repository.entity.Group
+import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,7 +37,7 @@ class GroupsListAdapter(private val groupItemClickListener: GroupItemClickListen
         }
     }
 
-    fun addHeaderAndSubmitList(list: List<Group>?) {
+    fun addHeaderAndSubmitList(list: List<GroupEntity>?) {
         adapterScope.launch {
             val items = when (list) {
                 null -> listOf(GroupsListItem.HeaderItem)
@@ -70,7 +70,7 @@ class GroupsListAdapter(private val groupItemClickListener: GroupItemClickListen
 
     class GroupItemViewHolder private constructor(val binding: ListItemGroupBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(group: Group, clickItemClickListener: GroupItemClickListener) {
+        fun bind(group: GroupEntity, clickItemClickListener: GroupItemClickListener) {
             binding.group = group
             binding.clickListener = clickItemClickListener
             binding.executePendingBindings()
@@ -100,7 +100,7 @@ class GroupDiffCallback : DiffUtil.ItemCallback<GroupsListItem>() {
 
 
 class GroupItemClickListener(val clickListener: (groupId: Long) -> Unit) {
-    fun onClick(group: Group) = clickListener(group.id)
+    fun onClick(group: GroupEntity) = clickListener(group.id)
 }
 
 
@@ -112,7 +112,7 @@ sealed class GroupsListItem {
         override val id = Long.MIN_VALUE
     }
 
-    data class GroupItem(val group: Group) : GroupsListItem() {
+    data class GroupItem(val group: GroupEntity) : GroupsListItem() {
         override val id: Long = group.id
     }
 }

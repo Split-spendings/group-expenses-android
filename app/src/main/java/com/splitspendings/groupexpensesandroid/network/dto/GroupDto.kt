@@ -1,6 +1,6 @@
 package com.splitspendings.groupexpensesandroid.network.dto
 
-import com.splitspendings.groupexpensesandroid.repository.entity.Group
+import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
 
 data class GroupDto(
     val id: Long,
@@ -11,6 +11,6 @@ data class GroupDto(
     val personal: Boolean
 )
 
-fun GroupDto.asModel(): Group = Group(name = name, personal = personal)
+fun GroupDto.asModel(): GroupEntity = GroupEntity(name = name, personal = personal)
 
-fun List<GroupDto>.asModel(): List<Group> = map { it.asModel() }
+fun List<GroupDto>.asModel(): List<GroupEntity> = map { it.asModel() }

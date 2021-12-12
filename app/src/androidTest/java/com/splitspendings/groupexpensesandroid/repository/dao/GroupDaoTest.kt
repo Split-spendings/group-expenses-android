@@ -4,7 +4,7 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
-import com.splitspendings.groupexpensesandroid.repository.entity.Group
+import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -19,8 +19,8 @@ class GroupDaoTest {
     private lateinit var db: GroupExpensesDatabase
 
     companion object {
-        private val group1: Group = Group(id = -1, name = "group_1", false)
-        private val group2: Group = Group(id = -2, name = "group_2", true)
+        private val group1: GroupEntity = GroupEntity(id = -1, name = "group_1", false)
+        private val group2: GroupEntity = GroupEntity(id = -2, name = "group_2", true)
     }
 
     @Before

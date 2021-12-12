@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
-import com.splitspendings.groupexpensesandroid.repository.entity.Group
+import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
 import kotlinx.coroutines.launch
 
 class NewGroupViewModelFactory(
@@ -88,7 +88,7 @@ class NewGroupViewModel(
 
     private fun saveGroupAndNavigateToGroup() {
         viewModelScope.launch {
-            _eventNavigateToGroup.value = groupDao.insert(Group(name = groupName, personal = true))
+            _eventNavigateToGroup.value = groupDao.insert(GroupEntity(name = groupName, personal = true))
         }
     }
 }

@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import com.splitspendings.groupexpensesandroid.R
-import com.splitspendings.groupexpensesandroid.repository.entity.Group
+import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
 
-fun formatGroup(group: Group, resources: Resources): Spanned {
+fun formatGroup(group: GroupEntity, resources: Resources): Spanned {
     val groupString = resources.getString(R.string.group_format, group.id, group.name)
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(groupString, Html.FROM_HTML_MODE_LEGACY)
@@ -21,12 +21,12 @@ fun formatGroup(group: Group, resources: Resources): Spanned {
 }
 
 @BindingAdapter("groupNameFormattedPlaceholder")
-fun TextView.setGroupNameFormattedPlaceholder(group: Group?) {
+fun TextView.setGroupNameFormattedPlaceholder(group: GroupEntity?) {
     text = group?.let { formatGroup(it, context.resources) }
 }
 
 @BindingAdapter("groupAvatarPlaceholder")
-fun ImageView.setGroupAvatarPlaceholder(group: Group?) {
+fun ImageView.setGroupAvatarPlaceholder(group: GroupEntity?) {
     setImageResource(
         when (group?.id?.mod(2)) {
             0 -> R.drawable.ic_placeholder_group_avatar
