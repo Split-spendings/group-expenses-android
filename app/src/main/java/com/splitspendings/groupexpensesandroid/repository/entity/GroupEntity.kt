@@ -3,6 +3,7 @@ package com.splitspendings.groupexpensesandroid.repository.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.splitspendings.groupexpensesandroid.model.Group
 
 @Entity(tableName = "user_group")
 data class GroupEntity(
@@ -16,3 +17,7 @@ data class GroupEntity(
     @ColumnInfo(name = "personal")
     var personal: Boolean
 )
+
+fun GroupEntity.asModel(): Group = Group(name = name, personal = personal)
+
+fun List<GroupEntity>.asModel(): List<Group> = map { it.asModel() }
