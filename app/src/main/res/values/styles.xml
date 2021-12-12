@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.Title" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="TextAppearance.Subtitle" parent="TextAppearance.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+</resources>
