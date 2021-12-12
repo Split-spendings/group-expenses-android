@@ -11,6 +11,6 @@ data class GroupDto(
     val personal: Boolean
 )
 
-fun GroupDto.asModel(): GroupEntity = GroupEntity(name = name, personal = personal)
+fun GroupDto.asEntity(): GroupEntity = GroupEntity(name = name, personal = personal)
 
-fun List<GroupDto>.asModel(): List<GroupEntity> = map { it.asModel() }
+fun List<GroupDto>.asEntity(): List<GroupEntity> = map { it.asEntity() }
