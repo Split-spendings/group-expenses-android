@@ -18,7 +18,6 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
-import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
 
 class GroupsListFragment : Fragment() {
@@ -32,9 +31,8 @@ class GroupsListFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_groups_list, container, false)
 
         val application = requireNotNull(activity).application
-        val groupDao = GroupExpensesDatabase.getInstance(application).groupDao
 
-        viewModelFactory = GroupsListViewModelFactory(groupDao, application)
+        viewModelFactory = GroupsListViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(GroupsListViewModel::class.java)
 
         binding.groupsListViewModel = viewModel

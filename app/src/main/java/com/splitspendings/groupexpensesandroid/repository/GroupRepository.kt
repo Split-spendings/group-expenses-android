@@ -21,6 +21,7 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         withContext(Dispatchers.IO) {
             Timber.d("refresh groups is called")
             val groups = GroupExpensesApi.retrofitService.appUserActiveGroups().groups
+            database.groupDao.clear()
             database.groupDao.insertAll(groups.asEntity())
         }
     }

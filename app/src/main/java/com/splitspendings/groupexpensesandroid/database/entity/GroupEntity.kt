@@ -18,6 +18,6 @@ data class GroupEntity(
     var personal: Boolean
 )
 
-fun GroupEntity.asModel(): Group = Group(name = name, personal = personal)
+fun GroupEntity.asModel(): Group = Group(id = id, name = name, personal = personal)
 
 fun List<GroupEntity>.asModel(): List<Group> = map { it.asModel() }
