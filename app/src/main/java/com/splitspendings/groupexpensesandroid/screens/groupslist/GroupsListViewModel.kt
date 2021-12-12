@@ -13,6 +13,7 @@ import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.common.mapper.groupDtoListToGroupList
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
 import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -94,6 +95,7 @@ class GroupsListViewModel(
         viewModelScope.launch {
             _apiStatus.value = ApiStatus.LOADING
             try {
+                delay(2000)
                 //val groups = GroupExpensesApi.retrofitService.getGroups(filter.value)
 
                 val appUserGroupDto = GroupExpensesApi.retrofitService.appUserActiveGroups()
