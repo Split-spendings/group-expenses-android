@@ -1,10 +1,10 @@
-package com.splitspendings.groupexpensesandroid.repository.dao
+package com.splitspendings.groupexpensesandroid.database.dao
 
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.splitspendings.groupexpensesandroid.repository.GroupExpensesDatabase
-import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
+import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
+import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After

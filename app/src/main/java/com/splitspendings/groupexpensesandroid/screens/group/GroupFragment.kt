@@ -8,8 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.splitspendings.groupexpensesandroid.R
+import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
-import com.splitspendings.groupexpensesandroid.repository.GroupExpensesDatabase
 
 class GroupFragment : Fragment() {
 

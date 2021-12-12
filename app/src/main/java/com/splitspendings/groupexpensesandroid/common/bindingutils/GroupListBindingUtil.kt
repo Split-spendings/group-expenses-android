@@ -2,7 +2,7 @@ package com.splitspendings.groupexpensesandroid.common.bindingutils
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
+import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import com.splitspendings.groupexpensesandroid.screens.groupslist.GroupsListAdapter
 
 @BindingAdapter("groupsList")

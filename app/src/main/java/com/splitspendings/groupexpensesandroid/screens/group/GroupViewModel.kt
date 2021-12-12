@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
+import com.splitspendings.groupexpensesandroid.database.dao.GroupDao
 
 class GroupViewModelFactory(
     private val groupId: Long,

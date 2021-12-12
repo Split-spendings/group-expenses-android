@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import com.splitspendings.groupexpensesandroid.R
-import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
+import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 
 fun formatGroup(group: GroupEntity, resources: Resources): Spanned {
     val groupString = resources.getString(R.string.group_format, group.id, group.name)

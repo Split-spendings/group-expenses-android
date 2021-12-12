@@ -1,6 +1,6 @@
 package com.splitspendings.groupexpensesandroid.network.dto
 
-import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
+import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 
 data class GroupDto(
     val id: Long,

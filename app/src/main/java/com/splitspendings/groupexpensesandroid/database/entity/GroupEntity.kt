@@ -1,4 +1,4 @@
-package com.splitspendings.groupexpensesandroid.repository.entity
+package com.splitspendings.groupexpensesandroid.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

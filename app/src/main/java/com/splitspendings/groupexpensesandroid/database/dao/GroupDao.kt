@@ -1,11 +1,11 @@
-package com.splitspendings.groupexpensesandroid.repository.dao
+package com.splitspendings.groupexpensesandroid.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
+import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 
 @Dao
 interface GroupDao {

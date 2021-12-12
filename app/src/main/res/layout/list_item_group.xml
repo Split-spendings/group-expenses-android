@@ -7,7 +7,7 @@
 
         <variable
             name="group"
-            type="com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity" />
+            type="com.splitspendings.groupexpensesandroid.database.entity.GroupEntity" />
 
         <variable
             name="clickListener"

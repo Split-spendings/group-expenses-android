@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
+import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewGroupBinding
-import com.splitspendings.groupexpensesandroid.repository.GroupExpensesDatabase
 
 class NewGroupFragment : Fragment() {
 

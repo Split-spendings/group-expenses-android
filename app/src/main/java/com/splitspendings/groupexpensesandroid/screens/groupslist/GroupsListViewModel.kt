@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
+import com.splitspendings.groupexpensesandroid.database.dao.GroupDao
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
 import com.splitspendings.groupexpensesandroid.network.dto.asEntity
-import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

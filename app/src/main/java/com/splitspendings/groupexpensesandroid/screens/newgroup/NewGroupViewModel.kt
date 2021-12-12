@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
-import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
-import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
+import com.splitspendings.groupexpensesandroid.database.dao.GroupDao
+import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import kotlinx.coroutines.launch
 
 class NewGroupViewModelFactory(
