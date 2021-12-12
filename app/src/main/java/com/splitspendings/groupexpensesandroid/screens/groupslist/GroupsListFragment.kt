@@ -19,7 +19,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
-import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
 
 class GroupsListFragment : Fragment() {
@@ -60,11 +59,12 @@ class GroupsListFragment : Fragment() {
         return binding.root
     }
 
-    private fun onGroupsListUpdate(groups: List<GroupEntity>?) {
+    // no longer need since recycler view uses data binding to track groups list updates
+    /*private fun onGroupsListUpdate(groups: List<GroupEntity>?) {
         groups?.let {
             adapter.addHeaderAndSubmitList(it)
         }
-    }
+    }*/
 
     private fun onNavigateToNewGroup(navigateToNewGroup: Boolean) {
         if (navigateToNewGroup) {
