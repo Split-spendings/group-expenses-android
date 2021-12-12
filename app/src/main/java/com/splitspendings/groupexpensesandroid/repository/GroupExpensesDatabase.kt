@@ -1,4 +1,4 @@
-package com.splitspendings.groupexpensesandroid.repository.database
+package com.splitspendings.groupexpensesandroid.repository
 
 import android.content.Context
 import androidx.room.Database

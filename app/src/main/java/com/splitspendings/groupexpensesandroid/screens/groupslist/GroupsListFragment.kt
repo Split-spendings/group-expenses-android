@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
-import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
+import com.splitspendings.groupexpensesandroid.repository.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
 
 class GroupsListFragment : Fragment() {

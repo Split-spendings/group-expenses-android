@@ -3,7 +3,7 @@ package com.splitspendings.groupexpensesandroid.repository.dao
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
+import com.splitspendings.groupexpensesandroid.repository.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.repository.entity.GroupEntity
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
