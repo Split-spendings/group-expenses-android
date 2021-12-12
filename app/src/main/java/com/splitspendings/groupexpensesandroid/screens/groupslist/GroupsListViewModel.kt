@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
-import com.splitspendings.groupexpensesandroid.common.mapper.groupDtoListToGroupList
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
+import com.splitspendings.groupexpensesandroid.network.dto.asModel
 import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -102,7 +102,7 @@ class GroupsListViewModel(
 
                 Timber.i("Groups from server: $groups")
                 groupDao.clear()
-                groupDao.insertAll(groupDtoListToGroupList(groups))
+                groupDao.insertAll(groups.asModel())
 
                 _apiStatus.value = ApiStatus.DONE
                 _eventSuccessfulGroupUpload.value = true
