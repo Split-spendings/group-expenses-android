@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
-import com.splitspendings.groupexpensesandroid.repository.model.Group
+import com.splitspendings.groupexpensesandroid.repository.entity.Group
 
 @Database(entities = [Group::class], version = 1, exportSchema = false)
 abstract class GroupExpensesDatabase : RoomDatabase() {
