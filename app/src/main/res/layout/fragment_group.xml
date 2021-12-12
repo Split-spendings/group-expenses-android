@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/group_avatar"
             android:layout_width="@dimen/size_avatar"
             android:layout_height="@dimen/size_avatar"
@@ -24,7 +24,30 @@
             app:groupAvatarPlaceholder="@{groupViewModel.group}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_placeholder_group_avatar" />-->
+
+        <ImageView
+            android:id="@+id/group_avatar"
+            android:layout_width="@dimen/size_avatar"
+            android:layout_height="@dimen/size_avatar"
+            android:layout_marginStart="@dimen/margin_fragment_frame"
+            android:layout_marginTop="@dimen/margin_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_placeholder_group_avatar" />
+
+        <!--<TextView
+            android:id="@+id/group_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_fragment_frame"
+            app:groupNameFormattedPlaceholder="@{groupViewModel.group}"
+            app:layout_constraintBottom_toBottomOf="@+id/group_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/group_avatar"
+            app:layout_constraintTop_toTopOf="@+id/group_avatar"
+            tools:text="Group name" />-->
 
         <TextView
             android:id="@+id/group_name"
@@ -32,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_fragment_frame"
-            app:groupNameFormattedPlaceholder="@{groupViewModel.group}"
+            android:text="PLACEHOLDER"
             app:layout_constraintBottom_toBottomOf="@+id/group_avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/group_avatar"
