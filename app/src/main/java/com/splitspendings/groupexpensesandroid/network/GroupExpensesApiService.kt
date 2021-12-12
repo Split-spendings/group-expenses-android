@@ -1,6 +1,6 @@
 package com.splitspendings.groupexpensesandroid.network
 
-import com.splitspendings.groupexpensesandroid.common.auth.AuthInterceptor
+import com.splitspendings.groupexpensesandroid.auth.AuthInterceptor
 import com.splitspendings.groupexpensesandroid.network.dto.AppUserGroupsDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupDto
 import com.squareup.moshi.Moshi

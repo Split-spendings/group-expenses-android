@@ -8,9 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.splitspendings.groupexpensesandroid.common.auth.AppAuthHandler
-import com.splitspendings.groupexpensesandroid.common.auth.AuthException
-import com.splitspendings.groupexpensesandroid.common.auth.AuthStateManager
+import com.splitspendings.groupexpensesandroid.auth.AppAuthHandler
+import com.splitspendings.groupexpensesandroid.auth.AuthException
+import com.splitspendings.groupexpensesandroid.auth.AuthStateManager
 import kotlinx.coroutines.launch
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse

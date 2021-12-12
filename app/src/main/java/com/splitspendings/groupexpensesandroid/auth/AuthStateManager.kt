@@ -1,4 +1,4 @@
-package com.splitspendings.groupexpensesandroid.common.auth
+package com.splitspendings.groupexpensesandroid.auth
 
 import android.content.SharedPreferences
 import net.openid.appauth.AuthState

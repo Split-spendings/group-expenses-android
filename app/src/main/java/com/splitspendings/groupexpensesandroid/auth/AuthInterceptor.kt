@@ -1,4 +1,4 @@
-package com.splitspendings.groupexpensesandroid.common.auth
+package com.splitspendings.groupexpensesandroid.auth
 
 import com.splitspendings.groupexpensesandroid.NavigationHandler
 import kotlinx.coroutines.Dispatchers
