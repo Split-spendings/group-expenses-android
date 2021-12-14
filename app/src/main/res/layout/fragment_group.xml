@@ -51,12 +51,12 @@
 
         <TextView
             android:id="@+id/group_name"
-            style="?attr/textAppearanceHeadline5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_fragment_frame"
             android:text="PLACEHOLDER"
+            android:textAppearance="?attr/textAppearanceHeadline5"
             app:layout_constraintBottom_toBottomOf="@+id/group_avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/group_avatar"
