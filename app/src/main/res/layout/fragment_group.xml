@@ -51,6 +51,7 @@
 
         <TextView
             android:id="@+id/group_name"
+            style="?attr/textAppearanceHeadline5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
@@ -67,8 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{@string/group_name_format(groupViewModel.group.name)}"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:textAppearance="@style/TextAppearance.Subtitle"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
