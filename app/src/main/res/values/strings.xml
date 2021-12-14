@@ -10,7 +10,7 @@
     <string name="logout_fragment_label">Logout</string>
     <string name="share_label">Share</string>
     <string name="about_label">About</string>
-    <string name="about_text">\"Application for splitting group expenses\" thesis project at Polish-Japanese Academy of Information Technology developed by Oleksandr Bieliakov and Volodymyr Dovhyi.</string>
+    <string name="about_text" translatable="false">\"Application for splitting group expenses\" thesis project at Polish-Japanese Academy of Information Technology developed by Oleksandr Bieliakov and Volodymyr Dovhyi.</string>
     <string name="group_name">Group name</string>
     <string name="invalid_group_name_error">Invalid group name</string>
     <string name="current_membership_groups_list_header">Current membership groups</string>

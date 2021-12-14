@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Group expenses app</string>
+    <string name="reset_button">Сброс</string>
+    <string name="submit_button">Подтвердить</string>
+    <string name="add_new_group_button">Новая группа</string>
+    <string name="groups_list_fragment_label">Группы</string>
+    <string name="group_fragment_label">Группа</string>
+    <string name="new_group_fragment_label">Новая группа</string>
+    <string name="login_fragment_label">Логин</string>
+    <string name="logout_fragment_label">Логаут</string>
+    <string name="share_label">Поделиться</string>
+    <string name="about_label">О приложении</string>
+    <string name="group_name">Название группы</string>
+    <string name="invalid_group_name_error">Неверное название группы</string>
+    <string name="current_membership_groups_list_header">Текущие группы</string>
+    <string name="failed_groups_upload">Не удалось загрузить группы с сервера</string>
+    <string name="successful_groups_upload">Группы успешно загружены с сервера</string>
+    <string name="filtering_menu_group">Фильтр:</string>
+    <string name="filtering_all_menu_item">Все</string>
+    <string name="filtering_personal_menu_item">Личные</string>
+    <string name="filtering_not_personal_menu_item">Не личные</string>
+    <string name="general_menu_group">Общее:</string>
+    <string name="login_button">Логин</string>
+    <string name="logout_button">Логаут</string>
+
+    <!-- tmp -->
+    <string name="group_name_format">Название группы: : \"%s\"</string>
+    <string name="group_format"><![CDATA[<b>Группа:</b> id=%d, название=%s]]></string>
+    <string name="clear_button">Сброс</string>
+</resources>
