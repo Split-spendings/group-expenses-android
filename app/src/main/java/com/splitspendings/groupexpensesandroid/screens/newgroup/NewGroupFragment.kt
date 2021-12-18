@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
@@ -36,8 +37,27 @@ class NewGroupFragment : Fragment() {
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
         viewModel.eventInvalidGroupName.observe(viewLifecycleOwner, ::onInvalidGroupName)
         viewModel.eventUpdateGroupName.observe(viewLifecycleOwner, ::onUpdateGroupName)
+        viewModel.usersToInvite.observe(viewLifecycleOwner, ::onUsersToInviteChange)
 
         return binding.root
+    }
+
+    private fun onUsersToInviteChange(usersToInvite: List<String>?) {
+        usersToInvite ?: return
+
+        val chipGroup = binding.usersToInviteList
+        val layoutInflater = LayoutInflater.from(chipGroup.context)
+        val children = usersToInvite.map { user ->
+            val chip = layoutInflater.inflate(R.layout.chip_user_to_invite, chipGroup, false) as Chip
+            chip.text = user
+            chip.tag = user
+            chip.setOnCheckedChangeListener { button, isChecked ->
+                viewModel.onUserToInviteSelected(button.tag as String, isChecked)
+            }
+            chip
+        }
+        chipGroup.removeAllViews()
+        children.forEach(chipGroup::addView)
     }
 
     private fun onReset(reset: Boolean) {

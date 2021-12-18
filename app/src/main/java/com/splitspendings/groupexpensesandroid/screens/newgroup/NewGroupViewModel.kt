@@ -11,6 +11,7 @@ import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.database.dao.GroupDao
 import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class NewGroupViewModelFactory(
     private val groupDao: GroupDao,
@@ -47,6 +48,10 @@ class NewGroupViewModel(
     val eventUpdateGroupName: LiveData<Boolean>
         get() = _eventUpdateGroupName
 
+    private val _usersToInvite = MutableLiveData<List<String>>()
+    val usersToInvite: LiveData<List<String>>
+        get() = _usersToInvite
+
     var groupName: String = EMPTY_STRING
 
     init {
@@ -54,6 +59,7 @@ class NewGroupViewModel(
         _eventNavigateToGroup.value = null
         _eventInvalidGroupName.value = false
         _eventUpdateGroupName.value = false
+        _usersToInvite.value = listOf("Friend_1", "Friend_2", "Friend_3")
     }
 
     fun onReset() {
@@ -90,6 +96,10 @@ class NewGroupViewModel(
         viewModelScope.launch {
             _eventNavigateToGroup.value = groupDao.insert(GroupEntity(name = groupName, personal = true))
         }
+    }
+
+    fun onUserToInviteSelected(user: String, isChecked: Boolean) {
+        Timber.i("user: $user - invite to group: $isChecked")
     }
 }
 
