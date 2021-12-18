@@ -21,9 +21,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/failed_status"
+                style="@style/ErrorContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/red"
                 app:apiFailedStatus="@{groupsListViewModel.apiStatus}"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -40,10 +40,10 @@
 
                 <TextView
                     android:id="@+id/failed_status_text"
+                    style="@style/ErrorText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/failed_groups_upload"
-                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
