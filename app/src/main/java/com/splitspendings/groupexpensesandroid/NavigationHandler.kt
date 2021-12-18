@@ -2,6 +2,7 @@ package com.splitspendings.groupexpensesandroid
 
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import timber.log.Timber
 
 class NavigationHandler(private val navController: NavController) {
 
@@ -25,6 +26,7 @@ class NavigationHandler(private val navController: NavController) {
     }
 
     fun navigateToLoggedOut() {
+        Timber.d("navigate to logged out")
         val navOptions: NavOptions = NavOptions.Builder().setPopUpTo(R.id.groupsListFragment, true).build()
         navController.navigate(R.id.loginFragment, null, navOptions)
     }

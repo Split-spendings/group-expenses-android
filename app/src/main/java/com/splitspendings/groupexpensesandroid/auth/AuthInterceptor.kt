@@ -41,6 +41,7 @@ class AuthInterceptor : Interceptor {
         }
 
         if (response.code() == UNAUTHORIZED) {
+            Timber.d("navigate to logged out")
             authStateManager.clearTokens()
             navigateToLoggedOut()
         }
