@@ -3,6 +3,7 @@ package com.splitspendings.groupexpensesandroid
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         val model: MainActivityViewModel by viewModels()
         viewModel = model
         binding.mainActivityViewModel = viewModel
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
     override fun onSupportNavigateUp(): Boolean {
