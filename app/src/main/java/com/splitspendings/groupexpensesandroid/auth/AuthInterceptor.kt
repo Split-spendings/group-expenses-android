@@ -22,7 +22,7 @@ class AuthInterceptor : Interceptor {
         val requestBuilder = chain.request().newBuilder()
 
         authStateManager.tokenResponse?.accessToken?.let {
-            Timber.i("adding accessToken to Authorization header")
+            Timber.d("adding accessToken to Authorization header")
             requestBuilder.addHeader(AUTHORIZATION_HEADER, "Bearer $it")
         }
 
@@ -33,7 +33,7 @@ class AuthInterceptor : Interceptor {
             refreshAccessToken()
 
             authStateManager.tokenResponse?.accessToken?.let {
-                Timber.i("adding accessToken to Authorization header after refresh")
+                Timber.d("adding accessToken to Authorization header after refresh")
                 requestBuilder.removeHeader(AUTHORIZATION_HEADER)
                 requestBuilder.addHeader(AUTHORIZATION_HEADER, "Bearer $it")
                 response = sendRequest(requestBuilder.build(), chain)
@@ -55,10 +55,10 @@ class AuthInterceptor : Interceptor {
     }
 
     private fun sendRequest(request: Request, chain: Interceptor.Chain): Response {
-        Timber.i("request: $request")
-        Timber.i("headers: ${request.headers()}")
+        Timber.d("request: $request")
+        Timber.d("headers: ${request.headers()}")
         val response = chain.proceed(request)
-        Timber.i("response: $response")
+        Timber.d("response: $response")
         return response
     }
 
@@ -98,7 +98,7 @@ class AuthInterceptor : Interceptor {
         authStateManager.tokenResponse?.accessTokenExpirationTime?.let {
             val time = Date(it)
             val currentTime = Date()
-            Timber.i(
+            Timber.d(
                 "$message: accessTokenExpirationTime: $time " +
                         if (currentTime.before(time)) "OK" else "Expired"
             )

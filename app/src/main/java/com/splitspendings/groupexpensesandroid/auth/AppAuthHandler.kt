@@ -62,7 +62,7 @@ class AppAuthHandler(private val config: AuthConfig, context: Context) {
 
                 when {
                     metadata != null -> {
-                        Timber.i("Metadata retrieved successfully")
+                        Timber.d("Metadata retrieved successfully")
                         Timber.d(metadata.toJsonString())
                         continuation.resume(metadata)
                     }
@@ -110,7 +110,7 @@ class AppAuthHandler(private val config: AuthConfig, context: Context) {
             throw createAuthorizationError("Authorization Request Error", ex)
         }
 
-        Timber.i("Authorization response received successfully")
+        Timber.d("Authorization response received successfully")
         Timber.d("CODE: " + response.authorizationCode + ", STATE: " + response.state)
         return response
     }
@@ -129,7 +129,7 @@ class AppAuthHandler(private val config: AuthConfig, context: Context) {
 
                 when {
                     tokenResponse != null -> {
-                        Timber.i("Authorization code grant response received successfully")
+                        Timber.d("Authorization code grant response received successfully")
                         Timber.d("AT: " + tokenResponse.accessToken + ", RT: " + tokenResponse.refreshToken + ", IDT: " + tokenResponse.idToken)
                         continuation.resume(tokenResponse)
                     }
@@ -163,7 +163,7 @@ class AppAuthHandler(private val config: AuthConfig, context: Context) {
 
                 when {
                     tokenResponse != null -> {
-                        Timber.i("Refresh token grant response received successfully")
+                        Timber.d("Refresh token grant response received successfully")
                         Timber.d("AT: " + tokenResponse.accessToken + ", RT: " + tokenResponse.refreshToken + ", IDT: " + tokenResponse.idToken)
                         continuation.resume(tokenResponse)
                     }
@@ -173,7 +173,7 @@ class AppAuthHandler(private val config: AuthConfig, context: Context) {
                             ex.type == AuthorizationException.TYPE_OAUTH_TOKEN_ERROR &&
                             ex.code == AuthorizationException.TokenRequestErrors.INVALID_GRANT.code
                         ) {
-                            Timber.i("Refresh token expired and the user must re-authenticate")
+                            Timber.d("Refresh token expired and the user must re-authenticate")
                             continuation.resume(null)
 
                         } else {

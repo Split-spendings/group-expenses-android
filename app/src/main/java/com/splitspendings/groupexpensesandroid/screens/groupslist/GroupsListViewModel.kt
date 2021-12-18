@@ -101,7 +101,7 @@ class GroupsListViewModel(application: Application) : AndroidViewModel(applicati
                 //TODO rename
                 _eventSuccessfulGroupUpload.value = true
             } catch (e: Exception) {
-                Timber.i("Failure: ${e.message}")
+                Timber.d("Failure: ${e.message}")
                 _apiStatus.value = ApiStatus.ERROR
             }
         }

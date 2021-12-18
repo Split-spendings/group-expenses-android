@@ -99,7 +99,7 @@ class NewGroupViewModel(
     }
 
     fun onUserToInviteSelected(user: String, isChecked: Boolean) {
-        Timber.i("user: $user - invite to group: $isChecked")
+        Timber.d("user: $user - invite to group: $isChecked")
     }
 }
 
