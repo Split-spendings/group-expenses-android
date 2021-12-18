@@ -1,6 +1,5 @@
 package com.splitspendings.groupexpensesandroid.screens.groupslist
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -94,11 +93,6 @@ class GroupsListFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.options_menu, menu)
-
-        // example of using an implicit intent
-        // e.g. can be used to open a camera app for taking a receipt photo or to send group
-        // invite code/link via email/some messenger
-        setShareVisibility(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -107,30 +101,7 @@ class GroupsListFragment : Fragment() {
             R.id.filterPersonal -> viewModel.updateFilter(GroupsFilter.PERSONAL)
             R.id.filterNotPersonal -> viewModel.updateFilter(GroupsFilter.NOT_PERSONAL)
             R.id.aboutFragment -> NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-            // example of using an implicit intent
-            R.id.shareAction -> share()
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    // example of using an implicit intent
-    private fun getShareIntent(): Intent {
-        val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.setType("text/plain")
-            .putExtra(Intent.EXTRA_TEXT, "Share text placeholder")
-        return shareIntent
-        // TODO check ShareCompat.IntentBuilder from trivia solution
-    }
-
-    // example of using an implicit intent
-    private fun share() {
-        startActivity(getShareIntent())
-    }
-
-    // example of using an implicit intent
-    private fun setShareVisibility(menu: Menu) {
-        if (getShareIntent().resolveActivity(requireActivity().packageManager) == null) {
-            menu.findItem(R.id.shareAction).isVisible = false
-        }
     }
 }
