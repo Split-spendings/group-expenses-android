@@ -42,9 +42,6 @@ class GroupsListFragment : Fragment() {
         })
         binding.groupsList.adapter = adapter
 
-        // no longer need since recycler view uses data binding to track groups list updates
-        //viewModel.groups.observe(viewLifecycleOwner, ::onGroupsListUpdate)
-
         viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
         viewModel.eventSuccessfulGroupUpload.observe(viewLifecycleOwner, ::onSuccessfulGroupUpload)
@@ -55,13 +52,6 @@ class GroupsListFragment : Fragment() {
 
         return binding.root
     }
-
-    // no longer need since recycler view uses data binding to track groups list updates
-    /*private fun onGroupsListUpdate(groups: List<GroupEntity>?) {
-        groups?.let {
-            adapter.addHeaderAndSubmitList(it)
-        }
-    }*/
 
     private fun onNavigateToNewGroup(navigateToNewGroup: Boolean) {
         if (navigateToNewGroup) {
