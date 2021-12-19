@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -43,30 +42,21 @@ class GroupsListViewModel(application: Application) : AndroidViewModel(applicati
     val eventNavigateToGroup: LiveData<Long>
         get() = _eventNavigateToGroup
 
-    private val _eventSuccessfulGroupUpload = MutableLiveData<Boolean>()
+    private val _eventSuccessfulGroupsUpload = MutableLiveData<Boolean>()
     val eventSuccessfulGroupUpload: LiveData<Boolean>
-        get() = _eventSuccessfulGroupUpload
+        get() = _eventSuccessfulGroupsUpload
 
-    val clearButtonEnabled = Transformations.map(groups) {
-        it?.isNotEmpty()
-    }
+    private var _filter: GroupsFilter = GroupsFilter.ALL
 
     init {
         _eventNavigateToNewGroup.value = false
         _eventNavigateToGroup.value = null
-        _eventSuccessfulGroupUpload.value = false
-        getGroupsFromServer(GroupsFilter.ALL)
+        _eventSuccessfulGroupsUpload.value = false
+        uploadGroups()
     }
 
     fun onNewGroup() {
         _eventNavigateToNewGroup.value = true
-    }
-
-    // TODO to be removed
-    fun onClear() {
-        viewModelScope.launch {
-            //groupDao.clear()
-        }
     }
 
     fun onEventNavigateToNewGroupComplete() {
@@ -82,23 +72,22 @@ class GroupsListViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun onEventSuccessfulGroupUploadComplete() {
-        _eventSuccessfulGroupUpload.value = false
+        _eventSuccessfulGroupsUpload.value = false
     }
 
-    //TODO rename and clean
-    private fun getGroupsFromServer(filter: GroupsFilter) {
+    private fun uploadGroups() {
         viewModelScope.launch {
             _apiStatus.value = ApiStatus.LOADING
             try {
-                //delay(2000)
+                /*example of delay
+                delay(2000)*/
 
                 //TODO: add endpoint that accepts filtering
                 groupsRepository.refreshGroups()
 
                 _apiStatus.value = ApiStatus.DONE
 
-                //TODO rename
-                _eventSuccessfulGroupUpload.value = true
+                _eventSuccessfulGroupsUpload.value = true
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
                 _apiStatus.value = ApiStatus.ERROR
@@ -107,7 +96,8 @@ class GroupsListViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun updateFilter(filter: GroupsFilter) {
-        getGroupsFromServer(filter)
+        _filter = filter
+        uploadGroups()
     }
 }
 
