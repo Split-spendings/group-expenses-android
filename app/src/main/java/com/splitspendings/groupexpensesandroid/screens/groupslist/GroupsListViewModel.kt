@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
-import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -28,7 +27,7 @@ class GroupsListViewModelFactory(private val application: Application) : ViewMod
 
 class GroupsListViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val groupsRepository = GroupRepository(GroupExpensesDatabase.getInstance(application))
+    private val groupsRepository = GroupRepository.getInstance()
 
     val groups = groupsRepository.groups
 

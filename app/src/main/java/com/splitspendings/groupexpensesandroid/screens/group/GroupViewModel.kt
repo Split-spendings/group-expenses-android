@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 
 class GroupViewModelFactory(
@@ -26,7 +25,7 @@ class GroupViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
-    private val groupsRepository = GroupRepository(GroupExpensesDatabase.getInstance(application))
+    private val groupsRepository = GroupRepository.getInstance()
 
     val group = groupsRepository.getGroup(groupId)
 }

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.database.dao.GroupDao
 import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
+import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -31,6 +32,8 @@ class NewGroupViewModel(
     private val groupDao: GroupDao,
     application: Application
 ) : AndroidViewModel(application) {
+
+    private val groupsRepository = GroupRepository.getInstance()
 
     private val _eventReset = MutableLiveData<Boolean>()
     val eventReset: LiveData<Boolean>

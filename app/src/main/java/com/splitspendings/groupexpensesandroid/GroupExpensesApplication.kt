@@ -3,8 +3,8 @@ package com.splitspendings.groupexpensesandroid
 import android.app.Application
 import com.splitspendings.groupexpensesandroid.auth.AppAuthHandler
 import com.splitspendings.groupexpensesandroid.auth.AuthStateManager
+import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import timber.log.Timber
-
 
 class GroupExpensesApplication : Application() {
 
@@ -17,5 +17,7 @@ class GroupExpensesApplication : Application() {
 
         val authPrefs = getSharedPreferences("auth", MODE_PRIVATE)
         AuthStateManager.init(authPrefs)
+
+        GroupRepository.init(applicationContext)
     }
 }

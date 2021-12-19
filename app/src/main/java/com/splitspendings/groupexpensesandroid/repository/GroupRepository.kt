@@ -1,5 +1,6 @@
 package com.splitspendings.groupexpensesandroid.repository
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
@@ -12,6 +13,25 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class GroupRepository(private val database: GroupExpensesDatabase) {
+
+    companion object {
+        @Volatile
+        private var INSTANCE: GroupRepository? = null
+
+        fun getInstance(): GroupRepository {
+            synchronized(this) {
+                return INSTANCE!!
+            }
+        }
+
+        fun init(context: Context) {
+            synchronized(this) {
+                if (INSTANCE == null) {
+                    INSTANCE = GroupRepository(GroupExpensesDatabase.getInstance(context))
+                }
+            }
+        }
+    }
 
     val groups: LiveData<List<Group>> = Transformations.map(database.groupDao.getAllLive()) {
         it.asModel()
@@ -28,5 +48,9 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
 
     fun getGroup(id: Long): LiveData<Group> = Transformations.map(database.groupDao.getLive(id)) {
         it.asModel()
+    }
+
+    fun saveGroup(group: Group) {
+
     }
 }
