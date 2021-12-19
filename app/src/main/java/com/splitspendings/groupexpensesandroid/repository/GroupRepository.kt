@@ -25,4 +25,8 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
             database.groupDao.insertAll(groups.asEntity())
         }
     }
+
+    fun getGroup(id: Long): LiveData<Group> = Transformations.map(database.groupDao.getLive(id)) {
+        it.asModel()
+    }
 }
