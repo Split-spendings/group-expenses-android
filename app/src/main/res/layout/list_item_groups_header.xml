@@ -7,13 +7,12 @@
 
     <TextView
         android:id="@+id/header_title"
+        style="@style/GroupsListHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/teal_700"
-        android:paddingVertical="8dp"
+        android:paddingVertical="@dimen/spacing_half"
         android:text="@string/current_membership_groups_list_header"
         android:textAlignment="center"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

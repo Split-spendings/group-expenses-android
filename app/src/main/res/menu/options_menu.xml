@@ -22,7 +22,4 @@
     <item
         android:id="@+id/aboutFragment"
         android:title="@string/about_label" />
-    <item
-        android:id="@+id/shareAction"
-        android:title="@string/share_label" />
 </menu>

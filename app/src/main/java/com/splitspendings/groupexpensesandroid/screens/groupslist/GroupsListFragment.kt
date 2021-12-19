@@ -1,8 +1,13 @@
 package com.splitspendings.groupexpensesandroid.screens.groupslist
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,8 +18,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
-import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
-import com.splitspendings.groupexpensesandroid.repository.model.Group
 
 class GroupsListFragment : Fragment() {
 
@@ -27,9 +30,8 @@ class GroupsListFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_groups_list, container, false)
 
         val application = requireNotNull(activity).application
-        val groupDao = GroupExpensesDatabase.getInstance(application).groupDao
 
-        viewModelFactory = GroupsListViewModelFactory(groupDao, application)
+        viewModelFactory = GroupsListViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(GroupsListViewModel::class.java)
 
         binding.groupsListViewModel = viewModel
@@ -40,35 +42,29 @@ class GroupsListFragment : Fragment() {
         })
         binding.groupsList.adapter = adapter
 
-        // no longer need since recycler view uses data binding to track groups list updates
-        //viewModel.groups.observe(viewLifecycleOwner, ::onGroupsListUpdate)
         viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
         viewModel.eventSuccessfulGroupUpload.observe(viewLifecycleOwner, ::onSuccessfulGroupUpload)
 
         setHasOptionsMenu(true)
 
-        return binding.root
-    }
+        (activity as AppCompatActivity).supportActionBar?.show()
 
-    private fun onGroupsListUpdate(groups: List<Group>?) {
-        groups?.let {
-            adapter.addHeaderAndSubmitList(it)
-        }
+        return binding.root
     }
 
     private fun onNavigateToNewGroup(navigateToNewGroup: Boolean) {
         if (navigateToNewGroup) {
-            val action = GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment()
-            findNavController().navigate(action)
+            findNavController()
+                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment())
             viewModel.onEventNavigateToNewGroupComplete()
         }
     }
 
     private fun onNavigateToGroup(groupId: Long?) {
         groupId?.let {
-            val action = GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupId)
-            findNavController().navigate(action)
+            findNavController()
+                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupId))
             viewModel.onEventNavigateToGroupComplete()
         }
     }
@@ -87,11 +83,6 @@ class GroupsListFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.options_menu, menu)
-
-        // example of using an implicit intent
-        // e.g. can be used to open a camera app for taking a receipt photo or to send group
-        // invite code/link via email/some messenger
-        setShareVisibility(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -100,30 +91,7 @@ class GroupsListFragment : Fragment() {
             R.id.filterPersonal -> viewModel.updateFilter(GroupsFilter.PERSONAL)
             R.id.filterNotPersonal -> viewModel.updateFilter(GroupsFilter.NOT_PERSONAL)
             R.id.aboutFragment -> NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-            // example of using an implicit intent
-            R.id.shareAction -> share()
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    // example of using an implicit intent
-    private fun getShareIntent(): Intent {
-        val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.setType("text/plain")
-            .putExtra(Intent.EXTRA_TEXT, "Share text placeholder")
-        return shareIntent
-        // TODO check ShareCompat.IntentBuilder from trivia solution
-    }
-
-    // example of using an implicit intent
-    private fun share() {
-        startActivity(getShareIntent())
-    }
-
-    // example of using an implicit intent
-    private fun setShareVisibility(menu: Menu) {
-        if (getShareIntent().resolveActivity(requireActivity().packageManager) == null) {
-            menu.findItem(R.id.shareAction).isVisible = false
-        }
     }
 }

@@ -1,10 +1,10 @@
-package com.splitspendings.groupexpensesandroid.repository.dao
+package com.splitspendings.groupexpensesandroid.database.dao
 
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.splitspendings.groupexpensesandroid.repository.database.GroupExpensesDatabase
-import com.splitspendings.groupexpensesandroid.repository.model.Group
+import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
+import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -19,8 +19,8 @@ class GroupDaoTest {
     private lateinit var db: GroupExpensesDatabase
 
     companion object {
-        private val group1: Group = Group(id = -1, name = "group_1")
-        private val group2: Group = Group(id = -2, name = "group_2")
+        private val group1: GroupEntity = GroupEntity(id = -1, name = "group_1", false)
+        private val group2: GroupEntity = GroupEntity(id = -2, name = "group_2", true)
     }
 
     @Before

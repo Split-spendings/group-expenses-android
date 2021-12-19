@@ -1,11 +1,17 @@
 package com.splitspendings.groupexpensesandroid.screens.newgroup
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
-import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
-import com.splitspendings.groupexpensesandroid.repository.model.Group
+import com.splitspendings.groupexpensesandroid.database.dao.GroupDao
+import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class NewGroupViewModelFactory(
     private val groupDao: GroupDao,
@@ -42,6 +48,10 @@ class NewGroupViewModel(
     val eventUpdateGroupName: LiveData<Boolean>
         get() = _eventUpdateGroupName
 
+    private val _usersToInvite = MutableLiveData<List<String>>()
+    val usersToInvite: LiveData<List<String>>
+        get() = _usersToInvite
+
     var groupName: String = EMPTY_STRING
 
     init {
@@ -49,6 +59,7 @@ class NewGroupViewModel(
         _eventNavigateToGroup.value = null
         _eventInvalidGroupName.value = false
         _eventUpdateGroupName.value = false
+        _usersToInvite.value = listOf("Friend_1", "Friend_2", "Friend_3")
     }
 
     fun onReset() {
@@ -83,8 +94,12 @@ class NewGroupViewModel(
 
     private fun saveGroupAndNavigateToGroup() {
         viewModelScope.launch {
-            _eventNavigateToGroup.value = groupDao.insert(Group(name = groupName, personal = true))
+            _eventNavigateToGroup.value = groupDao.insert(GroupEntity(name = groupName, personal = true))
         }
+    }
+
+    fun onUserToInviteSelected(user: String, isChecked: Boolean) {
+        Timber.d("user: $user - invite to group: $isChecked")
     }
 }
 

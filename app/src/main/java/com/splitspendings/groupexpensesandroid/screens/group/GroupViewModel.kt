@@ -4,11 +4,11 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.splitspendings.groupexpensesandroid.repository.dao.GroupDao
+import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
+import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 
 class GroupViewModelFactory(
     private val groupId: Long,
-    private val groupDao: GroupDao,
     private val application: Application
 ) : ViewModelProvider.Factory {
 
@@ -16,16 +16,17 @@ class GroupViewModelFactory(
         if (!modelClass.isAssignableFrom(GroupViewModel::class.java)) {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
-        return GroupViewModel(groupId, groupDao, application) as T
+        return GroupViewModel(groupId, application) as T
     }
 }
 
 
 class GroupViewModel(
-    var groupId: Long,
-    private val groupDao: GroupDao,
+    groupId: Long,
     application: Application
 ) : AndroidViewModel(application) {
 
-    val group = groupDao.getLive(groupId)
+    private val groupsRepository = GroupRepository(GroupExpensesDatabase.getInstance(application))
+
+    val group = groupsRepository.getGroup(groupId)
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="group"
-            type="com.splitspendings.groupexpensesandroid.repository.model.Group" />
+            type="com.splitspendings.groupexpensesandroid.model.Group" />
 
         <variable
             name="clickListener"
@@ -25,9 +25,8 @@
             android:id="@+id/group_avatar"
             android:layout_width="@dimen/size_avatar"
             android:layout_height="@dimen/size_avatar"
-            android:layout_marginStart="@dimen/margin_fragment_frame"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginVertical="@dimen/spacing_half"
+            android:layout_marginStart="@dimen/spacing_normal"
             app:groupAvatarPlaceholder="@{group}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +37,7 @@
             android:id="@+id/group_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_small"
+            android:layout_marginHorizontal="@dimen/spacing_half"
             app:groupNameFormattedPlaceholder="@{group}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/group_personal_icon"
@@ -50,9 +49,8 @@
             android:id="@+id/group_personal_icon"
             android:layout_width="@dimen/size_avatar_small"
             android:layout_height="@dimen/size_avatar_small"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginEnd="@dimen/margin_fragment_frame"
-            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginVertical="@dimen/spacing_half"
+            android:layout_marginEnd="@dimen/spacing_normal"
             android:src="@drawable/ic_placeholder_personal_group"
             android:visibility="@{group.personal ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -61,9 +59,8 @@
             tools:src="@drawable/ic_placeholder_personal_group" />
 
         <View
+            style="@style/Divider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grey"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

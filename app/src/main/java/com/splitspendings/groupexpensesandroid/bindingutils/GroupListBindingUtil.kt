@@ -1,8 +1,8 @@
-package com.splitspendings.groupexpensesandroid.common.bindingutils
+package com.splitspendings.groupexpensesandroid.bindingutils
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.splitspendings.groupexpensesandroid.repository.model.Group
+import com.splitspendings.groupexpensesandroid.model.Group
 import com.splitspendings.groupexpensesandroid.screens.groupslist.GroupsListAdapter
 
 @BindingAdapter("groupsList")

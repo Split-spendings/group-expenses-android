@@ -1,0 +1,7 @@
+{
+  "issuer": "https://identity.thesis.net/auth/realms/thesis",
+  "clientID": "se-android",
+  "redirectUri": "com.splitspendings.groupexpensesandroid:/redirect",
+  "postLogoutRedirectUri": "com.splitspendings.groupexpensesandroid:/logoutredirect",
+  "scope": "openid profile"
+}

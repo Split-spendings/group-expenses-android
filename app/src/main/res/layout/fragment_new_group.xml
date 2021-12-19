@@ -15,12 +15,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <HorizontalScrollView
+            android:id="@+id/chips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/users_to_invite_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal"
+                app:singleSelection="false" />
+
+        </HorizontalScrollView>
+
         <EditText
             android:id="@+id/edit_group_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_fragment_frame"
-            android:layout_marginEnd="@dimen/margin_fragment_frame"
+            android:layout_marginHorizontal="@dimen/spacing_normal"
             android:hint="@string/group_name"
             android:importantForAutofill="no"
             android:inputType="text"
