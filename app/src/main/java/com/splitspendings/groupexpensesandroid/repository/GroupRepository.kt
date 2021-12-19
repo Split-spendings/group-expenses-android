@@ -51,8 +51,8 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         }
     }
 
-    suspend fun saveGroup(name: String, personal: Boolean): Long {
+    suspend fun saveGroup(name: String): Long {
         //TODO save to server
-        return database.groupDao.insert(GroupEntity(name = name, personal = personal))
+        return database.groupDao.insert(GroupEntity(name = name, current = true))
     }
 }

@@ -14,10 +14,10 @@ data class GroupEntity(
     @ColumnInfo(name = "group_name")
     var name: String,
 
-    @ColumnInfo(name = "personal")
-    var personal: Boolean
+    @ColumnInfo(name = "current")
+    var current: Boolean
 )
 
-fun GroupEntity.asModel(): Group = Group(id = id, name = name, personal = personal)
+fun GroupEntity.asModel(): Group = Group(id = id, name = name, current = current)
 
 fun List<GroupEntity>.asModel(): List<Group> = map { it.asModel() }

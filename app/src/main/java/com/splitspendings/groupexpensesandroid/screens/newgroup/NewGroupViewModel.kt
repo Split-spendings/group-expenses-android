@@ -83,7 +83,7 @@ class NewGroupViewModel(application: Application) : AndroidViewModel(application
 
     private fun saveGroupAndNavigateToGroup() {
         viewModelScope.launch {
-            _eventNavigateToGroup.value = groupsRepository.saveGroup(name = groupName.value!!, personal = true)
+            _eventNavigateToGroup.value = groupsRepository.saveGroup(name = groupName.value!!)
         }
     }
 

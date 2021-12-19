@@ -11,6 +11,7 @@ data class GroupDto(
     val personal: Boolean
 )
 
-fun GroupDto.asEntity(): GroupEntity = GroupEntity(name = name, personal = personal)
+//TODO set current with from dto
+fun GroupDto.asEntity(): GroupEntity = GroupEntity(name = name, current = true)
 
 fun List<GroupDto>.asEntity(): List<GroupEntity> = map { it.asEntity() }
