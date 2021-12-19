@@ -13,7 +13,7 @@
     <string name="about_text" translatable="false">\"Application for splitting group expenses\" thesis project at Polish-Japanese Academy of Information Technology developed by Oleksandr Bieliakov and Volodymyr Dovhyi.</string>
     <string name="group_name">Group name</string>
     <string name="invalid_group_name_error">Invalid group name</string>
-    <string name="current_membership_groups_list_header">Current membership groups</string>
+    <string name="current_membership_groups_list_header">Current membership</string>
     <string name="failed_groups_upload">Could not upload groups from server</string>
     <string name="successful_groups_upload">Successfully uploaded groups from server</string>
     <string name="filtering_menu_group">Filtering:</string>
@@ -27,5 +27,4 @@
     <!-- tmp -->
     <string name="group_name_format">Group name: \"%s\"</string>
     <string name="group_format"><![CDATA[<b>Group:</b> id=%d, name=%s]]></string>
-    <string name="clear_button">Clear cache</string>
 </resources>

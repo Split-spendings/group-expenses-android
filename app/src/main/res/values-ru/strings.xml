@@ -27,5 +27,4 @@
     <!-- tmp -->
     <string name="group_name_format">Название группы: : \"%s\"</string>
     <string name="group_format"><![CDATA[<b>Группа:</b> id=%d, название=%s]]></string>
-    <string name="clear_button">Сброс</string>
 </resources>
