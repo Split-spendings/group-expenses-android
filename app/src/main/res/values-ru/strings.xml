@@ -17,9 +17,9 @@
     <string name="failed_groups_upload">Не удалось загрузить группы с сервера</string>
     <string name="successful_groups_upload">Группы успешно загружены с сервера</string>
     <string name="filtering_menu_group">Фильтр:</string>
-    <string name="filtering_all_menu_item">Все</string>
-    <string name="filtering_personal_menu_item">Личные</string>
-    <string name="filtering_not_personal_menu_item">Не личные</string>
+    <string name="filtering_group_all_menu_item">Все</string>
+    <string name="filtering_group_current_menu_item">Текущие</string>
+    <string name="filtering_group_former_menu_item">Прошлые</string>
     <string name="general_menu_group">Общее:</string>
     <string name="login_button">Логин</string>
     <string name="logout_button">Логаут</string>

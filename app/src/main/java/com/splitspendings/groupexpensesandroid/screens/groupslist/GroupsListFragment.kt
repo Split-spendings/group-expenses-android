@@ -88,8 +88,8 @@ class GroupsListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.filterAll -> viewModel.updateFilter(GroupsFilter.ALL)
-            R.id.filterPersonal -> viewModel.updateFilter(GroupsFilter.PERSONAL)
-            R.id.filterNotPersonal -> viewModel.updateFilter(GroupsFilter.NOT_PERSONAL)
+            R.id.filterCurrent -> viewModel.updateFilter(GroupsFilter.CURRENT)
+            R.id.filterFormer -> viewModel.updateFilter(GroupsFilter.FORMER)
             R.id.aboutFragment -> NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
         }
         return super.onOptionsItemSelected(item)

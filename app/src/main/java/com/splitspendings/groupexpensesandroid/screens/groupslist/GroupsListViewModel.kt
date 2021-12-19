@@ -92,8 +92,8 @@ class GroupsListViewModel(application: Application) : AndroidViewModel(applicati
             _apiStatus.value = ApiStatus.LOADING
             try {
                 //delay(2000)
-                //val groups = GroupExpensesApi.retrofitService.getGroups(filter.value)
 
+                //TODO: add endpoint that accepts filtering
                 groupsRepository.refreshGroups()
 
                 _apiStatus.value = ApiStatus.DONE

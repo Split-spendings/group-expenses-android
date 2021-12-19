@@ -17,9 +17,9 @@
     <string name="failed_groups_upload">Could not upload groups from server</string>
     <string name="successful_groups_upload">Successfully uploaded groups from server</string>
     <string name="filtering_menu_group">Filtering:</string>
-    <string name="filtering_all_menu_item">All</string>
-    <string name="filtering_personal_menu_item">Personal</string>
-    <string name="filtering_not_personal_menu_item">Not personal</string>
+    <string name="filtering_group_all_menu_item">All</string>
+    <string name="filtering_group_current_menu_item">Current</string>
+    <string name="filtering_group_former_menu_item">Former</string>
     <string name="general_menu_group">General:</string>
     <string name="login_button">Login</string>
     <string name="logout_button">Logout</string>
