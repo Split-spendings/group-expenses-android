@@ -11,9 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
@@ -90,7 +88,7 @@ class GroupsListFragment : Fragment() {
             R.id.filterAll -> viewModel.updateFilter(GroupsFilter.ALL)
             R.id.filterCurrent -> viewModel.updateFilter(GroupsFilter.CURRENT)
             R.id.filterFormer -> viewModel.updateFilter(GroupsFilter.FORMER)
-            R.id.aboutFragment -> NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+            //R.id.aboutFragment -> NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
         }
         return super.onOptionsItemSelected(item)
     }
