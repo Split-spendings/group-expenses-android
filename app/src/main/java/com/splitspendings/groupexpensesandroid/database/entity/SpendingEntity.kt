@@ -27,6 +27,12 @@ data class SpendingEntity(
     val groupId: Long
 )
 
-fun SpendingEntity.asModel(): Spending = Spending(id = id, title = title, totalAmount = totalAmount.toBigDecimal(), currency = Currency.valueOf(currency))
+fun SpendingEntity.asModel() =
+    Spending(
+        id = id,
+        title = title,
+        totalAmount = totalAmount.toBigDecimal(),
+        currency = Currency.valueOf(currency)
+    )
 
-fun List<SpendingEntity>.asModel(): List<Spending> = map { it.asModel() }
+fun List<SpendingEntity>.asModel() = map { it.asModel() }

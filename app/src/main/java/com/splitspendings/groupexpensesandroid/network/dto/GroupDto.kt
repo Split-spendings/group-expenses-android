@@ -13,6 +13,11 @@ data class GroupDto(
 )
 
 //TODO set 'current' from dto
-fun GroupDto.asEntity(): GroupEntity = GroupEntity(id = id, name = name, current = true)
+fun GroupDto.asEntity() =
+    GroupEntity(
+        id = id,
+        name = name,
+        current = true
+    )
 
-fun List<GroupDto>.asEntity(): List<GroupEntity> = map { it.asEntity() }
+fun List<GroupDto>.asEntity() = map { it.asEntity() }
