@@ -12,3 +12,12 @@ enum class InviteOption {
     ADMINS_ONLY,
     OWNER_ONLY
 }
+
+enum class Currency {
+    USD,
+    EUR,
+    GBP,
+    PLN,
+    UAH,
+    RUB
+}

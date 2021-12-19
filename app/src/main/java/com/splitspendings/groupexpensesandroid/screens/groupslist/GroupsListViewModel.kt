@@ -52,7 +52,7 @@ class GroupsListViewModel(application: Application) : AndroidViewModel(applicati
         _eventNavigateToNewGroup.value = false
         _eventNavigateToGroup.value = null
         _eventSuccessfulGroupsUpload.value = false
-        uploadGroups()
+        loadGroups()
     }
 
     fun onNewGroup() {
@@ -75,7 +75,7 @@ class GroupsListViewModel(application: Application) : AndroidViewModel(applicati
         _eventSuccessfulGroupsUpload.value = false
     }
 
-    private fun uploadGroups() {
+    private fun loadGroups() {
         viewModelScope.launch {
             _apiStatus.value = ApiStatus.LOADING
             try {
@@ -97,7 +97,7 @@ class GroupsListViewModel(application: Application) : AndroidViewModel(applicati
 
     fun updateFilter(filter: GroupsFilter) {
         _filter = filter
-        uploadGroups()
+        loadGroups()
     }
 }
 

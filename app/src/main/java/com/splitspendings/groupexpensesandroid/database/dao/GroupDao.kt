@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
+import com.splitspendings.groupexpensesandroid.database.relation.GroupSpendingsRelation
 
 @Dao
 interface GroupDao {
@@ -33,4 +35,16 @@ interface GroupDao {
 
     @Query("DELETE FROM user_group")
     suspend fun clear()
+
+
+
+    //TODO check if following works ???
+
+    @Transaction
+    @Query("SELECT * FROM user_group where id = :id")
+    suspend fun getGroupSpendings(id: Long): List<GroupSpendingsRelation>
+
+    @Transaction
+    @Query("SELECT * FROM user_group where id = :id")
+    fun getGroupSpendingsLive(id: Long): LiveData<List<GroupSpendingsRelation>>
 }

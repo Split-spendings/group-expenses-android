@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
+import com.splitspendings.groupexpensesandroid.model.Spending
+import timber.log.Timber
 
 class GroupFragment : Fragment() {
 
@@ -33,6 +35,13 @@ class GroupFragment : Fragment() {
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
 
+        // TODO remove after recycler view data binding implementation
+        viewModel.groupSpendings.observe(viewLifecycleOwner, ::onGroupSpendingsUpdated)
+
         return binding.root
+    }
+
+    private fun onGroupSpendingsUpdated(spendings: List<Spending>) {
+        Timber.d("spendings updated: $spendings")
     }
 }

@@ -14,8 +14,8 @@
     <string name="group_name">Group name</string>
     <string name="invalid_group_name_error">Invalid group name</string>
     <string name="current_membership_groups_list_header">Current membership</string>
-    <string name="failed_groups_upload">Could not upload groups from server</string>
-    <string name="successful_groups_upload">Successfully uploaded groups from server</string>
+    <string name="failed_groups_upload">Could not load groups from server</string>
+    <string name="successful_groups_upload">Successfully loaded groups from server</string>
     <string name="filtering_menu_group">Filtering:</string>
     <string name="filtering_group_all_menu_item">All</string>
     <string name="filtering_group_current_menu_item">Current</string>

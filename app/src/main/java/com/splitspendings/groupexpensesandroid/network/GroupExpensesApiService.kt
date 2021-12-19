@@ -3,6 +3,7 @@ package com.splitspendings.groupexpensesandroid.network
 import com.splitspendings.groupexpensesandroid.auth.AuthInterceptor
 import com.splitspendings.groupexpensesandroid.network.dto.AppUserGroupsDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupDto
+import com.splitspendings.groupexpensesandroid.network.dto.GroupSpendingsDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -12,6 +13,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 private const val BASE_URL = "https://se-back.thesis.net"
@@ -40,6 +42,9 @@ interface GroupExpensesApiService {
 
     @POST("/api/groups")
     suspend fun createGroup(@Body newGroup: NewGroupDto): GroupDto
+
+    @GET("/api/groups/{id}/spendings")
+    suspend fun groupSpendings(@Path("id") groupId: Long): GroupSpendingsDto
 }
 
 object GroupExpensesApi {

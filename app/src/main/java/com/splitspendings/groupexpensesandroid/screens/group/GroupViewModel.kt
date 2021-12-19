@@ -4,7 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class GroupViewModelFactory(
     private val groupId: Long,
@@ -21,11 +24,28 @@ class GroupViewModelFactory(
 
 
 class GroupViewModel(
-    groupId: Long,
+    val groupId: Long,
     application: Application
 ) : AndroidViewModel(application) {
 
     private val groupsRepository = GroupRepository.getInstance()
 
     val group = groupsRepository.getGroup(groupId)
+
+    val groupSpendings = groupsRepository.getGroupSpendings(groupId)
+
+    init {
+        loadGroupSpendings()
+    }
+
+    private fun loadGroupSpendings() {
+        viewModelScope.launch {
+            try {
+                //TODO: add endpoint that accepts filtering (e.g. by currency)
+                groupsRepository.refreshGroupSpendings(groupId)
+            } catch (e: Exception) {
+                Timber.d("Failure: ${e.message}")
+            }
+        }
+    }
 }

@@ -12,7 +12,7 @@ data class GroupDto(
     val simplifyDebts: Boolean
 )
 
-//TODO set current with from dto
+//TODO set 'current' from dto
 fun GroupDto.asEntity(): GroupEntity = GroupEntity(id = id, name = name, current = true)
 
 fun List<GroupDto>.asEntity(): List<GroupEntity> = map { it.asEntity() }
