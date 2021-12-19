@@ -24,8 +24,14 @@
     </style>
 
     <style name="GroupsListHeader">
-        <item name="android:background">@color/teal_700</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:background">?attr/colorSecondary</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+    </style>
+
+    <style name="Chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_background_color_state_list</item>
+        <item name="android:textColor">@color/chip_text_color_state_list</item>
+        <item name="checkedIconTint">?attr/colorOnSecondary</item>
     </style>
 
 </resources>
