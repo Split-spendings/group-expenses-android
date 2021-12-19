@@ -8,8 +8,8 @@ import com.splitspendings.groupexpensesandroid.model.Group
 @Entity(tableName = "user_group")
 data class GroupEntity(
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0L,
+    @PrimaryKey
+    var id: Long,
 
     @ColumnInfo(name = "group_name")
     var name: String,

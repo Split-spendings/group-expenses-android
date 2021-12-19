@@ -8,10 +8,11 @@ data class GroupDto(
     val timeCreated: String,
     val lastTimeOpened: String,
     val lastTimeClosed: String?,
-    val personal: Boolean
+    val personal: Boolean,
+    val simplifyDebts: Boolean
 )
 
 //TODO set current with from dto
-fun GroupDto.asEntity(): GroupEntity = GroupEntity(name = name, current = true)
+fun GroupDto.asEntity(): GroupEntity = GroupEntity(id = id, name = name, current = true)
 
 fun List<GroupDto>.asEntity(): List<GroupEntity> = map { it.asEntity() }

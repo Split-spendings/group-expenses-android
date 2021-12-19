@@ -3,11 +3,12 @@ package com.splitspendings.groupexpensesandroid.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.splitspendings.groupexpensesandroid.common.InviteOption
 import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
-import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import com.splitspendings.groupexpensesandroid.database.entity.asModel
 import com.splitspendings.groupexpensesandroid.model.Group
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
+import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.asEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -52,7 +53,8 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
     }
 
     suspend fun saveGroup(name: String): Long {
-        //TODO save to server
-        return database.groupDao.insert(GroupEntity(name = name, current = true))
+        val newGroup = NewGroupDto(name = name, personal = true, simplifyDebts = true, inviteOption = InviteOption.ALL_ACTIVE_MEMBERS)
+        val groupSavedOnServer = GroupExpensesApi.retrofitService.createGroup(newGroup)
+        return database.groupDao.insert(groupSavedOnServer.asEntity())
     }
 }
