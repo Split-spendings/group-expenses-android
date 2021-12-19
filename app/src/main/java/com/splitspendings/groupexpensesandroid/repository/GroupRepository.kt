@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
+import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import com.splitspendings.groupexpensesandroid.database.entity.asModel
 import com.splitspendings.groupexpensesandroid.model.Group
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
@@ -37,6 +38,10 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         it.asModel()
     }
 
+    fun getGroup(id: Long): LiveData<Group> = Transformations.map(database.groupDao.getLive(id)) {
+        it.asModel()
+    }
+
     suspend fun refreshGroups() {
         withContext(Dispatchers.IO) {
             Timber.d("refresh groups is called")
@@ -46,11 +51,8 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         }
     }
 
-    fun getGroup(id: Long): LiveData<Group> = Transformations.map(database.groupDao.getLive(id)) {
-        it.asModel()
-    }
-
-    fun saveGroup(group: Group) {
-
+    suspend fun saveGroup(name: String, personal: Boolean): Long {
+        //TODO save to server
+        return database.groupDao.insert(GroupEntity(name = name, personal = personal))
     }
 }

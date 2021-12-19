@@ -13,7 +13,6 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
-import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewGroupBinding
 
 class NewGroupFragment : Fragment() {
@@ -26,9 +25,8 @@ class NewGroupFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_group, container, false)
 
         val application = requireNotNull(activity).application
-        val groupDao = GroupExpensesDatabase.getInstance(application).groupDao
 
-        viewModelFactory = NewGroupViewModelFactory(groupDao, application)
+        viewModelFactory = NewGroupViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(NewGroupViewModel::class.java)
 
         binding.newGroupViewModel = viewModel

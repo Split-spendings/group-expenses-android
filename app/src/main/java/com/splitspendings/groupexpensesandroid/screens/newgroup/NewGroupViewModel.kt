@@ -8,28 +8,22 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.splitspendings.groupexpensesandroid.database.dao.GroupDao
-import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class NewGroupViewModelFactory(
-    private val groupDao: GroupDao,
-    private val application: Application
-) : ViewModelProvider.Factory {
+class NewGroupViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (!modelClass.isAssignableFrom(NewGroupViewModel::class.java)) {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
-        return NewGroupViewModel(groupDao, application) as T
+        return NewGroupViewModel(application) as T
     }
 }
 
 
 class NewGroupViewModel(
-    private val groupDao: GroupDao,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -91,7 +85,7 @@ class NewGroupViewModel(
 
     private fun saveGroupAndNavigateToGroup() {
         viewModelScope.launch {
-            _eventNavigateToGroup.value = groupDao.insert(GroupEntity(name = groupName.value!!, personal = true))
+            _eventNavigateToGroup.value = groupsRepository.saveGroup(name = groupName.value!!, personal = true)
         }
     }
 
