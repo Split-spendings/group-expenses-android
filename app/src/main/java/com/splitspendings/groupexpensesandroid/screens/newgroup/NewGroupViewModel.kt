@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.database.dao.GroupDao
 import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import kotlinx.coroutines.launch
@@ -44,21 +44,20 @@ class NewGroupViewModel(
     val eventInvalidGroupName: LiveData<Boolean>
         get() = _eventInvalidGroupName
 
-    private val _eventUpdateGroupName = MutableLiveData<Boolean>()
-    val eventUpdateGroupName: LiveData<Boolean>
-        get() = _eventUpdateGroupName
-
     private val _usersToInvite = MutableLiveData<List<String>>()
     val usersToInvite: LiveData<List<String>>
         get() = _usersToInvite
 
-    var groupName: String = EMPTY_STRING
+    val groupName = MutableLiveData<String>()
+
+    val resetButtonEnabled = Transformations.map(groupName) {
+        it?.isNotEmpty()
+    }
 
     init {
         _eventReset.value = false
         _eventNavigateToGroup.value = null
         _eventInvalidGroupName.value = false
-        _eventUpdateGroupName.value = false
         _usersToInvite.value = listOf("Friend_1", "Friend_2", "Friend_3")
     }
 
@@ -67,9 +66,8 @@ class NewGroupViewModel(
     }
 
     fun onSubmit() {
-        _eventUpdateGroupName.value = true
         when {
-            groupName.isEmpty() -> _eventInvalidGroupName.value = true
+            groupName.value.isNullOrBlank() -> _eventInvalidGroupName.value = true
             else -> {
                 saveGroupAndNavigateToGroup()
             }
@@ -84,17 +82,13 @@ class NewGroupViewModel(
         _eventInvalidGroupName.value = false
     }
 
-    fun onEventUpdateGroupNameComplete() {
-        _eventUpdateGroupName.value = false
-    }
-
     fun onEventNavigateToGroupComplete() {
         _eventNavigateToGroup.value = null
     }
 
     private fun saveGroupAndNavigateToGroup() {
         viewModelScope.launch {
-            _eventNavigateToGroup.value = groupDao.insert(GroupEntity(name = groupName, personal = true))
+            _eventNavigateToGroup.value = groupDao.insert(GroupEntity(name = groupName.value!!, personal = true))
         }
     }
 

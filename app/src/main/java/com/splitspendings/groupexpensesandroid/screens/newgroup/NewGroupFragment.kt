@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -33,10 +34,11 @@ class NewGroupFragment : Fragment() {
         binding.newGroupViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.editGroupName.doAfterTextChanged { viewModel.groupName.value = it.toString() }
+
         viewModel.eventReset.observe(viewLifecycleOwner, ::onReset)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
         viewModel.eventInvalidGroupName.observe(viewLifecycleOwner, ::onInvalidGroupName)
-        viewModel.eventUpdateGroupName.observe(viewLifecycleOwner, ::onUpdateGroupName)
         viewModel.usersToInvite.observe(viewLifecycleOwner, ::onUsersToInviteChange)
 
         return binding.root
@@ -61,7 +63,7 @@ class NewGroupFragment : Fragment() {
     }
 
     private fun onReset(reset: Boolean) {
-        if(reset) {
+        if (reset) {
             binding.editGroupName.setText(EMPTY_STRING)
             viewModel.onEventResetComplete()
         }
@@ -76,7 +78,7 @@ class NewGroupFragment : Fragment() {
     }
 
     private fun onInvalidGroupName(invalidGroupName: Boolean) {
-        if(invalidGroupName) {
+        if (invalidGroupName) {
             //Toast.makeText(context, getString(R.string.invalid_group_name_error), Toast.LENGTH_LONG).show()
             Snackbar.make(
                 requireActivity().findViewById(android.R.id.content),
@@ -84,13 +86,6 @@ class NewGroupFragment : Fragment() {
                 Snackbar.LENGTH_SHORT
             ).show()
             viewModel.onEventInvalidGroupNameComplete()
-        }
-    }
-
-    private fun onUpdateGroupName(updateGroupName: Boolean) {
-        if(updateGroupName) {
-            viewModel.groupName = binding.editGroupName.text.toString()
-            viewModel.onEventUpdateGroupNameComplete()
         }
     }
 }
