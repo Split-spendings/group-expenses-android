@@ -53,7 +53,7 @@ class NewGroupViewModel(application: Application) : AndroidViewModel(application
         _eventReset.value = false
         _eventNavigateToGroup.value = null
         _eventInvalidGroupName.value = false
-        _usersToInvite.value = listOf("Friend_1", "Friend_2", "Friend_3")
+        _usersToInvite.value = listOf("Harry", "Ron", "Hermione")
     }
 
     fun onReset() {
