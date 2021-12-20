@@ -2,6 +2,8 @@ package com.splitspendings.groupexpensesandroid.screens.group
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -32,10 +34,23 @@ class GroupViewModel(
 
     val group = groupsRepository.getGroup(groupId)
 
-    val groupSpendings = groupsRepository.getGroupSpendings(groupId)
+    val spendings = groupsRepository.getGroupSpendings(groupId)
+
+    private val _eventNavigateToSpending = MutableLiveData<Long>()
+    val eventNavigateToSpending: LiveData<Long>
+        get() = _eventNavigateToSpending
 
     init {
+        _eventNavigateToSpending.value = null
         loadGroupSpendings()
+    }
+
+    fun onSpendingClicked(id: Long) {
+        _eventNavigateToSpending.value = id
+    }
+
+    fun onEventNavigateToSpendingComplete() {
+        _eventNavigateToSpending.value = null
     }
 
     private fun loadGroupSpendings() {

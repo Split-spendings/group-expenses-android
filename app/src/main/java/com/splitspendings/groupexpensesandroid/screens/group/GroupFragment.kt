@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
-import com.splitspendings.groupexpensesandroid.model.Spending
 import timber.log.Timber
 
 class GroupFragment : Fragment() {
@@ -17,6 +16,7 @@ class GroupFragment : Fragment() {
     private lateinit var binding: FragmentGroupBinding
     private lateinit var viewModelFactory: GroupViewModelFactory
     private lateinit var viewModel: GroupViewModel
+    private lateinit var adapter: SpendingsListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_group, container, false)
@@ -35,13 +35,23 @@ class GroupFragment : Fragment() {
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // TODO remove after recycler view data binding implementation
-        viewModel.groupSpendings.observe(viewLifecycleOwner, ::onGroupSpendingsUpdated)
+        adapter = SpendingsListAdapter(SpendingItemClickListener { spendingId ->
+            viewModel.onSpendingClicked(spendingId)
+        })
+        binding.spendingsList.adapter = adapter
+
+        viewModel.eventNavigateToSpending.observe(viewLifecycleOwner, ::onNavigateToSpending)
 
         return binding.root
     }
 
-    private fun onGroupSpendingsUpdated(spendings: List<Spending>) {
-        Timber.d("spendings updated: $spendings")
+    private fun onNavigateToSpending(spendingId: Long?) {
+        spendingId?.let {
+            Timber.d("onNavigateToSpending: $spendingId")
+            //TODO
+            /*findNavController()
+                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(spendingId))*/
+            viewModel.onEventNavigateToSpendingComplete()
+        }
     }
 }

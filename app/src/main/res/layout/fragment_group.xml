@@ -39,6 +39,13 @@
             app:layout_constraintTop_toTopOf="@+id/group_avatar"
             tools:text="Group name" />
 
+        <View
+            android:id="@+id/divider"
+            style="@style/Divider"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/spacing_half"
+            app:layout_constraintTop_toBottomOf="@id/group_avatar" />
+
         <!--example of STRING FORMATTING in a layout
         <TextView
             android:id="@+id/group_name_formatted_placeholder"
@@ -50,6 +57,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Group name formatted placeholder" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/spendings_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:spendingsList="@{groupViewModel.spendings}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
