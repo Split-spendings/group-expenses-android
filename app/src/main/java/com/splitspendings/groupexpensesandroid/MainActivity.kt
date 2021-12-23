@@ -1,10 +1,10 @@
 package com.splitspendings.groupexpensesandroid
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
+    private lateinit var viewModelFactory: MainActivityViewModelFactory
     private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +31,9 @@ class MainActivity : AppCompatActivity() {
 
         NavigationHandler.init(navController)
 
-        val model: MainActivityViewModel by viewModels()
-        viewModel = model
+        viewModelFactory = MainActivityViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainActivityViewModel::class.java)
+
         binding.mainActivityViewModel = viewModel
 
         // this breaks navigation to logged out screen

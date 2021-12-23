@@ -16,7 +16,7 @@ class GroupViewModelFactory(
     private val application: Application
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (!modelClass.isAssignableFrom(GroupViewModel::class.java)) {
             throw IllegalArgumentException("Unknown ViewModel class")
         }

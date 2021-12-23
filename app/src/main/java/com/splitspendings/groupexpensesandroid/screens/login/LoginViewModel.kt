@@ -20,7 +20,7 @@ class LoginViewModelFactory(
     private val application: Application
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (!modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             throw IllegalArgumentException("Unknown ViewModel class")
         }

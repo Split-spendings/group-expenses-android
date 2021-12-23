@@ -13,9 +13,11 @@ import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class GroupsListViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
+class GroupsListViewModelFactory(
+    private val application: Application
+) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (!modelClass.isAssignableFrom(GroupsListViewModel::class.java)) {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
