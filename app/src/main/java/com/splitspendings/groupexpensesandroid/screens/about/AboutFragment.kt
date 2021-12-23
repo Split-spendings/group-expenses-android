@@ -20,7 +20,7 @@ class AboutFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false)
 
         viewModelFactory = AboutViewModelFactory()
-        viewModel = ViewModelProvider(this, viewModelFactory).get(AboutViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[AboutViewModel::class.java]
 
         return binding.root
     }

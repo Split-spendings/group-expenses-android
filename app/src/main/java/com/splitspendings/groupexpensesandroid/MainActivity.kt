@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         NavigationHandler.init(navController)
 
         viewModelFactory = MainActivityViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainActivityViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[MainActivityViewModel::class.java]
 
         binding.mainActivityViewModel = viewModel
 

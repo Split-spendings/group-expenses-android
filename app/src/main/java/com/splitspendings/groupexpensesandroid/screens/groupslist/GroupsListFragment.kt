@@ -30,7 +30,7 @@ class GroupsListFragment : Fragment() {
         val application = requireNotNull(activity).application
 
         viewModelFactory = GroupsListViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(GroupsListViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[GroupsListViewModel::class.java]
 
         binding.groupsListViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

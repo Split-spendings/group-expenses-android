@@ -30,7 +30,7 @@ class LoginFragment : Fragment() {
         val application = requireNotNull(activity).application
 
         viewModelFactory = LoginViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
 
         binding.loginViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

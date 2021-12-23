@@ -27,7 +27,7 @@ class NewGroupFragment : Fragment() {
         val application = requireNotNull(activity).application
 
         viewModelFactory = NewGroupViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(NewGroupViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[NewGroupViewModel::class.java]
 
         binding.newGroupViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

@@ -27,7 +27,7 @@ class GroupFragment : Fragment() {
         val application = requireNotNull(activity).application
 
         viewModelFactory = GroupViewModelFactory(groupId, application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(GroupViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[GroupViewModel::class.java]
 
         // Set the viewmodel for databinding - this allows the bound layout access all the data in the ViewModel
         binding.groupViewModel = viewModel

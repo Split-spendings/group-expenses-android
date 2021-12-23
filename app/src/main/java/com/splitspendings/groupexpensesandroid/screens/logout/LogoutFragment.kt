@@ -29,7 +29,7 @@ class LogoutFragment : Fragment() {
         val application = requireNotNull(activity).application
 
         viewModelFactory = LogoutViewModelFactory(application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(LogoutViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[LogoutViewModel::class.java]
 
         binding.logoutViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
