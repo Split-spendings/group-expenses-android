@@ -22,7 +22,7 @@ class LogoutFragment : Fragment() {
     private lateinit var logoutRedirectLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val binding : FragmentLogoutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_logout, container, false)
+        val binding: FragmentLogoutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_logout, container, false)
 
         val application = requireNotNull(activity).application
 

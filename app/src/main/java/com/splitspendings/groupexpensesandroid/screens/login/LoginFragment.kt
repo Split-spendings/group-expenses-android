@@ -23,7 +23,7 @@ class LoginFragment : Fragment() {
     private lateinit var loginRedirectLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val binding : FragmentLoginBinding =
+        val binding: FragmentLoginBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
         val application = requireNotNull(activity).application

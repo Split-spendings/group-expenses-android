@@ -22,7 +22,7 @@ class GroupsListFragment : Fragment() {
     private lateinit var viewModel: GroupsListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val binding : FragmentGroupsListBinding =
+        val binding: FragmentGroupsListBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_groups_list, container, false)
 
         val application = requireNotNull(activity).application

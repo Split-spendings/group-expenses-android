@@ -37,7 +37,6 @@ interface GroupDao {
     suspend fun clear()
 
 
-
     //TODO check if following works ???
 
     @Transaction

@@ -16,7 +16,7 @@ class GroupFragment : Fragment() {
     private lateinit var viewModel: GroupViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val binding : FragmentGroupBinding =
+        val binding: FragmentGroupBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_group, container, false)
 
         val args = GroupFragmentArgs.fromBundle(requireArguments())
