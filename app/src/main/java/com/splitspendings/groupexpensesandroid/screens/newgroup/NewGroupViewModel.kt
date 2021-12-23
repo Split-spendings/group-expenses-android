@@ -25,7 +25,9 @@ class NewGroupViewModelFactory(
 }
 
 
-class NewGroupViewModel(application: Application) : AndroidViewModel(application) {
+class NewGroupViewModel(
+    application: Application
+) : AndroidViewModel(application) {
 
     private val groupsRepository = GroupRepository.getInstance()
 

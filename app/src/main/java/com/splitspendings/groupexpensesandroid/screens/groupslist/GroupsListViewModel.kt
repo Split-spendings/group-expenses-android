@@ -26,7 +26,9 @@ class GroupsListViewModelFactory(
 }
 
 
-class GroupsListViewModel(application: Application) : AndroidViewModel(application) {
+class GroupsListViewModel(
+    application: Application
+) : AndroidViewModel(application) {
 
     private val groupsRepository = GroupRepository.getInstance()
 
@@ -81,8 +83,8 @@ class GroupsListViewModel(application: Application) : AndroidViewModel(applicati
         viewModelScope.launch {
             _apiStatus.value = ApiStatus.LOADING
             try {
-                /*example of delay
-                delay(2000)*/
+                //EXAMPLE of DELAY
+                //delay(2000)
 
                 //TODO: add endpoint that accepts filtering
                 groupsRepository.refreshGroups()

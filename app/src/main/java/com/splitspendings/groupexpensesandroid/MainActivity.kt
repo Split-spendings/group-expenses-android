@@ -13,30 +13,31 @@ import com.splitspendings.groupexpensesandroid.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
+
     private lateinit var navController: NavController
-    private lateinit var viewModelFactory: MainActivityViewModelFactory
+
     private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
         drawerLayout = binding.drawerLayout
 
         navController = findNavController(R.id.mainNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-
         NavigationUI.setupWithNavController(binding.navView, navController)
-
         NavigationHandler.init(navController)
 
-        viewModelFactory = MainActivityViewModelFactory(application)
+        val viewModelFactory = MainActivityViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainActivityViewModel::class.java]
 
         binding.mainActivityViewModel = viewModel
 
-        // this breaks navigation to logged out screen
+        //EXAMPLE of forcing a default NIGHT MODE
+        // !!! this breaks navigation to logged out screen !!!
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 

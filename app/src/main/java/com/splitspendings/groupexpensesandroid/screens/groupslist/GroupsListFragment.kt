@@ -19,23 +19,21 @@ import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBin
 
 class GroupsListFragment : Fragment() {
 
-    private lateinit var binding: FragmentGroupsListBinding
-    private lateinit var viewModelFactory: GroupsListViewModelFactory
     private lateinit var viewModel: GroupsListViewModel
-    private lateinit var adapter: GroupsListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_groups_list, container, false)
+        val binding : FragmentGroupsListBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_groups_list, container, false)
 
         val application = requireNotNull(activity).application
 
-        viewModelFactory = GroupsListViewModelFactory(application)
+        val viewModelFactory = GroupsListViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory)[GroupsListViewModel::class.java]
 
         binding.groupsListViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        adapter = GroupsListAdapter(GroupItemClickListener { groupId ->
+        val adapter = GroupsListAdapter(GroupItemClickListener { groupId ->
             viewModel.onGroupClicked(groupId)
         })
         binding.groupsList.adapter = adapter

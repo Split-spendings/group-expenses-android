@@ -46,7 +46,7 @@
             android:layout_marginTop="@dimen/spacing_half"
             app:layout_constraintTop_toBottomOf="@id/group_avatar" />
 
-        <!--example of STRING FORMATTING in a layout
+        <!--EXAMPLE of STRING FORMATTING in a layout
         <TextView
             android:id="@+id/group_name_formatted_placeholder"
             android:layout_width="wrap_content"

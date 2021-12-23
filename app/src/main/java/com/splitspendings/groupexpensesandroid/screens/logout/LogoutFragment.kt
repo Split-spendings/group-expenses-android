@@ -17,18 +17,16 @@ import com.splitspendings.groupexpensesandroid.databinding.FragmentLogoutBinding
 
 class LogoutFragment : Fragment() {
 
-    private lateinit var binding: FragmentLogoutBinding
-    private lateinit var viewModelFactory: LogoutViewModelFactory
     private lateinit var viewModel: LogoutViewModel
 
     private lateinit var logoutRedirectLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_logout, container, false)
+        val binding : FragmentLogoutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_logout, container, false)
 
         val application = requireNotNull(activity).application
 
-        viewModelFactory = LogoutViewModelFactory(application)
+        val viewModelFactory = LogoutViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory)[LogoutViewModel::class.java]
 
         binding.logoutViewModel = viewModel

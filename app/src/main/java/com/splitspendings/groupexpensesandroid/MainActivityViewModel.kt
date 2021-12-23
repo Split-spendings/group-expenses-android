@@ -18,4 +18,6 @@ class MainActivityViewModelFactory(
 }
 
 
-class MainActivityViewModel(val app: Application) : AndroidViewModel(app)
+class MainActivityViewModel(
+    app: Application
+) : AndroidViewModel(app)

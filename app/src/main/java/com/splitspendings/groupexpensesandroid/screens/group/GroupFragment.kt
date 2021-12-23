@@ -13,29 +13,27 @@ import timber.log.Timber
 
 class GroupFragment : Fragment() {
 
-    private lateinit var binding: FragmentGroupBinding
-    private lateinit var viewModelFactory: GroupViewModelFactory
     private lateinit var viewModel: GroupViewModel
-    private lateinit var adapter: SpendingsListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_group, container, false)
+        val binding : FragmentGroupBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_group, container, false)
 
         val args = GroupFragmentArgs.fromBundle(requireArguments())
         val groupId = args.groupId
 
         val application = requireNotNull(activity).application
 
-        viewModelFactory = GroupViewModelFactory(groupId, application)
+        val viewModelFactory = GroupViewModelFactory(groupId, application)
         viewModel = ViewModelProvider(this, viewModelFactory)[GroupViewModel::class.java]
 
-        // Set the viewmodel for databinding - this allows the bound layout access all the data in the ViewModel
+        // Set the view model for data binding - this allows the bound layout access all the data in the ViewModel
         binding.groupViewModel = viewModel
         // Specify the fragment view as the lifecycle owner of the binding.
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
 
-        adapter = SpendingsListAdapter(SpendingItemClickListener { spendingId ->
+        val adapter = SpendingsListAdapter(SpendingItemClickListener { spendingId ->
             viewModel.onSpendingClicked(spendingId)
         })
         binding.spendingsList.adapter = adapter

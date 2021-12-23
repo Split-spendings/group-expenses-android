@@ -18,7 +18,7 @@ import com.splitspendings.groupexpensesandroid.databinding.FragmentNewGroupBindi
 class NewGroupFragment : Fragment() {
 
     private lateinit var binding: FragmentNewGroupBinding
-    private lateinit var viewModelFactory: NewGroupViewModelFactory
+
     private lateinit var viewModel: NewGroupViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -26,7 +26,7 @@ class NewGroupFragment : Fragment() {
 
         val application = requireNotNull(activity).application
 
-        viewModelFactory = NewGroupViewModelFactory(application)
+        val viewModelFactory = NewGroupViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory)[NewGroupViewModel::class.java]
 
         binding.newGroupViewModel = viewModel
@@ -77,7 +77,9 @@ class NewGroupFragment : Fragment() {
 
     private fun onInvalidGroupName(invalidGroupName: Boolean) {
         if (invalidGroupName) {
+            //EXAMPLE of TOAST
             //Toast.makeText(context, getString(R.string.invalid_group_name_error), Toast.LENGTH_LONG).show()
+
             Snackbar.make(
                 requireActivity().findViewById(android.R.id.content),
                 getString(R.string.invalid_group_name_error),

@@ -18,18 +18,17 @@ import com.splitspendings.groupexpensesandroid.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
 
-    private lateinit var binding: FragmentLoginBinding
-    private lateinit var viewModelFactory: LoginViewModelFactory
     private lateinit var viewModel: LoginViewModel
 
     private lateinit var loginRedirectLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        val binding : FragmentLoginBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
         val application = requireNotNull(activity).application
 
-        viewModelFactory = LoginViewModelFactory(application)
+        val viewModelFactory = LoginViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
 
         binding.loginViewModel = viewModel
