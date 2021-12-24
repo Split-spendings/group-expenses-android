@@ -1,5 +1,5 @@
 {
-  "issuer": "https://identity.thesis.net/auth/realms/thesis",
+  "issuer": "https://split-expenses-identity.herokuapp.com/auth/realms/se",
   "clientID": "se-android",
   "redirectUri": "com.splitspendings.groupexpensesandroid:/redirect",
   "postLogoutRedirectUri": "com.splitspendings.groupexpensesandroid:/logoutredirect",
