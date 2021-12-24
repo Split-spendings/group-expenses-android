@@ -86,8 +86,7 @@ class GroupsListViewModel(
                 //EXAMPLE of DELAY
                 //delay(2000)
 
-                //TODO: add endpoint that accepts filtering
-                groupsRepository.refreshGroups()
+                groupsRepository.refreshGroups(_filter)
 
                 _apiStatus.value = ApiStatus.DONE
 

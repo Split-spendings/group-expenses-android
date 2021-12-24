@@ -3,6 +3,8 @@ package com.splitspendings.groupexpensesandroid.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.splitspendings.groupexpensesandroid.common.Currency
+import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.common.InviteOption
 import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.database.entity.asModel
@@ -44,17 +46,18 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         it.asModel()
     }
 
-    suspend fun refreshGroups() {
+    suspend fun refreshGroups(filter: GroupsFilter) {
         withContext(Dispatchers.IO) {
             Timber.d("refresh groups is called")
-            val groups = GroupExpensesApi.retrofitService.appUserActiveGroups().groups
+            val groups = GroupExpensesApi.retrofitService.getFilteredGroups(filter)
+            // TODO clear only groups with according filter
             database.groupDao.clear()
             database.groupDao.insertAll(groups.asEntity())
         }
     }
 
     suspend fun saveGroup(name: String): Long {
-        val newGroup = NewGroupDto(name = name, personal = true, simplifyDebts = true, inviteOption = InviteOption.ALL_ACTIVE_MEMBERS)
+        val newGroup = NewGroupDto(name = name, personal = true, simplifyDebts = true, inviteOption = InviteOption.ALL_ACTIVE_MEMBERS, defaultCurrency = Currency.USD)
         val groupSavedOnServer = GroupExpensesApi.retrofitService.createGroup(newGroup)
         return database.groupDao.insert(groupSavedOnServer.asEntity())
     }
