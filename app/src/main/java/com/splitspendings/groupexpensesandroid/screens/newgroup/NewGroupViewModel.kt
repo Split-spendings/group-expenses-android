@@ -68,6 +68,7 @@ class NewGroupViewModel(
         when {
             groupName.value.isNullOrBlank() -> _eventInvalidGroupName.value = true
             else -> {
+                // TODO add some handling of failed requests
                 saveGroupAndNavigateToGroup()
             }
         }
