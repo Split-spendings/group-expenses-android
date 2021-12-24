@@ -32,6 +32,7 @@ class GroupsListViewModel(
 
     private val groupsRepository = GroupRepository.getInstance()
 
+    //TODO apply filter ?
     val groups = groupsRepository.groups
 
     private val _apiStatus = MutableLiveData<ApiStatus>()
