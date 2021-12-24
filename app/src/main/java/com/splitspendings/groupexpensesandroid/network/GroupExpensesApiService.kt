@@ -15,7 +15,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-private const val BASE_URL = "http://10.0.2.2:8182"
+private const val BASE_URL = "https://split-expenses-back.herokuapp.com"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
