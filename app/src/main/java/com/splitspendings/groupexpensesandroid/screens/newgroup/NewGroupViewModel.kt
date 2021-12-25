@@ -68,7 +68,6 @@ class NewGroupViewModel(
         when {
             groupName.value.isNullOrBlank() -> _eventInvalidGroupName.value = true
             else -> {
-                // TODO add some handling of failed requests
                 saveGroupAndNavigateToGroup()
             }
         }
@@ -88,7 +87,12 @@ class NewGroupViewModel(
 
     private fun saveGroupAndNavigateToGroup() {
         viewModelScope.launch {
-            _eventNavigateToGroup.value = groupsRepository.saveGroup(name = groupName.value!!)
+            try {
+                _eventNavigateToGroup.value = groupsRepository.saveGroup(name = groupName.value!!)
+            } catch (e: Exception) {
+                Timber.d("Failure: ${e.message}")
+                // TODO add displaying some error status to user
+            }
         }
     }
 
