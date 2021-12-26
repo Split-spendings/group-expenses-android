@@ -15,7 +15,6 @@ import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.asEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class GroupRepository(private val database: GroupExpensesDatabase) {
 
@@ -48,16 +47,24 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
 
     suspend fun refreshGroups(filter: GroupsFilter) {
         withContext(Dispatchers.IO) {
-            Timber.d("refresh groups is called")
             val groups = GroupExpensesApi.retrofitService.getFilteredGroups(filter)
-            // TODO clear only groups with according filter
-            database.groupDao.clear()
+            when (filter) {
+                GroupsFilter.ALL -> database.groupDao.clear()
+                GroupsFilter.CURRENT -> database.groupDao.deleteByCurrent(true)
+                GroupsFilter.FORMER -> database.groupDao.deleteByCurrent(false)
+            }
             database.groupDao.insertAll(groups.asEntity())
         }
     }
 
     suspend fun saveGroup(name: String): Long {
-        val newGroup = NewGroupDto(name = name, personal = true, simplifyDebts = true, inviteOption = InviteOption.ALL_ACTIVE_MEMBERS, defaultCurrency = Currency.USD)
+        val newGroup = NewGroupDto(
+            name = name,
+            personal = true,
+            simplifyDebts = true,
+            inviteOption = InviteOption.ALL_ACTIVE_MEMBERS,
+            defaultCurrency = Currency.USD
+        )
         val groupSavedOnServer = GroupExpensesApi.retrofitService.createGroup(newGroup)
         return database.groupDao.insert(groupSavedOnServer.asEntity())
     }
