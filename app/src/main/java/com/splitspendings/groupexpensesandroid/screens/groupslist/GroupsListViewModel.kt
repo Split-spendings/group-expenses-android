@@ -32,7 +32,6 @@ class GroupsListViewModel(
 
     private val groupsRepository = GroupRepository.getInstance()
 
-    //TODO apply filter ?
     val groups = groupsRepository.groups
 
     private val _apiStatus = MutableLiveData<ApiStatus>()
@@ -51,12 +50,15 @@ class GroupsListViewModel(
     val eventSuccessfulGroupUpload: LiveData<Boolean>
         get() = _eventSuccessfulGroupsUpload
 
-    private var _filter: GroupsFilter = GroupsFilter.ALL
+    private val _filter = MutableLiveData<GroupsFilter>()
+    val filter: LiveData<GroupsFilter>
+        get() = _filter
 
     init {
         _eventNavigateToNewGroup.value = false
         _eventNavigateToGroup.value = null
         _eventSuccessfulGroupsUpload.value = false
+        _filter.value = GroupsFilter.ALL
         loadGroups()
     }
 
@@ -87,7 +89,7 @@ class GroupsListViewModel(
                 //EXAMPLE of DELAY
                 //delay(2000)
 
-                groupsRepository.refreshGroups(_filter)
+                groupsRepository.refreshGroups(_filter.value!!)
 
                 _apiStatus.value = ApiStatus.DONE
 
@@ -100,7 +102,7 @@ class GroupsListViewModel(
     }
 
     fun updateFilter(filter: GroupsFilter) {
-        _filter = filter
+        _filter.value = filter
         loadGroups()
     }
 }

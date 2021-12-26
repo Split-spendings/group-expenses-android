@@ -14,6 +14,7 @@
     <string name="group_name">Название группы</string>
     <string name="invalid_group_name_error">Неверное название группы</string>
     <string name="current_membership_groups_list_header">Текущие группы</string>
+    <string name="former_membership_groups_list_header">Прошлые группы</string>
     <string name="failed_groups_upload">Не удалось загрузить группы с сервера</string>
     <string name="successful_groups_upload">Группы успешно загружены с сервера</string>
     <string name="filtering_menu_group">Фильтр:</string>

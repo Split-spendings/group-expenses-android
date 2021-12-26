@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.splitspendings.groupexpensesandroid.R
+import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.databinding.ListItemGroupBinding
 import com.splitspendings.groupexpensesandroid.model.Group
 import kotlinx.coroutines.CoroutineScope
@@ -14,8 +15,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-private const val ITEM_VIEW_TYPE_HEADER = 0
-private const val ITEM_VIEW_TYPE_GROUP_ITEM = 1
+private const val ITEM_VIEW_TYPE_HEADER_CURRENT = 0
+private const val ITEM_VIEW_TYPE_HEADER_FORMER = 1
+private const val ITEM_VIEW_TYPE_GROUP_ITEM = 2
 
 class GroupsListAdapter(
     private val groupItemClickListener: GroupItemClickListener
@@ -25,28 +27,51 @@ class GroupsListAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is GroupsListItem.HeaderItem -> ITEM_VIEW_TYPE_HEADER
+            is GroupsListItem.HeaderCurrentItem -> ITEM_VIEW_TYPE_HEADER_CURRENT
+            is GroupsListItem.HeaderFormerItem -> ITEM_VIEW_TYPE_HEADER_FORMER
             is GroupsListItem.GroupItem -> ITEM_VIEW_TYPE_GROUP_ITEM
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            ITEM_VIEW_TYPE_HEADER -> HeaderItemViewHolder.from(parent)
+            ITEM_VIEW_TYPE_HEADER_CURRENT -> HeaderCurrentItemViewHolder.from(parent)
+            ITEM_VIEW_TYPE_HEADER_FORMER -> HeaderFormerItemViewHolder.from(parent)
             ITEM_VIEW_TYPE_GROUP_ITEM -> GroupItemViewHolder.from(parent)
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
 
-    fun addHeaderAndSubmitList(list: List<Group>?) {
+    fun addHeaderAndSubmitList(list: List<Group>?, filter: GroupsFilter) {
         adapterScope.launch {
-            val items = when (list) {
-                null -> listOf(GroupsListItem.HeaderItem)
-                else -> listOf(GroupsListItem.HeaderItem) + list.map { GroupsListItem.GroupItem(it) }
+            val items = when (filter) {
+                GroupsFilter.ALL -> getItemsAll(list)
+                GroupsFilter.CURRENT -> getItemsCurrent(list)
+                GroupsFilter.FORMER -> getItemsFormer(list)
             }
             withContext(Dispatchers.Main) {
                 submitList(items)
             }
+        }
+    }
+
+    private fun getItemsAll(list: List<Group>?): List<GroupsListItem> {
+        return getItemsCurrent(list) + getItemsFormer(list)
+    }
+
+    private fun getItemsCurrent(list: List<Group>?): List<GroupsListItem> {
+        return when (list) {
+            null -> listOf(GroupsListItem.HeaderCurrentItem)
+            else -> listOf(GroupsListItem.HeaderCurrentItem) +
+                    list.filter { it.current }.map { GroupsListItem.GroupItem(it) }
+        }
+    }
+
+    private fun getItemsFormer(list: List<Group>?): List<GroupsListItem> {
+        return when (list) {
+            null -> listOf(GroupsListItem.HeaderFormerItem)
+            else -> listOf(GroupsListItem.HeaderFormerItem) +
+                    list.filter { !it.current }.map { GroupsListItem.GroupItem(it) }
         }
     }
 
@@ -59,12 +84,22 @@ class GroupsListAdapter(
         }
     }
 
-    class HeaderItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class HeaderCurrentItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         companion object {
-            fun from(parent: ViewGroup): HeaderItemViewHolder {
+            fun from(parent: ViewGroup): HeaderCurrentItemViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.list_item_groups_header, parent, false)
-                return HeaderItemViewHolder(view)
+                val view = layoutInflater.inflate(R.layout.list_item_groups_header_current, parent, false)
+                return HeaderCurrentItemViewHolder(view)
+            }
+        }
+    }
+
+    class HeaderFormerItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        companion object {
+            fun from(parent: ViewGroup): HeaderFormerItemViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = layoutInflater.inflate(R.layout.list_item_groups_header_former, parent, false)
+                return HeaderFormerItemViewHolder(view)
             }
         }
     }
@@ -109,8 +144,12 @@ sealed class GroupsListItem {
 
     abstract val id: Long
 
-    object HeaderItem : GroupsListItem() {
+    object HeaderCurrentItem : GroupsListItem() {
         override val id = Long.MIN_VALUE
+    }
+
+    object HeaderFormerItem : GroupsListItem() {
+        override val id = Long.MIN_VALUE + 1
     }
 
     data class GroupItem(val group: Group) : GroupsListItem() {
