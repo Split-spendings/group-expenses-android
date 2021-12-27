@@ -7,6 +7,7 @@
     <string name="groups_list_fragment_label">Группы</string>
     <string name="group_fragment_label">Группа</string>
     <string name="new_group_fragment_label">Новая группа</string>
+    <string name="join_group_button">Присоединиться к группе</string>
     <string name="login_fragment_label">Логин</string>
     <string name="logout_fragment_label">Логаут</string>
     <string name="share_label">Поделиться</string>

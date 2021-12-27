@@ -66,8 +66,8 @@
                 android:id="@+id/groups_list"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:groupsList="@{groupsListViewModel.groups}"
                 app:filter="@{groupsListViewModel.filter}"
+                app:groupsList="@{groupsListViewModel.groups}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,13 +76,44 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/spacing_normal"
             android:onClick="@{() -> groupsListViewModel.onNewGroup()}"
-            app:srcCompat="@drawable/ic_baseline_add_24" />
+            app:srcCompat="@drawable/ic_baseline_add_24" />-->
+
+        <com.nambimobile.widgets.efab.ExpandableFabLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.nambimobile.widgets.efab.Overlay
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.nambimobile.widgets.efab.ExpandableFab
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                android:layout_marginBottom="@dimen/spacing_normal" />
+
+            <com.nambimobile.widgets.efab.FabOption
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> groupsListViewModel.onJoinGroup()}"
+                app:fab_icon="@drawable/ic_baseline_group_add_24"
+                app:label_text="@string/join_group_button" />
+
+            <com.nambimobile.widgets.efab.FabOption
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> groupsListViewModel.onNewGroup()}"
+                app:fab_icon="@drawable/ic_baseline_add_24"
+                app:label_text="@string/add_new_group_button" />
+
+        </com.nambimobile.widgets.efab.ExpandableFabLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

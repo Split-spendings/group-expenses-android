@@ -66,6 +66,10 @@ class GroupsListViewModel(
         _eventNavigateToNewGroup.value = true
     }
 
+    fun onJoinGroup() {
+        Timber.d("Join group")
+    }
+
     fun onEventNavigateToNewGroupComplete() {
         _eventNavigateToNewGroup.value = false
     }
