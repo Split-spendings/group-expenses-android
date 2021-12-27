@@ -42,6 +42,10 @@ class GroupsListViewModel(
     val eventNavigateToNewGroup: LiveData<Boolean>
         get() = _eventNavigateToNewGroup
 
+    private val _eventNavigateToJoinGroup = MutableLiveData<Boolean>()
+    val eventNavigateToJoinGroup: LiveData<Boolean>
+        get() = _eventNavigateToJoinGroup
+
     private val _eventNavigateToGroup = MutableLiveData<Long>()
     val eventNavigateToGroup: LiveData<Long>
         get() = _eventNavigateToGroup
@@ -56,6 +60,7 @@ class GroupsListViewModel(
 
     init {
         _eventNavigateToNewGroup.value = false
+        _eventNavigateToJoinGroup.value = false
         _eventNavigateToGroup.value = null
         _eventSuccessfulGroupsUpload.value = false
         _filter.value = GroupsFilter.ALL
@@ -67,11 +72,15 @@ class GroupsListViewModel(
     }
 
     fun onJoinGroup() {
-        Timber.d("Join group")
+        _eventNavigateToJoinGroup.value = true
     }
 
     fun onEventNavigateToNewGroupComplete() {
         _eventNavigateToNewGroup.value = false
+    }
+
+    fun onEventNavigateToJoinGroupComplete() {
+        _eventNavigateToJoinGroup.value = false
     }
 
     fun onGroupClicked(id: Long) {

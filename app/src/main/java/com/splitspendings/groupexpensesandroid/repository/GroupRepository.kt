@@ -80,4 +80,10 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
             database.spendingDao.insertAll(groupSpendings.spendings.asEntity(groupId))
         }
     }
+
+    suspend fun joinGroup(code: String): Long {
+        val group = GroupExpensesApi.retrofitService.joinGroup(code)
+        //TODO test for cases when this group already in db (former group)
+        return database.groupDao.insert(group.asEntity())
+    }
 }

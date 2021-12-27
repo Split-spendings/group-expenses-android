@@ -9,11 +9,14 @@
     <string name="new_group_fragment_label">New group</string>
     <string name="login_fragment_label">Login</string>
     <string name="logout_fragment_label">Logout</string>
+    <string name="join_group_fragment_label">Join group</string>
     <string name="share_label">Share</string>
     <string name="about_label">About</string>
     <string name="about_text" translatable="false">\"Application for splitting group expenses\" thesis project at Polish-Japanese Academy of Information Technology developed by Oleksandr Bieliakov and Volodymyr Dovhyi.</string>
     <string name="group_name">Group name</string>
     <string name="invalid_group_name_error">Invalid group name</string>
+    <string name="invitation_code">Invitation code</string>
+    <string name="invalid_invitation_code_error">Invalid invitation code</string>
     <string name="current_membership_groups_list_header">Current membership</string>
     <string name="former_membership_groups_list_header">Former membership</string>
     <string name="failed_groups_upload">Could not load groups from server</string>

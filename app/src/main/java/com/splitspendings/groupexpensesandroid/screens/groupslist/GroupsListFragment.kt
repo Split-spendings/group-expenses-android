@@ -39,6 +39,7 @@ class GroupsListFragment : Fragment() {
         binding.groupsList.adapter = adapter
 
         viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
+        viewModel.eventNavigateToJoinGroup.observe(viewLifecycleOwner, ::onNavigateToJoinGroup)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
         viewModel.eventSuccessfulGroupUpload.observe(viewLifecycleOwner, ::onSuccessfulGroupUpload)
 
@@ -54,6 +55,14 @@ class GroupsListFragment : Fragment() {
             findNavController()
                 .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment())
             viewModel.onEventNavigateToNewGroupComplete()
+        }
+    }
+
+    private fun onNavigateToJoinGroup(navigateToJoinGroup: Boolean) {
+        if (navigateToJoinGroup) {
+            findNavController()
+                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToJoinGroupFragment())
+            viewModel.onEventNavigateToJoinGroupComplete()
         }
     }
 

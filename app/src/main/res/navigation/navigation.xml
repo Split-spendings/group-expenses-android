@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_groupsListFragment_to_newGroupFragment"
             app:destination="@id/newGroupFragment" />
+        <action
+            android:id="@+id/action_groupsListFragment_to_joinGroupFragment"
+            app:destination="@id/joinGroupFragment" />
     </fragment>
     <fragment
         android:id="@+id/groupFragment"
@@ -56,5 +59,14 @@
         android:id="@+id/logoutFragment"
         android:name="com.splitspendings.groupexpensesandroid.screens.logout.LogoutFragment"
         android:label="@string/logout_fragment_label"
-        tools:layout="@layout/fragment_logout"/>
+        tools:layout="@layout/fragment_logout" />
+    <fragment
+        android:id="@+id/joinGroupFragment"
+        android:name="com.splitspendings.groupexpensesandroid.screens.joingroup.JoinGroupFragment"
+        android:label="@string/join_group_fragment_label"
+        tools:layout="@layout/fragment_join_group">
+        <action
+            android:id="@+id/action_joinGroupFragment_to_groupFragment"
+            app:destination="@id/groupFragment" />
+    </fragment>
 </navigation>

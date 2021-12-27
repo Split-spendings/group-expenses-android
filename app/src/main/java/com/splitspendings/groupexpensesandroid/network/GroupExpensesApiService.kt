@@ -41,6 +41,9 @@ interface GroupExpensesApiService {
 
     @GET("/api/groups/{id}/spendings")
     suspend fun groupSpendings(@Path("id") groupId: Long): GroupSpendingsDto
+
+    @POST("/api/groups/join/{code}")
+    suspend fun joinGroup(@Path("code") code: String): GroupDto
 }
 
 object GroupExpensesApi {
