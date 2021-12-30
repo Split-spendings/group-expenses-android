@@ -11,6 +11,8 @@
     <string name="login_fragment_label">Логин</string>
     <string name="logout_fragment_label">Логаут</string>
     <string name="join_group_fragment_label">Вступление в группу</string>
+    <string name="spendings_label">Платежы</string>
+    <string name="balances_label">Балансы</string>
     <string name="share_label">Поделиться</string>
     <string name="about_label">О приложении</string>
     <string name="group_name">Название группы</string>
@@ -21,6 +23,8 @@
     <string name="former_membership_groups_list_header">Прошлые группы</string>
     <string name="failed_groups_upload">Не удалось загрузить группы с сервера</string>
     <string name="successful_groups_upload">Группы успешно загружены с сервера</string>
+    <string name="failed_spendings_upload">Не удалось загрузить платежи с сервера</string>
+    <string name="successful_spendings_upload">Платежи успешно загружены с сервера</string>
     <string name="filtering_menu_group">Фильтр:</string>
     <string name="filtering_group_all_menu_item">Все</string>
     <string name="filtering_group_current_menu_item">Текущие</string>

@@ -51,7 +51,7 @@ class GroupsListViewModel(
         get() = _eventNavigateToGroup
 
     private val _eventSuccessfulGroupsUpload = MutableLiveData<Boolean>()
-    val eventSuccessfulGroupUpload: LiveData<Boolean>
+    val eventSuccessfulGroupsUpload: LiveData<Boolean>
         get() = _eventSuccessfulGroupsUpload
 
     private val _filter = MutableLiveData<GroupsFilter>()
@@ -84,6 +84,7 @@ class GroupsListViewModel(
     }
 
     fun onGroupClicked(id: Long) {
+        //TODO for former groups - no navigation or navigate to special screen
         _eventNavigateToGroup.value = id
     }
 
@@ -91,7 +92,7 @@ class GroupsListViewModel(
         _eventNavigateToGroup.value = null
     }
 
-    fun onEventSuccessfulGroupUploadComplete() {
+    fun onEventSuccessfulGroupsUploadComplete() {
         _eventSuccessfulGroupsUpload.value = false
     }
 
@@ -107,6 +108,7 @@ class GroupsListViewModel(
                 _apiStatus.value = ApiStatus.DONE
 
                 _eventSuccessfulGroupsUpload.value = true
+
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
                 _apiStatus.value = ApiStatus.ERROR

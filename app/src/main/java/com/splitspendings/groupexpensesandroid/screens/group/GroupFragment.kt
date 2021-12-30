@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.tabs.TabLayoutMediator
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
-import timber.log.Timber
 
 class GroupFragment : Fragment() {
 
@@ -33,23 +33,18 @@ class GroupFragment : Fragment() {
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val adapter = SpendingsListAdapter(SpendingItemClickListener { spendingId ->
-            viewModel.onSpendingClicked(spendingId)
-        })
-        binding.spendingsList.adapter = adapter
+        val viewPager = binding.pager
+        val pagerAdapter = GroupPagerAdapter(groupId, this)
+        viewPager.adapter = pagerAdapter
 
-        viewModel.eventNavigateToSpending.observe(viewLifecycleOwner, ::onNavigateToSpending)
+        val tabLayout = binding.tabs
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> getString(R.string.spendings_label)
+                else -> getString(R.string.balances_label)
+            }
+        }.attach()
 
         return binding.root
-    }
-
-    private fun onNavigateToSpending(spendingId: Long?) {
-        spendingId?.let {
-            Timber.d("onNavigateToSpending: $spendingId")
-            //TODO
-            /*findNavController()
-                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(spendingId))*/
-            viewModel.onEventNavigateToSpendingComplete()
-        }
     }
 }

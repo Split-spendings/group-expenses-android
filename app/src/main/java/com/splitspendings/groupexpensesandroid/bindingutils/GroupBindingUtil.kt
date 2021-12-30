@@ -8,8 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.splitspendings.groupexpensesandroid.R
+import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.model.Group
+import com.splitspendings.groupexpensesandroid.screens.groupslist.GroupsListAdapter
 
 fun formatGroup(group: Group, resources: Resources): Spanned {
     val groupString = resources.getString(R.string.group_format, group.id, group.name)
@@ -34,3 +37,10 @@ fun ImageView.setGroupAvatarPlaceholder(group: Group?) {
         }
     )
 }
+
+@BindingAdapter("groupsList", "filter")
+fun bindGroupsListRecyclerView(recyclerView: RecyclerView, groupsList: List<Group>?, filter: GroupsFilter) {
+    val adapter = recyclerView.adapter as GroupsListAdapter
+    adapter.addHeaderAndSubmitList(groupsList, filter)
+}
+

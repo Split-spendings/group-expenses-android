@@ -41,7 +41,7 @@ class GroupsListFragment : Fragment() {
         viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
         viewModel.eventNavigateToJoinGroup.observe(viewLifecycleOwner, ::onNavigateToJoinGroup)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
-        viewModel.eventSuccessfulGroupUpload.observe(viewLifecycleOwner, ::onSuccessfulGroupUpload)
+        viewModel.eventSuccessfulGroupsUpload.observe(viewLifecycleOwner, ::onSuccessfulGroupUpload)
 
         setHasOptionsMenu(true)
 
@@ -81,7 +81,7 @@ class GroupsListFragment : Fragment() {
                 getString(R.string.successful_groups_upload),
                 Snackbar.LENGTH_SHORT
             ).show()
-            viewModel.onEventSuccessfulGroupUploadComplete()
+            viewModel.onEventSuccessfulGroupsUploadComplete()
         }
     }
 
