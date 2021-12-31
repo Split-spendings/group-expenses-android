@@ -10,11 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentSpendingsListBinding
+import com.splitspendings.groupexpensesandroid.screens.group.GroupFragment
 import com.splitspendings.groupexpensesandroid.screens.group.SpendingItemClickListener
 import com.splitspendings.groupexpensesandroid.screens.group.SpendingsListAdapter
-import timber.log.Timber
 
-class SpendingsListFragment(val groupId: Long) : Fragment() {
+class SpendingsListFragment(val groupId: Long, private val groupFragment: GroupFragment) : Fragment() {
 
     private lateinit var viewModel: SpendingsListViewModel
 
@@ -36,7 +36,7 @@ class SpendingsListFragment(val groupId: Long) : Fragment() {
         binding.spendingsList.adapter = adapter
 
         viewModel.eventNavigateToSpending.observe(viewLifecycleOwner, ::onNavigateToSpending)
-        viewModel.eventNavigateToNewSpending.observe(viewLifecycleOwner, ::onNavigateToNewSpendings)
+        viewModel.eventNavigateToNewSpending.observe(viewLifecycleOwner, ::onNavigateToNewSpending)
         viewModel.eventSuccessfulSpendingsUpload.observe(viewLifecycleOwner, ::onSuccessfulSpendingsUpload)
 
         return binding.root
@@ -53,21 +53,16 @@ class SpendingsListFragment(val groupId: Long) : Fragment() {
         }
     }
 
-    private fun onNavigateToNewSpendings(navigateToNewSpending: Boolean) {
+    private fun onNavigateToNewSpending(navigateToNewSpending: Boolean) {
         if (navigateToNewSpending) {
-            //TODO
-            /*findNavController()
-                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToNewGroupFragment())*/
+            groupFragment.onNavigateToNewSpending()
             viewModel.onEventNavigateToNewSpendingComplete()
         }
     }
 
     private fun onNavigateToSpending(spendingId: Long?) {
         spendingId?.let {
-            Timber.d("onNavigateToSpending: $spendingId")
-            //TODO
-            /*findNavController()
-                .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(spendingId))*/
+            groupFragment.onNavigateToSpending(spendingId)
             viewModel.onEventNavigateToSpendingComplete()
         }
     }

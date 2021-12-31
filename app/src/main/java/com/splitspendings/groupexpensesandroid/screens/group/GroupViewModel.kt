@@ -21,7 +21,7 @@ class GroupViewModelFactory(
 
 
 class GroupViewModel(
-    val groupId: Long,
+    groupId: Long,
     application: Application
 ) : AndroidViewModel(application) {
 

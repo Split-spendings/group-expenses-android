@@ -28,6 +28,9 @@
         <argument
             android:name="groupId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_groupFragment_to_spendingFragment"
+            app:destination="@id/spendingFragment" />
     </fragment>
     <fragment
         android:id="@+id/newGroupFragment"
@@ -68,5 +71,14 @@
         <action
             android:id="@+id/action_joinGroupFragment_to_groupFragment"
             app:destination="@id/groupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/spendingFragment"
+        android:name="com.splitspendings.groupexpensesandroid.screens.spending.SpendingFragment"
+        android:label="@string/spending_label"
+        tools:layout="@layout/fragment_spending">
+        <argument
+            android:name="spendingId"
+            app:argType="long" />
     </fragment>
 </navigation>

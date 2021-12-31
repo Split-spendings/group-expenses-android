@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
@@ -46,5 +47,14 @@ class GroupFragment : Fragment() {
         }.attach()
 
         return binding.root
+    }
+
+    fun onNavigateToNewSpending() {
+        //TODO
+    }
+
+    fun onNavigateToSpending(spendingId: Long) {
+        findNavController()
+            .navigate(GroupFragmentDirections.actionGroupFragmentToSpendingFragment(spendingId))
     }
 }

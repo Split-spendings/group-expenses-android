@@ -13,6 +13,9 @@
     <string name="join_group_fragment_label">Вступление в группу</string>
     <string name="spendings_label">Платежы</string>
     <string name="balances_label">Балансы</string>
+    <string name="spending_label">Платеж</string>
+    <string name="shares_label">Доли</string>
+    <string name="comments_label">Комментарии</string>
     <string name="share_label">Поделиться</string>
     <string name="about_label">О приложении</string>
     <string name="group_name">Название группы</string>

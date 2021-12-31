@@ -1,16 +1,15 @@
-package com.splitspendings.groupexpensesandroid.screens.group
+package com.splitspendings.groupexpensesandroid.screens.spending
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.splitspendings.groupexpensesandroid.screens.spendingslist.PlaceholderFragment
-import com.splitspendings.groupexpensesandroid.screens.spendingslist.SpendingsListFragment
 
-class GroupPagerAdapter(val groupId: Long, private val groupFragment: GroupFragment) : FragmentStateAdapter(groupFragment) {
+class SpendingPagerAdapter(val spendingId: Long, parent: Fragment) : FragmentStateAdapter(parent) {
 
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment = when(position) {
-        0 -> SpendingsListFragment(groupId, groupFragment)
+        0 -> PlaceholderFragment()
         else -> PlaceholderFragment() // TODO add Balances fragment
     }
 }
