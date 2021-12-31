@@ -11,6 +11,7 @@
     <string name="login_fragment_label">Логин</string>
     <string name="logout_fragment_label">Логаут</string>
     <string name="join_group_fragment_label">Вступление в группу</string>
+    <string name="new_spending_fragment_label">Новый платеж</string>
     <string name="spendings_label">Платежы</string>
     <string name="balances_label">Балансы</string>
     <string name="spending_label">Платеж</string>
@@ -20,6 +21,8 @@
     <string name="about_label">О приложении</string>
     <string name="group_name">Название группы</string>
     <string name="invalid_group_name_error">Неверное название группы</string>
+    <string name="spending_title">Название платежа</string>
+    <string name="invalid_spending_title_error">Неверное название платежа</string>
     <string name="invitation_code">Код-приглашение</string>
     <string name="invalid_invitation_code_error">Неверный код-приглашение</string>
     <string name="current_membership_groups_list_header">Текущие группы</string>

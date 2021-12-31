@@ -49,8 +49,9 @@ class GroupFragment : Fragment() {
         return binding.root
     }
 
-    fun onNavigateToNewSpending() {
-        //TODO
+    fun onNavigateToNewSpending(groupId: Long) {
+        findNavController()
+            .navigate(GroupFragmentDirections.actionGroupFragmentToNewSpendingFragment(groupId))
     }
 
     fun onNavigateToSpending(spendingId: Long) {

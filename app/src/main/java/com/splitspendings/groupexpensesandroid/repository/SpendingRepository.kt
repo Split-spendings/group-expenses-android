@@ -31,4 +31,9 @@ class SpendingRepository(private val database: GroupExpensesDatabase) {
     fun getSpending(id: Long): LiveData<Spending> = Transformations.map(database.spendingDao.getLive(id)) {
         it.asModel()
     }
+
+    fun saveSpending(groupId: Long, spendingTitle: String) : Long {
+        //TODO
+        return -1
+    }
 }

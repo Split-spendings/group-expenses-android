@@ -55,7 +55,7 @@ class SpendingsListFragment(val groupId: Long, private val groupFragment: GroupF
 
     private fun onNavigateToNewSpending(navigateToNewSpending: Boolean) {
         if (navigateToNewSpending) {
-            groupFragment.onNavigateToNewSpending()
+            groupFragment.onNavigateToNewSpending(groupId)
             viewModel.onEventNavigateToNewSpendingComplete()
         }
     }
