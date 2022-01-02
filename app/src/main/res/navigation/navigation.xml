@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_groupFragment_to_newSpendingFragment"
             app:destination="@id/newSpendingFragment" />
+        <action
+            android:id="@+id/action_groupFragment_to_inviteToGroupFragment"
+            app:destination="@id/inviteToGroupFragment" />
     </fragment>
     <fragment
         android:id="@+id/newGroupFragment"
@@ -95,5 +98,14 @@
         <action
             android:id="@+id/action_newSpendingFragment_to_spendingFragment"
             app:destination="@id/spendingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inviteToGroupFragment"
+        android:name="com.splitspendings.groupexpensesandroid.screens.invitetogroup.InviteToGroupFragment"
+        android:label="@string/invite_to_group_fragment_label"
+        tools:layout="@layout/fragment_invite_to_group">
+        <argument
+            android:name="groupId"
+            app:argType="long" />
     </fragment>
 </navigation>

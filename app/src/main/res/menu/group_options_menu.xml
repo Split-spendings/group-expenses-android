@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/inviteToGroupFragment"
+        android:title="@string/invite_to_group_fragment_label" />
+    <item
+        android:id="@+id/leaveGroup"
+        android:title="@string/leave_group_menu_item" />
+
+</menu>

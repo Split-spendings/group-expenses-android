@@ -86,4 +86,22 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         //TODO test for cases when this group already in db (former group)
         return database.groupDao.insert(group.asEntity())
     }
+
+    suspend fun refreshInvitationCode(groupId: Long) {
+        val group = database.groupDao.get(groupId)
+        group?.let {
+            //TODO add server logic
+            it.invitationCode = "INVITE CODE"
+            database.groupDao.update(it)
+        }
+    }
+
+    suspend fun generateNewInvitationCode(groupId: Long) {
+        val group = database.groupDao.get(groupId)
+        group?.let {
+            //TODO add server logic
+            it.invitationCode = it.invitationCode + "*"
+            database.groupDao.update(it)
+        }
+    }
 }

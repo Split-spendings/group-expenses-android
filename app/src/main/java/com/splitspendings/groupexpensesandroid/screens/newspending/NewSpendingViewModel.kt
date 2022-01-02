@@ -94,7 +94,3 @@ class NewSpendingViewModel(
         }
     }
 }
-
-
-
-

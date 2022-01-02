@@ -4,12 +4,17 @@
     <string name="submit_button">Submit</string>
     <string name="add_new_group_button">New group</string>
     <string name="join_group_button">Join group</string>
+    <string name="new_invitation_code_button">Generate new code</string>
+    <string name="new_invitation_code_generated_success">New invitation code generated successfully</string>
+    <string name="new_invitation_code_generated_failed">Could not generate a new invitation code</string>
+    <string name="copied_invitation_code">Invitation code copied to clipboard</string>
     <string name="groups_list_fragment_label">Groups</string>
     <string name="group_fragment_label">Group</string>
     <string name="new_group_fragment_label">New group</string>
     <string name="login_fragment_label">Login</string>
     <string name="logout_fragment_label">Logout</string>
     <string name="join_group_fragment_label">Join group</string>
+    <string name="invite_to_group_fragment_label">Invite to group</string>
     <string name="new_spending_fragment_label">New spending</string>
     <string name="spendings_label">Spendings</string>
     <string name="balances_label">Balances</string>
@@ -23,7 +28,7 @@
     <string name="invalid_group_name_error">Invalid group name</string>
     <string name="spending_title">Spending title</string>
     <string name="invalid_spending_title_error">Invalid spending title</string>
-    <string name="invitation_code">Invitation code</string>
+    <string name="invitation_code">Invitation code:</string>
     <string name="invalid_invitation_code_error">Invalid invitation code</string>
     <string name="current_membership_groups_list_header">Current membership</string>
     <string name="former_membership_groups_list_header">Former membership</string>
@@ -35,6 +40,7 @@
     <string name="filtering_group_all_menu_item">All</string>
     <string name="filtering_group_current_menu_item">Current</string>
     <string name="filtering_group_former_menu_item">Former</string>
+    <string name="leave_group_menu_item">Leave group</string>
     <string name="general_menu_group">General:</string>
     <string name="login_button">Login</string>
     <string name="logout_button">Logout</string>

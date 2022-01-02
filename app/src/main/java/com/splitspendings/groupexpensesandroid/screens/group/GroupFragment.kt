@@ -2,6 +2,9 @@ package com.splitspendings.groupexpensesandroid.screens.group
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -46,6 +49,8 @@ class GroupFragment : Fragment() {
             }
         }.attach()
 
+        setHasOptionsMenu(true)
+
         return binding.root
     }
 
@@ -57,5 +62,18 @@ class GroupFragment : Fragment() {
     fun onNavigateToSpending(spendingId: Long) {
         findNavController()
             .navigate(GroupFragmentDirections.actionGroupFragmentToSpendingFragment(spendingId))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.group_options_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.inviteToGroupFragment -> findNavController()
+                .navigate(GroupFragmentDirections.actionGroupFragmentToInviteToGroupFragment(viewModel.group.value!!.id))
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

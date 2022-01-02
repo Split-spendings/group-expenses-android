@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".screens.invitetogroup.InviteToGroupFragment">
+
+    <data>
+
+        <variable
+            name="inviteToGroupViewModel"
+            type="com.splitspendings.groupexpensesandroid.screens.invitetogroup.InviteToGroupViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/code_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/invitation_code"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:text="@{inviteToGroupViewModel.group.invitationCode}"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/code_label"
+            app:layout_constraintStart_toStartOf="@id/code_label"
+            app:layout_constraintTop_toBottomOf="@id/code_label"
+            tools:text="QWE123" />
+
+        <ImageButton
+            android:id="@+id/copy_code_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:background="?colorPrimary"
+            android:onClick="@{() -> inviteToGroupViewModel.onCopyCode()}"
+            android:padding="@dimen/spacing_half"
+            android:src="@drawable/ic_baseline_content_copy_24"
+            app:layout_constraintEnd_toEndOf="@id/code"
+            app:layout_constraintStart_toStartOf="@id/code"
+            app:layout_constraintTop_toBottomOf="@id/code"
+            app:tint="?colorOnPrimary" />
+
+        <Button
+            android:id="@+id/generate_new_code_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_normal"
+            android:onClick="@{() -> inviteToGroupViewModel.onGenerateNewCode()}"
+            android:text="@string/new_invitation_code_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

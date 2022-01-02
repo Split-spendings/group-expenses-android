@@ -15,14 +15,18 @@ data class GroupEntity(
     var name: String,
 
     @ColumnInfo(name = "current")
-    var current: Boolean
+    var current: Boolean,
+
+    @ColumnInfo(name = "invitation_code")
+    var invitationCode: String?
 )
 
 fun GroupEntity.asModel() =
     Group(
         id = id,
         name = name,
-        current = current
+        current = current,
+        invitationCode = invitationCode
     )
 
 fun List<GroupEntity>.asModel() = map { it.asModel() }

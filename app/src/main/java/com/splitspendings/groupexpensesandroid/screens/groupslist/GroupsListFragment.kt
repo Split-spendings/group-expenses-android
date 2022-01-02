@@ -87,7 +87,7 @@ class GroupsListFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.options_menu, menu)
+        inflater.inflate(R.menu.groups_list_options_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

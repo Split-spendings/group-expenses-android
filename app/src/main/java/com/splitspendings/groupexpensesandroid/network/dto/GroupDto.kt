@@ -20,7 +20,8 @@ fun GroupDto.asEntity() =
     GroupEntity(
         id = id,
         name = name,
-        current = isActiveMember
+        current = isActiveMember,
+        invitationCode = null
     )
 
 fun List<GroupDto>.asEntity() = map { it.asEntity() }
