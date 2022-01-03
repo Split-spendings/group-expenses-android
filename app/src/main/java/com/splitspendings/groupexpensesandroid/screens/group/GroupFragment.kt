@@ -1,5 +1,6 @@
 package com.splitspendings.groupexpensesandroid.screens.group
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -73,7 +74,19 @@ class GroupFragment : Fragment() {
         when (item.itemId) {
             R.id.inviteToGroupFragment -> findNavController()
                 .navigate(GroupFragmentDirections.actionGroupFragmentToInviteToGroupFragment(viewModel.group.value!!.id))
+            R.id.leaveGroup -> showLeaveGroupDialog()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showLeaveGroupDialog() {
+        activity?.let {
+            AlertDialog.Builder(it).apply {
+                setMessage(R.string.leave_group_dialog_message)
+                setPositiveButton(R.string.ok_button) { _, _ -> viewModel.onLeaveGroup() }
+                setNegativeButton(R.string.cancel_button) { dialog, _ -> dialog.cancel() }
+                show()
+            }
+        }
     }
 }

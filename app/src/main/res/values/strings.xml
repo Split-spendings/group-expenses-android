@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Group expenses app</string>
+    <string name="app_name" translatable="false">Group expenses app</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">Cancel</string>
     <string name="reset_button">Reset</string>
     <string name="submit_button">Submit</string>
     <string name="add_new_group_button">New group</string>
@@ -41,6 +43,7 @@
     <string name="filtering_group_current_menu_item">Current</string>
     <string name="filtering_group_former_menu_item">Former</string>
     <string name="leave_group_menu_item">Leave group</string>
+    <string name="leave_group_dialog_message">Leave group?\nYou will no longer have access to group data</string>
     <string name="general_menu_group">General:</string>
     <string name="login_button">Login</string>
     <string name="logout_button">Logout</string>

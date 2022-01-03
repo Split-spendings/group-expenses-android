@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Group expenses app</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">Отмена</string>
     <string name="reset_button">Сброс</string>
     <string name="submit_button">Подтвердить</string>
     <string name="add_new_group_button">Новая группа</string>
@@ -41,6 +43,7 @@
     <string name="filtering_group_current_menu_item">Текущие</string>
     <string name="filtering_group_former_menu_item">Прошлые</string>
     <string name="leave_group_menu_item">Покинуть группу</string>
+    <string name="leave_group_dialog_message">Покинуть группу?\nВы потеряете доступ к данным группы</string>
     <string name="general_menu_group">Общее:</string>
     <string name="login_button">Логин</string>
     <string name="logout_button">Логаут</string>
