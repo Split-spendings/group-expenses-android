@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Group expenses app</string>
     <string name="ok_button">OK</string>
     <string name="cancel_button">Отмена</string>
     <string name="reset_button">Сброс</string>
@@ -19,6 +18,7 @@
     <string name="join_group_fragment_label">Вступление в группу</string>
     <string name="invite_to_group_fragment_label">Приглашение в группу</string>
     <string name="new_spending_fragment_label">Новый платеж</string>
+    <string name="new_payoff_fragment_label">Расплатиться</string>
     <string name="spendings_label">Платежы</string>
     <string name="balances_label">Балансы</string>
     <string name="spending_label">Платеж</string>
@@ -54,4 +54,5 @@
     <!-- tmp -->
     <string name="group_name_format">Название группы: : \"%s\"</string>
     <string name="group_format"><![CDATA[<b>Группа:</b> id=%d, название=%s]]></string>
+    <string name="payoff_title">Название расплаты</string>
 </resources>

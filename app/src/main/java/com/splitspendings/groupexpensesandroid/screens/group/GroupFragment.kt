@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
-import timber.log.Timber
 
 class GroupFragment : Fragment() {
 
@@ -67,8 +66,8 @@ class GroupFragment : Fragment() {
     }
 
     fun onNavigateToNewPayoff(balanceId: Long) {
-        //TODO
-        Timber.d("onNavigateToNewPayoff balanceId=$balanceId")
+        findNavController()
+            .navigate(GroupFragmentDirections.actionGroupFragmentToNewPayoffFragment(balanceId))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

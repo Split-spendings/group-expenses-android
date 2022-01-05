@@ -18,6 +18,7 @@
     <string name="join_group_fragment_label">Join group</string>
     <string name="invite_to_group_fragment_label">Invite to group</string>
     <string name="new_spending_fragment_label">New spending</string>
+    <string name="new_payoff_fragment_label">New payoff</string>
     <string name="spendings_label">Spendings</string>
     <string name="balances_label">Balances</string>
     <string name="spending_label">Spending</string>
@@ -29,6 +30,7 @@
     <string name="group_name">Group name</string>
     <string name="invalid_group_name_error">Invalid group name</string>
     <string name="spending_title">Spending title</string>
+    <string name="payoff_title">Payoff title</string>
     <string name="invalid_spending_title_error">Invalid spending title</string>
     <string name="invitation_code">Invitation code:</string>
     <string name="invalid_invitation_code_error">Invalid invitation code</string>

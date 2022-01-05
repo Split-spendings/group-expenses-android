@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_groupFragment_to_inviteToGroupFragment"
             app:destination="@id/inviteToGroupFragment" />
+        <action
+            android:id="@+id/action_groupFragment_to_newPayoffFragment"
+            app:destination="@id/newPayoffFragment" />
     </fragment>
     <fragment
         android:id="@+id/newGroupFragment"
@@ -106,6 +109,15 @@
         tools:layout="@layout/fragment_invite_to_group">
         <argument
             android:name="groupId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPayoffFragment"
+        android:name="com.splitspendings.groupexpensesandroid.screens.newpayoff.NewPayoffFragment"
+        android:label="@string/new_payoff_fragment_label"
+        tools:layout="@layout/fragment_new_payoff">
+        <argument
+            android:name="balanceId"
             app:argType="long" />
     </fragment>
 </navigation>
