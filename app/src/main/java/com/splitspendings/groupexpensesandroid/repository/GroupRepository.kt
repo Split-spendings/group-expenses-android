@@ -8,6 +8,7 @@ import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.common.InviteOption
 import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.database.entity.asModel
+import com.splitspendings.groupexpensesandroid.model.Balance
 import com.splitspendings.groupexpensesandroid.model.Group
 import com.splitspendings.groupexpensesandroid.model.Spending
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
@@ -15,6 +16,7 @@ import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.asEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class GroupRepository(private val database: GroupExpensesDatabase) {
 
@@ -90,7 +92,7 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
     suspend fun refreshInvitationCode(groupId: Long) {
         val group = database.groupDao.get(groupId)
         group?.let {
-            //TODO add server logic
+            //TODO add server logic, change update to delete and insert
             it.invitationCode = "INVITE CODE"
             database.groupDao.update(it)
         }
@@ -99,9 +101,22 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
     suspend fun generateNewInvitationCode(groupId: Long) {
         val group = database.groupDao.get(groupId)
         group?.let {
-            //TODO add server logic
+            //TODO add server logic, change update to delete and insert
             it.invitationCode = it.invitationCode + "*"
             database.groupDao.update(it)
+        }
+    }
+
+    fun getGroupBalances(groupId: Long): LiveData<List<Balance>> = Transformations.map(database.balanceDao.getByGroupIdLive(groupId)) {
+        it.asModel()
+    }
+
+    suspend fun refreshGroupBalances(groupId: Long) {
+        withContext(Dispatchers.IO) {
+            val groupBalances = GroupExpensesApi.retrofitService.groupBalances(groupId)
+            Timber.d("groupBalances $groupBalances")
+            database.balanceDao.deleteByGroupId(groupId)
+            database.balanceDao.insertAll(groupBalances.balances.asEntity(groupId))
         }
     }
 }

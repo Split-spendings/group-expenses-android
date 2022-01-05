@@ -11,8 +11,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentSpendingsListBinding
 import com.splitspendings.groupexpensesandroid.screens.group.GroupFragment
-import com.splitspendings.groupexpensesandroid.screens.group.SpendingItemClickListener
-import com.splitspendings.groupexpensesandroid.screens.group.SpendingsListAdapter
 
 class SpendingsListFragment(val groupId: Long, private val groupFragment: GroupFragment) : Fragment() {
 

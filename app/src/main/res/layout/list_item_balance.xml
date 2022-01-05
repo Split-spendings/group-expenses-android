@@ -6,38 +6,37 @@
     <data>
 
         <variable
-            name="spending"
-            type="com.splitspendings.groupexpensesandroid.model.Spending" />
+            name="balance"
+            type="com.splitspendings.groupexpensesandroid.model.Balance" />
 
         <variable
             name="clickListener"
-            type="com.splitspendings.groupexpensesandroid.screens.spendingslist.SpendingItemClickListener" />
+            type="com.splitspendings.groupexpensesandroid.screens.balanceslist.BalanceItemClickListener" />
 
         <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="@{() -> clickListener.onClick(spending)}">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/spending_title"
+            android:id="@+id/balance_with"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"
-            android:text="@{spending.title}"
+            android:text="@{balance.withAppUser.loginName}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Spending title" />
+            tools:text="User name" />
 
         <TextView
             android:id="@+id/spending_total_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"
-            android:text="@{spending.totalAmount.toString()}"
-            app:layout_constraintBaseline_toBaselineOf="@id/spending_title"
+            android:text="@{balance.balance.toString()}"
+            app:layout_constraintBaseline_toBaselineOf="@id/balance_with"
             app:layout_constraintEnd_toStartOf="@id/spending_currency"
             tools:text="199.50" />
 
@@ -46,16 +45,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"
-            android:text="@{spending.currency.toString()}"
+            android:text="@{balance.currency.toString()}"
             app:layout_constraintBaseline_toBaselineOf="@id/spending_total_amount"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/payoff_button"
             tools:text="USD" />
+
+        <Button
+            android:id="@+id/payoff_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:onClick="@{() -> clickListener.onClick(balance)}"
+            android:text="@string/payoff_button"
+            app:layout_constraintBaseline_toBaselineOf="@id/spending_currency"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <View
             style="@style/Divider"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/spacing_normal"
-            app:layout_constraintTop_toBottomOf="@id/spending_title" />
+            app:layout_constraintTop_toBottomOf="@id/balance_with" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

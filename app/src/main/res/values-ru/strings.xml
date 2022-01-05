@@ -38,6 +38,8 @@
     <string name="successful_groups_upload">Группы успешно загружены с сервера</string>
     <string name="failed_spendings_upload">Не удалось загрузить платежи с сервера</string>
     <string name="successful_spendings_upload">Платежи успешно загружены с сервера</string>
+    <string name="failed_balances_upload">Не удалось загрузить балансы с сервера</string>
+    <string name="successful_balances_upload">Балансы успешно загружены с сервера</string>
     <string name="filtering_menu_group">Фильтр:</string>
     <string name="filtering_group_all_menu_item">Все</string>
     <string name="filtering_group_current_menu_item">Текущие</string>
@@ -47,6 +49,7 @@
     <string name="general_menu_group">Общее:</string>
     <string name="login_button">Логин</string>
     <string name="logout_button">Логаут</string>
+    <string name="payoff_button">Расплатиться</string>
 
     <!-- tmp -->
     <string name="group_name_format">Название группы: : \"%s\"</string>

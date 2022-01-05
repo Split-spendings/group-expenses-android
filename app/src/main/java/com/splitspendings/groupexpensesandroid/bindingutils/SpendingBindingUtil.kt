@@ -3,7 +3,7 @@ package com.splitspendings.groupexpensesandroid.bindingutils
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.splitspendings.groupexpensesandroid.model.Spending
-import com.splitspendings.groupexpensesandroid.screens.group.SpendingsListAdapter
+import com.splitspendings.groupexpensesandroid.screens.spendingslist.SpendingsListAdapter
 
 @BindingAdapter("spendingsList")
 fun bindSpendingListRecyclerView(recyclerView: RecyclerView, spendingList: List<Spending>?) {

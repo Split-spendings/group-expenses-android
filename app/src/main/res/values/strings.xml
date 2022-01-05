@@ -38,6 +38,8 @@
     <string name="successful_groups_upload">Successfully loaded groups from server</string>
     <string name="failed_spendings_upload">Could not load spendings from server</string>
     <string name="successful_spendings_upload">Successfully loaded spendings from server</string>
+    <string name="failed_balances_upload">Could not load balances from server</string>
+    <string name="successful_balances_upload">Successfully loaded balances from server</string>
     <string name="filtering_menu_group">Filtering:</string>
     <string name="filtering_group_all_menu_item">All</string>
     <string name="filtering_group_current_menu_item">Current</string>
@@ -47,6 +49,7 @@
     <string name="general_menu_group">General:</string>
     <string name="login_button">Login</string>
     <string name="logout_button">Logout</string>
+    <string name="payoff_button">Payoff</string>
 
     <!-- tmp -->
     <string name="group_name_format">Group name: \"%s\"</string>

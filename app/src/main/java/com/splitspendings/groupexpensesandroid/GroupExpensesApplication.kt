@@ -3,6 +3,7 @@ package com.splitspendings.groupexpensesandroid
 import android.app.Application
 import com.splitspendings.groupexpensesandroid.auth.AppAuthHandler
 import com.splitspendings.groupexpensesandroid.auth.AuthStateManager
+import com.splitspendings.groupexpensesandroid.repository.BalanceRepository
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import com.splitspendings.groupexpensesandroid.repository.SpendingRepository
 import timber.log.Timber
@@ -21,5 +22,6 @@ class GroupExpensesApplication : Application() {
 
         GroupRepository.init(applicationContext)
         SpendingRepository.init(applicationContext)
+        BalanceRepository.init(applicationContext)
     }
 }
