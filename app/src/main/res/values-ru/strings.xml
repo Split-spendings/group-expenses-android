@@ -50,9 +50,11 @@
     <string name="login_button">Логин</string>
     <string name="logout_button">Логаут</string>
     <string name="payoff_button">Расплатиться</string>
+    <string name="payoff_title">Название расплаты</string>
+    <string name="delete_spending_menu_item">Удалить платеж</string>
+    <string name="delete_spending_dialog_message">Удалить платеж?</string>
 
     <!-- tmp -->
     <string name="group_name_format">Название группы: : \"%s\"</string>
     <string name="group_format"><![CDATA[<b>Группа:</b> id=%d, название=%s]]></string>
-    <string name="payoff_title">Название расплаты</string>
 </resources>

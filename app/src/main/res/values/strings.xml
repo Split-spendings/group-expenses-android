@@ -47,7 +47,9 @@
     <string name="filtering_group_current_menu_item">Current</string>
     <string name="filtering_group_former_menu_item">Former</string>
     <string name="leave_group_menu_item">Leave group</string>
+    <string name="delete_spending_menu_item">Delete spending</string>
     <string name="leave_group_dialog_message">Leave group?\nYou will no longer have access to group data</string>
+    <string name="delete_spending_dialog_message">Delete spending?</string>
     <string name="general_menu_group">General:</string>
     <string name="login_button">Login</string>
     <string name="logout_button">Logout</string>

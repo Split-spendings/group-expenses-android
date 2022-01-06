@@ -1,7 +1,11 @@
 package com.splitspendings.groupexpensesandroid.screens.spending
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -42,6 +46,31 @@ class SpendingFragment : Fragment() {
             }
         }.attach()
 
+        setHasOptionsMenu(true)
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.spending_options_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.deleteSpending -> showDeleteSpendingDialog()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showDeleteSpendingDialog() {
+        activity?.let {
+            AlertDialog.Builder(it).apply {
+                setMessage(R.string.delete_spending_dialog_message)
+                setPositiveButton(R.string.ok_button) { _, _ -> viewModel.onDeleteSpending() }
+                setNegativeButton(R.string.cancel_button) { dialog, _ -> dialog.cancel() }
+                show()
+            }
+        }
     }
 }

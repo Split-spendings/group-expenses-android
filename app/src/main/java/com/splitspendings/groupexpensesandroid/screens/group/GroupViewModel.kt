@@ -32,6 +32,6 @@ class GroupViewModel(
 
     fun onLeaveGroup() {
         Timber.d("leave group ${group.value}")
-        //TODO add repository logic for leaving group
+        //TODO add repository logic for leaving group and navigate back to groups list
     }
 }

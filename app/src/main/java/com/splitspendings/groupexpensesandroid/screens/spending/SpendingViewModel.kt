@@ -28,4 +28,8 @@ class SpendingViewModel(
     private val spendingRepository = SpendingRepository.getInstance()
 
     val spending = spendingRepository.getSpending(spendingId)
+
+    fun onDeleteSpending() {
+        //TODO delete spending from server an navigate back to group fragment
+    }
 }
