@@ -15,7 +15,7 @@ import java.math.BigDecimal
 @BindingAdapter("balancesList")
 fun bindBalancesListRecyclerView(recyclerView: RecyclerView, balancesList: List<Balance>?) {
     val adapter = recyclerView.adapter as BalancesListAdapter
-    adapter.submitList(balancesList)
+    adapter.addHeadersAndSubmitList(balancesList)
 }
 
 @BindingAdapter("balancePayoffButton")
@@ -29,6 +29,7 @@ fun bindBalancePayoffButton(button: View, balance: Balance) {
 
 @BindingAdapter("balanceAmount")
 fun bindBalanceAmount(balanceAmount: TextView, balance: Balance) {
+    balanceAmount.text = balance.balance.toString()
     when {
         balance.balance < BigDecimal.ZERO ->
             balanceAmount.setTextColor(ContextCompat.getColor(balanceAmount.context, R.color.red))

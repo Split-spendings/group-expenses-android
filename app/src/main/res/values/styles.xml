@@ -19,6 +19,11 @@
         <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 
+    <style name="BalancesListHeader">
+        <item name="android:background">?attr/colorPrimaryVariant</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
     <style name="Chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/chip_background_color_state_list</item>
         <item name="android:textColor">@color/chip_text_color_state_list</item>

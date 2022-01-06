@@ -21,34 +21,24 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/with_app_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_normal"
-            android:text="@{balance.withAppUser.loginName}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="User name" />
-
-        <TextView
             android:id="@+id/balance_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_normal"
-            android:text="@{balance.balance.toString()}"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_normal"
             app:balanceAmount="@{balance}"
-            app:layout_constraintBaseline_toBaselineOf="@id/with_app_user"
-            app:layout_constraintEnd_toStartOf="@id/currency"
+            app:layout_constraintEnd_toStartOf="@+id/currency"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="199.50" />
 
         <TextView
             android:id="@+id/currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_normal"
             android:text="@{balance.currency.toString()}"
             app:layout_constraintBaseline_toBaselineOf="@id/balance_amount"
-            app:layout_constraintEnd_toStartOf="@id/payoff_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:text="USD" />
 
         <Button
@@ -66,7 +56,7 @@
             style="@style/Divider"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/spacing_normal"
-            app:layout_constraintTop_toBottomOf="@id/with_app_user" />
+            app:layout_constraintTop_toBottomOf="@id/balance_amount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
