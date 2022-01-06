@@ -1,7 +1,7 @@
 package com.splitspendings.groupexpensesandroid.bindingutils
 
 import android.view.View
-import android.view.View.GONE
+import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -23,7 +23,7 @@ fun bindBalancePayoffButton(button: View, balance: Balance) {
     if (balance.balance < BigDecimal.ZERO) {
         button.visibility = VISIBLE
     } else {
-        button.visibility = GONE
+        button.visibility = INVISIBLE
     }
 }
 

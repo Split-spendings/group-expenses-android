@@ -24,11 +24,10 @@
             android:id="@+id/balance_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_normal"
             android:layout_marginEnd="@dimen/spacing_normal"
             app:balanceAmount="@{balance}"
+            app:layout_constraintBaseline_toBaselineOf="@id/payoff_button"
             app:layout_constraintEnd_toStartOf="@+id/currency"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="199.50" />
 
         <TextView
@@ -36,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{balance.currency.toString()}"
-            app:layout_constraintBaseline_toBaselineOf="@id/balance_amount"
+            app:layout_constraintBaseline_toBaselineOf="@id/payoff_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="USD" />
@@ -46,17 +45,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_half"
             android:onClick="@{() -> clickListener.onClick(balance)}"
             android:text="@string/payoff_button"
             app:balancePayoffButton="@{balance}"
-            app:layout_constraintBaseline_toBaselineOf="@id/currency"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <View
             style="@style/Divider"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/spacing_normal"
-            app:layout_constraintTop_toBottomOf="@id/balance_amount" />
+            android:layout_marginTop="@dimen/spacing_half"
+            app:layout_constraintTop_toBottomOf="@id/payoff_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
