@@ -71,4 +71,6 @@ dependencies {
     implementation "net.openid:appauth:0.10.0"
 
     implementation "com.nambimobile.widgets:expandable-fab:1.2.1"
+
+    implementation 'com.cottacush:CurrencyEditText:0.0.10'
 }

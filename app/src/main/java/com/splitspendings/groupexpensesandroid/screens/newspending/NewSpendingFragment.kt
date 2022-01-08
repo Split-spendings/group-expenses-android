@@ -1,8 +1,6 @@
 package com.splitspendings.groupexpensesandroid.screens.newspending
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +18,8 @@ import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewSpendingBinding
 import com.splitspendings.groupexpensesandroid.model.GroupMember
 import timber.log.Timber
+import java.math.BigDecimal
+import java.util.*
 
 class NewSpendingFragment : Fragment() {
 
@@ -63,56 +63,55 @@ class NewSpendingFragment : Fragment() {
     }
 
     private fun setUpEqualSplitSwitch() {
-        binding.splitEqualSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            Timber.d("split equal $isChecked")
-            viewModel.equalSplit.value = isChecked
+        binding.splitEqualSwitch.apply {
+            setOnCheckedChangeListener { buttonView, isChecked ->
+                Timber.d("split equal $isChecked")
+                viewModel.equalSplit.value = isChecked
+            }
+            isChecked = true
         }
-        binding.splitEqualSwitch.isChecked = true
     }
 
     private fun setUpTotalAmount() {
-        binding.totalAmount.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable) {
-                Timber.d("total amount afterTextChanged: $s")
+        binding.totalAmount.apply {
+            doAfterTextChanged {
+                viewModel.totalAmount.value = getNumericValueBigDecimal()
+                Timber.d("total amount: ${getNumericValueBigDecimal()}")
             }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                Timber.d("total amount beforeTextChanged: $s")
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                Timber.d("total amount onTextChanged: $s")
-            }
-        })
-        binding.totalAmount.setText("0.00")
+            setLocale(Locale.getDefault())
+            setText(BigDecimal.ZERO.toString())
+        }
     }
 
     private fun setUpCurrencyPicker() {
-        ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            Currency.values()
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            binding.currencyPicker.adapter = adapter
+        binding.currencyPicker.apply {
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                Currency.values()
+            ).also { newAdapter ->
+                // Specify the layout to use when the list of choices appears
+                newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                // Apply the adapter to the spinner
+                adapter = newAdapter
+            }
+            onItemSelectedListener = CurrencyPicker(viewModel)
         }
-        binding.currencyPicker.onItemSelectedListener = CurrencyPicker(viewModel)
     }
 
     private fun setUpPaidBy(groupMembers: List<GroupMember>?) {
         groupMembers?.let {
-            ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_spinner_item,
-                groupMembers.map { it.appUSer.loginName }
-            ).also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.paidByPicker.adapter = adapter
+            binding.paidByPicker.apply {
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    groupMembers.map { it.appUSer.loginName }
+                ).also { newAdapter ->
+                    newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    adapter = newAdapter
+                }
+                onItemSelectedListener = PaidByPicker(viewModel, groupMembers)
             }
-            binding.paidByPicker.onItemSelectedListener = PaidByPicker(viewModel, groupMembers)
         }
     }
 

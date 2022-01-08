@@ -56,15 +56,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/paid_by_label" />
 
-        <EditText
+        <com.cottacush.android.currencyedittext.CurrencyEditText
             android:id="@+id/total_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_normal"
-            android:importantForAutofill="no"
-            android:inputType="numberDecimal"
             app:layout_constraintBaseline_toBaselineOf="@id/total_amount_label"
             app:layout_constraintEnd_toStartOf="@+id/currency_picker"
+            app:useCurrencySymbolAsHint="false"
             tools:text="123.99" />
 
         <Spinner
