@@ -2,6 +2,7 @@ package com.splitspendings.groupexpensesandroid.network
 
 import com.splitspendings.groupexpensesandroid.auth.AuthInterceptor
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
+import com.splitspendings.groupexpensesandroid.network.dto.GroupActiveMembersDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupBalancesDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupSpendingsDto
@@ -53,6 +54,9 @@ interface GroupExpensesApiService {
 
     @POST("/api/spendings")
     suspend fun createSpending(@Body newSpending: NewSpendingDto): SpendingDto
+
+    @GET("/api/groups/{id}/members")
+    suspend fun groupActiveMembers(@Path("id") groupId: Long): GroupActiveMembersDto
 }
 
 object GroupExpensesApi {

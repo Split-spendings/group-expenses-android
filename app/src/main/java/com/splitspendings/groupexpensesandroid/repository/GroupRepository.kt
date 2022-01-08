@@ -10,6 +10,7 @@ import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.database.entity.asModel
 import com.splitspendings.groupexpensesandroid.model.Balance
 import com.splitspendings.groupexpensesandroid.model.Group
+import com.splitspendings.groupexpensesandroid.model.GroupMember
 import com.splitspendings.groupexpensesandroid.model.Spending
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
 import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
@@ -117,6 +118,18 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
             Timber.d("groupBalances $groupBalances")
             database.balanceDao.deleteByGroupId(groupId)
             database.balanceDao.insertAll(groupBalances.balances.asEntity(groupId))
+        }
+    }
+
+    fun getGroupMembers(groupId: Long): LiveData<List<GroupMember>> = Transformations.map(database.groupMemberDao.getByGroupIdLive(groupId)) {
+        it.asModel()
+    }
+
+    suspend fun refreshGroupMembers(groupId: Long) {
+        withContext(Dispatchers.IO) {
+            val groupMembers = GroupExpensesApi.retrofitService.groupActiveMembers(groupId)
+            database.groupMemberDao.deleteByGroupId(groupId)
+            database.groupMemberDao.insertAll(groupMembers.members.asEntity(groupId))
         }
     }
 }
