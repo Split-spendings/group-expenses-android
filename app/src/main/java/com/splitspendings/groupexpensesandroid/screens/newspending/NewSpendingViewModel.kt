@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.common.Currency
 import com.splitspendings.groupexpensesandroid.network.dto.NewSpendingDto
+import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import com.splitspendings.groupexpensesandroid.repository.SpendingRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -33,7 +34,10 @@ class NewSpendingViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
+    private val groupRepository = GroupRepository.getInstance()
     private val spendingRepository = SpendingRepository.getInstance()
+
+    val groupMembers = groupRepository.getGroupMembers(groupId)
 
     private val _eventReset = MutableLiveData<Boolean>()
     val eventReset: LiveData<Boolean>
@@ -57,6 +61,7 @@ class NewSpendingViewModel(
         _eventReset.value = false
         _eventNavigateToSpending.value = null
         _eventInvalidSpendingTitle.value = false
+        loadGroupMembers()
     }
 
     fun onReset() {
@@ -82,6 +87,18 @@ class NewSpendingViewModel(
 
     fun onEventNavigateToSpendingComplete() {
         _eventNavigateToSpending.value = null
+    }
+
+    private fun loadGroupMembers() {
+        viewModelScope.launch {
+            try {
+                groupRepository.refreshGroupMembers(groupId)
+                Timber.d("group members: ${groupMembers.value}")
+            } catch (e: Exception) {
+                Timber.d("Failure: ${e.message}")
+                // TODO add displaying some error status to user
+            }
+        }
     }
 
     private fun saveSpendingAndNavigateToSpending() {

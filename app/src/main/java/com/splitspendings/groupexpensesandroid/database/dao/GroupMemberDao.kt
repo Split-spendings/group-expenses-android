@@ -37,9 +37,12 @@ interface GroupMemberDao {
     @Query("DELETE FROM group_member where id = :id")
     suspend fun delete(id: String)
 
-    @Query("SELECT * FROM group_member where groupId = :groupId")
-    fun getByGroupIdLive(groupId: Long): LiveData<List<GroupMemberEntity>>
-
     @Query("DELETE FROM group_member where groupId = :groupId")
     suspend fun deleteByGroupId(groupId: Long)
+
+    @Query("SELECT * FROM group_member where groupId = :groupId")
+    suspend fun getByGroupId(groupId: Long): List<GroupMemberEntity>
+
+    @Query("SELECT * FROM group_member where groupId = :groupId")
+    fun getByGroupIdLive(groupId: Long): LiveData<List<GroupMemberEntity>>
 }

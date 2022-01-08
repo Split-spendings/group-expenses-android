@@ -17,7 +17,6 @@ import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.asEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class GroupRepository(private val database: GroupExpensesDatabase) {
 
@@ -115,7 +114,6 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
     suspend fun refreshGroupBalances(groupId: Long) {
         withContext(Dispatchers.IO) {
             val groupBalances = GroupExpensesApi.retrofitService.groupBalances(groupId)
-            Timber.d("groupBalances $groupBalances")
             database.balanceDao.deleteByGroupId(groupId)
             database.balanceDao.insertAll(groupBalances.balances.asEntity(groupId))
         }
