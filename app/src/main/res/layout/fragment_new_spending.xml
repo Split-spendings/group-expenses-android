@@ -20,13 +20,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
             android:hint="@string/spending_title"
             android:importantForAutofill="no"
             android:inputType="text"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/currencies_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_spending_title" />
 
         <TextView
             android:id="@+id/group_members"
@@ -35,7 +44,7 @@
             app:groupMembersList="@{newSpendingViewModel.groupMembers}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_spending_title"
+            app:layout_constraintTop_toBottomOf="@id/currencies_picker"
             tools:text="group members list" />
 
         <Button

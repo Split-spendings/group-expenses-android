@@ -51,9 +51,10 @@ class NewSpendingViewModel(
     val eventNavigateToSpending: LiveData<Long>
         get() = _eventNavigateToSpending
 
-    val spendingTitle = MutableLiveData<String>()
+    val title = MutableLiveData<String>()
+    val currency = MutableLiveData<Currency>()
 
-    val resetButtonEnabled = Transformations.map(spendingTitle) {
+    val resetButtonEnabled = Transformations.map(title) {
         it?.isNotEmpty()
     }
 
@@ -70,7 +71,7 @@ class NewSpendingViewModel(
 
     fun onSubmit() {
         when {
-            spendingTitle.value.isNullOrBlank() -> _eventInvalidSpendingTitle.value = true
+            title.value.isNullOrBlank() -> _eventInvalidSpendingTitle.value = true
             else -> {
                 saveSpendingAndNavigateToSpending()
             }
@@ -106,9 +107,9 @@ class NewSpendingViewModel(
             try {
                 val newSpending = NewSpendingDto(
                     groupID = groupId,
-                    title = spendingTitle.value!!,
+                    title = title.value!!,
                     timePayed = null,
-                    currency = Currency.USD,
+                    currency = currency.value,
                     paidByGroupMembershipId = -1,
                     newItemDtoList = ArrayList()
                 )
