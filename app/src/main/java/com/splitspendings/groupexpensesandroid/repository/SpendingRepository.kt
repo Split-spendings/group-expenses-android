@@ -6,6 +6,9 @@ import androidx.lifecycle.Transformations
 import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.database.entity.asModel
 import com.splitspendings.groupexpensesandroid.model.Spending
+import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
+import com.splitspendings.groupexpensesandroid.network.dto.NewSpendingDto
+import com.splitspendings.groupexpensesandroid.network.dto.asEntity
 
 class SpendingRepository(private val database: GroupExpensesDatabase) {
 
@@ -32,8 +35,8 @@ class SpendingRepository(private val database: GroupExpensesDatabase) {
         it.asModel()
     }
 
-    fun saveSpending(groupId: Long, spendingTitle: String) : Long {
-        //TODO
-        return -1
+    suspend fun saveSpending(newSpending: NewSpendingDto) : Long {
+        val spendingSavedOnServer = GroupExpensesApi.retrofitService.createSpending(newSpending)
+        return database.spendingDao.insert(spendingSavedOnServer.asEntity())
     }
 }

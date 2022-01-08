@@ -8,6 +8,8 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.splitspendings.groupexpensesandroid.common.Currency
+import com.splitspendings.groupexpensesandroid.network.dto.NewSpendingDto
 import com.splitspendings.groupexpensesandroid.repository.SpendingRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -85,8 +87,15 @@ class NewSpendingViewModel(
     private fun saveSpendingAndNavigateToSpending() {
         viewModelScope.launch {
             try {
-                //TODO implement repository method
-                //_eventNavigateToSpending.value = spendingRepository.saveSpending(groupId = groupId, spendingTitle = spendingTitle.value!!)
+                val newSpending = NewSpendingDto(
+                    groupID = groupId,
+                    title = spendingTitle.value!!,
+                    timePayed = null,
+                    currency = Currency.USD,
+                    paidByGroupMembershipId = -1,
+                    newItemDtoList = ArrayList()
+                )
+                _eventNavigateToSpending.value = spendingRepository.saveSpending(newSpending)
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
                 // TODO add displaying some error status to user
