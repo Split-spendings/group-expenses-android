@@ -15,6 +15,7 @@ import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import com.splitspendings.groupexpensesandroid.repository.SpendingRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.math.BigDecimal
 
 class NewSpendingViewModelFactory(
     private val groupId: Long,
@@ -53,8 +54,10 @@ class NewSpendingViewModel(
         get() = _eventNavigateToSpending
 
     val title = MutableLiveData<String>()
-    val currency = MutableLiveData<Currency>()
     val paidBy = MutableLiveData<GroupMember>()
+    val totalAmount = MutableLiveData<BigDecimal>()
+    val currency = MutableLiveData<Currency>()
+    val equalSplit = MutableLiveData<Boolean>()
 
     val resetButtonEnabled = Transformations.map(title) {
         it?.isNotEmpty()

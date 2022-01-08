@@ -59,4 +59,5 @@
     <string name="delete_spending_dialog_message">Удалить платеж?</string>
     <string name="paid_by_label">Кто оплатил:</string>
     <string name="total_amount_label">Сумма:</string>
+    <string name="split_equal_label">Поровну:</string>
 </resources>

@@ -56,6 +56,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/paid_by_label" />
 
+        <EditText
+            android:id="@+id/total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            app:layout_constraintBaseline_toBaselineOf="@id/total_amount_label"
+            app:layout_constraintEnd_toStartOf="@+id/currency_picker"
+            tools:text="123.99" />
+
         <Spinner
             android:id="@+id/currency_picker"
             android:layout_width="wrap_content"
@@ -65,13 +76,32 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
+            android:id="@+id/split_equal_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:text="@string/split_equal_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/total_amount_label" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/split_equal_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            app:layout_constraintBaseline_toBaselineOf="@+id/split_equal_label"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
             android:id="@+id/group_members"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
             app:groupMembersList="@{newSpendingViewModel.groupMembers}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/currency_picker"
+            app:layout_constraintTop_toBottomOf="@id/split_equal_label"
             tools:text="group members list" />
 
         <Button

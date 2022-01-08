@@ -1,6 +1,8 @@
 package com.splitspendings.groupexpensesandroid.screens.newspending
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,10 +47,45 @@ class NewSpendingFragment : Fragment() {
         viewModel.eventInvalidSpendingTitle.observe(viewLifecycleOwner, ::onInvalidSpendingTitle)
         viewModel.eventNavigateToSpending.observe(viewLifecycleOwner, ::onNavigateToSpending)
         viewModel.groupMembers.observe(viewLifecycleOwner, ::setUpPaidBy)
+        viewModel.equalSplit.observe(viewLifecycleOwner, ::onEqualSplitToggled)
 
+        setUpTotalAmount()
         setUpCurrencyPicker()
+        setUpEqualSplitSwitch()
 
         return binding.root
+    }
+
+    private fun onEqualSplitToggled(equalSplit: Boolean?) {
+        equalSplit?.let {
+            binding.totalAmount.isEnabled = equalSplit
+        }
+    }
+
+    private fun setUpEqualSplitSwitch() {
+        binding.splitEqualSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            Timber.d("split equal $isChecked")
+            viewModel.equalSplit.value = isChecked
+        }
+        binding.splitEqualSwitch.isChecked = true
+    }
+
+    private fun setUpTotalAmount() {
+        binding.totalAmount.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                Timber.d("total amount afterTextChanged: $s")
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                Timber.d("total amount beforeTextChanged: $s")
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                Timber.d("total amount onTextChanged: $s")
+            }
+        })
+        binding.totalAmount.setText("0.00")
     }
 
     private fun setUpCurrencyPicker() {
