@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- tmp -->
+    <string name="group_name_format">Название группы: : \"%s\"</string>
+    <string name="group_format"><![CDATA[<b>Группа:</b> id=%d, название=%s]]></string>
+
     <string name="ok_button">OK</string>
     <string name="cancel_button">Отмена</string>
     <string name="reset_button">Сброс</string>
@@ -53,8 +57,6 @@
     <string name="payoff_title">Название расплаты</string>
     <string name="delete_spending_menu_item">Удалить платеж</string>
     <string name="delete_spending_dialog_message">Удалить платеж?</string>
-
-    <!-- tmp -->
-    <string name="group_name_format">Название группы: : \"%s\"</string>
-    <string name="group_format"><![CDATA[<b>Группа:</b> id=%d, название=%s]]></string>
+    <string name="paid_by_label">Кто оплатил:</string>
+    <string name="total_amount_label">Сумма:</string>
 </resources>

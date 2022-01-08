@@ -1,4 +1,8 @@
 <resources>
+    <!-- tmp -->
+    <string name="group_name_format">Group name: \"%s\"</string>
+    <string name="group_format"><![CDATA[<b>Group:</b> id=%d, name=%s]]></string>
+
     <string name="app_name" translatable="false">Group expenses app</string>
     <string name="ok_button">OK</string>
     <string name="cancel_button">Cancel</string>
@@ -54,8 +58,6 @@
     <string name="login_button">Login</string>
     <string name="logout_button">Logout</string>
     <string name="payoff_button">Payoff</string>
-
-    <!-- tmp -->
-    <string name="group_name_format">Group name: \"%s\"</string>
-    <string name="group_format"><![CDATA[<b>Group:</b> id=%d, name=%s]]></string>
+    <string name="paid_by_label">Paid by:</string>
+    <string name="total_amount_label">Total:</string>
 </resources>

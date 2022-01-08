@@ -28,14 +28,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
-            android:id="@+id/currencies_picker"
+        <TextView
+            android:id="@+id/paid_by_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginTop="@dimen/spacing_normal"
+            android:text="@string/paid_by_label"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_spending_title" />
+
+        <Spinner
+            android:id="@+id/paid_by_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            app:layout_constraintBaseline_toBaselineOf="@id/paid_by_label"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/total_amount_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:text="@string/total_amount_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/paid_by_label" />
+
+        <Spinner
+            android:id="@+id/currency_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            app:layout_constraintBaseline_toBaselineOf="@id/total_amount_label"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/group_members"
@@ -44,7 +71,7 @@
             app:groupMembersList="@{newSpendingViewModel.groupMembers}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/currencies_picker"
+            app:layout_constraintTop_toBottomOf="@id/currency_picker"
             tools:text="group members list" />
 
         <Button

@@ -16,8 +16,10 @@ import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.Currency
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewSpendingBinding
+import com.splitspendings.groupexpensesandroid.model.GroupMember
+import timber.log.Timber
 
-class NewSpendingFragment : Fragment(), AdapterView.OnItemSelectedListener  {
+class NewSpendingFragment : Fragment() {
 
     private lateinit var binding: FragmentNewSpendingBinding
 
@@ -42,6 +44,7 @@ class NewSpendingFragment : Fragment(), AdapterView.OnItemSelectedListener  {
         viewModel.eventReset.observe(viewLifecycleOwner, ::onReset)
         viewModel.eventInvalidSpendingTitle.observe(viewLifecycleOwner, ::onInvalidSpendingTitle)
         viewModel.eventNavigateToSpending.observe(viewLifecycleOwner, ::onNavigateToSpending)
+        viewModel.groupMembers.observe(viewLifecycleOwner, ::setUpPaidBy)
 
         setUpCurrencyPicker()
 
@@ -57,9 +60,23 @@ class NewSpendingFragment : Fragment(), AdapterView.OnItemSelectedListener  {
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
-            binding.currenciesPicker.adapter = adapter
+            binding.currencyPicker.adapter = adapter
         }
-        binding.currenciesPicker.onItemSelectedListener = this
+        binding.currencyPicker.onItemSelectedListener = CurrencyPicker(viewModel)
+    }
+
+    private fun setUpPaidBy(groupMembers: List<GroupMember>?) {
+        groupMembers?.let {
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                groupMembers.map { it.appUSer.loginName }
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.paidByPicker.adapter = adapter
+            }
+            binding.paidByPicker.onItemSelectedListener = PaidByPicker(viewModel, groupMembers)
+        }
     }
 
     private fun onReset(reset: Boolean) {
@@ -88,10 +105,26 @@ class NewSpendingFragment : Fragment(), AdapterView.OnItemSelectedListener  {
         }
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        viewModel.currency.value = Currency.values()[position]
+    class CurrencyPicker(val viewModel: NewSpendingViewModel) : AdapterView.OnItemSelectedListener {
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            viewModel.currency.value = Currency.values()[position]
+            Timber.d("currency selected: ${Currency.values()[position]}")
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+        }
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
+    class PaidByPicker(val viewModel: NewSpendingViewModel, private val groupMembers: List<GroupMember>) :
+        AdapterView.OnItemSelectedListener {
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            viewModel.paidBy.value = groupMembers[position]
+            Timber.d("paid by selected: ${groupMembers[position]}")
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+        }
     }
 }

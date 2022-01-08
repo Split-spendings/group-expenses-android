@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.common.Currency
+import com.splitspendings.groupexpensesandroid.model.GroupMember
 import com.splitspendings.groupexpensesandroid.network.dto.NewSpendingDto
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import com.splitspendings.groupexpensesandroid.repository.SpendingRepository
@@ -53,6 +54,7 @@ class NewSpendingViewModel(
 
     val title = MutableLiveData<String>()
     val currency = MutableLiveData<Currency>()
+    val paidBy = MutableLiveData<GroupMember>()
 
     val resetButtonEnabled = Transformations.map(title) {
         it?.isNotEmpty()
@@ -110,7 +112,7 @@ class NewSpendingViewModel(
                     title = title.value!!,
                     timePayed = null,
                     currency = currency.value,
-                    paidByGroupMembershipId = -1,
+                    paidByGroupMembershipId = paidBy.value!!.id,
                     newItemDtoList = ArrayList()
                 )
                 _eventNavigateToSpending.value = spendingRepository.saveSpending(newSpending)
