@@ -42,6 +42,13 @@ class NewSharesListAdapter(private val newShareItemClickListener: NewShareItemCl
                 setLocale(Locale.getDefault())
             }
 
+            binding.hasShare.apply {
+                setOnCheckedChangeListener { checkboxView, isChecked ->
+                    newShare.hasShare = isChecked
+                }
+                isChecked = newShare.hasShare
+            }
+
             binding.executePendingBindings()
         }
 
