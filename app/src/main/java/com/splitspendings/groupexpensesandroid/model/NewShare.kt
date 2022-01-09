@@ -4,9 +4,9 @@ import com.splitspendings.groupexpensesandroid.network.dto.NewShareDto
 import java.math.BigDecimal
 
 data class NewShare(
-    val hasShare: Boolean,
+    var hasShare: Boolean,
     val paidFor: GroupMember,
-    val amount: BigDecimal
+    var amount: BigDecimal
 )
 
 fun NewShare.asDto() = NewShareDto(

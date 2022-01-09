@@ -130,7 +130,8 @@ class NewSpendingViewModel(
                         )
                     )
                 )
-                _eventNavigateToSpending.value = spendingRepository.saveSpending(newSpending)
+                Timber.d("save spending: $newSpending")
+                //_eventNavigateToSpending.value = spendingRepository.saveSpending(newSpending)
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
                 // TODO add displaying some error status to user
