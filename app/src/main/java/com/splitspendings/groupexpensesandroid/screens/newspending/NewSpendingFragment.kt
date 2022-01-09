@@ -87,14 +87,7 @@ class NewSpendingFragment : Fragment() {
 
     private fun setUpTotalAmount() {
         binding.totalAmount.apply {
-            doAfterTextChanged {
-                viewModel.equalSplit.value?.let {
-                    if (it) {
-                        viewModel.totalAmount.value = getNumericValueBigDecimal()
-                    }
-                }
-                Timber.d("total amount: ${getNumericValueBigDecimal()}")
-            }
+            doAfterTextChanged { viewModel.onTotalAmountChanged(getNumericValueBigDecimal()) }
             setLocale(Locale.getDefault())
             setText(BigDecimal.ZERO.toString())
         }

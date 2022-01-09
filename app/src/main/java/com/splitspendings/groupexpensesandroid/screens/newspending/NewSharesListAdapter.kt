@@ -34,6 +34,7 @@ class NewSharesListAdapter(private val newSpendingViewModel: NewSpendingViewMode
             binding.lifecycleOwner = lifecycleOwner
 
             newSpendingViewModel.equalSplit.observe(lifecycleOwner, { onEqualSplitToggled(it, newShare) })
+            newSpendingViewModel.singleShareAmount.observe(lifecycleOwner, { onSingleShareAmountChanged(it, newShare) })
 
             setUpShareAmount(newShare, newSpendingViewModel)
             setUpHasShare(newShare, newSpendingViewModel)
@@ -43,6 +44,14 @@ class NewSharesListAdapter(private val newSpendingViewModel: NewSpendingViewMode
 
         private fun isShareAmountEnabled(newShare: NewShare, equalSplit: Boolean?): Boolean {
             return newShare.hasShare && !(equalSplit ?: true)
+        }
+
+        private fun onSingleShareAmountChanged(singleShareAmount: BigDecimal?, newShare: NewShare) {
+            singleShareAmount?.let {
+                if (newShare.hasShare) {
+                    binding.shareAmount.setText(singleShareAmount.toString())
+                }
+            }
         }
 
         private fun onEqualSplitToggled(equalSplit: Boolean?, newShare: NewShare) {
@@ -69,8 +78,12 @@ class NewSharesListAdapter(private val newSpendingViewModel: NewSpendingViewMode
         private fun setUpShareAmount(newShare: NewShare, newSpendingViewModel: NewSpendingViewModel) {
             binding.shareAmount.apply {
                 doAfterTextChanged {
-                    newShare.amount = getNumericValueBigDecimal()
-                    newSpendingViewModel.onShareChanged()
+                    newSpendingViewModel.equalSplit.value?.let {
+                        if (!it) {
+                            newShare.amount = getNumericValueBigDecimal()
+                            newSpendingViewModel.onShareChanged()
+                        }
+                    }
                 }
                 setLocale(Locale.getDefault())
                 setText(newShare.amount.toString())

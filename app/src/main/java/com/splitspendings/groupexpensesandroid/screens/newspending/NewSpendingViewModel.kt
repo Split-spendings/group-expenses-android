@@ -70,11 +70,37 @@ class NewSpendingViewModel(
         it?.isNotEmpty()
     }
 
+    val singleShareAmount = MutableLiveData<BigDecimal>()
+
     init {
         _eventReset.value = false
         _eventNavigateToSpending.value = null
         _eventInvalidSpendingTitle.value = false
         loadGroupMembers()
+    }
+
+    fun onTotalAmountChanged(newTotalAmount: BigDecimal) {
+        equalSplit.value?.let {
+            if (it) {
+                totalAmount.value = newTotalAmount
+                calculateShares(newTotalAmount)
+            }
+        }
+        Timber.d("total amount: $newTotalAmount")
+    }
+
+    //TODO add calling when 'split equal' toggled ON
+    private fun calculateShares(newTotalAmount: BigDecimal) {
+        newShares.value?.let {
+            val shares = it.filter { share -> share.hasShare }
+            val numberOfShares = shares.count()
+            if (numberOfShares == 0) {
+                return
+            }
+            val newSingleShareAmount = newTotalAmount.divide(numberOfShares.toBigDecimal())
+            shares.forEach { share -> share.amount = newSingleShareAmount }
+            singleShareAmount.value = newSingleShareAmount
+        }
     }
 
     fun onShareChanged() {
