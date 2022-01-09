@@ -36,15 +36,18 @@ class NewSharesListAdapter(private val newShareItemClickListener: NewShareItemCl
                 doAfterTextChanged {
                     newShare.amount = getNumericValueBigDecimal()
                 }
-                //the amount in the model is always 0 if it is just 'val initialAmount = newShare.amount'
-                val initialAmount = newShare.amount + BigDecimal.ZERO
-                setText(initialAmount.toString())
                 setLocale(Locale.getDefault())
+                setText(newShare.amount.toString())
             }
 
             binding.hasShare.apply {
-                setOnCheckedChangeListener { checkboxView, isChecked ->
+                setOnCheckedChangeListener { _, isChecked ->
                     newShare.hasShare = isChecked
+
+                    binding.shareAmount.isEnabled = isChecked
+                    if (!isChecked) {
+                        binding.shareAmount.setText(BigDecimal.ZERO.toString())
+                    }
                 }
                 isChecked = newShare.hasShare
             }
@@ -66,7 +69,9 @@ class NewSharesListAdapter(private val newShareItemClickListener: NewShareItemCl
 class NewShareDiffCallback : DiffUtil.ItemCallback<NewShare>() {
 
     override fun areItemsTheSame(oldItem: NewShare, newItem: NewShare): Boolean {
-        return oldItem.paidFor.id == newItem.paidFor.id
+        //return oldItem.paidFor.id == newItem.paidFor.id
+        //set to always be false in order to avoid recycling, that breaks the correct functioning of dynamic data (e.g. changing the 'amount')
+        return false
     }
 
     override fun areContentsTheSame(oldItem: NewShare, newItem: NewShare): Boolean {
