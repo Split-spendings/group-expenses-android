@@ -9,17 +9,12 @@
             name="newShare"
             type="com.splitspendings.groupexpensesandroid.model.NewShare" />
 
-        <variable
-            name="clickListener"
-            type="com.splitspendings.groupexpensesandroid.screens.newspending.NewShareItemClickListener" />
-
         <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="@{() -> clickListener.onClick(newShare)}">
+        android:layout_height="wrap_content">
 
         <CheckBox
             android:id="@+id/has_share"

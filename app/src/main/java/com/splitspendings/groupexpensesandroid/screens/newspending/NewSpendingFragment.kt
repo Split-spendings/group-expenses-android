@@ -49,10 +49,7 @@ class NewSpendingFragment : Fragment() {
         viewModel.groupMembers.observe(viewLifecycleOwner, ::setUpPaidBy)
         viewModel.equalSplit.observe(viewLifecycleOwner, ::onEqualSplitToggled)
 
-        val adapter = NewSharesListAdapter(NewShareItemClickListener { spendingId ->
-            //TODO
-        })
-        binding.newSharesList.adapter = adapter
+        binding.newSharesList.adapter = NewSharesListAdapter(viewModel, viewLifecycleOwner)
 
         setUpTotalAmount()
         setUpCurrencyPicker()
