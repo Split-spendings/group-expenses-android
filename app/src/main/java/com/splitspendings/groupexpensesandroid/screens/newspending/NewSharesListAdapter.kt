@@ -70,6 +70,9 @@ class NewSharesListAdapter(private val newSpendingViewModel: NewSpendingViewMode
                     if (!isChecked) {
                         binding.shareAmount.setText(BigDecimal.ZERO.toString())
                     }
+                    if (newSpendingViewModel.equalSplit.value == true) {
+                        newSpendingViewModel.calculateShares()
+                    }
                 }
                 isChecked = newShare.hasShare
             }

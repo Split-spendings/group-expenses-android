@@ -72,6 +72,7 @@ class NewSpendingFragment : Fragment() {
     private fun onEqualSplitToggled(equalSplit: Boolean?) {
         equalSplit?.let {
             binding.totalAmount.isEnabled = equalSplit
+            viewModel.calculateShares()
         }
     }
 

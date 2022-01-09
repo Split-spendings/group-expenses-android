@@ -19,6 +19,7 @@ import com.splitspendings.groupexpensesandroid.repository.SpendingRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.math.BigDecimal
+import java.math.MathContext
 
 class NewSpendingViewModelFactory(
     private val groupId: Long,
@@ -38,6 +39,8 @@ class NewSpendingViewModel(
     private val groupId: Long,
     application: Application
 ) : AndroidViewModel(application) {
+
+    private val mathContext: MathContext = MathContext(2)
 
     private val groupRepository = GroupRepository.getInstance()
     private val spendingRepository = SpendingRepository.getInstance()
@@ -83,23 +86,26 @@ class NewSpendingViewModel(
         equalSplit.value?.let {
             if (it) {
                 totalAmount.value = newTotalAmount
-                calculateShares(newTotalAmount)
+                calculateShares()
             }
         }
-        Timber.d("total amount: $newTotalAmount")
     }
 
-    //TODO add calling when 'split equal' toggled ON
-    private fun calculateShares(newTotalAmount: BigDecimal) {
-        newShares.value?.let {
-            val shares = it.filter { share -> share.hasShare }
-            val numberOfShares = shares.count()
-            if (numberOfShares == 0) {
-                return
+    fun calculateShares() {
+        newShares.value?.let { newShare ->
+            val newTotalAmount = totalAmount.value
+            newTotalAmount?.let {
+                val shares = newShare.filter { share -> share.hasShare }
+                val numberOfShares = shares.count()
+                if (numberOfShares == 0) {
+                    return
+                }
+                val newSingleShareAmount =
+                    if (newTotalAmount == BigDecimal.ZERO) BigDecimal.ZERO
+                    else newTotalAmount.divide(numberOfShares.toBigDecimal(), mathContext)
+                shares.forEach { share -> share.amount = newSingleShareAmount }
+                singleShareAmount.value = newSingleShareAmount
             }
-            val newSingleShareAmount = newTotalAmount.divide(numberOfShares.toBigDecimal())
-            shares.forEach { share -> share.amount = newSingleShareAmount }
-            singleShareAmount.value = newSingleShareAmount
         }
     }
 
