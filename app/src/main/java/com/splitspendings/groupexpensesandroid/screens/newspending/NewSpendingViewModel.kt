@@ -69,7 +69,7 @@ class NewSpendingViewModel(
         it.asNewShare()
     }
 
-    val resetButtonEnabled = Transformations.map(title) {
+    val submitButtonEnabled = Transformations.map(title) {
         it?.isNotEmpty()
     }
 

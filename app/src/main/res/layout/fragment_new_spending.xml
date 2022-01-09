@@ -108,34 +108,23 @@
             android:layout_height="0dp"
             android:layout_marginVertical="@dimen/spacing_half"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/reset_button"
+            app:layout_constraintBottom_toTopOf="@+id/submit_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/paid_for_label"
             app:newSharesList="@{newSpendingViewModel.newShares}" />
 
         <Button
-            android:id="@+id/reset_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_normal"
-            android:enabled="@{newSpendingViewModel.resetButtonEnabled}"
-            android:onClick="@{() -> newSpendingViewModel.onReset()}"
-            android:text="@string/reset_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/submit_button"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
             android:id="@+id/submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_normal"
+            android:enabled="@{newSpendingViewModel.submitButtonEnabled}"
             android:onClick="@{() -> newSpendingViewModel.onSubmit()}"
             android:text="@string/submit_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/reset_button" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
