@@ -32,14 +32,13 @@ class NewSharesListAdapter(private val newShareItemClickListener: NewShareItemCl
             binding.newShare = newShare
             binding.clickListener = clickItemClickListener
 
-            binding.shareAmount.apply {
-                doAfterTextChanged {
-                    newShare.amount = getNumericValueBigDecimal()
-                }
-                setLocale(Locale.getDefault())
-                setText(newShare.amount.toString())
-            }
+            setUpShareAmount(newShare)
+            setUpHasShare(newShare)
 
+            binding.executePendingBindings()
+        }
+
+        private fun setUpHasShare(newShare: NewShare) {
             binding.hasShare.apply {
                 setOnCheckedChangeListener { _, isChecked ->
                     newShare.hasShare = isChecked
@@ -51,8 +50,16 @@ class NewSharesListAdapter(private val newShareItemClickListener: NewShareItemCl
                 }
                 isChecked = newShare.hasShare
             }
+        }
 
-            binding.executePendingBindings()
+        private fun setUpShareAmount(newShare: NewShare) {
+            binding.shareAmount.apply {
+                doAfterTextChanged {
+                    newShare.amount = getNumericValueBigDecimal()
+                }
+                setLocale(Locale.getDefault())
+                setText(newShare.amount.toString())
+            }
         }
 
         companion object {
