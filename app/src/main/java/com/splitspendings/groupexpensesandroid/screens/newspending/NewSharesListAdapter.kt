@@ -35,7 +35,7 @@ class NewSharesListAdapter(private val newSpendingViewModel: NewSpendingViewMode
 
             newSpendingViewModel.equalSplit.observe(lifecycleOwner, { onEqualSplitToggled(it, newShare) })
 
-            setUpShareAmount(newShare)
+            setUpShareAmount(newShare, newSpendingViewModel)
             setUpHasShare(newShare, newSpendingViewModel)
 
             binding.executePendingBindings()
@@ -66,10 +66,11 @@ class NewSharesListAdapter(private val newSpendingViewModel: NewSpendingViewMode
             }
         }
 
-        private fun setUpShareAmount(newShare: NewShare) {
+        private fun setUpShareAmount(newShare: NewShare, newSpendingViewModel: NewSpendingViewModel) {
             binding.shareAmount.apply {
                 doAfterTextChanged {
                     newShare.amount = getNumericValueBigDecimal()
+                    newSpendingViewModel.onShareChanged()
                 }
                 setLocale(Locale.getDefault())
                 setText(newShare.amount.toString())

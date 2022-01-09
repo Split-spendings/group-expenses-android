@@ -77,6 +77,12 @@ class NewSpendingViewModel(
         loadGroupMembers()
     }
 
+    fun onShareChanged() {
+        newShares.value?.let {
+            totalAmount.value = it.sumOf { item -> item.amount }
+        }
+    }
+
     fun onReset() {
         _eventReset.value = true
     }

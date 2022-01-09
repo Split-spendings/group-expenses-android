@@ -48,6 +48,7 @@ class NewSpendingFragment : Fragment() {
         viewModel.eventNavigateToSpending.observe(viewLifecycleOwner, ::onNavigateToSpending)
         viewModel.groupMembers.observe(viewLifecycleOwner, ::setUpPaidBy)
         viewModel.equalSplit.observe(viewLifecycleOwner, ::onEqualSplitToggled)
+        viewModel.totalAmount.observe(viewLifecycleOwner, ::onTotalAmountChanged)
 
         binding.newSharesList.adapter = NewSharesListAdapter(viewModel, viewLifecycleOwner)
 
@@ -56,6 +57,16 @@ class NewSpendingFragment : Fragment() {
         setUpEqualSplitSwitch()
 
         return binding.root
+    }
+
+    private fun onTotalAmountChanged(totalAmount: BigDecimal?) {
+        totalAmount?.let {
+            viewModel.equalSplit.value?.let {
+                if (!it) {
+                    binding.totalAmount.setText(totalAmount.toString())
+                }
+            }
+        }
     }
 
     private fun onEqualSplitToggled(equalSplit: Boolean?) {
@@ -77,7 +88,11 @@ class NewSpendingFragment : Fragment() {
     private fun setUpTotalAmount() {
         binding.totalAmount.apply {
             doAfterTextChanged {
-                viewModel.totalAmount.value = getNumericValueBigDecimal()
+                viewModel.equalSplit.value?.let {
+                    if (it) {
+                        viewModel.totalAmount.value = getNumericValueBigDecimal()
+                    }
+                }
                 Timber.d("total amount: ${getNumericValueBigDecimal()}")
             }
             setLocale(Locale.getDefault())
