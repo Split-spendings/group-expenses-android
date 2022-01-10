@@ -40,8 +40,6 @@ class NewSpendingViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
-    private val mathContext: MathContext = MathContext(2)
-
     private val groupRepository = GroupRepository.getInstance()
     private val spendingRepository = SpendingRepository.getInstance()
 
@@ -92,17 +90,19 @@ class NewSpendingViewModel(
     }
 
     fun calculateShares() {
-        newShares.value?.let { newShare ->
+        newShares.value?.let { newShares ->
             val newTotalAmount = totalAmount.value
             newTotalAmount?.let {
-                val shares = newShare.filter { share -> share.hasShare }
+                newShares.filter { share -> !share.hasShare }.forEach { share -> share.amount = BigDecimal.ZERO }
+
+                val shares = newShares.filter { share -> share.hasShare }
                 val numberOfShares = shares.count()
                 if (numberOfShares == 0) {
                     return
                 }
                 val newSingleShareAmount =
                     if (newTotalAmount == BigDecimal.ZERO) BigDecimal.ZERO
-                    else newTotalAmount.divide(numberOfShares.toBigDecimal(), mathContext)
+                    else newTotalAmount.divide(numberOfShares.toBigDecimal(), MathContext.DECIMAL128)
                 shares.forEach { share -> share.amount = newSingleShareAmount }
                 singleShareAmount.value = newSingleShareAmount
             }
@@ -168,7 +168,7 @@ class NewSpendingViewModel(
                         )
                     )
                 )
-                Timber.d("save spending: $newSpending")
+                Timber.d("save spending: $newSpending totalAmount: ${totalAmount.value}")
                 //_eventNavigateToSpending.value = spendingRepository.saveSpending(newSpending)
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
