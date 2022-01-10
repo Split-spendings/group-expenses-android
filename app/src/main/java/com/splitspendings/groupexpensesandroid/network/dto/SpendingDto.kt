@@ -7,7 +7,7 @@ data class SpendingDto(
     val id: Long,
     val title: String,
     val timeCreated: String,
-    val timePayed: String,
+    val timePayed: String?,
     //TODO converter for BigDecimal
     val totalAmount: String,
     val currency: Currency,
