@@ -103,6 +103,7 @@ class NewSpendingViewModel(
                 val newSingleShareAmount =
                     if (newTotalAmount == BigDecimal.ZERO) BigDecimal.ZERO
                     else newTotalAmount.divide(numberOfShares.toBigDecimal(), MathContext.DECIMAL128)
+                        .setScale(2, BigDecimal.ROUND_HALF_EVEN)
                 shares.forEach { share -> share.amount = newSingleShareAmount }
                 singleShareAmount.value = newSingleShareAmount
             }
