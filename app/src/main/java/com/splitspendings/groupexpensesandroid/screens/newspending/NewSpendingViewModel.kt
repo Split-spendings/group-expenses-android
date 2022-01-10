@@ -19,7 +19,6 @@ import com.splitspendings.groupexpensesandroid.repository.SpendingRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.math.BigDecimal
-import java.math.MathContext
 
 class NewSpendingViewModelFactory(
     private val groupId: Long,
@@ -104,8 +103,8 @@ class NewSpendingViewModel(
                 }
                 val newSingleShareAmount =
                     if (newTotalAmount == BigDecimal.ZERO) BigDecimal.ZERO
-                    else newTotalAmount.divide(numberOfShares.toBigDecimal(), MathContext.DECIMAL128)
-                        .setScale(2, BigDecimal.ROUND_HALF_EVEN)
+                    else newTotalAmount.divide(numberOfShares.toBigDecimal(), 2, BigDecimal.ROUND_HALF_EVEN)
+
                 shares.forEach { share -> share.amount = newSingleShareAmount }
                 singleShareAmount.value = newSingleShareAmount
             }
