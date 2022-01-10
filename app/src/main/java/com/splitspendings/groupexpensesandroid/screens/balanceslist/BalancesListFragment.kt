@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentBalancesListBinding
 import com.splitspendings.groupexpensesandroid.screens.group.GroupFragment
@@ -41,11 +40,12 @@ class BalancesListFragment(val groupId: Long, private val groupFragment: GroupFr
 
     private fun onSuccessfulBalancesUpload(successfulBalancesUpload: Boolean) {
         if (successfulBalancesUpload) {
-            Snackbar.make(
+            //TODO show success status different way
+            /*Snackbar.make(
                 requireActivity().findViewById(android.R.id.content),
                 getString(R.string.successful_balances_upload),
                 Snackbar.LENGTH_SHORT
-            ).show()
+            ).show()*/
             viewModel.onEventSuccessfulBalancesUploadComplete()
         }
     }

@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupsListBinding
@@ -76,11 +75,12 @@ class GroupsListFragment : Fragment() {
 
     private fun onSuccessfulGroupUpload(successfulGroupUpload: Boolean) {
         if (successfulGroupUpload) {
-            Snackbar.make(
+            //TODO show success status different way
+            /*Snackbar.make(
                 requireActivity().findViewById(android.R.id.content),
                 getString(R.string.successful_groups_upload),
                 Snackbar.LENGTH_SHORT
-            ).show()
+            ).show()*/
             viewModel.onEventSuccessfulGroupsUploadComplete()
         }
     }
