@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_half"
             android:layout_marginEnd="@dimen/spacing_normal"
-            app:groupNameFormattedPlaceholder="@{groupViewModel.group}"
+            android:text="@{groupViewModel.group.name}"
             app:layout_constraintBottom_toBottomOf="@+id/group_avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/group_avatar"

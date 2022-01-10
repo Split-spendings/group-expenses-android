@@ -38,14 +38,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_half"
-            app:groupNameFormattedPlaceholder="@{group}"
+            android:text="@{group.name}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/group_current_member_icon"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/group_avatar"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Group name" />
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/group_current_member_icon"
             android:layout_width="@dimen/size_avatar_small"
             android:layout_height="@dimen/size_avatar_small"
@@ -56,7 +56,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_placeholder_group_member" />
+            tools:src="@drawable/ic_placeholder_group_member" />-->
 
         <View
             style="@style/Divider"
