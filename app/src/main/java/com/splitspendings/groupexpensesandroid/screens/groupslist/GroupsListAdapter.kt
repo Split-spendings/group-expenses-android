@@ -135,8 +135,8 @@ class GroupDiffCallback : DiffUtil.ItemCallback<GroupsListItem>() {
 }
 
 
-class GroupItemClickListener(val clickListener: (groupId: Long) -> Unit) {
-    fun onClick(group: Group) = clickListener(group.id)
+class GroupItemClickListener(val clickListener: (groupId: Long, current: Boolean) -> Unit) {
+    fun onClick(group: Group) = clickListener(group.id, group.current)
 }
 
 

@@ -83,9 +83,11 @@ class GroupsListViewModel(
         _eventNavigateToJoinGroup.value = false
     }
 
-    fun onGroupClicked(id: Long) {
+    fun onGroupClicked(id: Long, current: Boolean) {
         //TODO for former groups - no navigation or navigate to special screen
-        _eventNavigateToGroup.value = id
+        if (current) {
+            _eventNavigateToGroup.value = id
+        }
     }
 
     fun onEventNavigateToGroupComplete() {

@@ -32,8 +32,8 @@ class GroupsListFragment : Fragment() {
         binding.groupsListViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val adapter = GroupsListAdapter(GroupItemClickListener { groupId ->
-            viewModel.onGroupClicked(groupId)
+        val adapter = GroupsListAdapter(GroupItemClickListener { groupId, current ->
+            viewModel.onGroupClicked(groupId, current)
         })
         binding.groupsList.adapter = adapter
 
