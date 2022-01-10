@@ -119,12 +119,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_normal"
-            android:enabled="@{newSpendingViewModel.submitButtonEnabled}"
             android:onClick="@{() -> newSpendingViewModel.onSubmit()}"
             android:text="@string/submit_button"
+            app:equalSplit="@{newSpendingViewModel.equalSplit}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:numberOfShares="@{newSpendingViewModel.spendingNumberOfShares}"
+            app:spendingTitle="@{newSpendingViewModel.title}"
+            app:spendingTotalAmount="@{newSpendingViewModel.totalAmount}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

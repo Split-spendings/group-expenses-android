@@ -71,6 +71,7 @@ class NewSpendingViewModel(
         it?.isNotEmpty()
     }
 
+    val spendingNumberOfShares = MutableLiveData<Int>()
     val singleShareAmount = MutableLiveData<BigDecimal>()
 
     init {
@@ -97,6 +98,7 @@ class NewSpendingViewModel(
 
                 val shares = newShares.filter { share -> share.hasShare }
                 val numberOfShares = shares.count()
+                spendingNumberOfShares.value = numberOfShares
                 if (numberOfShares == 0) {
                     return
                 }
