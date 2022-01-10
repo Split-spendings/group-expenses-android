@@ -106,6 +106,9 @@ class NewSpendingViewModel(
                     else newTotalAmount.divide(numberOfShares.toBigDecimal(), 2, BigDecimal.ROUND_HALF_EVEN)
 
                 shares.forEach { share -> share.amount = newSingleShareAmount }
+                if(shares.size > 1) {
+                    shares[0].amount = newTotalAmount - newSingleShareAmount.multiply((shares.size - 1).toBigDecimal())
+                }
                 singleShareAmount.value = newSingleShareAmount
             }
         }

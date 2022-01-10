@@ -49,7 +49,7 @@ class NewSharesListAdapter(private val newSpendingViewModel: NewSpendingViewMode
         private fun onSingleShareAmountChanged(singleShareAmount: BigDecimal?, newShare: NewShare) {
             singleShareAmount?.let {
                 if (newShare.hasShare) {
-                    binding.shareAmount.setText(singleShareAmount.toString())
+                    binding.shareAmount.setText(newShare.amount.toString())
                 }
             }
         }
