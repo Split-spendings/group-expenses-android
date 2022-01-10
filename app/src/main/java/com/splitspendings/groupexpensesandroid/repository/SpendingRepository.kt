@@ -37,6 +37,6 @@ class SpendingRepository(private val database: GroupExpensesDatabase) {
 
     suspend fun saveSpending(newSpending: NewSpendingDto) : Long {
         val spendingSavedOnServer = GroupExpensesApi.retrofitService.createSpending(newSpending)
-        return database.spendingDao.insert(spendingSavedOnServer.asEntity())
+        return database.spendingDao.insert(spendingSavedOnServer.asEntity(newSpending.groupID))
     }
 }

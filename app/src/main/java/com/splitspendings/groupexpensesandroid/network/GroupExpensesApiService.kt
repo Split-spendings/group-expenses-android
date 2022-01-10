@@ -8,7 +8,7 @@ import com.splitspendings.groupexpensesandroid.network.dto.GroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupSpendingsDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewSpendingDto
-import com.splitspendings.groupexpensesandroid.network.dto.SpendingDto
+import com.splitspendings.groupexpensesandroid.network.dto.SpendingShortDto
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -53,7 +53,7 @@ interface GroupExpensesApiService {
     suspend fun groupBalances(@Path("id") groupId: Long): GroupBalancesDto
 
     @POST("/api/spendings")
-    suspend fun createSpending(@Body newSpending: NewSpendingDto): SpendingDto
+    suspend fun createSpending(@Body newSpending: NewSpendingDto): SpendingShortDto
 
     @GET("/api/groups/{id}/members")
     suspend fun groupActiveMembers(@Path("id") groupId: Long): GroupActiveMembersDto
