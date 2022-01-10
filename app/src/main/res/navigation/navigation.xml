@@ -100,7 +100,8 @@
             app:argType="long" />
         <action
             android:id="@+id/action_newSpendingFragment_to_spendingFragment"
-            app:destination="@id/spendingFragment" />
+            app:destination="@id/spendingFragment"
+            app:popUpTo="@id/groupFragment"/>
     </fragment>
     <fragment
         android:id="@+id/inviteToGroupFragment"
