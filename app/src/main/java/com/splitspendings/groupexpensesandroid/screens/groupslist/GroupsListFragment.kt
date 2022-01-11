@@ -40,7 +40,7 @@ class GroupsListFragment : Fragment() {
         viewModel.eventNavigateToNewGroup.observe(viewLifecycleOwner, ::onNavigateToNewGroup)
         viewModel.eventNavigateToJoinGroup.observe(viewLifecycleOwner, ::onNavigateToJoinGroup)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
-        viewModel.eventSuccessfulGroupsUpload.observe(viewLifecycleOwner, ::onSuccessfulGroupUpload)
+        viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
 
         setHasOptionsMenu(true)
 
@@ -70,18 +70,6 @@ class GroupsListFragment : Fragment() {
             findNavController()
                 .navigate(GroupsListFragmentDirections.actionGroupsListFragmentToGroupFragment(groupId))
             viewModel.onEventNavigateToGroupComplete()
-        }
-    }
-
-    private fun onSuccessfulGroupUpload(successfulGroupUpload: Boolean) {
-        if (successfulGroupUpload) {
-            //TODO show success status different way
-            /*Snackbar.make(
-                requireActivity().findViewById(android.R.id.content),
-                getString(R.string.successful_groups_upload),
-                Snackbar.LENGTH_SHORT
-            ).show()*/
-            viewModel.onEventSuccessfulGroupsUploadComplete()
         }
     }
 

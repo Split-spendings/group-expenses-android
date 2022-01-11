@@ -41,11 +41,11 @@
     <string name="current_membership_groups_list_header">Current membership</string>
     <string name="former_membership_groups_list_header">Former membership</string>
     <string name="failed_groups_upload">Could not load groups from server</string>
-    <string name="successful_groups_upload">Successfully loaded groups from server</string>
+    <string name="successful_groups_upload">Loaded groups from server</string>
     <string name="failed_spendings_upload">Could not load spendings from server</string>
-    <string name="successful_spendings_upload">Successfully loaded spendings from server</string>
+    <string name="successful_spendings_upload">Loaded spendings from server</string>
     <string name="failed_balances_upload">Could not load balances from server</string>
-    <string name="successful_balances_upload">Successfully loaded balances from server</string>
+    <string name="successful_balances_upload">Loaded balances from server</string>
     <string name="filtering_menu_group">Filtering:</string>
     <string name="filtering_group_all_menu_item">All</string>
     <string name="filtering_group_current_menu_item">Current</string>

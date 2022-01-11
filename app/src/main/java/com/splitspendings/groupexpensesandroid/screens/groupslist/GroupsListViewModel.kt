@@ -7,9 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
+import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -27,8 +30,8 @@ class GroupsListViewModelFactory(
 
 
 class GroupsListViewModel(
-    application: Application
-) : AndroidViewModel(application) {
+    val app: Application
+) : AndroidViewModel(app) {
 
     private val groupsRepository = GroupRepository.getInstance()
 
@@ -50,20 +53,18 @@ class GroupsListViewModel(
     val eventNavigateToGroup: LiveData<Long>
         get() = _eventNavigateToGroup
 
-    private val _eventSuccessfulGroupsUpload = MutableLiveData<Boolean>()
-    val eventSuccessfulGroupsUpload: LiveData<Boolean>
-        get() = _eventSuccessfulGroupsUpload
-
     private val _filter = MutableLiveData<GroupsFilter>()
     val filter: LiveData<GroupsFilter>
         get() = _filter
+
+    val status = MutableLiveData<Status>()
 
     init {
         _eventNavigateToNewGroup.value = false
         _eventNavigateToJoinGroup.value = false
         _eventNavigateToGroup.value = null
-        _eventSuccessfulGroupsUpload.value = false
         _filter.value = GroupsFilter.ALL
+        status.value = Status(ApiStatus.DONE, null)
         loadGroups()
     }
 
@@ -94,26 +95,19 @@ class GroupsListViewModel(
         _eventNavigateToGroup.value = null
     }
 
-    fun onEventSuccessfulGroupsUploadComplete() {
-        _eventSuccessfulGroupsUpload.value = false
-    }
-
     private fun loadGroups() {
         viewModelScope.launch {
-            _apiStatus.value = ApiStatus.LOADING
+            status.value = Status(ApiStatus.LOADING, null)
             try {
-                //EXAMPLE of DELAY
-                //delay(2000)
-
                 groupsRepository.refreshGroups(_filter.value!!)
 
-                _apiStatus.value = ApiStatus.DONE
-
-                _eventSuccessfulGroupsUpload.value = true
+                status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_groups_upload))
+                delay(3000)
+                status.value = Status(ApiStatus.DONE, null)
 
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
-                _apiStatus.value = ApiStatus.ERROR
+                status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_groups_upload))
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.splitspendings.groupexpensesandroid.common
 
-enum class ApiStatus { LOADING, ERROR, DONE }
+enum class ApiStatus { LOADING, ERROR, SUCCESS, DONE }
 
 enum class GroupsFilter(val value: String) {
     CURRENT("current"),
