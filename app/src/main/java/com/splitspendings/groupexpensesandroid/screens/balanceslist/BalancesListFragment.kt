@@ -38,8 +38,8 @@ class BalancesListFragment(val groupId: Long, private val groupFragment: GroupFr
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         viewModel.onLoadGroupBalances()
     }
 
