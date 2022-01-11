@@ -37,10 +37,6 @@ class GroupsListViewModel(
 
     val groups = groupsRepository.groups
 
-    private val _apiStatus = MutableLiveData<ApiStatus>()
-    val apiStatus: LiveData<ApiStatus>
-        get() = _apiStatus
-
     private val _eventNavigateToNewGroup = MutableLiveData<Boolean>()
     val eventNavigateToNewGroup: LiveData<Boolean>
         get() = _eventNavigateToNewGroup
@@ -57,14 +53,19 @@ class GroupsListViewModel(
     val filter: LiveData<GroupsFilter>
         get() = _filter
 
-    val status = MutableLiveData<Status>()
+    private val _status = MutableLiveData<Status>()
+    val status: LiveData<Status>
+        get() = _status
 
     init {
         _eventNavigateToNewGroup.value = false
         _eventNavigateToJoinGroup.value = false
         _eventNavigateToGroup.value = null
+
+        //TODO set from some persistent app settings
         _filter.value = GroupsFilter.ALL
-        status.value = Status(ApiStatus.DONE, null)
+
+        _status.value = Status(ApiStatus.DONE, null)
         loadGroups()
     }
 
@@ -76,6 +77,12 @@ class GroupsListViewModel(
         _eventNavigateToJoinGroup.value = true
     }
 
+    fun onGroupClicked(id: Long, current: Boolean) {
+        if (current) {
+            _eventNavigateToGroup.value = id
+        }
+    }
+
     fun onEventNavigateToNewGroupComplete() {
         _eventNavigateToNewGroup.value = false
     }
@@ -84,37 +91,30 @@ class GroupsListViewModel(
         _eventNavigateToJoinGroup.value = false
     }
 
-    fun onGroupClicked(id: Long, current: Boolean) {
-        //TODO for former groups - no navigation or navigate to special screen
-        if (current) {
-            _eventNavigateToGroup.value = id
-        }
-    }
-
     fun onEventNavigateToGroupComplete() {
         _eventNavigateToGroup.value = null
     }
 
+    fun onUpdateFilter(filter: GroupsFilter) {
+        _filter.value = filter
+        loadGroups()
+    }
+
     private fun loadGroups() {
         viewModelScope.launch {
-            status.value = Status(ApiStatus.LOADING, null)
+            _status.value = Status(ApiStatus.LOADING, null)
             try {
                 groupsRepository.refreshGroups(_filter.value!!)
 
-                status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_groups_upload))
+                _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_groups_upload))
                 delay(3000)
-                status.value = Status(ApiStatus.DONE, null)
+                _status.value = Status(ApiStatus.DONE, null)
 
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
-                status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_groups_upload))
+                _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_groups_upload))
             }
         }
-    }
-
-    fun updateFilter(filter: GroupsFilter) {
-        _filter.value = filter
-        loadGroups()
     }
 }
 

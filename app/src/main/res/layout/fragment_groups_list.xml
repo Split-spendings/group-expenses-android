@@ -23,7 +23,8 @@
                 android:id="@+id/status_layout"
                 layout="@layout/status"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/groups_list"
@@ -39,6 +40,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!--FAB EXAMPLE-->
         <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
