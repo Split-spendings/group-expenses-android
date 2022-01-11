@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
@@ -19,6 +20,20 @@ fun bindLoadingProgress(progressIndicator: LinearProgressIndicator, status: Stat
             }
             else -> {
                 progressIndicator.visibility = View.GONE
+            }
+        }
+    }
+}
+
+@BindingAdapter("swipeLoadingProgress")
+fun bindSwipeLoadingProgress(progressIndicator: SwipeRefreshLayout, status: Status?) {
+    status?.let {
+        when (status.apiStatus) {
+            ApiStatus.LOADING -> {
+                progressIndicator.isRefreshing = true
+            }
+            else -> {
+                progressIndicator.isRefreshing = false
             }
         }
     }
