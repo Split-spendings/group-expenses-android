@@ -9,20 +9,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
-import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.common.closeKeyboard
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewGroupBinding
 
 class NewGroupFragment : Fragment() {
 
-    private lateinit var binding: FragmentNewGroupBinding
-
     private lateinit var viewModel: NewGroupViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_group, container, false)
+        val binding: FragmentNewGroupBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_new_group, container, false)
 
         val application = requireNotNull(activity).application
 
@@ -34,9 +31,7 @@ class NewGroupFragment : Fragment() {
 
         binding.editGroupName.doAfterTextChanged { viewModel.groupName.value = it.toString() }
 
-        viewModel.eventReset.observe(viewLifecycleOwner, ::onReset)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
-        viewModel.eventInvalidGroupName.observe(viewLifecycleOwner, ::onInvalidGroupName)
 
         //part of CHIP GROUP example
         //viewModel.usersToInvite.observe(viewLifecycleOwner, ::onUsersToInviteChange)
@@ -47,6 +42,14 @@ class NewGroupFragment : Fragment() {
     override fun onDestroy() {
         closeKeyboard(this)
         super.onDestroy()
+    }
+
+    private fun onNavigateToGroup(groupId: Long?) {
+        groupId?.let {
+            findNavController()
+                .navigate(NewGroupFragmentDirections.actionNewGroupFragmentToGroupFragment(groupId))
+            viewModel.onEventNavigateToGroupComplete()
+        }
     }
 
     //EXAMPLE if CHIP GROUP
@@ -68,25 +71,11 @@ class NewGroupFragment : Fragment() {
         children.forEach(chipGroup::addView)
     }*/
 
-    private fun onReset(reset: Boolean) {
-        if (reset) {
-            binding.editGroupName.setText(EMPTY_STRING)
-            viewModel.onEventResetComplete()
-        }
-    }
-
-    private fun onNavigateToGroup(groupId: Long?) {
-        groupId?.let {
-            findNavController()
-                .navigate(NewGroupFragmentDirections.actionNewGroupFragmentToGroupFragment(groupId))
-            viewModel.onEventNavigateToGroupComplete()
-        }
-    }
-
-    private fun onInvalidGroupName(invalidGroupName: Boolean) {
+    //EXAMPLE of TOAST and SNACKBAR
+    /*private fun onInvalidGroupName(invalidGroupName: Boolean) {
         if (invalidGroupName) {
             //EXAMPLE of TOAST
-            //Toast.makeText(context, getString(R.string.invalid_group_name_error), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, getString(R.string.invalid_group_name_error), Toast.LENGTH_LONG).show()
 
             //EXAMPLE of SNACKBAR
             Snackbar.make(
@@ -96,5 +85,5 @@ class NewGroupFragment : Fragment() {
             ).show()
             viewModel.onEventInvalidGroupNameComplete()
         }
-    }
+    }*/
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -24,24 +25,17 @@ class NewGroupViewModelFactory(
     }
 }
 
+const val MAX_GROUP_NAME_SIZE = 100
 
 class NewGroupViewModel(
-    application: Application
-) : AndroidViewModel(application) {
+    val app: Application
+) : AndroidViewModel(app) {
 
     private val groupsRepository = GroupRepository.getInstance()
-
-    private val _eventReset = MutableLiveData<Boolean>()
-    val eventReset: LiveData<Boolean>
-        get() = _eventReset
 
     private val _eventNavigateToGroup = MutableLiveData<Long>()
     val eventNavigateToGroup: LiveData<Long>
         get() = _eventNavigateToGroup
-
-    private val _eventInvalidGroupName = MutableLiveData<Boolean>()
-    val eventInvalidGroupName: LiveData<Boolean>
-        get() = _eventInvalidGroupName
 
     //part of CHIP GROUP example
     /*private val _usersToInvite = MutableLiveData<List<String>>()
@@ -50,38 +44,30 @@ class NewGroupViewModel(
 
     val groupName = MutableLiveData<String>()
 
-    val resetButtonEnabled = Transformations.map(groupName) {
-        it?.isNotEmpty()
+    val submitButtonEnabled = Transformations.map(groupName) {
+        it?.let {
+            it.isNotBlank() && it.length <= MAX_GROUP_NAME_SIZE
+        }
+    }
+
+    val groupNameInputError = Transformations.map(groupName) {
+        it?.let {
+            when {
+                it.isNotEmpty() && it.isBlank() -> app.getString(R.string.successful_spendings_upload)
+                else -> null
+            }
+        }
     }
 
     init {
-        _eventReset.value = false
         _eventNavigateToGroup.value = null
-        _eventInvalidGroupName.value = false
 
         //part of CHIP GROUP example
         //_usersToInvite.value = listOf("Harry", "Ron", "Hermione")
     }
 
-    fun onReset() {
-        _eventReset.value = true
-    }
-
     fun onSubmit() {
-        when {
-            groupName.value.isNullOrBlank() -> _eventInvalidGroupName.value = true
-            else -> {
-                saveGroupAndNavigateToGroup()
-            }
-        }
-    }
-
-    fun onEventResetComplete() {
-        _eventReset.value = false
-    }
-
-    fun onEventInvalidGroupNameComplete() {
-        _eventInvalidGroupName.value = false
+        saveGroupAndNavigateToGroup()
     }
 
     fun onEventNavigateToGroupComplete() {
@@ -99,9 +85,10 @@ class NewGroupViewModel(
         }
     }
 
-    fun onUserToInviteSelected(user: String, isChecked: Boolean) {
+    //part of CHIP GROUP example
+    /*fun onUserToInviteSelected(user: String, isChecked: Boolean) {
         Timber.d("user: $user - invite to group: $isChecked")
-    }
+    }*/
 }
 
 
