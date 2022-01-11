@@ -54,7 +54,6 @@ class SpendingsListViewModel(
     init {
         _eventNavigateToSpending.value = null
         _eventNavigateToNewSpending.value = false
-        loadGroupSpendings()
     }
 
     fun onSpendingClicked(id: Long) {
@@ -73,7 +72,7 @@ class SpendingsListViewModel(
         _eventNavigateToNewSpending.value = false
     }
 
-    private fun loadGroupSpendings() {
+    fun onLoadGroupSpendings() {
         viewModelScope.launch {
             _status.value = Status(ApiStatus.LOADING, null)
             try {

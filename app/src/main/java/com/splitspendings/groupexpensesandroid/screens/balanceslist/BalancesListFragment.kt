@@ -38,6 +38,11 @@ class BalancesListFragment(val groupId: Long, private val groupFragment: GroupFr
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.onLoadGroupBalances()
+    }
+
     private fun onNavigateToNewPayoff(balanceId: Long?) {
         balanceId?.let {
             groupFragment.onNavigateToNewPayoff(balanceId)

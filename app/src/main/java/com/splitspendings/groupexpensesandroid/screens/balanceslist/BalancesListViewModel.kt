@@ -49,7 +49,6 @@ class BalancesListViewModel(
 
     init {
         _eventNavigateToNewPayoff.value = null
-        loadGroupBalances()
     }
 
     fun onNewPayoff(balanceId: Long) {
@@ -60,7 +59,7 @@ class BalancesListViewModel(
         _eventNavigateToNewPayoff.value = null
     }
 
-    private fun loadGroupBalances() {
+    fun onLoadGroupBalances() {
         viewModelScope.launch {
             _status.value = Status(ApiStatus.LOADING, null)
             try {
