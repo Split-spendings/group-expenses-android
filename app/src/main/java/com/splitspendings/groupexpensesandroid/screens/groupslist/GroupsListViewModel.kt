@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
+import com.splitspendings.groupexpensesandroid.common.SUCCESS_STATUS_MILLISECONDS
 import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import kotlinx.coroutines.delay
@@ -66,7 +67,6 @@ class GroupsListViewModel(
         _filter.value = GroupsFilter.ALL
 
         _status.value = Status(ApiStatus.DONE, null)
-        loadGroups()
     }
 
     fun onNewGroup() {
@@ -97,17 +97,17 @@ class GroupsListViewModel(
 
     fun onUpdateFilter(filter: GroupsFilter) {
         _filter.value = filter
-        loadGroups()
+        onLoadGroups()
     }
 
-    private fun loadGroups() {
+    fun onLoadGroups() {
         viewModelScope.launch {
             _status.value = Status(ApiStatus.LOADING, null)
             try {
                 groupsRepository.refreshGroups(_filter.value!!)
 
                 _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_groups_upload))
-                delay(3000)
+                delay(SUCCESS_STATUS_MILLISECONDS)
                 _status.value = Status(ApiStatus.DONE, null)
 
             } catch (e: Exception) {

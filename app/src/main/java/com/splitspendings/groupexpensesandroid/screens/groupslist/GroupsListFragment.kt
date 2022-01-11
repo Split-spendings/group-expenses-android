@@ -49,6 +49,11 @@ class GroupsListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.onLoadGroups()
+    }
+
     private fun onNavigateToNewGroup(navigateToNewGroup: Boolean) {
         if (navigateToNewGroup) {
             findNavController()

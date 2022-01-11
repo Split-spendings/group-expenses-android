@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
+import com.splitspendings.groupexpensesandroid.common.SUCCESS_STATUS_MILLISECONDS
 import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import kotlinx.coroutines.delay
@@ -80,7 +81,7 @@ class SpendingsListViewModel(
                 groupsRepository.refreshGroupSpendings(groupId)
 
                 _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_spendings_upload))
-                delay(3000)
+                delay(SUCCESS_STATUS_MILLISECONDS)
                 _status.value = Status(ApiStatus.DONE, null)
 
             } catch (e: Exception) {
