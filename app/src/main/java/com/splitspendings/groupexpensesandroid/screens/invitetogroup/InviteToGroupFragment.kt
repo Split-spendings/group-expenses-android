@@ -46,6 +46,7 @@ class InviteToGroupFragment : Fragment() {
             val clipData = ClipData.newPlainText("text", code)
             clipboardManager?.setPrimaryClip(clipData)
 
+            // EXAMPLE of SNACKBAR
             Snackbar.make(
                 requireActivity().findViewById(android.R.id.content),
                 getString(R.string.copied_invitation_code),
