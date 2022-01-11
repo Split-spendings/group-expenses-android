@@ -43,9 +43,10 @@ class NewGroupViewModel(
     val eventInvalidGroupName: LiveData<Boolean>
         get() = _eventInvalidGroupName
 
-    private val _usersToInvite = MutableLiveData<List<String>>()
+    //part of CHIP GROUP example
+    /*private val _usersToInvite = MutableLiveData<List<String>>()
     val usersToInvite: LiveData<List<String>>
-        get() = _usersToInvite
+        get() = _usersToInvite*/
 
     val groupName = MutableLiveData<String>()
 
@@ -57,7 +58,9 @@ class NewGroupViewModel(
         _eventReset.value = false
         _eventNavigateToGroup.value = null
         _eventInvalidGroupName.value = false
-        _usersToInvite.value = listOf("Harry", "Ron", "Hermione")
+
+        //part of CHIP GROUP example
+        //_usersToInvite.value = listOf("Harry", "Ron", "Hermione")
     }
 
     fun onReset() {

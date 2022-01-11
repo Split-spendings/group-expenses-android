@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
@@ -38,7 +37,9 @@ class NewGroupFragment : Fragment() {
         viewModel.eventReset.observe(viewLifecycleOwner, ::onReset)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
         viewModel.eventInvalidGroupName.observe(viewLifecycleOwner, ::onInvalidGroupName)
-        viewModel.usersToInvite.observe(viewLifecycleOwner, ::onUsersToInviteChange)
+
+        //part of CHIP GROUP example
+        //viewModel.usersToInvite.observe(viewLifecycleOwner, ::onUsersToInviteChange)
 
         return binding.root
     }
@@ -48,7 +49,8 @@ class NewGroupFragment : Fragment() {
         super.onDestroy()
     }
 
-    private fun onUsersToInviteChange(usersToInvite: List<String>?) {
+    //EXAMPLE if CHIP GROUP
+    /*private fun onUsersToInviteChange(usersToInvite: List<String>?) {
         usersToInvite ?: return
 
         val chipGroup = binding.usersToInviteList
@@ -64,7 +66,7 @@ class NewGroupFragment : Fragment() {
         }
         chipGroup.removeAllViews()
         children.forEach(chipGroup::addView)
-    }
+    }*/
 
     private fun onReset(reset: Boolean) {
         if (reset) {
@@ -86,6 +88,7 @@ class NewGroupFragment : Fragment() {
             //EXAMPLE of TOAST
             //Toast.makeText(context, getString(R.string.invalid_group_name_error), Toast.LENGTH_LONG).show()
 
+            //EXAMPLE of SNACKBAR
             Snackbar.make(
                 requireActivity().findViewById(android.R.id.content),
                 getString(R.string.invalid_group_name_error),
