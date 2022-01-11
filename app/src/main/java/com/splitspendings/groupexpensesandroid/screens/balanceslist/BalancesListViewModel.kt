@@ -7,8 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
+import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -28,28 +31,23 @@ class BalancesListViewModelFactory(
 
 class BalancesListViewModel(
     val groupId: Long,
-    application: Application
-) : AndroidViewModel(application) {
+    val app: Application
+) : AndroidViewModel(app) {
 
     private val groupsRepository = GroupRepository.getInstance()
 
     val balances = groupsRepository.getGroupBalances(groupId)
 
-    private val _apiStatus = MutableLiveData<ApiStatus>()
-    val apiStatus: LiveData<ApiStatus>
-        get() = _apiStatus
-
     private val _eventNavigateToNewPayoff = MutableLiveData<Long>()
     val eventNavigateToNewPayoff: LiveData<Long>
         get() = _eventNavigateToNewPayoff
 
-    private val _eventSuccessfulBalancesUpload = MutableLiveData<Boolean>()
-    val eventSuccessfulBalancesUpload: LiveData<Boolean>
-        get() = _eventSuccessfulBalancesUpload
+    private val _status = MutableLiveData<Status>()
+    val status: LiveData<Status>
+        get() = _status
 
     init {
         _eventNavigateToNewPayoff.value = null
-        _eventSuccessfulBalancesUpload.value = false
         loadGroupBalances()
     }
 
@@ -61,23 +59,19 @@ class BalancesListViewModel(
         _eventNavigateToNewPayoff.value = null
     }
 
-    fun onEventSuccessfulBalancesUploadComplete() {
-        _eventSuccessfulBalancesUpload.value = false
-    }
-
     private fun loadGroupBalances() {
         viewModelScope.launch {
-            _apiStatus.value = ApiStatus.LOADING
+            _status.value = Status(ApiStatus.LOADING, null)
             try {
                 groupsRepository.refreshGroupBalances(groupId)
 
-                _apiStatus.value = ApiStatus.DONE
-
-                _eventSuccessfulBalancesUpload.value = true
+                _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_balances_upload))
+                delay(3000)
+                _status.value = Status(ApiStatus.DONE, null)
 
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
-                _apiStatus.value = ApiStatus.ERROR
+                _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_balances_upload))
             }
         }
     }

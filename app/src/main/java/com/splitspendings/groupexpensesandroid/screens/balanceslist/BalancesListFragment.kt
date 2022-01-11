@@ -33,21 +33,9 @@ class BalancesListFragment(val groupId: Long, private val groupFragment: GroupFr
         binding.balancesList.adapter = adapter
 
         viewModel.eventNavigateToNewPayoff.observe(viewLifecycleOwner, ::onNavigateToNewPayoff)
-        viewModel.eventSuccessfulBalancesUpload.observe(viewLifecycleOwner, ::onSuccessfulBalancesUpload)
+        viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
 
         return binding.root
-    }
-
-    private fun onSuccessfulBalancesUpload(successfulBalancesUpload: Boolean) {
-        if (successfulBalancesUpload) {
-            //TODO show success status different way
-            /*Snackbar.make(
-                requireActivity().findViewById(android.R.id.content),
-                getString(R.string.successful_balances_upload),
-                Snackbar.LENGTH_SHORT
-            ).show()*/
-            viewModel.onEventSuccessfulBalancesUploadComplete()
-        }
     }
 
     private fun onNavigateToNewPayoff(balanceId: Long?) {

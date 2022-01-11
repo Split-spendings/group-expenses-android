@@ -34,21 +34,9 @@ class SpendingsListFragment(val groupId: Long, private val groupFragment: GroupF
 
         viewModel.eventNavigateToSpending.observe(viewLifecycleOwner, ::onNavigateToSpending)
         viewModel.eventNavigateToNewSpending.observe(viewLifecycleOwner, ::onNavigateToNewSpending)
-        viewModel.eventSuccessfulSpendingsUpload.observe(viewLifecycleOwner, ::onSuccessfulSpendingsUpload)
+        viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
 
         return binding.root
-    }
-
-    private fun onSuccessfulSpendingsUpload(successfulSpendingsUpload: Boolean) {
-        if (successfulSpendingsUpload) {
-            //TODO show success status different way
-            /*Snackbar.make(
-                requireActivity().findViewById(android.R.id.content),
-                getString(R.string.successful_spendings_upload),
-                Snackbar.LENGTH_SHORT
-            ).show()*/
-            viewModel.onEventSuccessfulSpendingsUploadComplete()
-        }
     }
 
     private fun onNavigateToNewSpending(navigateToNewSpending: Boolean) {

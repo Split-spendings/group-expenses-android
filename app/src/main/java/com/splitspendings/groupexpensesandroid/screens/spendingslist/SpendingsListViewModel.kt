@@ -7,8 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
+import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -28,16 +31,12 @@ class SpendingsListViewModelFactory(
 
 class SpendingsListViewModel(
     val groupId: Long,
-    application: Application
-) : AndroidViewModel(application) {
+    val app: Application
+) : AndroidViewModel(app) {
 
     private val groupsRepository = GroupRepository.getInstance()
 
     val spendings = groupsRepository.getGroupSpendings(groupId)
-
-    private val _apiStatus = MutableLiveData<ApiStatus>()
-    val apiStatus: LiveData<ApiStatus>
-        get() = _apiStatus
 
     private val _eventNavigateToSpending = MutableLiveData<Long>()
     val eventNavigateToSpending: LiveData<Long>
@@ -47,14 +46,13 @@ class SpendingsListViewModel(
     val eventNavigateToNewSpending: LiveData<Boolean>
         get() = _eventNavigateToNewSpending
 
-    private val _eventSuccessfulSpendingsUpload = MutableLiveData<Boolean>()
-    val eventSuccessfulSpendingsUpload: LiveData<Boolean>
-        get() = _eventSuccessfulSpendingsUpload
+    private val _status = MutableLiveData<Status>()
+    val status: LiveData<Status>
+        get() = _status
 
     init {
         _eventNavigateToSpending.value = null
         _eventNavigateToNewSpending.value = false
-        _eventSuccessfulSpendingsUpload.value = false
         loadGroupSpendings()
     }
 
@@ -74,24 +72,20 @@ class SpendingsListViewModel(
         _eventNavigateToNewSpending.value = false
     }
 
-    fun onEventSuccessfulSpendingsUploadComplete() {
-        _eventSuccessfulSpendingsUpload.value = false
-    }
-
     private fun loadGroupSpendings() {
         viewModelScope.launch {
-            _apiStatus.value = ApiStatus.LOADING
+            _status.value = Status(ApiStatus.LOADING, null)
             try {
                 //TODO: add endpoint that accepts filtering (e.g. by currency)
                 groupsRepository.refreshGroupSpendings(groupId)
 
-                _apiStatus.value = ApiStatus.DONE
-
-                _eventSuccessfulSpendingsUpload.value = true
+                _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_spendings_upload))
+                delay(3000)
+                _status.value = Status(ApiStatus.DONE, null)
 
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
-                _apiStatus.value = ApiStatus.ERROR
+                _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_spendings_upload))
             }
         }
     }
