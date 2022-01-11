@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="status"
+            type="com.splitspendings.groupexpensesandroid.model.Status" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/loading_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:hideAnimationBehavior="outward"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadingProgress="@{status}"
+            app:showAnimationBehavior="inward" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/status_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/loading_progress"
+            app:statusContainer="@{status}">
+
+            <ImageView
+                android:id="@+id/status_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_half"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/status_message"
+                app:layout_constraintTop_toTopOf="parent"
+                app:statusIcon="@{status}"
+                tools:src="@drawable/ic_connection_error"
+                tools:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/status_message"
+                style="@style/StatusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:statusMessage="@{status}"
+                tools:text="Status message"
+                tools:textColor="@color/black" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
