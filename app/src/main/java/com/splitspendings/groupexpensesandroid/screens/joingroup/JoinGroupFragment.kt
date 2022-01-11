@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
+import com.splitspendings.groupexpensesandroid.common.closeKeyboard
 import com.splitspendings.groupexpensesandroid.databinding.FragmentJoinGroupBinding
 
 class JoinGroupFragment : Fragment() {
@@ -38,6 +39,11 @@ class JoinGroupFragment : Fragment() {
         viewModel.eventInvalidCode.observe(viewLifecycleOwner, ::onInvalidCode)
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        closeKeyboard(this)
+        super.onDestroy()
     }
 
     private fun onReset(reset: Boolean) {

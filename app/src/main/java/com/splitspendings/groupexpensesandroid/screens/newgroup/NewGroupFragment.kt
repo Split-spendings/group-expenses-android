@@ -13,6 +13,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
+import com.splitspendings.groupexpensesandroid.common.closeKeyboard
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewGroupBinding
 
 class NewGroupFragment : Fragment() {
@@ -40,6 +41,11 @@ class NewGroupFragment : Fragment() {
         viewModel.usersToInvite.observe(viewLifecycleOwner, ::onUsersToInviteChange)
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        closeKeyboard(this)
+        super.onDestroy()
     }
 
     private fun onUsersToInviteChange(usersToInvite: List<String>?) {

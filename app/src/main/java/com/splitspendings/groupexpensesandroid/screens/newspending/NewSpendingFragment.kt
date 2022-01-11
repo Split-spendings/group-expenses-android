@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.Currency
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
+import com.splitspendings.groupexpensesandroid.common.closeKeyboard
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewSpendingBinding
 import com.splitspendings.groupexpensesandroid.model.GroupMember
 import timber.log.Timber
@@ -57,6 +58,11 @@ class NewSpendingFragment : Fragment() {
         setUpEqualSplitSwitch()
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        closeKeyboard(this)
+        super.onDestroy()
     }
 
     private fun onTotalAmountChanged(totalAmount: BigDecimal?) {

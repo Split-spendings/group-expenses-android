@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
+import com.splitspendings.groupexpensesandroid.common.closeKeyboard
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewPayoffBinding
 
 class NewPayoffFragment : Fragment() {
@@ -38,6 +39,11 @@ class NewPayoffFragment : Fragment() {
         viewModel.eventNavigateToPayoff.observe(viewLifecycleOwner, ::onNavigateToPayoff)
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        closeKeyboard(this)
+        super.onDestroy()
     }
 
     private fun onReset(reset: Boolean) {
