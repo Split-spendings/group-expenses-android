@@ -54,4 +54,7 @@ interface GroupDao {
     @Transaction
     @Query("SELECT * FROM user_group where id = :id")
     fun getGroupSpendingsLive(id: Long): LiveData<List<GroupSpendingsRelation>>
+
+    @Query("UPDATE user_group set current = :current where id = :id")
+    suspend fun updateCurrent(current: Boolean, id: Long)
 }

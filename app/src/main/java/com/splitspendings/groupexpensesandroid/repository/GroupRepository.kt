@@ -123,4 +123,14 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
             database.groupMemberDao.insertAll(groupMembers.members.asEntity(groupId))
         }
     }
+
+    suspend fun leaveGroup(groupId: Long) {
+        withContext(Dispatchers.IO) {
+            GroupExpensesApi.retrofitService.leaveGroup(groupId)
+            database.groupDao.updateCurrent(false, groupId)
+            database.balanceDao.deleteByGroupId(groupId)
+            database.groupMemberDao.deleteByGroupId(groupId)
+            database.spendingDao.deleteByGroupId(groupId)
+        }
+    }
 }

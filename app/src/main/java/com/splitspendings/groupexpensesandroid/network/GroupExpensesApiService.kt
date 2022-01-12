@@ -17,6 +17,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -44,8 +45,8 @@ interface GroupExpensesApiService {
     @POST("/api/groups")
     suspend fun createGroup(@Body newGroup: NewGroupDto): GroupDto
 
-    @GET("/api/groups/{id}/spendings")
-    suspend fun groupSpendings(@Path("id") groupId: Long): GroupSpendingsDto
+    @GET("/api/groups/{groupId}/spendings")
+    suspend fun groupSpendings(@Path("groupId") groupId: Long): GroupSpendingsDto
 
     @POST("/api/groups/invites/generate/{groupId}")
     suspend fun generateGroupInviteCode(@Path("groupId") groupId: Long): GroupInviteCodeDto
@@ -53,14 +54,17 @@ interface GroupExpensesApiService {
     @POST("/api/groups/invites/join/{code}")
     suspend fun joinGroupByInviteCode(@Path("code") code: String): GroupDto
 
-    @GET("/api/balances/{id}")
-    suspend fun groupBalances(@Path("id") groupId: Long): GroupBalancesDto
+    @GET("/api/balances/{groupId}")
+    suspend fun groupBalances(@Path("groupId") groupId: Long): GroupBalancesDto
 
     @POST("/api/spendings")
     suspend fun createSpending(@Body newSpending: NewSpendingDto): SpendingShortDto
 
-    @GET("/api/groups/{id}/members")
-    suspend fun groupActiveMembers(@Path("id") groupId: Long): GroupActiveMembersDto
+    @GET("/api/groups/{groupId}/members")
+    suspend fun groupActiveMembers(@Path("groupId") groupId: Long): GroupActiveMembersDto
+
+    @PATCH("/api/groups/{groupId}/leave")
+    suspend fun leaveGroup(@Path("groupId") groupId: Long)
 }
 
 object GroupExpensesApi {

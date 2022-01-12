@@ -70,4 +70,5 @@
     <string name="copy_button">Копировать</string>
     <string name="failed_get_invite_code">Не удалось загрузить код-приглашение с сервера</string>
     <string name="successful_invitation_code_upload">Код-приглашение успешно загружен с сервера</string>
+    <string name="failed_leave_group">Ну удалось покинуть группу</string>
 </resources>

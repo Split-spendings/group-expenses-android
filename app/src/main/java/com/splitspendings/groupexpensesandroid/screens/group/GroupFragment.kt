@@ -14,11 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.splitspendings.groupexpensesandroid.R
+import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
 
 class GroupFragment : Fragment() {
 
     private lateinit var viewModel: GroupViewModel
+    private var leaveGroupMenuItem: MenuItem? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding: FragmentGroupBinding =
@@ -50,9 +52,23 @@ class GroupFragment : Fragment() {
             }
         }.attach()
 
+        viewModel.eventNavigateToGroupsList.observe(viewLifecycleOwner, ::onNavigateToGroupsList)
+        viewModel.status.observe(viewLifecycleOwner, { it?.let {
+            binding.statusLayout.status = it
+            leaveGroupMenuItem?.isEnabled = it.apiStatus != ApiStatus.LOADING
+        } })
+
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    private fun onNavigateToGroupsList(navigateToGroupsList: Boolean) {
+        if(navigateToGroupsList) {
+            findNavController()
+                .navigate(GroupFragmentDirections.actionGroupFragmentToGroupsListFragment())
+            viewModel.onEventNavigateToGroupsListComplete()
+        }
     }
 
     fun onNavigateToNewSpending(groupId: Long) {
@@ -73,6 +89,7 @@ class GroupFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.group_options_menu, menu)
+        leaveGroupMenuItem = menu.findItem(R.id.leaveGroup)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -71,4 +71,5 @@
     <string name="copy_button">Copy</string>
     <string name="failed_get_invite_code">Could not load invitation code from server</string>
     <string name="successful_invitation_code_upload">Loaded invitation code from server</string>
+    <string name="failed_leave_group">Could not leave group</string>
 </resources>
