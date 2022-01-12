@@ -8,6 +8,9 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.splitspendings.groupexpensesandroid.R
+import com.splitspendings.groupexpensesandroid.common.ApiStatus
+import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -24,69 +27,62 @@ class JoinGroupViewModelFactory(
     }
 }
 
+const val INVITATION_CODE_SIZE = 8
 
 class JoinGroupViewModel(
-    application: Application
-) : AndroidViewModel(application) {
+    val app: Application
+) : AndroidViewModel(app) {
 
     private val groupsRepository = GroupRepository.getInstance()
-
-    private val _eventReset = MutableLiveData<Boolean>()
-    val eventReset: LiveData<Boolean>
-        get() = _eventReset
 
     private val _eventNavigateToGroup = MutableLiveData<Long>()
     val eventNavigateToGroup: LiveData<Long>
         get() = _eventNavigateToGroup
 
-    private val _eventInvalidCode = MutableLiveData<Boolean>()
-    val eventInvalidCode: LiveData<Boolean>
-        get() = _eventInvalidCode
+    private val _status = MutableLiveData<Status>()
+    val status: LiveData<Status>
+        get() = _status
 
-    val code = MutableLiveData<String>()
+    val invitationCode = MutableLiveData<String>()
 
-    val resetButtonEnabled = Transformations.map(code) {
-        it?.isNotEmpty()
+    val submitButtonEnabled = Transformations.map(invitationCode) {
+        it?.let {
+            it.matches(regex = Regex("[A-Za-z0-9]{$INVITATION_CODE_SIZE}"))
+        }
     }
 
-    init {
-        _eventReset.value = false
-        _eventNavigateToGroup.value = null
-        _eventInvalidCode.value = false
-    }
-
-    fun onReset() {
-        _eventReset.value = true
-    }
-
-    fun onSubmit() {
-        when {
-            code.value.isNullOrBlank() -> _eventInvalidCode.value = true
-            else -> {
-                saveGroupAndNavigateToGroup()
+    val invitationCodeInputError = Transformations.map(invitationCode) {
+        it?.let {
+            when {
+                !it.matches(regex = Regex("[A-Za-z0-9]*")) -> app.getString(R.string.must_contain_letters_and_digits_error)
+                else -> null
             }
         }
     }
 
-    fun onEventResetComplete() {
-        _eventReset.value = false
+    init {
+        _eventNavigateToGroup.value = null
+        _status.value = Status(ApiStatus.DONE, null)
     }
 
-    fun onEventInvalidCodeComplete() {
-        _eventInvalidCode.value = false
+    fun onSubmit() {
+        submitCodeAndNavigateToGroup()
     }
 
     fun onEventNavigateToGroupComplete() {
         _eventNavigateToGroup.value = null
     }
 
-    private fun saveGroupAndNavigateToGroup() {
+    private fun submitCodeAndNavigateToGroup() {
         viewModelScope.launch {
+            _status.value = Status(ApiStatus.LOADING, null)
             try {
-                _eventNavigateToGroup.value = groupsRepository.joinGroup(code = code.value!!)
+                invitationCode.value?.let {
+                    _eventNavigateToGroup.value = groupsRepository.joinGroupByCode(code = it)
+                }
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
-                // TODO add displaying some error status to user
+                _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_join_group))
             }
         }
     }

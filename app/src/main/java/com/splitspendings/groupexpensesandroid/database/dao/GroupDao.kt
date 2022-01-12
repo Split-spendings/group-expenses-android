@@ -36,6 +36,9 @@ interface GroupDao {
     @Query("DELETE FROM user_group")
     suspend fun clear()
 
+    @Query("DELETE FROM user_group where id = :id")
+    suspend fun delete(id: Long)
+
     @Query("DELETE FROM user_group where current = :current")
     suspend fun deleteByCurrent(current: Boolean)
 

@@ -34,7 +34,8 @@
     <string name="invalid_group_name_error">Неверное название группы</string>
     <string name="spending_title">Название платежа</string>
     <string name="invalid_spending_title_error">Неверное название платежа</string>
-    <string name="invitation_code">Код-приглашение:</string>
+    <string name="invitation_code_label">Код-приглашение:</string>
+    <string name="invitation_code_hind">Код-приглашение</string>
     <string name="invalid_invitation_code_error">Неверный код-приглашение</string>
     <string name="current_membership_groups_list_header">Текущие группы</string>
     <string name="former_membership_groups_list_header">Прошлые группы</string>
@@ -61,6 +62,9 @@
     <string name="total_amount_label">Сумма:</string>
     <string name="split_equal_label">Поровну:</string>
     <string name="paid_for_label">За кого оплачено:</string>
-    <string name="group_name_blank_error">Поле должно содержать текст</string>
+    <string name="blank_error">Поле должно содержать текст</string>
     <string name="failed_save_new_group">Не удалось сохранить группу на сервер</string>
+    <string name="failed_join_group">Не удалось присоединиться к группе</string>
+    <string name="cannot_contain_whitespaces_error">Поле не должно содержать пробелов</string>
+    <string name="must_contain_letters_and_digits_error">Поле должно содержать только латинские буквы и цифры</string>
 </resources>

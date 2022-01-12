@@ -36,7 +36,8 @@
     <string name="spending_title">Spending title</string>
     <string name="payoff_title">Payoff title</string>
     <string name="invalid_spending_title_error">Invalid spending title</string>
-    <string name="invitation_code">Invitation code:</string>
+    <string name="invitation_code_label">Invitation code:</string>
+    <string name="invitation_code_hind">Invitation code</string>
     <string name="invalid_invitation_code_error">Invalid invitation code</string>
     <string name="current_membership_groups_list_header">Current membership</string>
     <string name="former_membership_groups_list_header">Former membership</string>
@@ -62,6 +63,9 @@
     <string name="total_amount_label">Total:</string>
     <string name="split_equal_label">Equal split:</string>
     <string name="paid_for_label">Paid for:</string>
-    <string name="group_name_blank_error">Cannot be blank</string>
+    <string name="blank_error">Cannot be blank</string>
     <string name="failed_save_new_group">Could not save new group to server</string>
+    <string name="failed_join_group">Could not join group</string>
+    <string name="cannot_contain_whitespaces_error">Cannot contain spaces</string>
+    <string name="must_contain_letters_and_digits_error">Must contain only latin letters and digits</string>
 </resources>

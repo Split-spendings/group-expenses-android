@@ -9,9 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
-import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.common.closeKeyboard
 import com.splitspendings.groupexpensesandroid.databinding.FragmentJoinGroupBinding
 
@@ -32,11 +30,10 @@ class JoinGroupFragment : Fragment() {
         binding.joinGroupViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.editCode.doAfterTextChanged { viewModel.code.value = it.toString() }
+        binding.editCode.doAfterTextChanged { viewModel.invitationCode.value = it.toString() }
 
-        viewModel.eventReset.observe(viewLifecycleOwner, ::onReset)
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
-        viewModel.eventInvalidCode.observe(viewLifecycleOwner, ::onInvalidCode)
+        viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
 
         return binding.root
     }
@@ -46,32 +43,11 @@ class JoinGroupFragment : Fragment() {
         super.onDestroy()
     }
 
-    private fun onReset(reset: Boolean) {
-        if (reset) {
-            binding.editCode.setText(EMPTY_STRING)
-            viewModel.onEventResetComplete()
-        }
-    }
-
     private fun onNavigateToGroup(groupId: Long?) {
         groupId?.let {
             findNavController()
                 .navigate(JoinGroupFragmentDirections.actionJoinGroupFragmentToGroupFragment(groupId))
             viewModel.onEventNavigateToGroupComplete()
-        }
-    }
-
-    private fun onInvalidCode(invalidCode: Boolean) {
-        if (invalidCode) {
-            //EXAMPLE of TOAST
-            //Toast.makeText(context, getString(R.string.invalid_group_name_error), Toast.LENGTH_LONG).show()
-
-            Snackbar.make(
-                requireActivity().findViewById(android.R.id.content),
-                getString(R.string.invalid_invitation_code_error),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            viewModel.onEventInvalidCodeComplete()
         }
     }
 }

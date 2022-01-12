@@ -59,7 +59,7 @@ class NewGroupViewModel(
     val groupNameInputError = Transformations.map(groupName) {
         it?.let {
             when {
-                it.isNotEmpty() && it.isBlank() -> app.getString(R.string.successful_spendings_upload)
+                it.isNotEmpty() && it.isBlank() -> app.getString(R.string.blank_error)
                 else -> null
             }
         }
