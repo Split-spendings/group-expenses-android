@@ -88,3 +88,10 @@ fun bindButtonWhileLoading(button: Button, status: Status?, buttonEnabled: Boole
         button.isEnabled = buttonEnabled == true && it.apiStatus != ApiStatus.LOADING
     }
 }
+
+@BindingAdapter("buttonWhileLoading")
+fun bindButtonWhileLoading(button: Button, status: Status?) {
+    status?.let {
+        button.isEnabled = it.apiStatus != ApiStatus.LOADING
+    }
+}

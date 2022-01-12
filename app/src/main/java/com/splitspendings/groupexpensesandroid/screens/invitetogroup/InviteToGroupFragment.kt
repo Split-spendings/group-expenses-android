@@ -36,8 +36,14 @@ class InviteToGroupFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel.eventCopyCode.observe(viewLifecycleOwner, ::onCopyCode)
+        viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.onRefreshInvitationCode()
     }
 
     private fun onCopyCode(code: String?) {

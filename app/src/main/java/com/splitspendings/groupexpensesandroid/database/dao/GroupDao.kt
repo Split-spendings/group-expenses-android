@@ -42,6 +42,9 @@ interface GroupDao {
     @Query("DELETE FROM user_group where current = :current")
     suspend fun deleteByCurrent(current: Boolean)
 
+    @Query("UPDATE user_group set invitation_code = :invitationCode where id = :id")
+    suspend fun updateInvitationCode(invitationCode: String, id: Long)
+
     //TODO check if following works ???
 
     @Transaction

@@ -84,27 +84,20 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
     }
 
     suspend fun joinGroupByCode(code: String): Long {
-        val group = GroupExpensesApi.retrofitService.joinGroup(code)
+        val group = GroupExpensesApi.retrofitService.joinGroupByInviteCode(code)
         database.groupDao.delete(group.id)
         return database.groupDao.insert(group.asEntity())
     }
 
     suspend fun refreshInvitationCode(groupId: Long) {
-        val group = database.groupDao.get(groupId)
-        group?.let {
-            //TODO add server logic, change update to delete and insert
-            it.invitationCode = "INVITE CODE"
-            database.groupDao.update(it)
-        }
+        //TODO user new endpoint for getting existing invite from server
+        val invitationCode = GroupExpensesApi.retrofitService.generateGroupInviteCode(groupId)
+        database.groupDao.updateInvitationCode(invitationCode.code, groupId)
     }
 
     suspend fun generateNewInvitationCode(groupId: Long) {
-        val group = database.groupDao.get(groupId)
-        group?.let {
-            //TODO add server logic, change update to delete and insert
-            it.invitationCode = it.invitationCode + "*"
-            database.groupDao.update(it)
-        }
+        val invitationCode = GroupExpensesApi.retrofitService.generateGroupInviteCode(groupId)
+        database.groupDao.updateInvitationCode(invitationCode.code, groupId)
     }
 
     fun getGroupBalances(groupId: Long): LiveData<List<Balance>> = Transformations.map(database.balanceDao.getByGroupIdLive(groupId)) {

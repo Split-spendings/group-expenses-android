@@ -5,6 +5,7 @@ import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.network.dto.GroupActiveMembersDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupBalancesDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupDto
+import com.splitspendings.groupexpensesandroid.network.dto.GroupInviteCodeDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupSpendingsDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewSpendingDto
@@ -46,8 +47,11 @@ interface GroupExpensesApiService {
     @GET("/api/groups/{id}/spendings")
     suspend fun groupSpendings(@Path("id") groupId: Long): GroupSpendingsDto
 
-    @POST("/api/groups/join/{code}")
-    suspend fun joinGroup(@Path("code") code: String): GroupDto
+    @POST("/api/groups/invites/generate/{groupId}")
+    suspend fun generateGroupInviteCode(@Path("groupId") groupId: Long): GroupInviteCodeDto
+
+    @POST("/api/groups/invites/join/{code}")
+    suspend fun joinGroupByInviteCode(@Path("code") code: String): GroupDto
 
     @GET("/api/balances/{id}")
     suspend fun groupBalances(@Path("id") groupId: Long): GroupBalancesDto

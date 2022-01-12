@@ -67,4 +67,7 @@
     <string name="failed_join_group">Не удалось присоединиться к группе</string>
     <string name="cannot_contain_whitespaces_error">Поле не должно содержать пробелов</string>
     <string name="must_contain_letters_and_digits_error">Поле должно содержать только латинские буквы и цифры</string>
+    <string name="copy_button">Копировать</string>
+    <string name="failed_get_invite_code">Не удалось загрузить код-приглашение с сервера</string>
+    <string name="successful_invitation_code_upload">Код-приглашение успешно загружен с сервера</string>
 </resources>

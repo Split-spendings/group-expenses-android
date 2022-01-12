@@ -68,4 +68,7 @@
     <string name="failed_join_group">Could not join group</string>
     <string name="cannot_contain_whitespaces_error">Cannot contain spaces</string>
     <string name="must_contain_letters_and_digits_error">Must contain only latin letters and digits</string>
+    <string name="copy_button">Copy</string>
+    <string name="failed_get_invite_code">Could not load invitation code from server</string>
+    <string name="successful_invitation_code_upload">Loaded invitation code from server</string>
 </resources>

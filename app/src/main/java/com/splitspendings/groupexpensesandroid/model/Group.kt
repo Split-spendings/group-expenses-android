@@ -4,5 +4,5 @@ data class Group(
     var id: Long,
     var name: String,
     var current: Boolean,
-    val invitationCode: String?
+    var invitationCode: String?
 )

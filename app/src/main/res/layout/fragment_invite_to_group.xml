@@ -15,6 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/status_layout"
+            layout="@layout/status_with_loading_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/code_label"
             android:layout_width="wrap_content"
@@ -37,19 +44,18 @@
             app:layout_constraintTop_toBottomOf="@id/code_label"
             tools:text="QWE123" />
 
-        <ImageButton
+        <Button
             android:id="@+id/copy_code_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_normal"
-            android:background="?colorPrimary"
+            android:enabled="@{inviteToGroupViewModel.copyButtonEnabled}"
             android:onClick="@{() -> inviteToGroupViewModel.onCopyCode()}"
-            android:padding="@dimen/spacing_half"
-            android:src="@drawable/ic_baseline_content_copy_24"
+            android:text="@string/copy_button"
+            app:icon="@drawable/ic_baseline_content_copy_24"
             app:layout_constraintEnd_toEndOf="@id/code"
             app:layout_constraintStart_toStartOf="@id/code"
-            app:layout_constraintTop_toBottomOf="@id/code"
-            app:tint="?colorOnPrimary" />
+            app:layout_constraintTop_toBottomOf="@id/code" />
 
         <Button
             android:id="@+id/generate_new_code_button"
@@ -58,6 +64,8 @@
             android:layout_marginBottom="@dimen/spacing_normal"
             android:onClick="@{() -> inviteToGroupViewModel.onGenerateNewCode()}"
             android:text="@string/new_invitation_code_button"
+            app:buttonWhileLoading="@{inviteToGroupViewModel.status}"
+            app:icon="@drawable/ic_baseline_refresh_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
