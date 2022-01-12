@@ -32,6 +32,7 @@ class NewGroupFragment : Fragment() {
         binding.editGroupName.doAfterTextChanged { viewModel.groupName.value = it.toString() }
 
         viewModel.eventNavigateToGroup.observe(viewLifecycleOwner, ::onNavigateToGroup)
+        viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
 
         //part of CHIP GROUP example
         //viewModel.usersToInvite.observe(viewLifecycleOwner, ::onUsersToInviteChange)

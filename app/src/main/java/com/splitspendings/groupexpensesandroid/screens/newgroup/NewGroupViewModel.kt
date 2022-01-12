@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.R
+import com.splitspendings.groupexpensesandroid.common.ApiStatus
+import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -37,6 +39,10 @@ class NewGroupViewModel(
     val eventNavigateToGroup: LiveData<Long>
         get() = _eventNavigateToGroup
 
+    private val _status = MutableLiveData<Status>()
+    val status: LiveData<Status>
+        get() = _status
+
     //part of CHIP GROUP example
     /*private val _usersToInvite = MutableLiveData<List<String>>()
     val usersToInvite: LiveData<List<String>>
@@ -61,6 +67,7 @@ class NewGroupViewModel(
 
     init {
         _eventNavigateToGroup.value = null
+        _status.value = Status(ApiStatus.DONE, null)
 
         //part of CHIP GROUP example
         //_usersToInvite.value = listOf("Harry", "Ron", "Hermione")
@@ -76,11 +83,14 @@ class NewGroupViewModel(
 
     private fun saveGroupAndNavigateToGroup() {
         viewModelScope.launch {
+            _status.value = Status(ApiStatus.LOADING, null)
             try {
-                _eventNavigateToGroup.value = groupsRepository.saveGroup(name = groupName.value!!)
+                groupName.value?.let {
+                    _eventNavigateToGroup.value = groupsRepository.saveGroup(name = it)
+                }
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
-                // TODO add displaying some error status to user
+                _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_save_new_group))
             }
         }
     }

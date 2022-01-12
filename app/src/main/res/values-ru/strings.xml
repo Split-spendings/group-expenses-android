@@ -62,4 +62,5 @@
     <string name="split_equal_label">Поровну:</string>
     <string name="paid_for_label">За кого оплачено:</string>
     <string name="group_name_blank_error">Поле должно содержать текст</string>
+    <string name="failed_save_new_group">Не удалось сохранить группу на сервер</string>
 </resources>
