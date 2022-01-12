@@ -1,6 +1,7 @@
 package com.splitspendings.groupexpensesandroid.bindingutils
 
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -78,5 +79,12 @@ fun bindStatusMessage(statusMessage: TextView, status: Status?) {
             statusMessage.text = status.message
             statusMessage.visibility = View.VISIBLE
         }
+    }
+}
+
+@BindingAdapter("buttonWhileLoading", "buttonEnabled")
+fun bindButtonWhileLoading(button: Button, status: Status?, buttonEnabled: Boolean?) {
+    status?.let {
+        button.isEnabled = buttonEnabled == true && it.apiStatus != ApiStatus.LOADING
     }
 }

@@ -84,9 +84,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_normal"
             android:layout_marginBottom="@dimen/spacing_normal"
-            android:enabled="@{newGroupViewModel.submitButtonEnabled}"
             android:onClick="@{() -> newGroupViewModel.onSubmit()}"
             android:text="@string/submit_button"
+            app:buttonEnabled="@{newGroupViewModel.submitButtonEnabled}"
+            app:buttonWhileLoading="@{newGroupViewModel.status}"
             app:icon="@drawable/ic_baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
