@@ -79,7 +79,8 @@
         tools:layout="@layout/fragment_join_group">
         <action
             android:id="@+id/action_joinGroupFragment_to_groupFragment"
-            app:destination="@id/groupFragment" />
+            app:destination="@id/groupFragment"
+            app:popUpTo="@id/groupsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/spendingFragment"
@@ -101,7 +102,7 @@
         <action
             android:id="@+id/action_newSpendingFragment_to_spendingFragment"
             app:destination="@id/spendingFragment"
-            app:popUpTo="@id/groupFragment"/>
+            app:popUpTo="@id/groupFragment" />
     </fragment>
     <fragment
         android:id="@+id/inviteToGroupFragment"
