@@ -7,6 +7,7 @@ import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.model.NewShare
 import com.splitspendings.groupexpensesandroid.model.Spending
 import com.splitspendings.groupexpensesandroid.model.Status
+import com.splitspendings.groupexpensesandroid.screens.newspending.MAX_SPENDING_TITLE_SIZE
 import com.splitspendings.groupexpensesandroid.screens.newspending.NewSharesListAdapter
 import com.splitspendings.groupexpensesandroid.screens.spendingslist.SpendingsListAdapter
 import java.math.BigDecimal
@@ -33,6 +34,7 @@ fun Button.bindSubmitNewSpendingButton(
 ) {
     isEnabled = !(
             spendingTitle.isNullOrBlank() ||
+                    spendingTitle.length > MAX_SPENDING_TITLE_SIZE ||
                     spendingTotalAmount == null ||
                     spendingTotalAmount == BigDecimal.ZERO ||
                     (spendingTotalAmount > BigDecimal.ZERO && equalSplit != false && numberOfShares < 1) ||

@@ -38,6 +38,7 @@ class NewSpendingViewModelFactory(
     }
 }
 
+const val MAX_SPENDING_TITLE_SIZE = 100
 
 class NewSpendingViewModel(
     val groupId: Long,
@@ -69,6 +70,15 @@ class NewSpendingViewModel(
     val spendingNumberOfShares = MutableLiveData<Int>()
     val singleShareAmount = MutableLiveData<BigDecimal>()
     val newShares = Transformations.map(groupMembers) { it.asNewShare() }
+
+    val titleInputError = Transformations.map(title) {
+        it?.let {
+            when {
+                it.isNotEmpty() && it.isBlank() -> app.getString(R.string.blank_error)
+                else -> null
+            }
+        }
+    }
 
     init {
         _eventNavigateToSpending.value = null
