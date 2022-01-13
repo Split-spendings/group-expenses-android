@@ -24,10 +24,16 @@
         <item name="tabIndicatorColor">?attr/colorSecondaryVariant</item>
     </style>
 
+    <!--EXAMPLE of SHIP STYLE-->
     <style name="Chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/chip_background_color_state_list</item>
         <item name="android:textColor">@color/chip_text_color_state_list</item>
         <item name="checkedIconTint">?attr/colorOnSecondary</item>
+    </style>
+
+    <style name="GroupAvatarIcon">
+        <item name="android:src">@drawable/ic_baseline_group_24</item>
+        <item name="android:tint">?attr/colorSecondaryVariant</item>
     </style>
 
 </resources>
