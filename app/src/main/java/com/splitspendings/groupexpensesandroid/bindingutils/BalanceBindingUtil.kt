@@ -1,5 +1,6 @@
 package com.splitspendings.groupexpensesandroid.bindingutils
 
+import android.util.TypedValue
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.Button
@@ -31,7 +32,11 @@ fun TextView.bindBalanceAmount(balance: Balance) {
             setTextColor(ContextCompat.getColor(context, R.color.red))
         balance.balance > BigDecimal.ZERO ->
             setTextColor(ContextCompat.getColor(context, R.color.teal_700))
-        else ->
-            setTextColor(ContextCompat.getColor(context, R.color.grey))
+        //EXAMPLE of getting COLOR FROM THEME ATTRIBUTES
+        else -> {
+            val value = TypedValue()
+            context.theme.resolveAttribute(R.attr.colorOnBackground, value, true)
+            setTextColor(value.data)
+        }
     }
 }
