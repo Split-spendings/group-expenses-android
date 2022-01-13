@@ -8,10 +8,12 @@
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
-        <!-- Status bar color. -->
+
+        <!--EXAMPLE of setting STATUS BAR COLOR. -->
         <!--<item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
-        <!-- Customize your theme here. -->
-        <item name="android:fontFamily">@font/audiowide</item>
-        <item name="fontFamily">@font/audiowide</item>
+
+        <!--EXAMPLE of using a DOWNLOADABLE FONT-->
+        <!--<item name="android:fontFamily">@font/audiowide</item>
+        <item name="fontFamily">@font/audiowide</item>-->
     </style>
 </resources>
