@@ -44,13 +44,14 @@
             android:id="@+id/payoff_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_normal"
             android:layout_marginTop="@dimen/spacing_half"
+            android:layout_marginEnd="@dimen/spacing_normal"
             android:onClick="@{() -> clickListener.onClick(balance)}"
             android:text="@string/payoff_button"
             app:balancePayoffButton="@{balance}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:icon="@drawable/ic_baseline_balance_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             style="@style/Divider"

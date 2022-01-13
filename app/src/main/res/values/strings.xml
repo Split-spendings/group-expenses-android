@@ -22,7 +22,7 @@
     <string name="join_group_fragment_label">Join group</string>
     <string name="invite_to_group_fragment_label">Invite to group</string>
     <string name="new_spending_fragment_label">New spending</string>
-    <string name="new_payoff_fragment_label">New payoff</string>
+    <string name="new_payoff_fragment_label">Pay off</string>
     <string name="spendings_label">Spendings</string>
     <string name="balances_label">Balances</string>
     <string name="spending_label">Spending</string>
@@ -58,7 +58,7 @@
     <string name="general_menu_group">General:</string>
     <string name="login_button">Login</string>
     <string name="logout_button">Logout</string>
-    <string name="payoff_button">Payoff</string>
+    <string name="payoff_button">Pay off</string>
     <string name="paid_by_label">Paid by:</string>
     <string name="total_amount_label">Total:</string>
     <string name="split_equal_label">Equal split:</string>
