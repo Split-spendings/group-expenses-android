@@ -8,14 +8,19 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.splitspendings.groupexpensesandroid.R
+import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.common.Currency
+import com.splitspendings.groupexpensesandroid.common.SUCCESS_STATUS_MILLISECONDS
 import com.splitspendings.groupexpensesandroid.model.GroupMember
+import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.model.asDto
 import com.splitspendings.groupexpensesandroid.model.asNewShare
 import com.splitspendings.groupexpensesandroid.network.dto.NewItemDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewSpendingDto
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import com.splitspendings.groupexpensesandroid.repository.SpendingRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.math.BigDecimal
@@ -35,49 +40,40 @@ class NewSpendingViewModelFactory(
 
 
 class NewSpendingViewModel(
-    private val groupId: Long,
-    application: Application
-) : AndroidViewModel(application) {
+    val groupId: Long,
+    val app: Application
+) : AndroidViewModel(app) {
 
     private val groupRepository = GroupRepository.getInstance()
     private val spendingRepository = SpendingRepository.getInstance()
 
     val groupMembers = groupRepository.getGroupMembers(groupId)
 
-    private val _eventReset = MutableLiveData<Boolean>()
-    val eventReset: LiveData<Boolean>
-        get() = _eventReset
-
-    private val _eventInvalidSpendingTitle = MutableLiveData<Boolean>()
-    val eventInvalidSpendingTitle: LiveData<Boolean>
-        get() = _eventInvalidSpendingTitle
-
     private val _eventNavigateToSpending = MutableLiveData<Long>()
     val eventNavigateToSpending: LiveData<Long>
         get() = _eventNavigateToSpending
+
+    private val _status = MutableLiveData<Status>()
+    val status: LiveData<Status>
+        get() = _status
+
+    private val _submitStatus = MutableLiveData<Status>()
+    val submitStatus: LiveData<Status>
+        get() = _submitStatus
 
     val title = MutableLiveData<String>()
     val paidBy = MutableLiveData<GroupMember>()
     val totalAmount = MutableLiveData<BigDecimal>()
     val currency = MutableLiveData<Currency>()
     val equalSplit = MutableLiveData<Boolean>()
-
-    val newShares = Transformations.map(groupMembers) {
-        it.asNewShare()
-    }
-
-    val submitButtonEnabled = Transformations.map(title) {
-        it?.isNotEmpty()
-    }
-
     val spendingNumberOfShares = MutableLiveData<Int>()
     val singleShareAmount = MutableLiveData<BigDecimal>()
+    val newShares = Transformations.map(groupMembers) { it.asNewShare() }
 
     init {
-        _eventReset.value = false
         _eventNavigateToSpending.value = null
-        _eventInvalidSpendingTitle.value = false
-        loadGroupMembers()
+        _status.value = Status(ApiStatus.DONE, null)
+        _submitStatus.value = Status(ApiStatus.DONE, null)
     }
 
     fun onTotalAmountChanged(newTotalAmount: BigDecimal) {
@@ -106,7 +102,7 @@ class NewSpendingViewModel(
                     else newTotalAmount.divide(numberOfShares.toBigDecimal(), 2, BigDecimal.ROUND_HALF_EVEN)
 
                 shares.forEach { share -> share.amount = newSingleShareAmount }
-                if(shares.size > 1) {
+                if (shares.size > 1) {
                     shares[0].amount = newTotalAmount - newSingleShareAmount.multiply((shares.size - 1).toBigDecimal())
                 }
                 singleShareAmount.value = newSingleShareAmount
@@ -120,32 +116,15 @@ class NewSpendingViewModel(
         }
     }
 
-    fun onReset() {
-        _eventReset.value = true
-    }
-
     fun onSubmit() {
-        when {
-            title.value.isNullOrBlank() -> _eventInvalidSpendingTitle.value = true
-            else -> {
-                saveSpendingAndNavigateToSpending()
-            }
-        }
-    }
-
-    fun onEventResetComplete() {
-        _eventReset.value = false
-    }
-
-    fun onEventInvalidSpendingTitleComplete() {
-        _eventInvalidSpendingTitle.value = false
+        saveSpendingAndNavigateToSpending()
     }
 
     fun onEventNavigateToSpendingComplete() {
         _eventNavigateToSpending.value = null
     }
 
-    private fun loadGroupMembers() {
+    fun onLoadGroupMembers() {
         viewModelScope.launch {
             try {
                 groupRepository.refreshGroupMembers(groupId)
@@ -155,10 +134,27 @@ class NewSpendingViewModel(
                 // TODO add displaying some error status to user
             }
         }
+
+        viewModelScope.launch {
+            _status.value = Status(ApiStatus.LOADING, null)
+            try {
+                groupRepository.refreshGroupMembers(groupId)
+
+                _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_group_members_upload))
+                delay(SUCCESS_STATUS_MILLISECONDS)
+                _status.value = Status(ApiStatus.DONE, null)
+
+            } catch (e: Exception) {
+                Timber.d("Failure: ${e.message}")
+                _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_group_members_upload))
+            }
+        }
     }
 
     private fun saveSpendingAndNavigateToSpending() {
         viewModelScope.launch {
+            _status.value = Status(ApiStatus.LOADING, null)
+            _submitStatus.value = Status(ApiStatus.LOADING, null)
             try {
                 val newSpending = NewSpendingDto(
                     groupID = groupId,
@@ -173,11 +169,11 @@ class NewSpendingViewModel(
                         )
                     )
                 )
-                Timber.d("save spending: $newSpending totalAmount: ${totalAmount.value}")
                 _eventNavigateToSpending.value = spendingRepository.saveSpending(newSpending)
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
-                // TODO add displaying some error status to user
+                _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_save_new_spending))
+                _submitStatus.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_save_new_spending))
             }
         }
     }

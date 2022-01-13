@@ -11,10 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.Currency
-import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.common.closeKeyboard
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewSpendingBinding
 import com.splitspendings.groupexpensesandroid.model.GroupMember
@@ -44,12 +42,11 @@ class NewSpendingFragment : Fragment() {
 
         binding.editSpendingTitle.doAfterTextChanged { viewModel.title.value = it.toString() }
 
-        viewModel.eventReset.observe(viewLifecycleOwner, ::onReset)
-        viewModel.eventInvalidSpendingTitle.observe(viewLifecycleOwner, ::onInvalidSpendingTitle)
         viewModel.eventNavigateToSpending.observe(viewLifecycleOwner, ::onNavigateToSpending)
         viewModel.groupMembers.observe(viewLifecycleOwner, ::setUpPaidBy)
         viewModel.equalSplit.observe(viewLifecycleOwner, ::onEqualSplitToggled)
         viewModel.totalAmount.observe(viewLifecycleOwner, ::onTotalAmountChanged)
+        viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
 
         binding.newSharesList.adapter = NewSharesListAdapter(viewModel, viewLifecycleOwner)
 
@@ -58,6 +55,11 @@ class NewSpendingFragment : Fragment() {
         setUpEqualSplitSwitch()
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.onLoadGroupMembers()
     }
 
     override fun onDestroy() {
@@ -129,24 +131,6 @@ class NewSpendingFragment : Fragment() {
                 }
                 onItemSelectedListener = PaidByPicker(viewModel, groupMembers)
             }
-        }
-    }
-
-    private fun onReset(reset: Boolean) {
-        if (reset) {
-            binding.editSpendingTitle.setText(EMPTY_STRING)
-            viewModel.onEventResetComplete()
-        }
-    }
-
-    private fun onInvalidSpendingTitle(invalidSpendingTitle: Boolean) {
-        if (invalidSpendingTitle) {
-            Snackbar.make(
-                requireActivity().findViewById(android.R.id.content),
-                getString(R.string.invalid_spending_title_error),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            viewModel.onEventInvalidSpendingTitleComplete()
         }
     }
 

@@ -72,4 +72,7 @@
     <string name="failed_get_invite_code">Could not load invitation code from server</string>
     <string name="successful_invitation_code_upload">Loaded invitation code from server</string>
     <string name="failed_leave_group">Could not leave group</string>
+    <string name="successful_group_members_upload">Loaded group members from server</string>
+    <string name="failed_group_members_upload">Could not load group members from server</string>
+    <string name="failed_save_new_spending">Could not save new spending to server</string>
 </resources>

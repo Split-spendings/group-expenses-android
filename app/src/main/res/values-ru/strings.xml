@@ -71,4 +71,7 @@
     <string name="failed_get_invite_code">Не удалось загрузить код-приглашение с сервера</string>
     <string name="successful_invitation_code_upload">Код-приглашение успешно загружен с сервера</string>
     <string name="failed_leave_group">Ну удалось покинуть группу</string>
+    <string name="successful_group_members_upload">Участники группы успешно загружены с сервера</string>
+    <string name="failed_group_members_upload">Не удалось загрузить участников группы с сервера</string>
+    <string name="failed_save_new_spending">Не удалось сохранить платеж на сервер</string>
 </resources>

@@ -15,6 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/status_layout"
+            layout="@layout/status_with_loading_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/edit_spending_title"
             android:layout_width="0dp"
@@ -26,7 +33,7 @@
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/status_layout" />
 
         <TextView
             android:id="@+id/paid_by_label"
@@ -119,6 +126,7 @@
             android:layout_marginBottom="@dimen/spacing_normal"
             android:onClick="@{() -> newSpendingViewModel.onSubmit()}"
             android:text="@string/submit_button"
+            app:buttonWhileSubmitLoading="@{newSpendingViewModel.submitStatus}"
             app:equalSplit="@{newSpendingViewModel.equalSplit}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
