@@ -39,7 +39,7 @@
                     android:id="@+id/groups_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:filter="@{groupsListViewModel.filter}"
+                    app:groupsFilter="@{groupsListViewModel.filter}"
                     app:groupsList="@{groupsListViewModel.groups}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 

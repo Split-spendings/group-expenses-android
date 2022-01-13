@@ -13,96 +13,84 @@ import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.model.Status
 
 @BindingAdapter("loadingProgress")
-fun bindLoadingProgress(progressIndicator: LinearProgressIndicator, status: Status?) {
+fun LinearProgressIndicator.bindLoadingProgress(status: Status?) {
     status?.let {
-        when (status.apiStatus) {
-            ApiStatus.LOADING -> {
-                progressIndicator.visibility = View.VISIBLE
-            }
-            else -> {
-                progressIndicator.visibility = View.GONE
-            }
+        visibility = when (status.apiStatus) {
+            ApiStatus.LOADING -> View.VISIBLE
+            else -> View.GONE
         }
     }
 }
 
 @BindingAdapter("swipeLoadingProgress")
-fun bindSwipeLoadingProgress(progressIndicator: SwipeRefreshLayout, status: Status?) {
+fun SwipeRefreshLayout.bindSwipeLoadingProgress(status: Status?) {
     status?.let {
-        when (status.apiStatus) {
-            ApiStatus.LOADING -> {
-                progressIndicator.isRefreshing = true
-            }
-            else -> {
-                progressIndicator.isRefreshing = false
-            }
+        isRefreshing = when (status.apiStatus) {
+            ApiStatus.LOADING -> true
+            else -> false
         }
     }
 }
 
 @BindingAdapter("statusContainer")
-fun bindStatusContainer(statusContainer: View, status: Status?) {
+fun View.bindStatusContainer(status: Status?) {
     status?.let {
         if (status.apiStatus == ApiStatus.ERROR) {
-            statusContainer.setBackgroundColor(ContextCompat.getColor(statusContainer.context, R.color.red))
+            setBackgroundColor(ContextCompat.getColor(context, R.color.red))
         } else if (status.apiStatus == ApiStatus.SUCCESS) {
-            statusContainer.setBackgroundColor(ContextCompat.getColor(statusContainer.context, R.color.teal_700))
+            setBackgroundColor(ContextCompat.getColor(context, R.color.teal_700))
         }
     }
 }
 
 @BindingAdapter("statusIcon")
-fun bindStatusIcon(statusIcon: ImageView, status: Status?) {
+fun ImageView.bindStatusIcon(status: Status?) {
     status?.let {
-        when (status.apiStatus) {
+        visibility = when (status.apiStatus) {
             ApiStatus.ERROR -> {
-                statusIcon.setImageResource(R.drawable.ic_connection_error)
-                statusIcon.visibility = View.VISIBLE
+                setImageResource(R.drawable.ic_connection_error)
+                View.VISIBLE
             }
             ApiStatus.SUCCESS -> {
-                statusIcon.setImageResource(R.drawable.ic_baseline_download_done_24)
-                statusIcon.visibility = View.VISIBLE
+                setImageResource(R.drawable.ic_baseline_download_done_24)
+                View.VISIBLE
             }
             else -> {
-                statusIcon.visibility = View.GONE
+                View.GONE
             }
         }
     }
 }
 
 @BindingAdapter("statusMessage")
-fun bindStatusMessage(statusMessage: TextView, status: Status?) {
+fun TextView.bindStatusMessage(status: Status?) {
     status?.let {
         if (status.message == null) {
-            statusMessage.visibility = View.GONE
+            visibility = View.GONE
         } else {
-            statusMessage.text = status.message
-            statusMessage.visibility = View.VISIBLE
+            text = status.message
+            visibility = View.VISIBLE
         }
     }
 }
 
 @BindingAdapter("buttonWhileLoading", "buttonEnabled")
-fun bindButtonWhileLoading(button: Button, status: Status?, buttonEnabled: Boolean?) {
+fun Button.bindButtonWhileLoading(status: Status?, buttonEnabled: Boolean?) {
     status?.let {
-        button.isEnabled = buttonEnabled == true && it.apiStatus != ApiStatus.LOADING
+        isEnabled = buttonEnabled == true && it.apiStatus != ApiStatus.LOADING
     }
 }
 
 @BindingAdapter("buttonWhileLoading")
-fun bindButtonWhileLoading(button: Button, status: Status?) {
+fun Button.bindButtonWhileLoading(status: Status?) {
     status?.let {
-        button.isEnabled = it.apiStatus != ApiStatus.LOADING
+        isEnabled = it.apiStatus != ApiStatus.LOADING
     }
 }
 
 @BindingAdapter("viewVisibilityWhileLoading")
-fun bindViewVisibilityWhileLoading(view: View, status: Status?) {
+fun View.bindViewVisibilityWhileLoading(status: Status?) {
     status?.let {
-        if (it.apiStatus == ApiStatus.LOADING) {
-            view.visibility = View.INVISIBLE
-        } else {
-            view.visibility = View.VISIBLE
-        }
+        visibility = if (it.apiStatus == ApiStatus.LOADING) View.INVISIBLE else View.VISIBLE
     }
 }

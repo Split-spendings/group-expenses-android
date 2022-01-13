@@ -10,26 +10,25 @@ import com.splitspendings.groupexpensesandroid.screens.spendingslist.SpendingsLi
 import java.math.BigDecimal
 
 @BindingAdapter("spendingsList")
-fun bindSpendingListRecyclerView(recyclerView: RecyclerView, spendingList: List<Spending>?) {
-    val adapter = recyclerView.adapter as SpendingsListAdapter
+fun RecyclerView.bindSpendingList(spendingList: List<Spending>?) {
+    val adapter = adapter as SpendingsListAdapter
     adapter.submitList(spendingList)
 }
 
 @BindingAdapter("newSharesList")
-fun bindNewSharesListRecyclerView(recyclerView: RecyclerView, newSharesList: List<NewShare>?) {
-    val adapter = recyclerView.adapter as NewSharesListAdapter
+fun RecyclerView.bindNewSharesList(newSharesList: List<NewShare>?) {
+    val adapter = adapter as NewSharesListAdapter
     adapter.submitList(newSharesList)
 }
 
 @BindingAdapter("spendingTitle", "spendingTotalAmount", "equalSplit", "numberOfShares")
-fun bindSubmitNewSpendingButton(
-    submitButton: Button,
+fun Button.bindSubmitNewSpendingButton(
     spendingTitle: String?,
     spendingTotalAmount: BigDecimal?,
     equalSplit: Boolean?,
     numberOfShares: Int
 ) {
-    submitButton.isEnabled = !(
+    isEnabled = !(
             spendingTitle.isNullOrBlank() ||
                     spendingTotalAmount == null ||
                     spendingTotalAmount == BigDecimal.ZERO ||

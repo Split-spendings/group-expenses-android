@@ -1,8 +1,8 @@
 package com.splitspendings.groupexpensesandroid.bindingutils
 
-import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
+import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -13,29 +13,25 @@ import com.splitspendings.groupexpensesandroid.screens.balanceslist.BalancesList
 import java.math.BigDecimal
 
 @BindingAdapter("balancesList")
-fun bindBalancesListRecyclerView(recyclerView: RecyclerView, balancesList: List<Balance>?) {
-    val adapter = recyclerView.adapter as BalancesListAdapter
+fun RecyclerView.bindBalancesList(balancesList: List<Balance>?) {
+    val adapter = adapter as BalancesListAdapter
     adapter.addHeadersAndSubmitList(balancesList)
 }
 
 @BindingAdapter("balancePayoffButton")
-fun bindBalancePayoffButton(button: View, balance: Balance) {
-    if (balance.balance < BigDecimal.ZERO) {
-        button.visibility = VISIBLE
-    } else {
-        button.visibility = INVISIBLE
-    }
+fun Button.bindBalancePayoffButton(balance: Balance) {
+    visibility = if (balance.balance < BigDecimal.ZERO) VISIBLE else INVISIBLE
 }
 
 @BindingAdapter("balanceAmount")
-fun bindBalanceAmount(balanceAmount: TextView, balance: Balance) {
-    balanceAmount.text = balance.balance.toString()
+fun TextView.bindBalanceAmount(balance: Balance) {
+    text = balance.balance.toString()
     when {
         balance.balance < BigDecimal.ZERO ->
-            balanceAmount.setTextColor(ContextCompat.getColor(balanceAmount.context, R.color.red))
+            setTextColor(ContextCompat.getColor(context, R.color.red))
         balance.balance > BigDecimal.ZERO ->
-            balanceAmount.setTextColor(ContextCompat.getColor(balanceAmount.context, R.color.teal_700))
+            setTextColor(ContextCompat.getColor(context, R.color.teal_700))
         else ->
-            balanceAmount.setTextColor(ContextCompat.getColor(balanceAmount.context, R.color.grey))
+            setTextColor(ContextCompat.getColor(context, R.color.grey))
     }
 }

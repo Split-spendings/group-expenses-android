@@ -32,10 +32,10 @@ fun ImageView.setGroupAvatarPlaceholder(group: Group?) {
     )
 }*/
 
-@BindingAdapter("groupsList", "filter")
-fun bindGroupsListRecyclerView(recyclerView: RecyclerView, groupsList: List<Group>?, filter: GroupsFilter) {
-    val adapter = recyclerView.adapter as GroupsListAdapter
-    adapter.addHeaderAndSubmitList(groupsList, filter)
+@BindingAdapter("groupsList", "groupsFilter")
+fun RecyclerView.bindGroupsListAndFilter(groupsList: List<Group>?, groupsFilter: GroupsFilter) {
+    val adapter = adapter as GroupsListAdapter
+    adapter.addHeaderAndSubmitList(groupsList, groupsFilter)
 }
 
 
