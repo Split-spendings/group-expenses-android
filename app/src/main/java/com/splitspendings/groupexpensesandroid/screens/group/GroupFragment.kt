@@ -20,7 +20,6 @@ import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
 class GroupFragment : Fragment() {
 
     private lateinit var viewModel: GroupViewModel
-    private var leaveGroupMenuItem: MenuItem? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding: FragmentGroupBinding =
@@ -53,10 +52,12 @@ class GroupFragment : Fragment() {
         }.attach()
 
         viewModel.eventNavigateToGroupsList.observe(viewLifecycleOwner, ::onNavigateToGroupsList)
-        viewModel.status.observe(viewLifecycleOwner, { it?.let {
-            binding.statusLayout.status = it
-            leaveGroupMenuItem?.isEnabled = it.apiStatus != ApiStatus.LOADING
-        } })
+        viewModel.status.observe(viewLifecycleOwner, {
+            it?.let {
+                binding.statusLayout.status = it
+                setHasOptionsMenu(it.apiStatus != ApiStatus.LOADING)
+            }
+        })
 
         setHasOptionsMenu(true)
 
@@ -64,7 +65,7 @@ class GroupFragment : Fragment() {
     }
 
     private fun onNavigateToGroupsList(navigateToGroupsList: Boolean) {
-        if(navigateToGroupsList) {
+        if (navigateToGroupsList) {
             findNavController()
                 .navigate(GroupFragmentDirections.actionGroupFragmentToGroupsListFragment())
             viewModel.onEventNavigateToGroupsListComplete()
@@ -89,7 +90,7 @@ class GroupFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.group_options_menu, menu)
-        leaveGroupMenuItem = menu.findItem(R.id.leaveGroup)
+        menu.findItem(R.id.leaveGroup)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -95,3 +95,14 @@ fun bindButtonWhileLoading(button: Button, status: Status?) {
         button.isEnabled = it.apiStatus != ApiStatus.LOADING
     }
 }
+
+@BindingAdapter("viewVisibilityWhileLoading")
+fun bindViewVisibilityWhileLoading(view: View, status: Status?) {
+    status?.let {
+        if (it.apiStatus == ApiStatus.LOADING) {
+            view.visibility = View.INVISIBLE
+        } else {
+            view.visibility = View.VISIBLE
+        }
+    }
+}
