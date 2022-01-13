@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="status"
             type="com.splitspendings.groupexpensesandroid.model.Status" />
@@ -30,33 +31,46 @@
             android:id="@+id/status_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/loading_progress"
+            android:clipChildren="false"
+            app:layout_constraintTop_toBottomOf="@id/loading_progress"
             app:statusContainer="@{status}">
 
-            <ImageView
-                android:id="@+id/status_icon"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
                 android:layout_marginEnd="@dimen/spacing_half"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/status_message"
-                app:layout_constraintTop_toTopOf="parent"
-                app:statusIcon="@{status}"
-                tools:src="@drawable/ic_connection_error"
-                tools:tint="@color/black" />
-
-            <TextView
-                android:id="@+id/status_message"
-                style="@style/StatusText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:clipChildren="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:statusMessage="@{status}"
-                tools:text="Status message"
-                tools:textColor="@color/black" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/status_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_half"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/status_message"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:statusIcon="@{status}"
+                    tools:src="@drawable/ic_connection_error"
+                    tools:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/status_message"
+                    style="@style/StatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:statusMessage="@{status}"
+                    tools:text="Status message"
+                    tools:textColor="@color/black" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
