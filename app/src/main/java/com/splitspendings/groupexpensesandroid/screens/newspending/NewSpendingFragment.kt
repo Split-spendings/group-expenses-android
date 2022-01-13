@@ -119,18 +119,22 @@ class NewSpendingFragment : Fragment() {
     }
 
     private fun setUpPaidBy(groupMembers: List<GroupMember>?) {
-        groupMembers?.let {
-            binding.paidByPicker.apply {
-                ArrayAdapter(
-                    requireContext(),
-                    android.R.layout.simple_spinner_item,
-                    groupMembers.map { it.appUSer.loginName }
-                ).also { newAdapter ->
-                    newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    adapter = newAdapter
-                }
-                onItemSelectedListener = PaidByPicker(viewModel, groupMembers)
+        binding.paidByPicker.apply {
+            if (groupMembers == null || groupMembers.isEmpty()) {
+                visibility = View.INVISIBLE
+                return
             }
+
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                groupMembers.map { it.appUSer.loginName }
+            ).also { newAdapter ->
+                newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                adapter = newAdapter
+            }
+            onItemSelectedListener = PaidByPicker(viewModel, groupMembers)
+            visibility = View.VISIBLE
         }
     }
 
