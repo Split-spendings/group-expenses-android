@@ -4,4 +4,4 @@ const val EMPTY_STRING = ""
 
 const val SUCCESS_STATUS_MILLISECONDS: Long = 2500
 
-const val DATE_TIME_FORMAT = "MM/dd/yyyy HH:mm"
+const val DATE_TIME_FORMAT = "dd.MM.yyyy HH:mm"
