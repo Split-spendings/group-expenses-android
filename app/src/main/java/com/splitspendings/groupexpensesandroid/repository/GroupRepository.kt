@@ -1,17 +1,12 @@
 package com.splitspendings.groupexpensesandroid.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.splitspendings.groupexpensesandroid.common.Currency
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.common.InviteOption
 import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.database.entity.asModel
-import com.splitspendings.groupexpensesandroid.model.Balance
-import com.splitspendings.groupexpensesandroid.model.Group
-import com.splitspendings.groupexpensesandroid.model.GroupMember
-import com.splitspendings.groupexpensesandroid.model.Spending
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
 import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.asEntity
@@ -40,11 +35,11 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         }
     }
 
-    val groups: LiveData<List<Group>> =
-        Transformations.map(database.groupDao.getAllLive()) { it.asModel() }
+    val groups = Transformations
+        .map(database.groupDao.getAllLive()) { it.asModel() }
 
-    fun getGroup(id: Long): LiveData<Group> =
-        Transformations.map(database.groupDao.getLive(id)) { it.asModel() }
+    fun getGroup(id: Long) = Transformations
+        .map(database.groupDao.getLive(id)) { it.asModel() }
 
     suspend fun refreshGroups(filter: GroupsFilter) {
         withContext(Dispatchers.IO) {
@@ -70,8 +65,8 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         return database.groupDao.insert(groupSavedOnServer.asEntity())
     }
 
-    fun getGroupSpendings(groupId: Long): LiveData<List<Spending>> =
-        Transformations.map(database.spendingDao.getByGroupIdLive(groupId)) { it.asModel() }
+    fun getGroupSpendings(groupId: Long) = Transformations
+        .map(database.spendingDao.getByGroupIdLive(groupId)) { it.asModel() }
 
     suspend fun refreshGroupSpendings(groupId: Long) {
         withContext(Dispatchers.IO) {
@@ -102,8 +97,8 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         database.groupDao.updateInvitationCode(invitationCode.code, groupId)
     }
 
-    fun getGroupBalances(groupId: Long): LiveData<List<Balance>> =
-        Transformations.map(database.balanceDao.getByGroupIdLive(groupId)) { it.asModel() }
+    fun getGroupBalances(groupId: Long) = Transformations
+        .map(database.balanceDao.getByGroupIdLive(groupId)) { it.asModel() }
 
     suspend fun refreshGroupBalances(groupId: Long) {
         withContext(Dispatchers.IO) {
@@ -113,8 +108,8 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         }
     }
 
-    fun getGroupMembers(groupId: Long): LiveData<List<GroupMember>> =
-        Transformations.map(database.groupMemberDao.getByGroupIdLive(groupId)) { it.asModel() }
+    fun getGroupMembers(groupId: Long) = Transformations
+        .map(database.groupMemberDao.getByGroupIdLive(groupId)) { it.asModel() }
 
     suspend fun refreshGroupMembers(groupId: Long) {
         withContext(Dispatchers.IO) {
