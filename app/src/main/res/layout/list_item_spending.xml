@@ -51,11 +51,31 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="USD" />
 
+        <TextView
+            android:id="@+id/spending_added_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_half"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spending_title"
+            tools:text="test@thesis.net" />
+
+        <TextView
+            android:id="@+id/spending_time_created"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            app:layout_constraintBaseline_toBaselineOf="@id/spending_added_by"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:zonedDateTime="@{spending.timeCreated}"
+            tools:text="20.04.2021 22:33" />
+
         <View
             style="@style/Divider"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/spacing_normal"
-            app:layout_constraintTop_toBottomOf="@id/spending_title" />
+            app:layout_constraintTop_toBottomOf="@id/spending_added_by" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

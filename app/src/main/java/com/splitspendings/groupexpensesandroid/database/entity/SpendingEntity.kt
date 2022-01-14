@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.splitspendings.groupexpensesandroid.common.Currency
 import com.splitspendings.groupexpensesandroid.model.Spending
+import java.time.ZonedDateTime
 
 @Entity(tableName = "spending")
 data class SpendingEntity(
@@ -45,7 +46,11 @@ fun SpendingEntity.asModel() =
         id = id,
         title = title,
         totalAmount = totalAmount.toBigDecimal(),
-        currency = Currency.valueOf(currency)
+        currency = Currency.valueOf(currency),
+        timeCreated = ZonedDateTime.parse(timeCreated),
+        timePayed = timePayed?.let { ZonedDateTime.parse(timePayed) },
+        addedByGroupMembershipId,
+        paidByGroupMembershipId
     )
 
 fun List<SpendingEntity>.asModel() = map { it.asModel() }
