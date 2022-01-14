@@ -10,8 +10,17 @@ import com.splitspendings.groupexpensesandroid.database.entity.GroupMemberEntity
 @Dao
 interface GroupMemberDao {
 
+    @Query("SELECT * from group_member where id = :id")
+    fun getLive(id: String): LiveData<GroupMemberEntity>
+
+    @Query("SELECT * FROM group_member")
+    fun getAllLive(): LiveData<List<GroupMemberEntity>>
+
+    @Query("SELECT * FROM group_member where groupId = :groupId")
+    fun getByGroupIdLive(groupId: Long): LiveData<List<GroupMemberEntity>>
+
     @Insert
-    suspend fun insert(groupMember: GroupMemberEntity)
+    suspend fun insert(groupMember: GroupMemberEntity): Long
 
     @Insert
     suspend fun insertAll(groupMembersList: List<GroupMemberEntity>)
@@ -22,14 +31,8 @@ interface GroupMemberDao {
     @Query("SELECT * from group_member where id = :id")
     suspend fun get(id: String): GroupMemberEntity?
 
-    @Query("SELECT * from group_member where id = :id")
-    fun getLive(id: String): LiveData<GroupMemberEntity>
-
     @Query("SELECT * FROM group_member")
     suspend fun getAll(): List<GroupMemberEntity>
-
-    @Query("SELECT * FROM group_member")
-    fun getAllLive(): LiveData<List<GroupMemberEntity>>
 
     @Query("DELETE FROM group_member")
     suspend fun clear()
@@ -42,7 +45,4 @@ interface GroupMemberDao {
 
     @Query("SELECT * FROM group_member where groupId = :groupId")
     suspend fun getByGroupId(groupId: Long): List<GroupMemberEntity>
-
-    @Query("SELECT * FROM group_member where groupId = :groupId")
-    fun getByGroupIdLive(groupId: Long): LiveData<List<GroupMemberEntity>>
 }
