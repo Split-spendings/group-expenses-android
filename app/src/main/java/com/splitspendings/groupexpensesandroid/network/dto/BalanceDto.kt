@@ -5,7 +5,6 @@ import com.splitspendings.groupexpensesandroid.database.entity.BalanceEntity
 
 data class BalanceDto(
     val id: Long,
-    //TODO converter for BigDecimal
     val balance: String,
     val currency: Currency,
     val withAppUser: AppUserDto

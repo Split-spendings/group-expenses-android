@@ -76,7 +76,6 @@ class SpendingsListViewModel(
         viewModelScope.launch {
             _status.value = Status(ApiStatus.LOADING, null)
             try {
-                //TODO: add endpoint that accepts filtering (e.g. by currency)
                 groupsRepository.refreshGroupSpendings(groupId)
 
                 _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_spendings_upload))

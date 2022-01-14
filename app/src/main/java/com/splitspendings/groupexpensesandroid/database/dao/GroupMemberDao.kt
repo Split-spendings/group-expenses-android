@@ -35,7 +35,7 @@ interface GroupMemberDao {
     suspend fun clear()
 
     @Query("DELETE FROM group_member where id = :id")
-    suspend fun delete(id: String)
+    suspend fun delete(id: Long)
 
     @Query("DELETE FROM group_member where groupId = :groupId")
     suspend fun deleteByGroupId(groupId: Long)

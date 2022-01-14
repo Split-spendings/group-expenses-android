@@ -15,7 +15,6 @@ data class GroupDto(
     val isActiveMember: Boolean
 )
 
-//TODO set 'current' from dto
 fun GroupDto.asEntity() =
     GroupEntity(
         id = id,

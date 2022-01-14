@@ -15,13 +15,26 @@ data class SpendingEntity(
     @ColumnInfo(name = "title")
     var title: String,
 
-    // TODO: research other ways to store BigDecimal
+    //TODO: RESEARCH other ways to store BigDecimal
     @ColumnInfo(name = "totalAmount")
     val totalAmount: String,
 
-    // TODO: research other ways to store Enum
+    //TODO: RESEARCH other ways to store Enum
     @ColumnInfo(name = "currency")
     val currency: String,
+
+    //TODO: RESEARCH other ways to store ZonedDateTime
+    @ColumnInfo(name = "timeCreated")
+    val timeCreated: String,
+
+    @ColumnInfo(name = "timePayed")
+    val timePayed: String?,
+
+    @ColumnInfo(name = "addedByGroupMembershipId")
+    val addedByGroupMembershipId: Long,
+
+    @ColumnInfo(name = "paidByGroupMembership")
+    val paidByGroupMembershipId: Long,
 
     @ColumnInfo(name = "groupId")
     val groupId: Long

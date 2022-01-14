@@ -6,7 +6,10 @@ data class GroupMemberDto(
     val id: Long,
     val active: Boolean,
     val appUser: AppUserDto
-)
+) {
+    override fun equals(other: Any?) = other != null && other is GroupMemberDto && id == other.id
+    override fun hashCode() = id.hashCode()
+}
 
 fun GroupMemberDto.asEntity(groupId: Long): GroupMemberEntity {
     return GroupMemberEntity(
@@ -22,4 +25,4 @@ fun GroupMemberDto.asEntity(groupId: Long): GroupMemberEntity {
     )
 }
 
-fun List<GroupMemberDto>.asEntity(groupId: Long) = map { it.asEntity(groupId) }
+fun Iterable<GroupMemberDto>.asEntity(groupId: Long) = map { it.asEntity(groupId) }

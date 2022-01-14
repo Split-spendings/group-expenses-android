@@ -13,18 +13,16 @@ data class BalanceEntity(
     @PrimaryKey
     var id: Long,
 
-    // TODO: research other ways to store BigDecimal
     @ColumnInfo(name = "balance")
     val balance: String,
 
-    // TODO: research other ways to store Enum
     @ColumnInfo(name = "currency")
     val currency: String,
 
     @ColumnInfo(name = "groupId")
     val groupId: Long,
 
-    //TODO how to use relations with live data ???
+    //TODO: RESEARCH how to use relations with live data
     @ColumnInfo(name = "withAppUserId")
     val withAppUserId: String,
 
@@ -41,7 +39,6 @@ data class BalanceEntity(
     var lastName: String
 )
 
-//TODO remake with proper relation
 fun BalanceEntity.asModel() =
     Balance(
         id = id,

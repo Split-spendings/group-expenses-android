@@ -15,6 +15,7 @@ import com.splitspendings.groupexpensesandroid.model.Spending
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
 import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.asEntity
+import com.splitspendings.groupexpensesandroid.network.dto.groupMembers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -39,13 +40,11 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         }
     }
 
-    val groups: LiveData<List<Group>> = Transformations.map(database.groupDao.getAllLive()) {
-        it.asModel()
-    }
+    val groups: LiveData<List<Group>> =
+        Transformations.map(database.groupDao.getAllLive()) { it.asModel() }
 
-    fun getGroup(id: Long): LiveData<Group> = Transformations.map(database.groupDao.getLive(id)) {
-        it.asModel()
-    }
+    fun getGroup(id: Long): LiveData<Group> =
+        Transformations.map(database.groupDao.getLive(id)) { it.asModel() }
 
     suspend fun refreshGroups(filter: GroupsFilter) {
         withContext(Dispatchers.IO) {
@@ -71,13 +70,17 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         return database.groupDao.insert(groupSavedOnServer.asEntity())
     }
 
-    fun getGroupSpendings(groupId: Long): LiveData<List<Spending>> = Transformations.map(database.spendingDao.getByGroupIdLive(groupId)) {
-        it.asModel()
-    }
+    fun getGroupSpendings(groupId: Long): LiveData<List<Spending>> =
+        Transformations.map(database.spendingDao.getByGroupIdLive(groupId)) { it.asModel() }
 
     suspend fun refreshGroupSpendings(groupId: Long) {
         withContext(Dispatchers.IO) {
             val groupSpendings = GroupExpensesApi.retrofitService.groupSpendings(groupId)
+
+            val groupMembers = groupSpendings.spendings.groupMembers()
+            groupMembers.forEach { database.groupMemberDao.delete(it.id) }
+            database.groupMemberDao.insertAll(groupMembers.asEntity(groupId))
+
             database.spendingDao.deleteByGroupId(groupId)
             database.spendingDao.insertAll(groupSpendings.spendings.asEntity(groupId))
         }
@@ -90,7 +93,6 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
     }
 
     suspend fun refreshInvitationCode(groupId: Long) {
-        //TODO user new endpoint for getting existing invite from server
         val invitationCode = GroupExpensesApi.retrofitService.generateGroupInviteCode(groupId)
         database.groupDao.updateInvitationCode(invitationCode.code, groupId)
     }
@@ -100,9 +102,8 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         database.groupDao.updateInvitationCode(invitationCode.code, groupId)
     }
 
-    fun getGroupBalances(groupId: Long): LiveData<List<Balance>> = Transformations.map(database.balanceDao.getByGroupIdLive(groupId)) {
-        it.asModel()
-    }
+    fun getGroupBalances(groupId: Long): LiveData<List<Balance>> =
+        Transformations.map(database.balanceDao.getByGroupIdLive(groupId)) { it.asModel() }
 
     suspend fun refreshGroupBalances(groupId: Long) {
         withContext(Dispatchers.IO) {
@@ -112,9 +113,8 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         }
     }
 
-    fun getGroupMembers(groupId: Long): LiveData<List<GroupMember>> = Transformations.map(database.groupMemberDao.getByGroupIdLive(groupId)) {
-        it.asModel()
-    }
+    fun getGroupMembers(groupId: Long): LiveData<List<GroupMember>> =
+        Transformations.map(database.groupMemberDao.getByGroupIdLive(groupId)) { it.asModel() }
 
     suspend fun refreshGroupMembers(groupId: Long) {
         withContext(Dispatchers.IO) {
