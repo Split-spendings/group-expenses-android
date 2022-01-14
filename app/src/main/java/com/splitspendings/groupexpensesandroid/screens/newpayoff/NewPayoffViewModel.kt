@@ -8,6 +8,9 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.splitspendings.groupexpensesandroid.R
+import com.splitspendings.groupexpensesandroid.common.ApiStatus
+import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.repository.BalanceRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -25,45 +28,49 @@ class NewPayoffViewModelFactory(
     }
 }
 
+const val MAX_PAYOFF_TITLE_SIZE = 100
 
 class NewPayoffViewModel(
     balanceId: Long,
-    application: Application
-) : AndroidViewModel(application) {
+    val app: Application
+) : AndroidViewModel(app) {
 
     private val balanceRepository = BalanceRepository.getInstance()
 
     val balance = balanceRepository.getBalance(balanceId)
 
-    private val _eventReset = MutableLiveData<Boolean>()
-    val eventReset: LiveData<Boolean>
-        get() = _eventReset
-
     private val _eventNavigateToPayoff = MutableLiveData<Long>()
     val eventNavigateToPayoff: LiveData<Long>
         get() = _eventNavigateToPayoff
 
-    val payoffTitle = MutableLiveData<String>()
+    private val _status = MutableLiveData<Status>()
+    val status: LiveData<Status>
+        get() = _status
 
-    val resetButtonEnabled = Transformations.map(payoffTitle) {
-        it?.isNotEmpty()
+    val title = MutableLiveData<String>()
+
+    val submitButtonEnabled = Transformations.map(title) {
+        it?.let {
+            it.isNotBlank() && it.length <= MAX_PAYOFF_TITLE_SIZE
+        }
+    }
+
+    val payoffTitleInputError = Transformations.map(title) {
+        it?.let {
+            when {
+                it.isNotEmpty() && it.isBlank() -> app.getString(R.string.blank_error)
+                else -> null
+            }
+        }
     }
 
     init {
-        _eventReset.value = false
         _eventNavigateToPayoff.value = null
-    }
-
-    fun onReset() {
-        _eventReset.value = true
+        _status.value = Status(ApiStatus.DONE, null)
     }
 
     fun onSubmit() {
         savePayoffAndNavigateToPayoff()
-    }
-
-    fun onEventResetComplete() {
-        _eventReset.value = false
     }
 
     fun onEventNavigateToPayoffComplete() {
@@ -72,12 +79,12 @@ class NewPayoffViewModel(
 
     private fun savePayoffAndNavigateToPayoff() {
         viewModelScope.launch {
+            _status.value = Status(ApiStatus.LOADING, null)
             try {
-                //TODO implement repository method
-                //_eventNavigateToSpending.value = spendingRepository.saveSpending(groupId = groupId, spendingTitle = spendingTitle.value!!)
+                //_eventNavigateToPayoff.value = TODO
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
-                // TODO add displaying some error status to user
+                _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_save_new_payoff))
             }
         }
     }

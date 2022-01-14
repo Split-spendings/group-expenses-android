@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.splitspendings.groupexpensesandroid.R
-import com.splitspendings.groupexpensesandroid.common.EMPTY_STRING
 import com.splitspendings.groupexpensesandroid.common.closeKeyboard
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewPayoffBinding
 
@@ -33,10 +32,10 @@ class NewPayoffFragment : Fragment() {
         binding.newPayoffViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.editPayoffTitle.doAfterTextChanged { viewModel.payoffTitle.value = it.toString() }
+        binding.editPayoffTitle.doAfterTextChanged { viewModel.title.value = it.toString() }
 
-        viewModel.eventReset.observe(viewLifecycleOwner, ::onReset)
         viewModel.eventNavigateToPayoff.observe(viewLifecycleOwner, ::onNavigateToPayoff)
+        viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
 
         return binding.root
     }
@@ -44,13 +43,6 @@ class NewPayoffFragment : Fragment() {
     override fun onDestroy() {
         closeKeyboard(this)
         super.onDestroy()
-    }
-
-    private fun onReset(reset: Boolean) {
-        if (reset) {
-            binding.editPayoffTitle.setText(EMPTY_STRING)
-            viewModel.onEventResetComplete()
-        }
     }
 
     private fun onNavigateToPayoff(payoffId: Long?) {

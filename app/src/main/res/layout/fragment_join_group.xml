@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--ScrollView needed in order for the buttons on the bottom to go up with the keyboard-->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"

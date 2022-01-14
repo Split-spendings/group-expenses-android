@@ -1,9 +1,12 @@
 <resources>
-    <!-- tmp -->
-    <string name="group_name_format">Group name: \"%s\"</string>
-    <string name="group_format"><![CDATA[<b>Group:</b> id=%d, name=%s]]></string>
+
+    <!--EXAMPLE of STRING RESOURCE FORMATTING-->
+    <!--<string name="group_name_format">Group name: \"%s\"</string>-->
+    <!--EXAMPLE of STRING RESOURCE HTML FORMATTING-->
+    <!--<string name="group_format"><![CDATA[<b>Group:</b> id=%d, name=%s]]></string>-->
 
     <string name="app_name" translatable="false">Group expenses app</string>
+    <string name="about_text" translatable="false">\"Application for splitting group expenses\" thesis project at Polish-Japanese Academy of Information Technology developed by Oleksandr Bieliakov and Volodymyr Dovhyi.</string>
     <string name="ok_button">OK</string>
     <string name="cancel_button">Cancel</string>
     <string name="reset_button">Reset</string>
@@ -11,8 +14,8 @@
     <string name="add_new_group_button">New group</string>
     <string name="join_group_button">Join group</string>
     <string name="new_invitation_code_button">Generate new code</string>
-    <string name="new_invitation_code_generated_success">New invitation code generated successfully</string>
-    <string name="new_invitation_code_generated_failed">Could not generate a new invitation code</string>
+    <string name="new_invitation_code_generated_success">Invitation code generated successfully</string>
+    <string name="new_invitation_code_generated_failed">Could not generate invitation code</string>
     <string name="copied_invitation_code">Invitation code copied to clipboard</string>
     <string name="groups_list_fragment_label">Groups</string>
     <string name="group_fragment_label">Group</string>
@@ -30,7 +33,6 @@
     <string name="comments_label">Comments</string>
     <string name="share_label">Share</string>
     <string name="about_label">About</string>
-    <string name="about_text" translatable="false">\"Application for splitting group expenses\" thesis project at Polish-Japanese Academy of Information Technology developed by Oleksandr Bieliakov and Volodymyr Dovhyi.</string>
     <string name="group_name">Group name</string>
     <string name="invalid_group_name_error">Invalid group name</string>
     <string name="spending_title">Spending title</string>
@@ -64,7 +66,7 @@
     <string name="split_equal_label">Equal split:</string>
     <string name="paid_for_label">Paid for:</string>
     <string name="blank_error">Cannot be blank</string>
-    <string name="failed_save_new_group">Could not save new group to server</string>
+    <string name="failed_save_new_group">Could not save group to server</string>
     <string name="failed_join_group">Could not join group</string>
     <string name="cannot_contain_whitespaces_error">Cannot contain spaces</string>
     <string name="must_contain_letters_and_digits_error">Must contain only latin letters and digits</string>
@@ -74,5 +76,6 @@
     <string name="failed_leave_group">Could not leave group</string>
     <string name="successful_group_members_upload">Loaded group members from server</string>
     <string name="failed_group_members_upload">Could not load group members from server</string>
-    <string name="failed_save_new_spending">Could not save new spending to server</string>
+    <string name="failed_save_new_spending">Could not save spending to server</string>
+    <string name="failed_save_new_payoff">Could not save payoff to server</string>
 </resources>

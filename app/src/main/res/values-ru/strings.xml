@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- tmp -->
-    <string name="group_name_format">Название группы: : \"%s\"</string>
-    <string name="group_format"><![CDATA[<b>Группа:</b> id=%d, название=%s]]></string>
 
     <string name="ok_button">OK</string>
     <string name="cancel_button">Отмена</string>
@@ -14,8 +11,8 @@
     <string name="new_group_fragment_label">Новая группа</string>
     <string name="join_group_button">Присоединиться к группе</string>
     <string name="new_invitation_code_button">Сгенерировать новый код</string>
-    <string name="new_invitation_code_generated_success">Новый код-приглашение сгенерирован успешно</string>
-    <string name="new_invitation_code_generated_failed">Не удалось сгенерировать новый код-приглашение</string>
+    <string name="new_invitation_code_generated_success">Код-приглашение сгенерирован успешно</string>
+    <string name="new_invitation_code_generated_failed">Не удалось сгенерировать код-приглашение</string>
     <string name="copied_invitation_code">Код-приглашение скопирован</string>
     <string name="login_fragment_label">Логин</string>
     <string name="logout_fragment_label">Логаут</string>
@@ -74,4 +71,5 @@
     <string name="successful_group_members_upload">Участники группы успешно загружены с сервера</string>
     <string name="failed_group_members_upload">Не удалось загрузить участников группы с сервера</string>
     <string name="failed_save_new_spending">Не удалось сохранить платеж на сервер</string>
+    <string name="failed_save_new_payoff">Не удалось сохранить расплату на сервер</string>
 </resources>
