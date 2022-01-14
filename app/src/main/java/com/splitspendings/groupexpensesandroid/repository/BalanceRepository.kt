@@ -1,11 +1,9 @@
 package com.splitspendings.groupexpensesandroid.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.database.entity.asModel
-import com.splitspendings.groupexpensesandroid.model.Balance
 
 class BalanceRepository(private val database: GroupExpensesDatabase) {
 
@@ -28,7 +26,6 @@ class BalanceRepository(private val database: GroupExpensesDatabase) {
         }
     }
 
-    fun getBalance(id: Long): LiveData<Balance> = Transformations.map(database.balanceDao.getLive(id)) {
-        it.asModel()
-    }
+    fun getBalance(id: Long) = Transformations
+        .map(database.balanceDao.getLive(id)) { it.asModel() }
 }
