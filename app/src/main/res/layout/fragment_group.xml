@@ -57,7 +57,8 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Group name formatted placeholder" />-->
 
-        <com.google.android.material.tabs.TabLayout
+        <!--EXAMPLE of TabLayout with ViewPager-->
+        <!--<com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             style="@style/Tabs"
             android:layout_width="match_parent"
@@ -72,7 +73,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tabs"
-            app:viewVisibilityWhileLoading="@{groupViewModel.status}" />
+            app:viewVisibilityWhileLoading="@{groupViewModel.status}" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

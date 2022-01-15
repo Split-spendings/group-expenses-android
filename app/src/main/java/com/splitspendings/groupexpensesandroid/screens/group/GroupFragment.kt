@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.tabs.TabLayoutMediator
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
@@ -39,7 +38,8 @@ class GroupFragment : Fragment() {
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val viewPager = binding.pager
+        //EXAMPLE of TabLayout with ViewPager
+        /*val viewPager = binding.pager
         val pagerAdapter = GroupPagerAdapter(groupId, this)
         viewPager.adapter = pagerAdapter
 
@@ -49,7 +49,7 @@ class GroupFragment : Fragment() {
                 0 -> getString(R.string.spendings_label)
                 else -> getString(R.string.balances_label)
             }
-        }.attach()
+        }.attach()*/
 
         viewModel.eventNavigateToGroupsList.observe(viewLifecycleOwner, ::onNavigateToGroupsList)
         viewModel.status.observe(viewLifecycleOwner, {
