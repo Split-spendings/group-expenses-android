@@ -36,4 +36,12 @@
         <item name="android:tint">?attr/colorSecondaryVariant</item>
     </style>
 
+    <style name="PrimaryText">
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+
+    <style name="SecondaryText">
+        <item name="android:textSize">@dimen/small_text</item>
+    </style>
+
 </resources>
