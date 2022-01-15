@@ -72,6 +72,11 @@ class GroupFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.onLoadGroupSpendings()
+    }
+
     private fun onNavigateToGroupsList(navigateToGroupsList: Boolean) {
         if (navigateToGroupsList) {
             findNavController()
