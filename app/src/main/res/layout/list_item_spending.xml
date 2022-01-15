@@ -24,11 +24,13 @@
         <TextView
             android:id="@+id/spending_title"
             style="@style/PrimaryText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginTop="@dimen/spacing_half"
+            android:layout_marginEnd="@dimen/spacing_half"
             android:text="@{spending.title}"
+            app:layout_constraintEnd_toStartOf="@+id/spending_total_amount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Spending title" />
@@ -36,9 +38,11 @@
         <TextView
             android:id="@+id/spending_time_created"
             style="@style/SecondaryText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_half"
+            app:layout_constraintEnd_toStartOf="@+id/spending_total_amount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spending_title"
             app:zonedDateTime="@{spending.timeCreated}"
@@ -47,10 +51,12 @@
         <TextView
             android:id="@+id/spending_added_by"
             style="@style/SecondaryText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_half"
             android:text="@{spending.addedBy.loginName}"
+            app:layout_constraintEnd_toStartOf="@+id/spending_total_amount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spending_time_created"
             tools:text="test@thesis.net" />
