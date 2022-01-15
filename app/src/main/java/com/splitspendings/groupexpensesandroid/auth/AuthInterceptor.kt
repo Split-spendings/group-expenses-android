@@ -22,7 +22,7 @@ class AuthInterceptor : Interceptor {
         val requestBuilder = chain.request().newBuilder()
 
         authStateManager.tokenResponse?.accessToken?.let {
-            Timber.d("adding accessToken to Authorization header")
+            //Timber.d("adding accessToken to Authorization header")
             requestBuilder.addHeader(AUTHORIZATION_HEADER, "Bearer $it")
         }
 
@@ -33,7 +33,7 @@ class AuthInterceptor : Interceptor {
             refreshAccessToken()
 
             authStateManager.tokenResponse?.accessToken?.let {
-                Timber.d("adding accessToken to Authorization header after refresh")
+                //Timber.d("adding accessToken to Authorization header after refresh")
                 requestBuilder.removeHeader(AUTHORIZATION_HEADER)
                 requestBuilder.addHeader(AUTHORIZATION_HEADER, "Bearer $it")
                 response = sendRequest(requestBuilder.build(), chain)
@@ -41,7 +41,7 @@ class AuthInterceptor : Interceptor {
         }
 
         if (response.code() == UNAUTHORIZED) {
-            Timber.d("navigate to logged out")
+            //Timber.d("navigate to logged out")
             authStateManager.clearTokens()
             navigateToLoggedOut()
         }
@@ -57,7 +57,7 @@ class AuthInterceptor : Interceptor {
 
     private fun sendRequest(request: Request, chain: Interceptor.Chain): Response {
         Timber.d("request: $request")
-        Timber.d("headers: ${request.headers()}")
+        //Timber.d("headers: ${request.headers()}")
         val response = chain.proceed(request)
         Timber.d("response: $response")
         return response
@@ -71,23 +71,23 @@ class AuthInterceptor : Interceptor {
 
             } else {
 
-                checkAccessTokenExpired("before refresh")
+                //checkAccessTokenExpired("before refresh")
 
                 var metadata = authStateManager.metadata
                 if (metadata == null) {
-                    Timber.d("metadata is null -> calling fetchMetadata")
+                    //Timber.d("metadata is null -> calling fetchMetadata")
                     metadata = appAuthHandler.fetchMetadata()
                     authStateManager.metadata = metadata
                 }
 
-                Timber.d("calling refreshAccessToken")
+                //Timber.d("calling refreshAccessToken")
                 val tokenResponse = appAuthHandler.refreshAccessToken(metadata, refreshToken)
 
                 if (tokenResponse == null) {
                     Timber.e("tokenResponse is null")
                 } else {
                     authStateManager.saveTokens(tokenResponse)
-                    checkAccessTokenExpired("after refresh")
+                    //checkAccessTokenExpired("after refresh")
                 }
             }
         } catch (ex: Exception) {
