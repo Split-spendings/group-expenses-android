@@ -7,17 +7,21 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentBalancesListBinding
-import com.splitspendings.groupexpensesandroid.screens.group.GroupFragment
+import com.splitspendings.groupexpensesandroid.screens.group.GroupFragmentArgs
 
-class BalancesListFragment(val groupId: Long, private val groupFragment: GroupFragment) : Fragment() {
+class BalancesListFragment : Fragment() {
 
     private lateinit var viewModel: BalancesListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding: FragmentBalancesListBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_balances_list, container, false)
+
+        val args = GroupFragmentArgs.fromBundle(requireArguments())
+        val groupId = args.groupId
 
         val application = requireNotNull(activity).application
 
@@ -45,7 +49,8 @@ class BalancesListFragment(val groupId: Long, private val groupFragment: GroupFr
 
     private fun onNavigateToNewPayoff(balanceId: Long?) {
         balanceId?.let {
-            groupFragment.onNavigateToNewPayoff(balanceId)
+            findNavController()
+                .navigate(BalancesListFragmentDirections.actionBalancesListFragmentToNewPayoffFragment(it))
             viewModel.onEventNavigateToNewPayoffComplete()
         }
     }

@@ -61,6 +61,7 @@ class GroupFragment : Fragment() {
         viewModel.eventNavigateToSpending.observe(viewLifecycleOwner, ::onNavigateToSpending)
         viewModel.eventNavigateToNewSpending.observe(viewLifecycleOwner, ::onNavigateToNewSpending)
         viewModel.eventNavigateToGroupsList.observe(viewLifecycleOwner, ::onNavigateToGroupsList)
+        viewModel.eventNavigateToBalancesList.observe(viewLifecycleOwner, ::onNavigateToBalancesList)
         viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
         viewModel.leaveGroupStatus.observe(viewLifecycleOwner, {
             it?.let { setHasOptionsMenu(it.apiStatus != ApiStatus.LOADING) }
@@ -79,9 +80,12 @@ class GroupFragment : Fragment() {
         }
     }
 
-    fun onNavigateToNewPayoff(balanceId: Long) {
-        findNavController()
-            .navigate(GroupFragmentDirections.actionGroupFragmentToNewPayoffFragment(balanceId))
+    private fun onNavigateToBalancesList(navigateToBalanceList: Boolean) {
+        if (navigateToBalanceList) {
+            findNavController()
+                .navigate(GroupFragmentDirections.actionGroupFragmentToBalancesListFragment(viewModel.groupId))
+            viewModel.onEventNavigateToBalancesListComplete()
+        }
     }
 
     private fun onNavigateToNewSpending(navigateToNewSpending: Boolean) {
@@ -95,7 +99,7 @@ class GroupFragment : Fragment() {
     private fun onNavigateToSpending(spendingId: Long?) {
         spendingId?.let {
             findNavController()
-                .navigate(GroupFragmentDirections.actionGroupFragmentToSpendingFragment(spendingId))
+                .navigate(GroupFragmentDirections.actionGroupFragmentToSpendingFragment(it))
             viewModel.onEventNavigateToSpendingComplete()
         }
     }

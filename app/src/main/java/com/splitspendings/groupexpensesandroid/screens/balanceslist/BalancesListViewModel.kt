@@ -37,6 +37,8 @@ class BalancesListViewModel(
 
     private val groupsRepository = GroupRepository.getInstance()
 
+    val group = groupsRepository.getGroup(groupId)
+
     val balances = groupsRepository.getGroupBalances(groupId)
 
     private val _eventNavigateToNewPayoff = MutableLiveData<Long>()

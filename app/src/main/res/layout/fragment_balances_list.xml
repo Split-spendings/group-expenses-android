@@ -11,24 +11,54 @@
             type="com.splitspendings.groupexpensesandroid.screens.balanceslist.BalancesListViewModel" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
             android:id="@+id/status_layout"
-            layout="@layout/status"
+            layout="@layout/status_with_loading_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/group_avatar"
+            style="@style/GroupAvatarIcon"
+            android:layout_width="@dimen/size_avatar"
+            android:layout_height="@dimen/size_avatar"
+            android:layout_marginStart="@dimen/spacing_half"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/status_layout" />
+
+        <TextView
+            android:id="@+id/group_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_half"
+            android:text="@{balancesListViewModel.group.name}"
+            app:layout_constraintBottom_toBottomOf="@+id/group_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/group_avatar"
+            app:layout_constraintTop_toTopOf="@+id/group_avatar"
+            tools:text="Group name" />
+
+        <TextView
+            android:id="@+id/balances_label"
+            style="@style/ListHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/spacing_half"
+            android:text="@string/balances_label"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@+id/group_avatar" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/status_layout"
+            app:layout_constraintTop_toBottomOf="@+id/balances_label"
             app:onRefreshListener="@{() -> balancesListViewModel.onLoadGroupBalances()}"
             app:swipeLoadingProgress="@{balancesListViewModel.status}">
 

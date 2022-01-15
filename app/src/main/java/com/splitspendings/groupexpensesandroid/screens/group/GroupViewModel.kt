@@ -45,6 +45,10 @@ class GroupViewModel(
     val eventNavigateToGroupsList: LiveData<Boolean>
         get() = _eventNavigateToGroupsList
 
+    private val _eventNavigateToBalancesList = MutableLiveData<Boolean>()
+    val eventNavigateToBalancesList: LiveData<Boolean>
+        get() = _eventNavigateToBalancesList
+
     private val _eventNavigateToSpending = MutableLiveData<Long>()
     val eventNavigateToSpending: LiveData<Long>
         get() = _eventNavigateToSpending
@@ -63,6 +67,7 @@ class GroupViewModel(
 
     init {
         _eventNavigateToGroupsList.value = false
+        _eventNavigateToBalancesList.value = false
         _eventNavigateToSpending.value = null
         _eventNavigateToNewSpending.value = false
         _status.value = Status(ApiStatus.DONE, null)
@@ -75,12 +80,20 @@ class GroupViewModel(
         }
     }
 
+    fun onBalancesClicked() {
+        _eventNavigateToBalancesList.value = true
+    }
+
     fun onNewSpending() {
         _eventNavigateToNewSpending.value = true
     }
 
     fun onEventNavigateToGroupsListComplete() {
         _eventNavigateToGroupsList.value = false
+    }
+
+    fun onEventNavigateToBalancesListComplete() {
+        _eventNavigateToBalancesList.value = false
     }
 
     fun onEventNavigateToSpendingComplete() {

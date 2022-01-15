@@ -72,4 +72,6 @@
     <string name="failed_group_members_upload">Не удалось загрузить участников группы с сервера</string>
     <string name="failed_save_new_spending">Не удалось сохранить платеж на сервер</string>
     <string name="failed_save_new_payoff">Не удалось сохранить расплату на сервер</string>
+    <string name="balances_button">Балансы</string>
+    <string name="balances_fragment_label">Балансы</string>
 </resources>
