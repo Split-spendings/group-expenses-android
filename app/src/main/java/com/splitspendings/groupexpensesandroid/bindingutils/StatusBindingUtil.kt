@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
@@ -92,5 +93,12 @@ fun Button.bindButtonWhileLoading(status: Status?) {
 fun View.bindViewVisibilityWhileLoading(status: Status?) {
     status?.let {
         visibility = if (it.apiStatus == ApiStatus.LOADING) View.INVISIBLE else View.VISIBLE
+    }
+}
+
+@BindingAdapter("fabWhileLoading")
+fun FloatingActionButton.bindButtonWhileLoading(status: Status?) {
+    status?.let {
+        isEnabled = it.apiStatus != ApiStatus.LOADING
     }
 }

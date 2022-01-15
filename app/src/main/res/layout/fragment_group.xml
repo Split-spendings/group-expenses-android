@@ -11,69 +11,113 @@
             type="com.splitspendings.groupexpensesandroid.screens.group.GroupViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/status_layout"
-            layout="@layout/status_with_loading_progress"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/group_avatar"
-            style="@style/GroupAvatarIcon"
-            android:layout_width="@dimen/size_avatar"
-            android:layout_height="@dimen/size_avatar"
-            android:layout_marginStart="@dimen/spacing_normal"
-            android:layout_marginTop="@dimen/spacing_half"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/status_layout" />
+            <include
+                android:id="@+id/status_layout"
+                layout="@layout/status_with_loading_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/group_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_half"
-            android:layout_marginEnd="@dimen/spacing_normal"
-            android:text="@{groupViewModel.group.name}"
-            app:layout_constraintBottom_toBottomOf="@+id/group_avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/group_avatar"
-            app:layout_constraintTop_toTopOf="@+id/group_avatar"
-            tools:text="Group name" />
+            <ImageView
+                android:id="@+id/group_avatar"
+                style="@style/GroupAvatarIcon"
+                android:layout_width="@dimen/size_avatar"
+                android:layout_height="@dimen/size_avatar"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_half"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/status_layout" />
 
-        <!--EXAMPLE of STRING FORMATTING in a layout
-        <TextView
-            android:id="@+id/group_name_formatted_placeholder"
+            <TextView
+                android:id="@+id/group_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_half"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                android:text="@{groupViewModel.group.name}"
+                app:layout_constraintBottom_toBottomOf="@+id/group_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/group_avatar"
+                app:layout_constraintTop_toTopOf="@+id/group_avatar"
+                tools:text="Group name" />
+
+            <TextView
+                android:id="@+id/spendings_label"
+                style="@style/ListHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/spacing_half"
+                android:text="@string/spendings_label"
+                android:textAlignment="center"
+                app:layout_constraintTop_toBottomOf="@+id/group_avatar" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spendings_label"
+                app:onRefreshListener="@{() -> groupViewModel.onLoadGroupSpendings()}"
+                app:swipeLoadingProgress="@{groupViewModel.status}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/spendings_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:spendingsList="@{groupViewModel.spendings}" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/group_name_format(groupViewModel.group.name)}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Group name formatted placeholder" />-->
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/spacing_normal"
+            android:onClick="@{() -> groupViewModel.onNewSpending()}"
+            app:fabWhileLoading="@{groupViewModel.leaveGroupStatus}"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
 
-        <!--EXAMPLE of TabLayout with ViewPager-->
-        <!--<com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            style="@style/Tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/group_avatar"
-            app:tabMode="fixed"
-            app:viewVisibilityWhileLoading="@{groupViewModel.status}" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabs"
-            app:viewVisibilityWhileLoading="@{groupViewModel.status}" />-->
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
+    <!--EXAMPLE of STRING FORMATTING in a layout
+            <TextView
+                android:id="@+id/group_name_formatted_placeholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/group_name_format(groupViewModel.group.name)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Group name formatted placeholder" />-->
+
+    <!--EXAMPLE of TabLayout with ViewPager-->
+    <!--<com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        style="@style/Tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/group_avatar"
+        app:tabMode="fixed"
+        app:viewVisibilityWhileLoading="@{groupViewModel.status}" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabs"
+        app:viewVisibilityWhileLoading="@{groupViewModel.status}" />-->

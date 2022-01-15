@@ -15,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.databinding.FragmentGroupBinding
+import com.splitspendings.groupexpensesandroid.screens.spendingslist.SpendingItemClickListener
+import com.splitspendings.groupexpensesandroid.screens.spendingslist.SpendingsListAdapter
 
 class GroupFragment : Fragment() {
 
@@ -51,12 +53,17 @@ class GroupFragment : Fragment() {
             }
         }.attach()*/
 
+        val adapter = SpendingsListAdapter(SpendingItemClickListener { spendingId ->
+            viewModel.onSpendingClicked(spendingId)
+        })
+        binding.spendingsList.adapter = adapter
+
+        viewModel.eventNavigateToSpending.observe(viewLifecycleOwner, ::onNavigateToSpending)
+        viewModel.eventNavigateToNewSpending.observe(viewLifecycleOwner, ::onNavigateToNewSpending)
         viewModel.eventNavigateToGroupsList.observe(viewLifecycleOwner, ::onNavigateToGroupsList)
-        viewModel.status.observe(viewLifecycleOwner, {
-            it?.let {
-                binding.statusLayout.status = it
-                setHasOptionsMenu(it.apiStatus != ApiStatus.LOADING)
-            }
+        viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
+        viewModel.leaveGroupStatus.observe(viewLifecycleOwner, {
+            it?.let { setHasOptionsMenu(it.apiStatus != ApiStatus.LOADING) }
         })
 
         setHasOptionsMenu(true)
@@ -72,25 +79,32 @@ class GroupFragment : Fragment() {
         }
     }
 
-    fun onNavigateToNewSpending(groupId: Long) {
-        findNavController()
-            .navigate(GroupFragmentDirections.actionGroupFragmentToNewSpendingFragment(groupId))
-    }
-
-    fun onNavigateToSpending(spendingId: Long) {
-        findNavController()
-            .navigate(GroupFragmentDirections.actionGroupFragmentToSpendingFragment(spendingId))
-    }
-
     fun onNavigateToNewPayoff(balanceId: Long) {
         findNavController()
             .navigate(GroupFragmentDirections.actionGroupFragmentToNewPayoffFragment(balanceId))
     }
 
+    private fun onNavigateToNewSpending(navigateToNewSpending: Boolean) {
+        if (navigateToNewSpending) {
+            findNavController()
+                .navigate(GroupFragmentDirections.actionGroupFragmentToNewSpendingFragment(viewModel.groupId))
+            viewModel.onEventNavigateToNewSpendingComplete()
+        }
+    }
+
+    private fun onNavigateToSpending(spendingId: Long?) {
+        spendingId?.let {
+            findNavController()
+                .navigate(GroupFragmentDirections.actionGroupFragmentToSpendingFragment(spendingId))
+            viewModel.onEventNavigateToSpendingComplete()
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.group_options_menu, menu)
-        menu.findItem(R.id.leaveGroup)
+        //Can be saved to fragment field to later enable/disable this menu item
+        //leaveGroupMenuItem = menu.findItem(R.id.leaveGroup)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
