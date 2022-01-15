@@ -15,6 +15,12 @@
     </style>
 
     <style name="ListHeader">
+        <item name="android:background">?attr/colorPrimaryVariant</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="ListGroupingHeader">
         <item name="android:background">?attr/colorSecondary</item>
         <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
