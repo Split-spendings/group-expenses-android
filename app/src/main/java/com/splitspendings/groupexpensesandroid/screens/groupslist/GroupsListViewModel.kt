@@ -102,14 +102,15 @@ class GroupsListViewModel(
 
     fun onLoadGroups() {
         viewModelScope.launch {
-            _status.value = Status(ApiStatus.LOADING, null)
             try {
-                groupsRepository.refreshGroups(_filter.value!!)
+                _filter.value?.let {
+                    _status.value = Status(ApiStatus.LOADING, null)
+                    groupsRepository.refreshGroups(_filter.value!!)
 
-                _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_groups_upload))
-                delay(SUCCESS_STATUS_MILLISECONDS)
-                _status.value = Status(ApiStatus.DONE, null)
-
+                    _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_groups_upload))
+                    delay(SUCCESS_STATUS_MILLISECONDS)
+                    _status.value = Status(ApiStatus.DONE, null)
+                }
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
                 _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_groups_upload))

@@ -75,9 +75,9 @@ class JoinGroupViewModel(
 
     private fun submitCodeAndNavigateToGroup() {
         viewModelScope.launch {
-            _status.value = Status(ApiStatus.LOADING, null)
             try {
                 invitationCode.value?.let {
+                    _status.value = Status(ApiStatus.LOADING, null)
                     _eventNavigateToGroup.value = groupsRepository.joinGroupByCode(code = it)
                 }
             } catch (e: Exception) {

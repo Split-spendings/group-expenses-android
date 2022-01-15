@@ -153,19 +153,23 @@ class NewSpendingViewModel(
 
     private fun saveSpendingAndNavigateToSpending() {
         viewModelScope.launch {
+            val title = title.value ?: return@launch
+            val shares = newShares.value ?: return@launch
+            val paidBy = paidBy.value ?: return@launch
+
             _status.value = Status(ApiStatus.LOADING, null)
             _submitStatus.value = Status(ApiStatus.LOADING, null)
             try {
                 val newSpending = NewSpendingDto(
                     groupID = groupId,
-                    title = title.value!!,
+                    title = title,
                     timePayed = null,
                     currency = currency.value,
-                    paidByGroupMembershipId = paidBy.value!!.id,
+                    paidByGroupMembershipId = paidBy.id,
                     newItemDtoList = listOf(
                         NewItemDto(
-                            title = title.value!!,
-                            newShares.value!!.filter { it.hasShare }.asDto()
+                            title = title,
+                            shares.filter { it.hasShare }.asDto()
                         )
                     )
                 )

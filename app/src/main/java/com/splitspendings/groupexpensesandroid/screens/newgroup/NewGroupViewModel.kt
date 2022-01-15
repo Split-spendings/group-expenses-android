@@ -83,9 +83,9 @@ class NewGroupViewModel(
 
     private fun saveGroupAndNavigateToGroup() {
         viewModelScope.launch {
-            _status.value = Status(ApiStatus.LOADING, null)
             try {
                 groupName.value?.let {
+                    _status.value = Status(ApiStatus.LOADING, null)
                     _eventNavigateToGroup.value = groupsRepository.saveGroup(name = it)
                 }
             } catch (e: Exception) {
