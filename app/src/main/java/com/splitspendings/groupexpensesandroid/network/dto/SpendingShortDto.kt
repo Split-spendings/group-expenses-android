@@ -24,8 +24,19 @@ fun SpendingShortDto.asEntity(groupId: Long) =
         currency = currency.toString(),
         timeCreated = timeCreated,
         timePayed = timePayed,
-        addedByGroupMembershipId = addedByGroupMembership.id,
-        paidByGroupMembershipId = paidByGroupMembership.id,
+
+        addedByAppUserId = addedByGroupMembership.appUser.id,
+        addedByEmail = addedByGroupMembership.appUser.email,
+        addedByLoginName = addedByGroupMembership.appUser.loginName,
+        addedByFirstName = addedByGroupMembership.appUser.firstName,
+        addedByLastName = addedByGroupMembership.appUser.lastName,
+
+        paidByAppUserId = paidByGroupMembership.appUser.id,
+        paidByEmail = paidByGroupMembership.appUser.email,
+        paidByLoginName = paidByGroupMembership.appUser.loginName,
+        paidByFirstName = paidByGroupMembership.appUser.firstName,
+        paidByLastName = paidByGroupMembership.appUser.lastName,
+
         groupId = groupId
     )
 

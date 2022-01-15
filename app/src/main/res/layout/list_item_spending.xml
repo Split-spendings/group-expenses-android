@@ -57,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginTop="@dimen/spacing_half"
+            android:text="@{spending.addedBy.loginName}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spending_title"
             tools:text="test@thesis.net" />

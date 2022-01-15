@@ -10,7 +10,6 @@ import com.splitspendings.groupexpensesandroid.database.entity.asModel
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
 import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.asEntity
-import com.splitspendings.groupexpensesandroid.network.dto.groupMembers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -71,11 +70,6 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
     suspend fun refreshGroupSpendings(groupId: Long) {
         withContext(Dispatchers.IO) {
             val groupSpendings = GroupExpensesApi.retrofitService.groupSpendings(groupId)
-
-            val groupMembers = groupSpendings.spendings.groupMembers()
-            groupMembers.forEach { database.groupMemberDao.delete(it.id) }
-            database.groupMemberDao.insertAll(groupMembers.asEntity(groupId))
-
             database.spendingDao.deleteByGroupId(groupId)
             database.spendingDao.insertAll(groupSpendings.spendings.asEntity(groupId))
         }
