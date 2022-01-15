@@ -136,16 +136,6 @@ class NewSpendingViewModel(
 
     fun onLoadGroupMembers() {
         viewModelScope.launch {
-            try {
-                groupRepository.refreshGroupMembers(groupId)
-                Timber.d("group members: ${groupMembers.value}")
-            } catch (e: Exception) {
-                Timber.d("Failure: ${e.message}")
-                // TODO add displaying some error status to user
-            }
-        }
-
-        viewModelScope.launch {
             _status.value = Status(ApiStatus.LOADING, null)
             try {
                 groupRepository.refreshGroupMembers(groupId)
