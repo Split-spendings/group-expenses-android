@@ -96,7 +96,7 @@ class GroupFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.inviteToGroupFragment -> findNavController()
-                .navigate(GroupFragmentDirections.actionGroupFragmentToInviteToGroupFragment(viewModel.group.value!!.id))
+                .navigate(GroupFragmentDirections.actionGroupFragmentToInviteToGroupFragment(viewModel.groupId))
             R.id.leaveGroup -> showLeaveGroupDialog()
         }
         return super.onOptionsItemSelected(item)
