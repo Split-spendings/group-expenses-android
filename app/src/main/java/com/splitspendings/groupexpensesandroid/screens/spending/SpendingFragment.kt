@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.tabs.TabLayoutMediator
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentSpendingBinding
 
@@ -33,18 +32,6 @@ class SpendingFragment : Fragment() {
 
         binding.spendingViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
-        val viewPager = binding.pager
-        val pagerAdapter = SpendingPagerAdapter(spendingId, this)
-        viewPager.adapter = pagerAdapter
-
-        val tabLayout = binding.tabs
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> getString(R.string.shares_label)
-                else -> getString(R.string.comments_label)
-            }
-        }.attach()
 
         setHasOptionsMenu(true)
 
