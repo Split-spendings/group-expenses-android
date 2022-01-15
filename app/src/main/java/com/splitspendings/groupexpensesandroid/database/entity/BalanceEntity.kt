@@ -26,17 +26,17 @@ data class BalanceEntity(
     @ColumnInfo(name = "withAppUserId")
     val withAppUserId: String,
 
-    @ColumnInfo(name = "loginName")
-    var loginName: String,
+    @ColumnInfo(name = "withLoginName")
+    var withLoginName: String,
 
-    @ColumnInfo(name = "email")
-    var email: String,
+    @ColumnInfo(name = "withEmail")
+    var withEmail: String,
 
-    @ColumnInfo(name = "firstName")
-    var firstName: String,
+    @ColumnInfo(name = "withFirstName")
+    var withFirstName: String,
 
-    @ColumnInfo(name = "lastName")
-    var lastName: String
+    @ColumnInfo(name = "withLastName")
+    var withLastName: String
 )
 
 fun BalanceEntity.asModel() =
@@ -47,10 +47,10 @@ fun BalanceEntity.asModel() =
         groupId = groupId,
         withAppUser = AppUser(
             id = withAppUserId,
-            loginName = loginName,
-            email = email,
-            firstName = firstName,
-            lastName = lastName
+            loginName = withLoginName,
+            email = withEmail,
+            firstName = withFirstName,
+            lastName = withLastName
         )
     )
 

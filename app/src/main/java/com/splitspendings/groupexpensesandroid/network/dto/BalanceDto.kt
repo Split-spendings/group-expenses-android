@@ -18,10 +18,10 @@ fun BalanceDto.asEntity(groupId: Long): BalanceEntity {
         groupId = groupId,
 
         withAppUserId = withAppUser.id,
-        email = withAppUser.email,
-        loginName = withAppUser.loginName,
-        firstName = withAppUser.firstName,
-        lastName = withAppUser.lastName
+        withEmail = withAppUser.email,
+        withLoginName = withAppUser.loginName,
+        withFirstName = withAppUser.firstName,
+        withLastName = withAppUser.lastName
     )
 }
 
