@@ -55,9 +55,7 @@ class GroupMembersListViewModel(
 
     init {
         _eventNavigateToInviteToGroup.value = false
-
         _filter.value = GroupMembersFilter.ALL
-
         _status.value = Status(ApiStatus.DONE, null)
     }
 

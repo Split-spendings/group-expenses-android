@@ -62,10 +62,7 @@ class GroupsListViewModel(
         _eventNavigateToNewGroup.value = false
         _eventNavigateToJoinGroup.value = false
         _eventNavigateToGroup.value = null
-
-        //TODO set from some persistent app settings
         _filter.value = GroupsFilter.ALL
-
         _status.value = Status(ApiStatus.DONE, null)
     }
 
