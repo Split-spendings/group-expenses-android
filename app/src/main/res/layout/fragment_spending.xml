@@ -65,7 +65,8 @@
             app:layout_constraintStart_toEndOf="@+id/spending_icon"
             app:layout_constraintTop_toBottomOf="@+id/spending_time_created" />
 
-        <TextView
+        <!--Currently creation of spending in app does not have 'time paid' parameter-->
+        <!--<TextView
             android:id="@+id/spending_time_paid_label"
             style="@style/SecondaryText"
             android:layout_width="wrap_content"
@@ -73,7 +74,7 @@
             android:layout_marginStart="@dimen/spacing_half"
             android:text="@string/time_paid_label"
             app:layout_constraintStart_toEndOf="@+id/spending_icon"
-            app:layout_constraintTop_toBottomOf="@+id/spending_added_by" />
+            app:layout_constraintTop_toBottomOf="@+id/spending_added_by" />-->
 
         <TextView
             android:id="@+id/spending_paid_by_label"
@@ -83,7 +84,7 @@
             android:layout_marginStart="@dimen/spacing_half"
             android:text="@string/paid_by_label"
             app:layout_constraintStart_toEndOf="@+id/spending_icon"
-            app:layout_constraintTop_toBottomOf="@id/spending_time_paid" />
+            app:layout_constraintTop_toBottomOf="@id/spending_added_by" />
 
         <TextView
             android:id="@+id/spending_time_created"
@@ -113,7 +114,8 @@
             app:layout_constraintTop_toTopOf="@id/spending_added_by_label"
             tools:text="test@thesis.net" />
 
-        <TextView
+        <!--Currently creation of spending in app does not have 'time paid' parameter-->
+        <!--<TextView
             android:id="@+id/spending_time_paid"
             style="@style/SecondaryText"
             android:layout_width="0dp"
@@ -125,7 +127,7 @@
             app:layout_constraintStart_toEndOf="@id/spending_time_paid_label"
             app:layout_constraintTop_toTopOf="@id/spending_time_paid_label"
             app:zonedDateTime="@{spendingViewModel.spending.timeCreated}"
-            tools:text="20.04.2021 22:33" />
+            tools:text="20.04.2021 22:33" />-->
 
         <TextView
             android:id="@+id/spending_paid_by"
