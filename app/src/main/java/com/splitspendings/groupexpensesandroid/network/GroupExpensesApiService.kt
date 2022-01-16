@@ -9,6 +9,7 @@ import com.splitspendings.groupexpensesandroid.network.dto.GroupInviteCodeDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupSpendingsDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewSpendingDto
+import com.splitspendings.groupexpensesandroid.network.dto.SpendingDto
 import com.splitspendings.groupexpensesandroid.network.dto.SpendingShortDto
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -65,6 +66,9 @@ interface GroupExpensesApiService {
 
     @PATCH("/api/groups/{groupId}/leave")
     suspend fun leaveGroup(@Path("groupId") groupId: Long)
+
+    @GET("/api/spendings/{spendingId}")
+    suspend fun spendingById(@Path("spendingId") spendingId: Long): SpendingDto
 }
 
 object GroupExpensesApi {

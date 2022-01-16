@@ -45,11 +45,9 @@ class SpendingRepository(private val database: GroupExpensesDatabase) {
 
     suspend fun refreshSpendingShares(spendingId: Long) {
         withContext(Dispatchers.IO) {
-            //TODO
-            delay(3000)
-            /*val spendingShares = GroupExpensesApi.retrofitService.groupSpendings(groupId)
+            val spending = GroupExpensesApi.retrofitService.spendingById(spendingId)
             database.shareDao.deleteBySpendingId(spendingId)
-            database.spendingDao.insertAll(groupSpendings.spendings.asEntity(spendingId))*/
+            database.shareDao.insertAll(spending.shares.asEntity(spendingId, spending.currency))
         }
     }
 
