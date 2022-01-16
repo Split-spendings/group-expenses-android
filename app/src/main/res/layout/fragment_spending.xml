@@ -126,7 +126,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/spending_time_paid_label"
             app:layout_constraintTop_toTopOf="@id/spending_time_paid_label"
-            app:zonedDateTime="@{spendingViewModel.spending.timeCreated}"
+            app:zonedDateTime="@{spendingViewModel.spending.timePayed}"
             tools:text="20.04.2021 22:33" />-->
 
         <TextView
@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_half"
             android:layout_marginEnd="@dimen/spacing_normal"
-            android:text="@{spendingViewModel.spending.addedBy.loginName}"
+            android:text="@{spendingViewModel.spending.paidBy.loginName}"
             android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/spending_paid_by_label"
