@@ -51,7 +51,7 @@
             android:layout_marginEnd="@dimen/spacing_half"
             android:onClick="@{() -> balancesListViewModel.onPayoffsClicked()}"
             android:text="@string/payoffs_button"
-            app:icon="@drawable/ic_baseline_currency_exchange_24"
+            app:icon="@drawable/ic_baseline_history_24"
             app:layout_constraintBottom_toBottomOf="@id/group_avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/group_avatar" />
