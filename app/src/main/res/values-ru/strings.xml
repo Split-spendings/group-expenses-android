@@ -76,4 +76,7 @@
     <string name="balances_fragment_label">Балансы</string>
     <string name="group_members_list_fragment_label">Члены группы</string>
     <string name="group_members_label">Члены группы</string>
+    <string name="time_created_label">Время создания:</string>
+    <string name="added_by_label">Кем добавлено:</string>
+    <string name="time_paid_label">Время оплаты:</string>
 </resources>

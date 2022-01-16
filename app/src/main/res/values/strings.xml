@@ -65,6 +65,9 @@
     <string name="login_button">Login</string>
     <string name="logout_button">Logout</string>
     <string name="payoff_button">Pay off</string>
+    <string name="time_created_label">Time created:</string>
+    <string name="added_by_label">Added by:</string>
+    <string name="time_paid_label">Time paid:</string>
     <string name="paid_by_label">Paid by:</string>
     <string name="total_amount_label">Total:</string>
     <string name="split_equal_label">Equal split:</string>

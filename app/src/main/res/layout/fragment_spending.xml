@@ -39,11 +39,50 @@
             android:layout_marginStart="@dimen/spacing_half"
             android:layout_marginEnd="@dimen/spacing_half"
             android:text="@{spendingViewModel.spending.title}"
-            app:layout_constraintBottom_toBottomOf="@id/spending_icon"
             app:layout_constraintEnd_toStartOf="@+id/spending_total_amount"
             app:layout_constraintStart_toEndOf="@id/spending_icon"
             app:layout_constraintTop_toTopOf="@id/spending_icon"
             tools:text="Spending title" />
+
+        <TextView
+            android:id="@+id/spending_time_created_label"
+            style="@style/SecondaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:text="@string/time_created_label"
+            app:layout_constraintStart_toEndOf="@id/spending_icon"
+            app:layout_constraintTop_toBottomOf="@+id/spending_title" />
+
+        <TextView
+            android:id="@+id/spending_added_by_label"
+            style="@style/SecondaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:text="@string/added_by_label"
+            app:layout_constraintStart_toEndOf="@+id/spending_icon"
+            app:layout_constraintTop_toBottomOf="@+id/spending_time_created" />
+
+        <TextView
+            android:id="@+id/spending_time_paid_label"
+            style="@style/SecondaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:text="@string/time_paid_label"
+            app:layout_constraintStart_toEndOf="@+id/spending_icon"
+            app:layout_constraintTop_toBottomOf="@+id/spending_added_by" />
+
+        <TextView
+            android:id="@+id/spending_paid_by_label"
+            style="@style/SecondaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:text="@string/paid_by_label"
+            app:layout_constraintStart_toEndOf="@+id/spending_icon"
+            app:layout_constraintTop_toBottomOf="@id/spending_time_paid" />
 
         <TextView
             android:id="@+id/spending_time_created"
@@ -51,10 +90,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_half"
-            android:layout_marginEnd="@dimen/spacing_half"
-            app:layout_constraintEnd_toStartOf="@+id/spending_total_amount"
-            app:layout_constraintStart_toEndOf="@id/spending_icon"
-            app:layout_constraintTop_toBottomOf="@id/spending_icon"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spending_time_created_label"
+            app:layout_constraintTop_toTopOf="@id/spending_time_created_label"
             app:zonedDateTime="@{spendingViewModel.spending.timeCreated}"
             tools:text="20.04.2021 22:33" />
 
@@ -64,11 +104,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_half"
-            android:layout_marginEnd="@dimen/spacing_half"
+            android:layout_marginEnd="@dimen/spacing_normal"
             android:text="@{spendingViewModel.spending.addedBy.loginName}"
-            app:layout_constraintEnd_toStartOf="@+id/spending_total_amount"
-            app:layout_constraintStart_toEndOf="@id/spending_icon"
-            app:layout_constraintTop_toBottomOf="@id/spending_time_created"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spending_added_by_label"
+            app:layout_constraintTop_toTopOf="@id/spending_added_by_label"
             tools:text="test@thesis.net" />
 
         <TextView
@@ -77,10 +118,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_half"
-            android:layout_marginEnd="@dimen/spacing_half"
-            app:layout_constraintEnd_toStartOf="@+id/spending_total_amount"
-            app:layout_constraintStart_toEndOf="@id/spending_icon"
-            app:layout_constraintTop_toBottomOf="@id/spending_added_by"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spending_time_paid_label"
+            app:layout_constraintTop_toTopOf="@id/spending_time_paid_label"
             app:zonedDateTime="@{spendingViewModel.spending.timeCreated}"
             tools:text="20.04.2021 22:33" />
 
@@ -90,11 +132,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_half"
-            android:layout_marginEnd="@dimen/spacing_half"
+            android:layout_marginEnd="@dimen/spacing_normal"
             android:text="@{spendingViewModel.spending.addedBy.loginName}"
-            app:layout_constraintEnd_toStartOf="@+id/spending_total_amount"
-            app:layout_constraintStart_toEndOf="@id/spending_icon"
-            app:layout_constraintTop_toBottomOf="@id/spending_time_paid"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spending_paid_by_label"
+            app:layout_constraintTop_toTopOf="@id/spending_paid_by_label"
             tools:text="test@thesis.net" />
 
         <TextView
@@ -104,9 +147,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_half"
             android:text="@{spendingViewModel.spending.totalAmount.toString()}"
-            app:layout_constraintBottom_toBottomOf="@id/spending_icon"
             app:layout_constraintEnd_toStartOf="@id/spending_currency"
-            app:layout_constraintTop_toTopOf="@id/spending_icon"
+            app:layout_constraintTop_toTopOf="@+id/spending_title"
             tools:text="199.50" />
 
         <TextView
