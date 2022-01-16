@@ -72,7 +72,7 @@
             android:text="@string/submit_button"
             app:buttonEnabled="@{newPayoffViewModel.submitButtonEnabled}"
             app:buttonWhileLoading="@{newPayoffViewModel.status}"
-            app:icon="@drawable/ic_baseline_balance_24"
+            app:icon="@drawable/ic_baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
