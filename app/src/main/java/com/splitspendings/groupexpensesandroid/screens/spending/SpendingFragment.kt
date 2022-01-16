@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.splitspendings.groupexpensesandroid.R
+import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.databinding.FragmentSpendingBinding
 
 class SpendingFragment : Fragment() {
@@ -38,10 +39,18 @@ class SpendingFragment : Fragment() {
 
         viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
         viewModel.eventNavigateToSpendingsList.observe(viewLifecycleOwner, ::onNavigateToGroup)
+        viewModel.deleteSpendingStatus.observe(viewLifecycleOwner, {
+            it?.let { setHasOptionsMenu(it.apiStatus != ApiStatus.LOADING) }
+        })
 
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.onLoadShares()
     }
 
     private fun onNavigateToGroup(groupId: Long?) {

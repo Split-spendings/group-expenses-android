@@ -29,7 +29,7 @@
             android:layout_height="@dimen/size_avatar"
             android:layout_marginStart="@dimen/spacing_half"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/status_layout" />
+            app:layout_constraintTop_toTopOf="@+id/spending_title" />
 
         <TextView
             android:id="@+id/spending_title"
@@ -42,7 +42,7 @@
             android:text="@{spendingViewModel.spending.title}"
             app:layout_constraintEnd_toStartOf="@+id/spending_total_amount"
             app:layout_constraintStart_toEndOf="@id/spending_icon"
-            app:layout_constraintTop_toTopOf="@id/spending_icon"
+            app:layout_constraintTop_toBottomOf="@id/status_layout"
             tools:text="Spending title" />
 
         <TextView

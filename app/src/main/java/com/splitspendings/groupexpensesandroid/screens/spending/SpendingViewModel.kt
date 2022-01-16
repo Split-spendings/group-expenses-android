@@ -49,9 +49,14 @@ class SpendingViewModel(
     val status: LiveData<Status>
         get() = _status
 
+    private val _deleteSpendingStatus = MutableLiveData<Status>()
+    val deleteSpendingStatus: LiveData<Status>
+        get() = _deleteSpendingStatus
+
     init {
         _eventNavigateToSpendingsList.value = null
         _status.value = Status(ApiStatus.DONE, null)
+        _deleteSpendingStatus.value = Status(ApiStatus.DONE, null)
     }
 
     fun onEventNavigateToSpendingsListComplete() {
@@ -63,6 +68,7 @@ class SpendingViewModel(
             try {
                 spending.value?.let {
                     _status.value = Status(ApiStatus.LOADING, null)
+                    _deleteSpendingStatus.value = Status(ApiStatus.LOADING, null)
                     val groupId = it.groupId
                     spendingRepository.deleteSpending(spendingId)
                     _eventNavigateToSpendingsList.value = groupId
@@ -70,6 +76,7 @@ class SpendingViewModel(
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
                 _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_delete_spending))
+                _deleteSpendingStatus.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_delete_spending))
             }
         }
     }
