@@ -42,4 +42,7 @@ interface SpendingDao {
 
     @Query("SELECT * FROM spending where groupId = :groupId")
     suspend fun getByGroupId(groupId: Long): List<SpendingEntity>
+
+    @Query("DELETE FROM spending where id = :id")
+    suspend fun deleteById(id: Long)
 }

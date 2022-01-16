@@ -17,6 +17,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -69,6 +70,9 @@ interface GroupExpensesApiService {
 
     @GET("/api/spendings/{spendingId}")
     suspend fun spendingById(@Path("spendingId") spendingId: Long): SpendingDto
+
+    @DELETE("/api/spendings/{spendingId}")
+    suspend fun deleteSpending(@Path("spendingId") spendingId: Long)
 }
 
 object GroupExpensesApi {
