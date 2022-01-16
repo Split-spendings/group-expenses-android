@@ -146,6 +146,9 @@
         <action
             android:id="@+id/action_balancesListFragment_to_newPayoffFragment"
             app:destination="@id/newPayoffFragment" />
+        <action
+            android:id="@+id/action_balancesListFragment_to_payoffsListFragment"
+            app:destination="@id/payoffsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/groupMembersListFragment"
@@ -158,5 +161,14 @@
         <action
             android:id="@+id/action_groupMembersListFragment_to_inviteToGroupFragment"
             app:destination="@id/inviteToGroupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/payoffsListFragment"
+        android:name="com.splitspendings.groupexpensesandroid.screens.payoffslist.PayoffsListFragment"
+        android:label="@string/payoffs_list_fragment_label"
+        tools:layout="@layout/fragment_payoffs_list">
+        <argument
+            android:name="groupId"
+            app:argType="long" />
     </fragment>
 </navigation>

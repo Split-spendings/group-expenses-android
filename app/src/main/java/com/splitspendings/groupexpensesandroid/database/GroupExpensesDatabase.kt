@@ -7,11 +7,13 @@ import androidx.room.RoomDatabase
 import com.splitspendings.groupexpensesandroid.database.dao.BalanceDao
 import com.splitspendings.groupexpensesandroid.database.dao.GroupDao
 import com.splitspendings.groupexpensesandroid.database.dao.GroupMemberDao
+import com.splitspendings.groupexpensesandroid.database.dao.PayoffDao
 import com.splitspendings.groupexpensesandroid.database.dao.ShareDao
 import com.splitspendings.groupexpensesandroid.database.dao.SpendingDao
 import com.splitspendings.groupexpensesandroid.database.entity.BalanceEntity
 import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import com.splitspendings.groupexpensesandroid.database.entity.GroupMemberEntity
+import com.splitspendings.groupexpensesandroid.database.entity.PayoffEntity
 import com.splitspendings.groupexpensesandroid.database.entity.ShareEntity
 import com.splitspendings.groupexpensesandroid.database.entity.SpendingEntity
 
@@ -21,7 +23,8 @@ import com.splitspendings.groupexpensesandroid.database.entity.SpendingEntity
         SpendingEntity::class,
         BalanceEntity::class,
         GroupMemberEntity::class,
-        ShareEntity::class
+        ShareEntity::class,
+        PayoffEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -33,6 +36,7 @@ abstract class GroupExpensesDatabase : RoomDatabase() {
     abstract val balanceDao: BalanceDao
     abstract val groupMemberDao: GroupMemberDao
     abstract val shareDao: ShareDao
+    abstract val payoffDao: PayoffDao
 
     companion object {
         @Volatile

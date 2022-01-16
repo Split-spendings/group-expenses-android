@@ -94,9 +94,9 @@ class BalancesListAdapter(
 
     class BalanceItemViewHolder private constructor(val binding: ListItemBalanceBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(balance: Balance, clickItemClickListener: BalanceItemClickListener) {
+        fun bind(balance: Balance, balanceItemClickListener: BalanceItemClickListener) {
             binding.balance = balance
-            binding.clickListener = clickItemClickListener
+            binding.clickListener = balanceItemClickListener
             binding.executePendingBindings()
         }
 

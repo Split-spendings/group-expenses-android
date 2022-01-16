@@ -122,4 +122,15 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
             database.spendingDao.deleteByGroupId(groupId)
         }
     }
+
+    fun getGroupPayoffs(groupId: Long) = Transformations
+        .map(database.payoffDao.getByGroupIdLive(groupId)) { it.asModel() }
+
+    suspend fun refreshGroupPayoffs(groupId: Long) {
+        withContext(Dispatchers.IO) {
+            val groupPayoffs = GroupExpensesApi.retrofitService.groupPayoffs(groupId)
+            database.payoffDao.deleteByGroupId(groupId)
+            database.payoffDao.insertAll(groupPayoffs.payoffs.asEntity(groupId))
+        }
+    }
 }

@@ -88,4 +88,9 @@
     <string name="failed_group_members_upload">Could not load group members from server</string>
     <string name="failed_save_new_spending">Could not save spending to server</string>
     <string name="failed_save_new_payoff">Could not save payoff to server</string>
+    <string name="successful_payoffs_upload">Loaded payoffs from server</string>
+    <string name="failed_payoffs_upload">Could not load payoffs from server</string>
+    <string name="payoffs_label">Payoffs</string>
+    <string name="payoffs_list_fragment_label">Payoffs</string>
+    <string name="payoffs_button">Payoffs</string>
 </resources>

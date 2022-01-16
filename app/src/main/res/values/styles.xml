@@ -57,6 +57,11 @@
         <item name="android:tint">?attr/colorSecondary</item>
     </style>
 
+    <style name="PayoffIcon">
+        <item name="android:src">@drawable/ic_baseline_currency_exchange_24</item>
+        <item name="android:tint">?attr/colorPrimaryVariant</item>
+    </style>
+
     <style name="ForwardIcon">
         <item name="android:src">@drawable/ic_baseline_arrow_forward_ios_24</item>
         <item name="android:tint">?attr/colorOnBackground</item>

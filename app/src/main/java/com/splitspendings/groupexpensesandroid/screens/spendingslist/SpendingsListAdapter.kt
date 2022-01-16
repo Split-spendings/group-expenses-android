@@ -25,9 +25,9 @@ class SpendingsListAdapter(private val spendingItemClickListener: SpendingItemCl
 
     class SpendingItemViewHolder private constructor(val binding: ListItemSpendingBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(spending: Spending, clickItemClickListener: SpendingItemClickListener) {
+        fun bind(spending: Spending, spendingItemClickListener: SpendingItemClickListener) {
             binding.spending = spending
-            binding.clickListener = clickItemClickListener
+            binding.clickListener = spendingItemClickListener
             binding.executePendingBindings()
         }
 

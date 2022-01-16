@@ -74,9 +74,9 @@ class GroupViewModel(
         _leaveGroupStatus.value = Status(ApiStatus.DONE, null)
     }
 
-    fun onSpendingClicked(id: Long) {
+    fun onSpendingClicked(spendingId: Long) {
         if(_leaveGroupStatus.value?.apiStatus != ApiStatus.LOADING) {
-            _eventNavigateToSpending.value = id
+            _eventNavigateToSpending.value = spendingId
         }
     }
 

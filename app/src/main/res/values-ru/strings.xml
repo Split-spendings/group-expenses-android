@@ -82,4 +82,9 @@
     <string name="failed_delete_spending">Не удалось удалить платеж с сервера</string>
     <string name="successful_spending_shares_upload">Доли платежа успешно загружены с сервера</string>
     <string name="failed_spending_shares_upload">Не удалось загрузить доли платежа  с сервера</string>
+    <string name="successful_payoffs_upload">Расплаты успешно загружены с сервера</string>
+    <string name="failed_payoffs_upload">Не удалось загрузить расплаты с сервера</string>
+    <string name="payoffs_label">Расплаты</string>
+    <string name="payoffs_list_fragment_label">Расплаты</string>
+    <string name="payoffs_button">Расплаты</string>
 </resources>

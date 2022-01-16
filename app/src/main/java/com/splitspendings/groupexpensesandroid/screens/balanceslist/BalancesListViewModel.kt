@@ -45,12 +45,21 @@ class BalancesListViewModel(
     val eventNavigateToNewPayoff: LiveData<Long>
         get() = _eventNavigateToNewPayoff
 
+    private val _eventNavigateToGroupPayoffs = MutableLiveData<Boolean>()
+    val eventNavigateToGroupPayoffs: LiveData<Boolean>
+        get() = _eventNavigateToGroupPayoffs
+
     private val _status = MutableLiveData<Status>()
     val status: LiveData<Status>
         get() = _status
 
     init {
         _eventNavigateToNewPayoff.value = null
+        _eventNavigateToGroupPayoffs.value = false
+    }
+
+    fun onPayoffsClicked() {
+        _eventNavigateToGroupPayoffs.value = true
     }
 
     fun onNewPayoff(balanceId: Long) {
@@ -59,6 +68,10 @@ class BalancesListViewModel(
 
     fun onEventNavigateToNewPayoffComplete() {
         _eventNavigateToNewPayoff.value = null
+    }
+
+    fun onEventNavigateToGroupPayoffsComplete() {
+        _eventNavigateToGroupPayoffs.value = false
     }
 
     fun onLoadGroupBalances() {

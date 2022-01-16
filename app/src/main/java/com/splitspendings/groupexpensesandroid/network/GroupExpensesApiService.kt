@@ -6,6 +6,7 @@ import com.splitspendings.groupexpensesandroid.network.dto.GroupActiveMembersDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupBalancesDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupInviteCodeDto
+import com.splitspendings.groupexpensesandroid.network.dto.GroupPayoffsDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupSpendingsDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewSpendingDto
@@ -73,6 +74,9 @@ interface GroupExpensesApiService {
 
     @DELETE("/api/spendings/{spendingId}")
     suspend fun deleteSpending(@Path("spendingId") spendingId: Long)
+
+    @GET("/api/groups/{groupId}/payoffs")
+    suspend fun groupPayoffs(@Path("groupId") groupId: Long): GroupPayoffsDto
 }
 
 object GroupExpensesApi {

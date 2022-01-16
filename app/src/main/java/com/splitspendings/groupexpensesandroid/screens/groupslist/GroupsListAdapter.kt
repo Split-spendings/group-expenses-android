@@ -106,9 +106,9 @@ class GroupsListAdapter(
 
     class GroupItemViewHolder private constructor(val binding: ListItemGroupBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(group: Group, clickItemClickListener: GroupItemClickListener) {
+        fun bind(group: Group, groupItemClickListener: GroupItemClickListener) {
             binding.group = group
-            binding.clickListener = clickItemClickListener
+            binding.clickListener = groupItemClickListener
             binding.executePendingBindings()
         }
 

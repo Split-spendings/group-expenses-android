@@ -37,6 +37,7 @@ class BalancesListFragment : Fragment() {
         binding.balancesList.adapter = adapter
 
         viewModel.eventNavigateToNewPayoff.observe(viewLifecycleOwner, ::onNavigateToNewPayoff)
+        viewModel.eventNavigateToGroupPayoffs.observe(viewLifecycleOwner, ::onNavigateToGroupPayoffs)
         viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
 
         return binding.root
@@ -52,6 +53,14 @@ class BalancesListFragment : Fragment() {
             findNavController()
                 .navigate(BalancesListFragmentDirections.actionBalancesListFragmentToNewPayoffFragment(it))
             viewModel.onEventNavigateToNewPayoffComplete()
+        }
+    }
+
+    private fun onNavigateToGroupPayoffs(navigateToGroupPayoffs: Boolean) {
+        if(navigateToGroupPayoffs) {
+            findNavController()
+                .navigate(BalancesListFragmentDirections.actionBalancesListFragmentToPayoffsListFragment(viewModel.groupId))
+            viewModel.onEventNavigateToGroupPayoffsComplete()
         }
     }
 }

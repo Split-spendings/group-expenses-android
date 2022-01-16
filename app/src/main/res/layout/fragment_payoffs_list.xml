@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".screens.balanceslist.BalancesListFragment">
+    tools:context=".screens.payoffslist.PayoffsListFragment">
 
     <data>
 
         <variable
-            name="balancesListViewModel"
-            type="com.splitspendings.groupexpensesandroid.screens.balanceslist.BalancesListViewModel" />
+            name="payoffsListViewModel"
+            type="com.splitspendings.groupexpensesandroid.screens.payoffslist.PayoffsListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,32 +37,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_half"
-            android:text="@{balancesListViewModel.group.name}"
+            android:text="@{payoffsListViewModel.group.name}"
             app:layout_constraintBottom_toBottomOf="@+id/group_avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/group_avatar"
             app:layout_constraintTop_toTopOf="@+id/group_avatar"
-            tools:text="Group name" />
-
-        <Button
-            android:id="@+id/payoffs_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_half"
-            android:onClick="@{() -> balancesListViewModel.onPayoffsClicked()}"
-            android:text="@string/payoffs_button"
-            app:icon="@drawable/ic_baseline_currency_exchange_24"
-            app:layout_constraintBottom_toBottomOf="@id/group_avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/group_avatar" />
+            tools:text="Group name fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" />
 
         <TextView
-            android:id="@+id/balances_label"
+            android:id="@+id/payoffs_label"
             style="@style/ListHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/spacing_half"
-            android:text="@string/balances_label"
+            android:text="@string/payoffs_label"
             android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@+id/group_avatar" />
 
@@ -71,16 +59,16 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balances_label"
-            app:onRefreshListener="@{() -> balancesListViewModel.onLoadGroupBalances()}"
-            app:swipeLoadingProgress="@{balancesListViewModel.status}">
+            app:layout_constraintTop_toBottomOf="@+id/payoffs_label"
+            app:onRefreshListener="@{() -> payoffsListViewModel.onLoadPayoffs()}"
+            app:swipeLoadingProgress="@{payoffsListViewModel.status}">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/balances_list"
+                android:id="@+id/payoffs_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:balancesList="@{balancesListViewModel.balances}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:payoffsList="@{payoffsListViewModel.payoffs}" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
