@@ -42,6 +42,11 @@
         <item name="android:tint">?attr/colorSecondaryVariant</item>
     </style>
 
+    <style name="GroupMemberAvatarIcon">
+        <item name="android:src">@drawable/ic_baseline_person_24</item>
+        <item name="android:tint">?attr/colorPrimaryDark</item>
+    </style>
+
     <style name="PrimaryText">
         <item name="android:textColor">?attr/colorOnBackground</item>
     </style>

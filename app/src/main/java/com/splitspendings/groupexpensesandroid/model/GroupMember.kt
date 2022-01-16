@@ -6,7 +6,7 @@ data class GroupMember(
     val id: Long,
     val groupId: Long,
     val active: Boolean,
-    val appUSer: AppUser
+    val appUser: AppUser
 )
 
 fun GroupMember.asNewShare() =

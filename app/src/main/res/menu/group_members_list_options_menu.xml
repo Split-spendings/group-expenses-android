@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/filtering"
+        android:checkable="false"
+        android:enabled="false"
+        android:title="@string/filtering_menu_group" />
+    <item
+        android:id="@+id/filterAll"
+        android:title="@string/filtering_group_all_menu_item" />
+    <item
+        android:id="@+id/filterCurrent"
+        android:title="@string/filtering_group_current_menu_item" />
+    <item
+        android:id="@+id/filterFormer"
+        android:title="@string/filtering_group_former_menu_item" />
+</menu>

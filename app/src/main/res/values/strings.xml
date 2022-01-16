@@ -18,6 +18,7 @@
     <string name="new_invitation_code_generated_failed">Could not generate invitation code</string>
     <string name="copied_invitation_code">Invitation code copied to clipboard</string>
     <string name="groups_list_fragment_label">Groups</string>
+    <string name="group_members_list_fragment_label">Group members</string>
     <string name="group_fragment_label">Group</string>
     <string name="new_group_fragment_label">New group</string>
     <string name="login_fragment_label">Login</string>

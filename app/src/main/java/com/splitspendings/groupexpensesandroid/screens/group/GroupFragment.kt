@@ -120,6 +120,8 @@ class GroupFragment : Fragment() {
         when (item.itemId) {
             R.id.inviteToGroupFragment -> findNavController()
                 .navigate(GroupFragmentDirections.actionGroupFragmentToInviteToGroupFragment(viewModel.groupId))
+            R.id.groupMembersListFragment -> findNavController()
+                .navigate(GroupFragmentDirections.actionGroupFragmentToGroupMembersListFragment(viewModel.groupId))
             R.id.leaveGroup -> showLeaveGroupDialog()
         }
         return super.onOptionsItemSelected(item)

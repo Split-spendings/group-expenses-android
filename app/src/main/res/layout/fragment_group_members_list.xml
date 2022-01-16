@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".screens.groupmemberslist.GroupMembersListFragment">
+
+    <data>
+
+        <variable
+            name="groupMembersListViewModel"
+            type="com.splitspendings.groupexpensesandroid.screens.groupmemberslist.GroupMembersListViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/status_layout"
+                layout="@layout/status_with_loading_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status_layout"
+                app:onRefreshListener="@{() -> groupMembersListViewModel.onLoadGroupMembers()}"
+                app:swipeLoadingProgress="@{groupMembersListViewModel.status}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/groups_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:groupMembersFilter="@{groupMembersListViewModel.filter}"
+                    app:groupMembersList="@{groupMembersListViewModel.groupMembers}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/spacing_normal"
+            android:onClick="@{() -> groupMembersListViewModel.onInviteToGroup()}"
+            app:srcCompat="@drawable/ic_baseline_group_add_24" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

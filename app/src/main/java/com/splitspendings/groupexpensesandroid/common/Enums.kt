@@ -8,6 +8,12 @@ enum class GroupsFilter(val value: String) {
     ALL("all")
 }
 
+enum class GroupMembersFilter {
+    CURRENT,
+    FORMER,
+    ALL
+}
+
 enum class InviteOption {
     ALL_ACTIVE_MEMBERS,
     ADMINS_ONLY,

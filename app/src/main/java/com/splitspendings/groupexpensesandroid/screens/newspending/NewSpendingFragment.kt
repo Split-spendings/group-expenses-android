@@ -128,7 +128,7 @@ class NewSpendingFragment : Fragment() {
             ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
-                groupMembers.map { it.appUSer.loginName }
+                groupMembers.map { it.appUser.loginName }
             ).also { newAdapter ->
                 newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 adapter = newAdapter
