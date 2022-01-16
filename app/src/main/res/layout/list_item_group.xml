@@ -40,10 +40,20 @@
             android:layout_marginHorizontal="@dimen/spacing_half"
             android:text="@{group.name}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/forward_icon"
             app:layout_constraintStart_toEndOf="@+id/group_avatar"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Group name" />
+
+        <ImageView
+            android:id="@+id/forward_icon"
+            style="@style/ForwardIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_half"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             style="@style/Divider"
