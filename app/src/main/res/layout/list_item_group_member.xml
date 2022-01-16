@@ -22,7 +22,7 @@
             android:layout_width="@dimen/size_avatar"
             android:layout_height="@dimen/size_avatar"
             android:layout_marginVertical="@dimen/spacing_half"
-            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginStart="@dimen/spacing_half"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
