@@ -44,7 +44,12 @@
 
     <style name="GroupMemberAvatarIcon">
         <item name="android:src">@drawable/ic_baseline_person_24</item>
-        <item name="android:tint">?attr/colorPrimaryDark</item>
+        <item name="android:tint">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="SpendingIcon">
+        <item name="android:src">@drawable/ic_baseline_receipt_24</item>
+        <item name="android:tint">?attr/colorPrimaryVariant</item>
     </style>
 
     <style name="PrimaryText">
