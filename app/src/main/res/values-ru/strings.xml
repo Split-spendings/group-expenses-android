@@ -23,7 +23,7 @@
     <string name="spendings_label">Платежы</string>
     <string name="balances_label">Балансы</string>
     <string name="spending_label">Платеж</string>
-    <string name="shares_label">Доли</string>
+    <string name="shares_label">За кого оплачено</string>
     <string name="comments_label">Комментарии</string>
     <string name="share_label">Поделиться</string>
     <string name="about_label">О приложении</string>
@@ -79,4 +79,7 @@
     <string name="time_created_label">Время создания:</string>
     <string name="added_by_label">Кем добавлено:</string>
     <string name="time_paid_label">Время оплаты:</string>
+    <string name="failed_delete_spending">Не удалось удалить платеж с сервера</string>
+    <string name="successful_spending_shares_upload">Доли платежа успешно загружены с сервера</string>
+    <string name="failed_spending_shares_upload">Не удалось загрузить доли платежа  с сервера</string>
 </resources>

@@ -7,6 +7,8 @@ import com.splitspendings.groupexpensesandroid.database.entity.asModel
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
 import com.splitspendings.groupexpensesandroid.network.dto.NewSpendingDto
 import com.splitspendings.groupexpensesandroid.network.dto.asEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class SpendingRepository(private val database: GroupExpensesDatabase) {
 
@@ -35,5 +37,28 @@ class SpendingRepository(private val database: GroupExpensesDatabase) {
     suspend fun saveSpending(newSpending: NewSpendingDto): Long {
         val spendingSavedOnServer = GroupExpensesApi.retrofitService.createSpending(newSpending)
         return database.spendingDao.insert(spendingSavedOnServer.asEntity(newSpending.groupID))
+    }
+
+    fun getSpendingShares(spendingId: Long) = Transformations
+        .map(database.shareDao.getBySpendingIdLive(spendingId)) { it.asModel() }
+
+    suspend fun refreshSpendingShares(spendingId: Long) {
+        withContext(Dispatchers.IO) {
+            //TODO
+            /*val spendingShares = GroupExpensesApi.retrofitService.groupSpendings(groupId)
+            database.shareDao.deleteBySpendingId(spendingId)
+            database.spendingDao.insertAll(groupSpendings.spendings.asEntity(spendingId))*/
+        }
+    }
+
+    suspend fun deleteSpending(spendingId: Long) {
+        withContext(Dispatchers.IO) {
+            //TODO
+            /*GroupExpensesApi.retrofitService.leaveGroup(groupId)
+                database.groupDao.updateCurrent(false, groupId)
+                database.balanceDao.deleteByGroupId(groupId)
+                database.groupMemberDao.deleteByGroupId(groupId)
+                database.spendingDao.deleteByGroupId(groupId)*/
+        }
     }
 }

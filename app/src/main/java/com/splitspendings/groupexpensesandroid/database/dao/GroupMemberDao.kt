@@ -26,7 +26,7 @@ interface GroupMemberDao {
     suspend fun insertAll(groupMembersList: List<GroupMemberEntity>)
 
     @Update
-    suspend fun update(group: GroupMemberEntity): Int
+    suspend fun update(groupMember: GroupMemberEntity): Int
 
     @Query("SELECT * from group_member where id = :id")
     suspend fun get(id: String): GroupMemberEntity?

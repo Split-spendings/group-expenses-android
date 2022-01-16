@@ -52,6 +52,11 @@
         <item name="android:tint">?attr/colorPrimaryVariant</item>
     </style>
 
+    <style name="ShareIcon">
+        <item name="android:src">@drawable/ic_baseline_percent_24</item>
+        <item name="android:tint">?attr/colorSecondary</item>
+    </style>
+
     <style name="PrimaryText">
         <item name="android:textColor">?attr/colorOnBackground</item>
     </style>

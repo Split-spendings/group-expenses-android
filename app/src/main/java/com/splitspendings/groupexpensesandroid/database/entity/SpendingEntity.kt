@@ -89,7 +89,8 @@ fun SpendingEntity.asModel() =
             email = paidByEmail,
             firstName = paidByFirstName,
             lastName = paidByLastName
-        )
+        ),
+        groupId = groupId
     )
 
 fun List<SpendingEntity>.asModel() = map { it.asModel() }

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentSpendingBinding
 
@@ -33,9 +34,22 @@ class SpendingFragment : Fragment() {
         binding.spendingViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.sharesList.adapter = SharesListAdapter()
+
+        viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
+        viewModel.eventNavigateToSpendingsList.observe(viewLifecycleOwner, ::onNavigateToGroup)
+
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    private fun onNavigateToGroup(groupId: Long?) {
+        groupId?.let {
+            findNavController()
+                .navigate(SpendingFragmentDirections.actionSpendingFragmentToGroupFragment(it))
+            viewModel.onEventNavigateToSpendingsListComplete()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

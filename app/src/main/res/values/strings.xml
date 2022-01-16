@@ -33,7 +33,7 @@
     <string name="balances_label">Balances</string>
     <string name="balances_button">Balances</string>
     <string name="spending_label">Spending</string>
-    <string name="shares_label">Shares</string>
+    <string name="shares_label">Paid for</string>
     <string name="comments_label">Comments</string>
     <string name="share_label">Share</string>
     <string name="about_label">About</string>
@@ -59,6 +59,9 @@
     <string name="filtering_group_former_menu_item">Former</string>
     <string name="leave_group_menu_item">Leave group</string>
     <string name="delete_spending_menu_item">Delete spending</string>
+    <string name="failed_delete_spending">Could not delete spending from server</string>
+    <string name="successful_spending_shares_upload">Loaded spending shares from server</string>
+    <string name="failed_spending_shares_upload">Could not load spending shares from server</string>
     <string name="leave_group_dialog_message">Leave group?\nYou will no longer have access to group data</string>
     <string name="delete_spending_dialog_message">Delete spending?</string>
     <string name="general_menu_group">General:</string>

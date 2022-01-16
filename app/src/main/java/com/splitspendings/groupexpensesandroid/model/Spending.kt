@@ -12,5 +12,6 @@ data class Spending(
     val timeCreated: ZonedDateTime,
     val timePayed: ZonedDateTime?,
     val addedBy: AppUser,
-    val paidBy: AppUser
+    val paidBy: AppUser,
+    val groupId: Long
 )

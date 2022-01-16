@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="share"
+            type="com.splitspendings.groupexpensesandroid.model.Share" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/share_icon"
+            style="@style/ShareIcon"
+            android:layout_width="@dimen/size_avatar_small"
+            android:layout_height="@dimen/size_avatar_small"
+            android:layout_marginStart="@dimen/spacing_half"
+            app:layout_constraintBottom_toBottomOf="@+id/share_paid_for"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/share_paid_for" />
+
+        <TextView
+            android:id="@+id/share_paid_for"
+            style="@style/PrimaryText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_half"
+            android:text="@{share.paidFor.loginName}"
+            app:layout_constraintEnd_toStartOf="@+id/share_amount"
+            app:layout_constraintStart_toEndOf="@id/share_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Paid for" />
+
+        <TextView
+            android:id="@+id/share_amount"
+            style="@style/PrimaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_half"
+            android:text="@{share.amount.toString()}"
+            app:layout_constraintBaseline_toBaselineOf="@id/share_currency"
+            app:layout_constraintEnd_toStartOf="@id/share_currency"
+            tools:text="199.50" />
+
+        <TextView
+            android:id="@+id/share_currency"
+            style="@style/PrimaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:text="@{share.currency.toString()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/share_paid_for"
+            tools:text="USD" />
+
+        <View
+            android:id="@+id/view"
+            style="@style/Divider"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/spacing_normal"
+            app:layout_constraintTop_toBottomOf="@id/share_paid_for" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

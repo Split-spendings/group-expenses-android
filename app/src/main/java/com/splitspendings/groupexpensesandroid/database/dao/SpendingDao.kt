@@ -26,7 +26,7 @@ interface SpendingDao {
     suspend fun insertAll(spendingsList: List<SpendingEntity>)
 
     @Update
-    suspend fun update(group: SpendingEntity): Int
+    suspend fun update(spending: SpendingEntity): Int
 
     @Query("SELECT * from spending where id = :id")
     suspend fun get(id: Long): SpendingEntity?

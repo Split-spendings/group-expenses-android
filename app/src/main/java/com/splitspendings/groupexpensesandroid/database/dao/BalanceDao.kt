@@ -26,7 +26,7 @@ interface BalanceDao {
     suspend fun insertAll(balancesList: List<BalanceEntity>)
 
     @Update
-    suspend fun update(group: BalanceEntity): Int
+    suspend fun update(balance: BalanceEntity): Int
 
     @Query("SELECT * from balance where id = :id")
     suspend fun get(id: Long): BalanceEntity?
