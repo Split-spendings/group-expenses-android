@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_half"
-            android:layout_marginEnd="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_half"
             android:onClick="@{() -> clickListener.onClick(balance)}"
             android:text="@string/payoff_button"
             app:balancePayoffButton="@{balance}"
