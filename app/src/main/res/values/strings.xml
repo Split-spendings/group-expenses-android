@@ -93,4 +93,8 @@
     <string name="payoffs_label">Payoffs</string>
     <string name="payoffs_list_fragment_label">Payoffs</string>
     <string name="payoffs_button">Payoffs</string>
+    <string name="failed_delete_payoff">Could not delete payoff from server</string>
+    <string name="payoff_fragment_label">Payoff</string>
+    <string name="delete_payoff_menu_item">Delete payoff</string>
+    <string name="delete_payoff_dialog_message">Delete payoff?</string>
 </resources>

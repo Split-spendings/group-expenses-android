@@ -87,4 +87,8 @@
     <string name="payoffs_label">Расплаты</string>
     <string name="payoffs_list_fragment_label">Расплаты</string>
     <string name="payoffs_button">Расплаты</string>
+    <string name="failed_delete_payoff">Не удалось удалить расплату с сервера</string>
+    <string name="payoff_fragment_label">Расплата</string>
+    <string name="delete_payoff_menu_item">Удалить расплату</string>
+    <string name="delete_payoff_dialog_message">Удалить расплату?</string>
 </resources>

@@ -134,6 +134,10 @@
         <argument
             android:name="balanceId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_newPayoffFragment_to_payoffFragment"
+            app:destination="@id/payoffFragment"
+            app:popUpTo="@id/balancesListFragment" />
     </fragment>
     <fragment
         android:id="@+id/balancesListFragment"
@@ -170,5 +174,22 @@
         <argument
             android:name="groupId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_payoffsListFragment_to_payoffFragment"
+            app:destination="@id/payoffFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/payoffFragment"
+        android:name="com.splitspendings.groupexpensesandroid.screens.payoff.PayoffFragment"
+        android:label="@string/payoff_fragment_label"
+        tools:layout="@layout/fragment_payoff">
+        <argument
+            android:name="groupId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_payoffFragment_to_payoffsListFragment"
+            app:destination="@id/payoffsListFragment"
+            app:popUpTo="@id/balancesListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

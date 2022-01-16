@@ -77,6 +77,9 @@ interface GroupExpensesApiService {
 
     @GET("/api/groups/{groupId}/payoffs")
     suspend fun groupPayoffs(@Path("groupId") groupId: Long): GroupPayoffsDto
+
+    @DELETE("/api/payoffs/{payoffId}")
+    suspend fun deletePayoff(@Path("payoffId") payoffId: Long)
 }
 
 object GroupExpensesApi {

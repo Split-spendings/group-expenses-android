@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".screens.payoff.PayoffFragment">
+
+    <data>
+
+        <variable
+            name="payoffViewModel"
+            type="com.splitspendings.groupexpensesandroid.screens.payoff.PayoffViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/status_layout"
+            layout="@layout/status_with_loading_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/payoff_icon"
+            style="@style/PayoffIcon"
+            android:layout_width="@dimen/size_avatar_small"
+            android:layout_height="@dimen/size_avatar_small"
+            android:layout_marginStart="@dimen/spacing_half"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/payoff_title" />
+
+        <TextView
+            android:id="@+id/payoff_title"
+            style="@style/PrimaryText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:layout_marginTop="@dimen/spacing_half"
+            android:layout_marginEnd="@dimen/spacing_half"
+            android:text="@{payoffViewModel.payoff.title}"
+            app:layout_constraintEnd_toStartOf="@+id/payoff_amount"
+            app:layout_constraintStart_toEndOf="@id/payoff_icon"
+            app:layout_constraintTop_toBottomOf="@id/status_layout"
+            tools:text="Payoff title" />
+
+        <TextView
+            android:id="@+id/payoff_time_created_label"
+            style="@style/SecondaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:text="@string/time_created_label"
+            app:layout_constraintStart_toEndOf="@id/payoff_icon"
+            app:layout_constraintTop_toBottomOf="@+id/payoff_title" />
+
+        <TextView
+            android:id="@+id/payoff_added_by_label"
+            style="@style/SecondaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:text="@string/added_by_label"
+            app:layout_constraintStart_toEndOf="@+id/payoff_icon"
+            app:layout_constraintTop_toBottomOf="@+id/payoff_time_created" />
+
+
+        <TextView
+            android:id="@+id/payoff_paid_by_label"
+            style="@style/SecondaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:text="@string/paid_by_label"
+            app:layout_constraintStart_toEndOf="@+id/payoff_icon"
+            app:layout_constraintTop_toBottomOf="@id/payoff_added_by" />
+
+        <TextView
+            android:id="@+id/payoff_time_created"
+            style="@style/SecondaryText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/payoff_time_created_label"
+            app:layout_constraintTop_toTopOf="@id/payoff_time_created_label"
+            app:zonedDateTime="@{payoffViewModel.payoff.timeCreated}"
+            tools:text="20.04.2021 22:33" />
+
+        <TextView
+            android:id="@+id/payoff_added_by"
+            style="@style/SecondaryText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:text="@{payoffViewModel.payoff.addedBy.loginName}"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/payoff_added_by_label"
+            app:layout_constraintTop_toTopOf="@id/payoff_added_by_label"
+            tools:text="test@thesis.net" />
+
+        <TextView
+            android:id="@+id/payoff_paid_by"
+            style="@style/SecondaryText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:text="@{payoffViewModel.payoff.paidBy.loginName}"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/payoff_paid_by_label"
+            app:layout_constraintTop_toTopOf="@id/payoff_paid_by_label"
+            tools:text="test@thesis.net" />
+
+        <TextView
+            android:id="@+id/payoff_amount"
+            style="@style/PrimaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_half"
+            android:text="@{payoffViewModel.payoff.amount.toString()}"
+            app:layout_constraintEnd_toStartOf="@id/payoff_currency"
+            app:layout_constraintTop_toTopOf="@+id/payoff_title"
+            tools:text="199.50" />
+
+        <TextView
+            android:id="@+id/payoff_currency"
+            style="@style/PrimaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:text="@{payoffViewModel.payoff.currency.toString()}"
+            app:layout_constraintBaseline_toBaselineOf="@id/payoff_amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="USD" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
