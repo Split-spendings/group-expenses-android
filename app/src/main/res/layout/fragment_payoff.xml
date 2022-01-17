@@ -25,8 +25,8 @@
         <ImageView
             android:id="@+id/payoff_icon"
             style="@style/PayoffIcon"
-            android:layout_width="@dimen/size_avatar_small"
-            android:layout_height="@dimen/size_avatar_small"
+            android:layout_width="@dimen/size_avatar"
+            android:layout_height="@dimen/size_avatar"
             android:layout_marginStart="@dimen/spacing_half"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/payoff_title" />
