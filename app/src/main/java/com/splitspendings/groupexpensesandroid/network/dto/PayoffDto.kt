@@ -10,9 +10,9 @@ data class PayoffDto(
     val currency: Currency,
     val timeCreated: String,
     val timePayed: String?,
-    val addedBy: GroupMemberDto,
-    val paidBy: GroupMemberDto,
-    val paidTo: GroupMemberDto,
+    val addedByAppUser: AppUserDto,
+    val paidForAppUser: AppUserDto,
+    val paidToAppUser: AppUserDto,
 )
 
 fun PayoffDto.asEntity(groupId: Long) =
@@ -24,23 +24,23 @@ fun PayoffDto.asEntity(groupId: Long) =
         timeCreated = timeCreated,
         timePayed = timePayed,
 
-        addedByAppUserId = addedBy.appUser.id,
-        addedByEmail = addedBy.appUser.email,
-        addedByLoginName = addedBy.appUser.loginName,
-        addedByFirstName = addedBy.appUser.firstName,
-        addedByLastName = addedBy.appUser.lastName,
+        addedByAppUserId = addedByAppUser.id,
+        addedByEmail = addedByAppUser.email,
+        addedByLoginName = addedByAppUser.loginName,
+        addedByFirstName = addedByAppUser.firstName,
+        addedByLastName = addedByAppUser.lastName,
 
-        paidByAppUserId = paidBy.appUser.id,
-        paidByEmail = paidBy.appUser.email,
-        paidByLoginName = paidBy.appUser.loginName,
-        paidByFirstName = paidBy.appUser.firstName,
-        paidByLastName = paidBy.appUser.lastName,
+        paidForAppUserId = paidForAppUser.id,
+        paidForEmail = paidForAppUser.email,
+        paidForLoginName = paidForAppUser.loginName,
+        paidForFirstName = paidForAppUser.firstName,
+        paidForLastName = paidForAppUser.lastName,
 
-        paidToAppUserId = paidTo.appUser.id,
-        paidToEmail = paidTo.appUser.email,
-        paidToLoginName = paidTo.appUser.loginName,
-        paidToFirstName = paidTo.appUser.firstName,
-        paidToLastName = paidTo.appUser.lastName,
+        paidToAppUserId = paidToAppUser.id,
+        paidToEmail = paidToAppUser.email,
+        paidToLoginName = paidToAppUser.loginName,
+        paidToFirstName = paidToAppUser.firstName,
+        paidToLastName = paidToAppUser.lastName,
 
         groupId = groupId
     )

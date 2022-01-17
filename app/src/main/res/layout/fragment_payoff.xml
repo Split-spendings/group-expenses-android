@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_half"
             android:layout_marginEnd="@dimen/spacing_normal"
-            android:text="@{payoffViewModel.payoff.paidBy.loginName}"
+            android:text="@{payoffViewModel.payoff.paidFor.loginName}"
             android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/payoff_paid_by_label"

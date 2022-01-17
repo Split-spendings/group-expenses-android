@@ -12,7 +12,7 @@ data class Payoff(
     val timeCreated: ZonedDateTime,
     val timePayed: ZonedDateTime?,
     val addedBy: AppUser,
-    val paidBy: AppUser,
+    val paidFor: AppUser,
     val paidTo: AppUser,
     val groupId: Long
 )

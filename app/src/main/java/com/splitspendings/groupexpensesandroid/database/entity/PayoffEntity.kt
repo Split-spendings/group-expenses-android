@@ -49,20 +49,20 @@ data class PayoffEntity(
     var addedByLastName: String,
 
     //PAID BY
-    @ColumnInfo(name = "paidByAppUserId")
-    val paidByAppUserId: String,
+    @ColumnInfo(name = "paidForAppUserId")
+    val paidForAppUserId: String,
 
-    @ColumnInfo(name = "paidByLoginName")
-    var paidByLoginName: String,
+    @ColumnInfo(name = "paidForLoginName")
+    var paidForLoginName: String,
 
-    @ColumnInfo(name = "paidByEmail")
-    var paidByEmail: String,
+    @ColumnInfo(name = "paidForEmail")
+    var paidForEmail: String,
 
-    @ColumnInfo(name = "paidByFirstName")
-    var paidByFirstName: String,
+    @ColumnInfo(name = "paidForFirstName")
+    var paidForFirstName: String,
 
-    @ColumnInfo(name = "paidByLastName")
-    var paidByLastName: String,
+    @ColumnInfo(name = "paidForLastName")
+    var paidForLastName: String,
 
     //PAID TO
     @ColumnInfo(name = "paidToAppUserId")
@@ -96,12 +96,12 @@ fun PayoffEntity.asModel() =
             firstName = addedByFirstName,
             lastName = addedByLastName
         ),
-        paidBy = AppUser(
-            id = paidByAppUserId,
-            loginName = paidByLoginName,
-            email = paidByEmail,
-            firstName = paidByFirstName,
-            lastName = paidByLastName
+        paidFor = AppUser(
+            id = paidForAppUserId,
+            loginName = paidForLoginName,
+            email = paidForEmail,
+            firstName = paidForFirstName,
+            lastName = paidForLastName
         ),
         paidTo = AppUser(
             id = paidToAppUserId,
