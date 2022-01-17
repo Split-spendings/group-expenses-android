@@ -53,6 +53,9 @@ interface GroupExpensesApiService {
     @GET("/api/groups/{groupId}/spendings")
     suspend fun groupSpendings(@Path("groupId") groupId: Long): GroupSpendingsDto
 
+    @POST("/api/groups/invites/code/{groupId}")
+    suspend fun getOrGenerateGroupInviteCode(@Path("groupId") groupId: Long): GroupInviteCodeDto
+
     @POST("/api/groups/invites/generate/{groupId}")
     suspend fun generateGroupInviteCode(@Path("groupId") groupId: Long): GroupInviteCodeDto
 

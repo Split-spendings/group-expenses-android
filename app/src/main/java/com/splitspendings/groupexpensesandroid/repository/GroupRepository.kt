@@ -82,7 +82,7 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
     }
 
     suspend fun refreshInvitationCode(groupId: Long) {
-        val invitationCode = GroupExpensesApi.retrofitService.generateGroupInviteCode(groupId)
+        val invitationCode = GroupExpensesApi.retrofitService.getOrGenerateGroupInviteCode(groupId)
         database.groupDao.updateInvitationCode(invitationCode.code, groupId)
     }
 
