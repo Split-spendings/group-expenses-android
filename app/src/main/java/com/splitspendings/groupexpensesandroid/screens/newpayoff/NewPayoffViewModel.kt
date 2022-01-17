@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
+import com.splitspendings.groupexpensesandroid.common.Currency
 import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.network.dto.NewPayoffDto
 import com.splitspendings.groupexpensesandroid.repository.BalanceRepository
@@ -83,10 +84,18 @@ class NewPayoffViewModel(
     private fun savePayoffAndNavigateToPayoff() {
         viewModelScope.launch {
             try {
+                //TODO fill with proper data
+                val title = title.value ?: return@launch
                 balance.value?.let {
                     _status.value = Status(ApiStatus.LOADING, null)
                     val newPayoff = NewPayoffDto(
                         groupId = it.groupId,
+                        title = title,
+                        amount = "1",
+                        currency = Currency.PLN,
+                        timePayed = null,
+                        paidForAppUser = "placeholder paid for",
+                        paidToAppUser = "placeholder paid to"
                     )
                     _eventNavigateToPayoff.value = payoffRepository.savePayoff(newPayoff)
                 }
