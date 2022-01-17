@@ -9,7 +9,6 @@ data class PayoffDto(
     val amount: String,
     val currency: Currency,
     val timeCreated: String,
-    val timePayed: String?,
     val addedByAppUser: AppUserDto,
     val paidForAppUser: AppUserDto,
     val paidToAppUser: AppUserDto,
@@ -22,7 +21,6 @@ fun PayoffDto.asEntity(groupId: Long) =
         amount = amount,
         currency = currency.toString(),
         timeCreated = timeCreated,
-        timePayed = timePayed,
 
         addedByAppUserId = addedByAppUser.id,
         addedByEmail = addedByAppUser.email,

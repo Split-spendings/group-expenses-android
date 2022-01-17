@@ -29,9 +29,6 @@ data class PayoffEntity(
     @ColumnInfo(name = "timeCreated")
     val timeCreated: String,
 
-    @ColumnInfo(name = "timePayed")
-    val timePayed: String?,
-
     //ADDED BY
     @ColumnInfo(name = "addedByAppUserId")
     val addedByAppUserId: String,
@@ -88,7 +85,6 @@ fun PayoffEntity.asModel() =
         amount = amount.toBigDecimal(),
         currency = Currency.valueOf(currency),
         timeCreated = ZonedDateTime.parse(timeCreated),
-        timePayed = timePayed?.let { ZonedDateTime.parse(timePayed) },
         addedBy = AppUser(
             id = addedByAppUserId,
             loginName = addedByLoginName,

@@ -10,7 +10,6 @@ data class Payoff(
     val amount: BigDecimal,
     val currency: Currency,
     val timeCreated: ZonedDateTime,
-    val timePayed: ZonedDateTime?,
     val addedBy: AppUser,
     val paidFor: AppUser,
     val paidTo: AppUser,
