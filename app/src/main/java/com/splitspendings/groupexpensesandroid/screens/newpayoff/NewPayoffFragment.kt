@@ -8,6 +8,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.closeKeyboard
 import com.splitspendings.groupexpensesandroid.databinding.FragmentNewPayoffBinding
@@ -48,9 +49,8 @@ class NewPayoffFragment : Fragment() {
 
     private fun onNavigateToPayoff(payoffId: Long?) {
         payoffId?.let {
-            //TODO
-            /*findNavController()
-                .navigate(NewSpendingFragmentDirections.actionNewSpendingFragmentToSpendingFragment(spendingId))*/
+            findNavController()
+                .navigate(NewPayoffFragmentDirections.actionNewPayoffFragmentToPayoffFragment(payoffId))
             viewModel.onEventNavigateToPayoffComplete()
         }
     }
