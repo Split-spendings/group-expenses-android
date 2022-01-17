@@ -11,7 +11,9 @@ import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.model.Status
+import com.splitspendings.groupexpensesandroid.network.dto.NewPayoffDto
 import com.splitspendings.groupexpensesandroid.repository.BalanceRepository
+import com.splitspendings.groupexpensesandroid.repository.PayoffRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -36,6 +38,7 @@ class NewPayoffViewModel(
 ) : AndroidViewModel(app) {
 
     private val balanceRepository = BalanceRepository.getInstance()
+    private val payoffRepository = PayoffRepository.getInstance()
 
     val balance = balanceRepository.getBalance(balanceId)
 
@@ -79,9 +82,14 @@ class NewPayoffViewModel(
 
     private fun savePayoffAndNavigateToPayoff() {
         viewModelScope.launch {
-            _status.value = Status(ApiStatus.LOADING, null)
             try {
-                //_eventNavigateToPayoff.value = TODO
+                balance.value?.let {
+                    _status.value = Status(ApiStatus.LOADING, null)
+                    val newPayoff = NewPayoffDto(
+                        groupId = it.groupId,
+                    )
+                    _eventNavigateToPayoff.value = payoffRepository.savePayoff(newPayoff)
+                }
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
                 _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_save_new_payoff))

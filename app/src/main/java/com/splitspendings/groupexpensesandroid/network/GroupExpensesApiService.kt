@@ -9,7 +9,9 @@ import com.splitspendings.groupexpensesandroid.network.dto.GroupInviteCodeDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupPayoffsDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupSpendingsDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
+import com.splitspendings.groupexpensesandroid.network.dto.NewPayoffDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewSpendingDto
+import com.splitspendings.groupexpensesandroid.network.dto.PayoffDto
 import com.splitspendings.groupexpensesandroid.network.dto.SpendingDto
 import com.splitspendings.groupexpensesandroid.network.dto.SpendingShortDto
 import com.squareup.moshi.Moshi
@@ -80,6 +82,9 @@ interface GroupExpensesApiService {
 
     @DELETE("/api/payoffs/{payoffId}")
     suspend fun deletePayoff(@Path("payoffId") payoffId: Long)
+
+    @POST("/api/payoffs")
+    suspend fun createPayoff(@Body newPayoffDto: NewPayoffDto): PayoffDto
 }
 
 object GroupExpensesApi {

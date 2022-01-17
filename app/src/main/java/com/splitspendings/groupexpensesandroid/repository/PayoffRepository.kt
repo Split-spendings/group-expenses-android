@@ -5,6 +5,8 @@ import androidx.lifecycle.Transformations
 import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
 import com.splitspendings.groupexpensesandroid.database.entity.asModel
 import com.splitspendings.groupexpensesandroid.network.GroupExpensesApi
+import com.splitspendings.groupexpensesandroid.network.dto.NewPayoffDto
+import com.splitspendings.groupexpensesandroid.network.dto.asEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -32,11 +34,10 @@ class PayoffRepository(private val database: GroupExpensesDatabase) {
     fun getPayoff(payoffId: Long) = Transformations
         .map(database.payoffDao.getLive(payoffId)) { it.asModel() }
 
-    //TODO
-    /*suspend fun savePayoff(newSpending: NewSpendingDto): Long {
-        val spendingSavedOnServer = GroupExpensesApi.retrofitService.createSpending(newSpending)
-        return database.spendingDao.insert(spendingSavedOnServer.asEntity(newSpending.groupID))
-    }*/
+    suspend fun savePayoff(newPayoff: NewPayoffDto): Long {
+        val payoffSavedOnServer = GroupExpensesApi.retrofitService.createPayoff(newPayoff)
+        return database.payoffDao.insert(payoffSavedOnServer.asEntity(newPayoff.groupId))
+    }
 
     suspend fun deletePayoff(payoffId: Long) {
         withContext(Dispatchers.IO) {
