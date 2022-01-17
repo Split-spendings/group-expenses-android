@@ -84,7 +84,7 @@
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:text="@string/paid_for_label"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/edit_payoff_title_layout" />
+                    app:layout_constraintTop_toBottomOf="@id/paid_for_label" />
 
                 <Spinner
                     android:id="@+id/paid_to_picker"
