@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.auth.AppAuthHandler
 import com.splitspendings.groupexpensesandroid.auth.AuthException
 import com.splitspendings.groupexpensesandroid.auth.AuthStateManager
+import com.splitspendings.groupexpensesandroid.repository.CurrentAppUserRepository
 import kotlinx.coroutines.launch
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
@@ -32,6 +33,8 @@ class LoginViewModelFactory(
 class LoginViewModel(
     application: Application
 ) : AndroidViewModel(application) {
+
+    private val currentAppUserRepository = CurrentAppUserRepository.getInstance()
 
     private val authStateManager: AuthStateManager = AuthStateManager.getInstance()
     private val appAuthHandler: AppAuthHandler = AppAuthHandler.getInstance()
@@ -109,6 +112,7 @@ class LoginViewModel(
                     authStateManager.saveTokens(tokenResponse)
 
                     //TODO check if user exists on back-end, create new user if not
+                    currentAppUserRepository.refreshCurrentAppUser()
 
                     _eventNavigateToLoggedIn.value = true
                 }

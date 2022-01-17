@@ -5,12 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.splitspendings.groupexpensesandroid.database.dao.BalanceDao
+import com.splitspendings.groupexpensesandroid.database.dao.CurrentAppUserDao
 import com.splitspendings.groupexpensesandroid.database.dao.GroupDao
 import com.splitspendings.groupexpensesandroid.database.dao.GroupMemberDao
 import com.splitspendings.groupexpensesandroid.database.dao.PayoffDao
 import com.splitspendings.groupexpensesandroid.database.dao.ShareDao
 import com.splitspendings.groupexpensesandroid.database.dao.SpendingDao
 import com.splitspendings.groupexpensesandroid.database.entity.BalanceEntity
+import com.splitspendings.groupexpensesandroid.database.entity.CurrentAppUserEntity
 import com.splitspendings.groupexpensesandroid.database.entity.GroupEntity
 import com.splitspendings.groupexpensesandroid.database.entity.GroupMemberEntity
 import com.splitspendings.groupexpensesandroid.database.entity.PayoffEntity
@@ -24,7 +26,8 @@ import com.splitspendings.groupexpensesandroid.database.entity.SpendingEntity
         BalanceEntity::class,
         GroupMemberEntity::class,
         ShareEntity::class,
-        PayoffEntity::class
+        PayoffEntity::class,
+        CurrentAppUserEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -37,6 +40,7 @@ abstract class GroupExpensesDatabase : RoomDatabase() {
     abstract val groupMemberDao: GroupMemberDao
     abstract val shareDao: ShareDao
     abstract val payoffDao: PayoffDao
+    abstract val currentAppUserDao: CurrentAppUserDao
 
     companion object {
         @Volatile

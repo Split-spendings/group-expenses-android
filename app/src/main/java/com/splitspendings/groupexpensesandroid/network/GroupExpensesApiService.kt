@@ -2,6 +2,7 @@ package com.splitspendings.groupexpensesandroid.network
 
 import com.splitspendings.groupexpensesandroid.auth.AuthInterceptor
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
+import com.splitspendings.groupexpensesandroid.network.dto.AppUserDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupActiveMembersDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupBalancesDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupDto
@@ -88,6 +89,9 @@ interface GroupExpensesApiService {
 
     @POST("/api/payoffs")
     suspend fun createPayoff(@Body newPayoffDto: NewPayoffDto): PayoffDto
+
+    @GET("/api/users/current")
+    suspend fun profileShort(): AppUserDto
 }
 
 object GroupExpensesApi {
