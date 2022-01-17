@@ -75,6 +75,7 @@
     <string name="total_amount_label">Total:</string>
     <string name="split_equal_label">Equal split:</string>
     <string name="paid_for_label">Paid for:</string>
+    <string name="paid_to_label">Paid to:</string>
     <string name="blank_error">Cannot be blank</string>
     <string name="failed_save_new_group">Could not save group to server</string>
     <string name="failed_join_group">Could not join group</string>

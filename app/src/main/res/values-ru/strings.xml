@@ -91,4 +91,5 @@
     <string name="payoff_fragment_label">Расплата</string>
     <string name="delete_payoff_menu_item">Удалить расплату</string>
     <string name="delete_payoff_dialog_message">Удалить расплату?</string>
+    <string name="paid_to_label">Кому оплата:</string>
 </resources>

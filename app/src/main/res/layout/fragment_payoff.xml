@@ -72,9 +72,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_half"
-            android:text="@string/paid_by_label"
+            android:text="@string/paid_for_label"
             app:layout_constraintStart_toEndOf="@+id/payoff_icon"
             app:layout_constraintTop_toBottomOf="@id/payoff_added_by" />
+
+        <TextView
+            android:id="@+id/payoff_paid_to_label"
+            style="@style/SecondaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:text="@string/paid_to_label"
+            app:layout_constraintStart_toEndOf="@+id/payoff_icon"
+            app:layout_constraintTop_toBottomOf="@id/payoff_paid_by" />
 
         <TextView
             android:id="@+id/payoff_time_created"
@@ -116,6 +126,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/payoff_paid_by_label"
             app:layout_constraintTop_toTopOf="@id/payoff_paid_by_label"
+            tools:text="test@thesis.net" />
+
+        <TextView
+            android:id="@+id/payoff_paid_to"
+            style="@style/SecondaryText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:text="@{payoffViewModel.payoff.paidTo.loginName}"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/payoff_paid_by_label"
+            app:layout_constraintTop_toTopOf="@id/payoff_paid_to_label"
             tools:text="test@thesis.net" />
 
         <TextView
