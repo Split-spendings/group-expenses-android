@@ -44,17 +44,30 @@ class PayoffsListViewModel(
     val eventNavigateToPayoff: LiveData<Long>
         get() = _eventNavigateToPayoff
 
+    private val _eventNavigateToNewPayoff = MutableLiveData<Boolean>()
+    val eventNavigateToNewPayoff: LiveData<Boolean>
+        get() = _eventNavigateToNewPayoff
+
     private val _status = MutableLiveData<Status>()
     val status: LiveData<Status>
         get() = _status
 
     init {
         _eventNavigateToPayoff.value = null
+        _eventNavigateToNewPayoff.value = false
         _status.value = Status(ApiStatus.DONE, null)
     }
 
     fun onPayoffClicked(payoffId: Long) {
         _eventNavigateToPayoff.value = payoffId
+    }
+
+    fun onNewPayoff() {
+        _eventNavigateToNewPayoff.value = true
+    }
+
+    fun onEventNavigateToNewPayoffComplete() {
+        _eventNavigateToNewPayoff.value = false
     }
 
     fun onEventNavigateToPayoffComplete() {

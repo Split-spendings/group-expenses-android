@@ -134,6 +134,9 @@
         <argument
             android:name="balanceId"
             app:argType="long" />
+        <argument
+            android:name="groupId"
+            app:argType="long" />
         <action
             android:id="@+id/action_newPayoffFragment_to_payoffFragment"
             app:destination="@id/payoffFragment"
@@ -177,6 +180,10 @@
         <action
             android:id="@+id/action_payoffsListFragment_to_payoffFragment"
             app:destination="@id/payoffFragment" />
+        <action
+            android:id="@+id/action_payoffsListFragment_to_newPayoffFragment"
+            app:destination="@id/newPayoffFragment" >
+        </action>
     </fragment>
     <fragment
         android:id="@+id/payoffFragment"

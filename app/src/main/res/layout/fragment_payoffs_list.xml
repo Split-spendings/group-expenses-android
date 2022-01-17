@@ -11,67 +11,81 @@
             type="com.splitspendings.groupexpensesandroid.screens.payoffslist.PayoffsListViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/status_layout"
-            layout="@layout/status_with_loading_progress"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/group_avatar"
-            style="@style/GroupAvatarIcon"
-            android:layout_width="@dimen/size_avatar"
-            android:layout_height="@dimen/size_avatar"
-            android:layout_marginStart="@dimen/spacing_half"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/status_layout" />
-
-        <TextView
-            android:id="@+id/group_name"
-            style="@style/PrimaryText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/spacing_half"
-            android:text="@{payoffsListViewModel.group.name}"
-            app:layout_constraintBottom_toBottomOf="@+id/group_avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/group_avatar"
-            app:layout_constraintTop_toTopOf="@+id/group_avatar"
-            tools:text="Group name fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" />
-
-        <TextView
-            android:id="@+id/payoffs_label"
-            style="@style/ListHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/spacing_half"
-            android:text="@string/payoffs_label"
-            android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@+id/group_avatar" />
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/payoffs_label"
-            app:onRefreshListener="@{() -> payoffsListViewModel.onLoadPayoffs()}"
-            app:swipeLoadingProgress="@{payoffsListViewModel.status}">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/payoffs_list"
+            <include
+                android:id="@+id/status_layout"
+                layout="@layout/status_with_loading_progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:payoffsList="@{payoffsListViewModel.payoffs}" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <ImageView
+                android:id="@+id/group_avatar"
+                style="@style/GroupAvatarIcon"
+                android:layout_width="@dimen/size_avatar"
+                android:layout_height="@dimen/size_avatar"
+                android:layout_marginStart="@dimen/spacing_half"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/status_layout" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/group_name"
+                style="@style/PrimaryText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_half"
+                android:text="@{payoffsListViewModel.group.name}"
+                app:layout_constraintBottom_toBottomOf="@+id/group_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/group_avatar"
+                app:layout_constraintTop_toTopOf="@+id/group_avatar"
+                tools:text="Group name fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" />
+
+            <TextView
+                android:id="@+id/payoffs_label"
+                style="@style/ListHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/spacing_half"
+                android:text="@string/payoffs_label"
+                android:textAlignment="center"
+                app:layout_constraintTop_toBottomOf="@+id/group_avatar" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/payoffs_label"
+                app:onRefreshListener="@{() -> payoffsListViewModel.onLoadPayoffs()}"
+                app:swipeLoadingProgress="@{payoffsListViewModel.status}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/payoffs_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:payoffsList="@{payoffsListViewModel.payoffs}" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/spacing_normal"
+            android:onClick="@{() -> payoffsListViewModel.onNewPayoff()}"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

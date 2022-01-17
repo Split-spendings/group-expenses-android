@@ -51,7 +51,8 @@ class BalancesListFragment : Fragment() {
     private fun onNavigateToNewPayoff(balanceId: Long?) {
         balanceId?.let {
             findNavController()
-                .navigate(BalancesListFragmentDirections.actionBalancesListFragmentToNewPayoffFragment(it))
+                .navigate(BalancesListFragmentDirections
+                    .actionBalancesListFragmentToNewPayoffFragment(it, viewModel.groupId))
             viewModel.onEventNavigateToNewPayoffComplete()
         }
     }

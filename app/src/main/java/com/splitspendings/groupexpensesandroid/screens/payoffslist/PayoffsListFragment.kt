@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.databinding.FragmentPayoffsListBinding
 
@@ -36,6 +37,7 @@ class PayoffsListFragment : Fragment() {
 
         viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
         viewModel.eventNavigateToPayoff.observe(viewLifecycleOwner, ::onNavigateToPayoff)
+        viewModel.eventNavigateToNewPayoff.observe(viewLifecycleOwner, ::onNavigateToNewPayoff)
 
         return binding.root
     }
@@ -47,10 +49,17 @@ class PayoffsListFragment : Fragment() {
 
     private fun onNavigateToPayoff(payoffId: Long?) {
         payoffId?.let {
-            //TODO
-            /*findNavController()
-                .navigate(SpendingFragmentDirections.actionSpendingFragmentToGroupFragment(it))*/
+            findNavController()
+                .navigate(PayoffsListFragmentDirections.actionPayoffsListFragmentToPayoffFragment(it))
             viewModel.onEventNavigateToPayoffComplete()
+        }
+    }
+
+    private fun onNavigateToNewPayoff(navigateToNewPayoff: Boolean) {
+        if(navigateToNewPayoff) {
+            findNavController()
+                .navigate(PayoffsListFragmentDirections.actionPayoffsListFragmentToNewPayoffFragment(Long.MIN_VALUE, viewModel.groupId))
+            viewModel.onEventNavigateToNewPayoffComplete()
         }
     }
 }

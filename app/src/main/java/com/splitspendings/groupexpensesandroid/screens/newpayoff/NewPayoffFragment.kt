@@ -23,6 +23,7 @@ class NewPayoffFragment : Fragment() {
 
         val args = NewPayoffFragmentArgs.fromBundle(requireArguments())
         val balanceId = args.balanceId
+        val groupId = args.groupId
 
         val application = requireNotNull(activity).application
 
