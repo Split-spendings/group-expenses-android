@@ -117,7 +117,7 @@ class LoginViewModel(
                     _eventNavigateToLoggedIn.value = true
                 }
 
-            } catch (ex: AuthException) {
+            } catch (ex: Exception) {
                 Timber.e(ex)
             }
         }
