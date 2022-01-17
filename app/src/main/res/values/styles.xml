@@ -67,6 +67,11 @@
         <item name="android:tint">?attr/colorOnBackground</item>
     </style>
 
+    <style name="ArrowRightIcon">
+        <item name="android:src">@drawable/ic_baseline_arrow_forward_24</item>
+        <item name="android:tint">?attr/colorSecondary</item>
+    </style>
+
     <style name="PrimaryText">
         <item name="android:textColor">?attr/colorOnBackground</item>
     </style>

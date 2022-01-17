@@ -27,7 +27,7 @@
             android:layout_width="@dimen/size_avatar_small"
             android:layout_height="@dimen/size_avatar_small"
             android:layout_marginStart="@dimen/spacing_half"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/payoff_paid_for_to_container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,8 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_half"
             android:text="@{payoff.currency.toString()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/forward_icon"
+            app:layout_constraintBottom_toTopOf="@+id/payoff_paid_for_to_container"
+            app:layout_constraintEnd_toStartOf="@+id/forward_icon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="USD" />
 
@@ -100,15 +100,64 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_half"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/payoff_paid_for_to_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/payoff_paid_for_to_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_half"
+            android:layout_marginEnd="@dimen/spacing_half"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/payoff_added_by">
+
+            <TextView
+                android:id="@+id/payoff_paid_for"
+                style="@style/PrimaryText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_half"
+                android:text="@{payoff.paidFor.loginName}"
+                android:textAlignment="textEnd"
+                app:layout_anchor="@+id/payoff_paid_to"
+                app:layout_anchorGravity="end|center"
+                app:layout_constraintEnd_toStartOf="@+id/arrow_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="test@thesis.net" />
+
+            <ImageView
+                android:id="@+id/arrow_icon"
+                style="@style/ArrowRightIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/payoff_paid_to"
+                style="@style/PrimaryText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_half"
+                android:text="@{payoff.paidTo.loginName}"
+                android:textAlignment="textStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/arrow_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="test@thesis.net" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             style="@style/Divider"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/spacing_half"
-            app:layout_constraintTop_toBottomOf="@id/payoff_added_by" />
+            app:layout_constraintTop_toBottomOf="@id/payoff_paid_for_to_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
