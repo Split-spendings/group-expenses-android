@@ -130,7 +130,7 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         withContext(Dispatchers.IO) {
             val groupPayoffs = GroupExpensesApi.retrofitService.groupPayoffs(groupId)
             database.payoffDao.deleteByGroupId(groupId)
-            database.payoffDao.insertAll(groupPayoffs.payoffs.asEntity(groupId))
+            database.payoffDao.insertAll(groupPayoffs.asEntity(groupId))
         }
     }
 }
