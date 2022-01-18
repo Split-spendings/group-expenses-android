@@ -73,7 +73,7 @@ class NewPayoffFragment : Fragment() {
     }
 
     private fun setUpTotalAmount() {
-        binding.totalAmount.apply {
+        binding.amount.apply {
             doAfterTextChanged { viewModel.onTotalAmountChanged(getNumericValueBigDecimal()) }
             setLocale(Locale.getDefault())
             setText(BigDecimal.ZERO.toString())
