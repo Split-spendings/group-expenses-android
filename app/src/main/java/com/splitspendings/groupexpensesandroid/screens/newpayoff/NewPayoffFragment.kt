@@ -90,7 +90,7 @@ class NewPayoffFragment : Fragment() {
                 newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 adapter = newAdapter
             }
-            onItemSelectedListener = NewPayoffFragment.CurrencyPicker(viewModel)
+            onItemSelectedListener = CurrencyPicker(viewModel)
         }
     }
 
@@ -109,7 +109,7 @@ class NewPayoffFragment : Fragment() {
                 newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 adapter = newAdapter
             }
-            onItemSelectedListener = NewPayoffFragment.PaidForPicker(viewModel, groupMembers)
+            onItemSelectedListener = PaidForPicker(viewModel, groupMembers)
             visibility = View.VISIBLE
         }
     }
@@ -129,7 +129,7 @@ class NewPayoffFragment : Fragment() {
                 newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 adapter = newAdapter
             }
-            onItemSelectedListener = NewPayoffFragment.PaidToPicker(viewModel, groupMembers)
+            onItemSelectedListener = PaidToPicker(viewModel, groupMembers)
             visibility = View.VISIBLE
         }
     }

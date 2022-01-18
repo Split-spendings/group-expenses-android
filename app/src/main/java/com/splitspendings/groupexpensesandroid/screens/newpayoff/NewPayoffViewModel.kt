@@ -16,6 +16,7 @@ import com.splitspendings.groupexpensesandroid.model.GroupMember
 import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.network.dto.NewPayoffDto
 import com.splitspendings.groupexpensesandroid.repository.BalanceRepository
+import com.splitspendings.groupexpensesandroid.repository.CurrentAppUserRepository
 import com.splitspendings.groupexpensesandroid.repository.GroupRepository
 import com.splitspendings.groupexpensesandroid.repository.PayoffRepository
 import kotlinx.coroutines.delay
@@ -47,6 +48,7 @@ class NewPayoffViewModel(
 
     private val groupRepository = GroupRepository.getInstance()
     private val balanceRepository = BalanceRepository.getInstance()
+    private val currentAppUserRepository = CurrentAppUserRepository.getInstance()
     private val payoffRepository = PayoffRepository.getInstance()
 
     val groupMembersPaidFor = groupRepository.getGroupMembers(groupId)
@@ -70,12 +72,6 @@ class NewPayoffViewModel(
     val paidTo = MutableLiveData<GroupMember>()
     val amount = MutableLiveData<BigDecimal>()
     val currency = MutableLiveData<Currency>()
-
-    val submitButtonEnabled = Transformations.map(title) {
-        it?.let {
-            it.isNotBlank() && it.length <= MAX_PAYOFF_TITLE_SIZE
-        }
-    }
 
     val payoffTitleInputError = Transformations.map(title) {
         it?.let {
