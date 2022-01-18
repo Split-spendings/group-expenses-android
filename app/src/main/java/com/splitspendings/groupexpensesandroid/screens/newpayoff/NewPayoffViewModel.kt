@@ -47,13 +47,11 @@ class NewPayoffViewModel(
 ) : AndroidViewModel(app) {
 
     private val groupRepository = GroupRepository.getInstance()
-    private val balanceRepository = BalanceRepository.getInstance()
-
     private val payoffRepository = PayoffRepository.getInstance()
+    private val balanceRepository = BalanceRepository.getInstance()
     private val currentAppUserRepository = CurrentAppUserRepository.getInstance()
 
     val groupMembers = groupRepository.getGroupMembers(groupId)
-    val groupMembersPaidTo = groupRepository.getGroupMembers(groupId)
 
     val currentUser = currentAppUserRepository.currentAppUser
     val balance = balanceRepository.getBalance(balanceId)
