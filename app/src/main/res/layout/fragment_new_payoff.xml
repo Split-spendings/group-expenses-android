@@ -139,6 +139,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:payoffAmount="@{newPayoffViewModel.amount}"
+            app:paidFor="@{newPayoffViewModel.paidFor}"
+            app:paidTo="@{newPayoffViewModel.paidTo}"
             app:payoffTitle="@{newPayoffViewModel.title}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

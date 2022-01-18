@@ -4,6 +4,7 @@ import android.widget.Button
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
+import com.splitspendings.groupexpensesandroid.model.GroupMember
 import com.splitspendings.groupexpensesandroid.model.Payoff
 import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.screens.newpayoff.MAX_PAYOFF_TITLE_SIZE
@@ -16,17 +17,20 @@ fun RecyclerView.bindPayoffsList(sharesList: List<Payoff>?) {
     adapter.submitList(sharesList)
 }
 
-@BindingAdapter("payoffTitle", "payoffAmount", "buttonWhileSubmitLoading")
+@BindingAdapter("payoffTitle", "payoffAmount", "buttonWhileSubmitLoading", "paidFor", "paidTo")
 fun Button.bindSubmitNewPayoffButton(
     payoffTitle: String?,
     payoffAmount: BigDecimal?,
-    submitStatus: Status?
+    submitStatus: Status?,
+    paidFor: GroupMember?,
+    paidTo: GroupMember?
 ) {
     isEnabled = !(
             payoffTitle.isNullOrBlank() ||
                     payoffTitle.length > MAX_PAYOFF_TITLE_SIZE ||
                     payoffAmount == null ||
                     payoffAmount <= BigDecimal.ZERO ||
-                    submitStatus?.apiStatus == ApiStatus.LOADING
+                    submitStatus?.apiStatus == ApiStatus.LOADING ||
+                    paidFor?.appUser?.id == paidTo?.appUser?.id
             )
 }

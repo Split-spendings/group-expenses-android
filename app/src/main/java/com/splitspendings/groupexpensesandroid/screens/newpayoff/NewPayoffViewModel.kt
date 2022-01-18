@@ -51,6 +51,7 @@ class NewPayoffViewModel(
     private val currentAppUserRepository = CurrentAppUserRepository.getInstance()
     private val payoffRepository = PayoffRepository.getInstance()
 
+    val currentUser = currentAppUserRepository.currentAppUser
     val groupMembersPaidFor = groupRepository.getGroupMembers(groupId)
     val groupMembersPaidTo = groupRepository.getGroupMembers(groupId)
     val balance = balanceRepository.getBalance(balanceId)
