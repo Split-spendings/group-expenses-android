@@ -48,12 +48,14 @@ class NewPayoffViewModel(
 
     private val groupRepository = GroupRepository.getInstance()
     private val balanceRepository = BalanceRepository.getInstance()
-    private val currentAppUserRepository = CurrentAppUserRepository.getInstance()
+
     private val payoffRepository = PayoffRepository.getInstance()
+    private val currentAppUserRepository = CurrentAppUserRepository.getInstance()
+
+    val groupMembers = groupRepository.getGroupMembers(groupId)
+    val groupMembersPaidTo = groupRepository.getGroupMembers(groupId)
 
     val currentUser = currentAppUserRepository.currentAppUser
-    val groupMembersPaidFor = groupRepository.getGroupMembers(groupId)
-    val groupMembersPaidTo = groupRepository.getGroupMembers(groupId)
     val balance = balanceRepository.getBalance(balanceId)
 
     private val _eventNavigateToPayoff = MutableLiveData<Long>()

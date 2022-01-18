@@ -44,8 +44,10 @@ class NewPayoffFragment : Fragment() {
         binding.editPayoffTitle.doAfterTextChanged { viewModel.title.value = it.toString() }
 
         viewModel.eventNavigateToPayoff.observe(viewLifecycleOwner, ::onNavigateToPayoff)
-        viewModel.groupMembersPaidFor.observe(viewLifecycleOwner, ::setUpPaidFor)
-        viewModel.groupMembersPaidTo.observe(viewLifecycleOwner, ::setUpPaidTo)
+        viewModel.groupMembers.observe(viewLifecycleOwner, {
+            setUpPaidFor(it)
+            setUpPaidTo(it)
+        })
         viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
 
         setUpTotalAmount()
