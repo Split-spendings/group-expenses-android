@@ -124,24 +124,28 @@ class NewPayoffViewModel(
     private fun savePayoffAndNavigateToPayoff() {
         viewModelScope.launch {
             try {
-                //TODO fill with proper data
                 val title = title.value ?: return@launch
-                balance.value?.let {
-                    _status.value = Status(ApiStatus.LOADING, null)
-                    val newPayoff = NewPayoffDto(
-                        groupId = it.groupId,
-                        title = title,
-                        amount = "1",
-                        currency = Currency.PLN,
-                        timePayed = null,
-                        paidForAppUser = "placeholder paid for",
-                        paidToAppUser = "placeholder paid to"
-                    )
-                    _eventNavigateToPayoff.value = payoffRepository.savePayoff(newPayoff)
-                }
+                val amount = amount.value ?: return@launch
+                val paidFor = paidFor.value ?: return@launch
+                val paidTo = paidTo.value ?: return@launch
+                val currency = currency.value ?: return@launch
+
+                _status.value = Status(ApiStatus.LOADING, null)
+                _submitStatus.value = Status(ApiStatus.LOADING, null)
+                val newPayoff = NewPayoffDto(
+                    groupId = groupId,
+                    title = title,
+                    amount = amount.toString(),
+                    currency = currency,
+                    timePayed = null,
+                    paidForAppUser = paidFor.appUser.id,
+                    paidToAppUser = paidTo.appUser.id
+                )
+                _eventNavigateToPayoff.value = payoffRepository.savePayoff(newPayoff)
             } catch (e: Exception) {
                 Timber.d("Failure: ${e.message}")
                 _status.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_save_new_payoff))
+                _submitStatus.value = Status(ApiStatus.ERROR, app.getString(R.string.failed_save_new_payoff))
             }
         }
     }
