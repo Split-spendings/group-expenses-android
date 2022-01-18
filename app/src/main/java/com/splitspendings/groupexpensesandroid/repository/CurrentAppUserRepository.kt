@@ -33,6 +33,8 @@ class CurrentAppUserRepository(private val database: GroupExpensesDatabase) {
     val currentAppUser = Transformations
         .map(database.currentAppUserDao.getAllLive()) { it[0].asModel() }
 
+    suspend fun currentAppUser() = database.currentAppUserDao.getAll()[0].asModel()
+
     suspend fun refreshCurrentAppUser() {
         withContext(Dispatchers.IO) {
             val currentAppUser = GroupExpensesApi.retrofitService.profileShort()

@@ -26,7 +26,7 @@ import java.math.BigDecimal
 
 class NewPayoffViewModelFactory(
     private val groupId: Long,
-    private val balanceId: Long,
+    private val balanceId: Long?,
     private val application: Application
 ) : ViewModelProvider.Factory {
 
@@ -42,7 +42,7 @@ const val MAX_PAYOFF_TITLE_SIZE = 100
 
 class NewPayoffViewModel(
     val groupId: Long,
-    balanceId: Long,
+    balanceId: Long?,
     val app: Application
 ) : AndroidViewModel(app) {
 
@@ -52,9 +52,6 @@ class NewPayoffViewModel(
     private val currentAppUserRepository = CurrentAppUserRepository.getInstance()
 
     val groupMembers = groupRepository.getGroupMembers(groupId)
-
-    val currentUser = currentAppUserRepository.currentAppUser
-    val balance = balanceRepository.getBalance(balanceId)
 
     private val _eventNavigateToPayoff = MutableLiveData<Long>()
     val eventNavigateToPayoff: LiveData<Long>
@@ -74,6 +71,10 @@ class NewPayoffViewModel(
     val amount = MutableLiveData<BigDecimal>()
     val currency = MutableLiveData<Currency>()
 
+    val paidForDefaultIndex = MutableLiveData<Int>()
+    val paidToDefaultIndex = MutableLiveData<Int>()
+    val amountDefault = MutableLiveData<BigDecimal>()
+
     val payoffTitleInputError = Transformations.map(title) {
         it?.let {
             when {
@@ -87,6 +88,16 @@ class NewPayoffViewModel(
         _eventNavigateToPayoff.value = null
         _status.value = Status(ApiStatus.DONE, null)
         _submitStatus.value = Status(ApiStatus.DONE, null)
+        balanceId?.let { initDataFromBalance(it) }
+    }
+
+    private fun initDataFromBalance(balanceId: Long) {
+        viewModelScope.launch {
+            val balance = balanceRepository.getBalance(balanceId) ?: return@launch
+            val paidForAppUser = currentAppUserRepository.currentAppUser()
+            val paidToAppUser = balance.withAppUser
+            amountDefault.value = balance.balance.negate()
+        }
     }
 
     fun onTotalAmountChanged(newTotalAmount: BigDecimal) {

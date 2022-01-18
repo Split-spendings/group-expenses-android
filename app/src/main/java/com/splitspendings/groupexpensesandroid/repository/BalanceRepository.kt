@@ -26,6 +26,8 @@ class BalanceRepository(private val database: GroupExpensesDatabase) {
         }
     }
 
-    fun getBalance(id: Long) = Transformations
+    fun getBalanceLive(id: Long) = Transformations
         .map(database.balanceDao.getLive(id)) { it.asModel() }
+
+    suspend fun getBalance(id: Long) = database.balanceDao.get(id)?.asModel()
 }
