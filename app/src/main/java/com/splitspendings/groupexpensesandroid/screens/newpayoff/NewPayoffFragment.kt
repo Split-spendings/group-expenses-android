@@ -51,7 +51,7 @@ class NewPayoffFragment : Fragment() {
         viewModel.status.observe(viewLifecycleOwner, { it?.let { binding.statusLayout.status = it } })
 
         viewModel.paidForDefaultIndex.observe(viewLifecycleOwner, { it?.let { binding.paidForPicker.setSelection(it) } })
-        viewModel.paidToDefaultIndex.observe(viewLifecycleOwner, { it?.let { binding.paidForPicker.setSelection(it) } })
+        viewModel.paidToDefaultIndex.observe(viewLifecycleOwner, { it?.let { binding.paidToPicker.setSelection(it) } })
         viewModel.amountDefault.observe(viewLifecycleOwner, { it?.let { binding.amount.setText(it.toString()) } })
 
         setUpTotalAmount()

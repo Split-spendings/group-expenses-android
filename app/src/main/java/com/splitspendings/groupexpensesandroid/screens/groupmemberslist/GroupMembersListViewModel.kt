@@ -39,7 +39,7 @@ class GroupMembersListViewModel(
     private val groupRepository = GroupRepository.getInstance()
 
     val group = groupRepository.getGroup(groupId)
-    val groupMembers = groupRepository.getGroupMembers(groupId)
+    val groupMembers = groupRepository.getGroupMembersLive(groupId)
 
     private val _eventNavigateToInviteToGroup = MutableLiveData<Boolean>()
     val eventNavigateToInviteToGroup: LiveData<Boolean>

@@ -102,8 +102,10 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
         }
     }
 
-    fun getGroupMembers(groupId: Long) = Transformations
+    fun getGroupMembersLive(groupId: Long) = Transformations
         .map(database.groupMemberDao.getByGroupIdLive(groupId)) { it.asModel() }
+
+    suspend fun getGroupMembers(groupId: Long) = database.groupMemberDao.getByGroupId(groupId).asModel()
 
     suspend fun refreshGroupMembers(groupId: Long) {
         withContext(Dispatchers.IO) {

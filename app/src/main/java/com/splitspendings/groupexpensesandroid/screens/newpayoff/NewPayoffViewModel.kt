@@ -12,6 +12,7 @@ import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.common.Currency
 import com.splitspendings.groupexpensesandroid.common.SUCCESS_STATUS_MILLISECONDS
+import com.splitspendings.groupexpensesandroid.model.AppUser
 import com.splitspendings.groupexpensesandroid.model.GroupMember
 import com.splitspendings.groupexpensesandroid.model.Status
 import com.splitspendings.groupexpensesandroid.network.dto.NewPayoffDto
@@ -51,7 +52,7 @@ class NewPayoffViewModel(
     private val balanceRepository = BalanceRepository.getInstance()
     private val currentAppUserRepository = CurrentAppUserRepository.getInstance()
 
-    val groupMembers = groupRepository.getGroupMembers(groupId)
+    val groupMembers = MutableLiveData<List<GroupMember>>()
 
     private val _eventNavigateToPayoff = MutableLiveData<Long>()
     val eventNavigateToPayoff: LiveData<Long>
@@ -71,6 +72,9 @@ class NewPayoffViewModel(
     val amount = MutableLiveData<BigDecimal>()
     val currency = MutableLiveData<Currency>()
 
+    var paidForDefault: AppUser? = null
+    var paidToDefault: AppUser? = null
+
     val paidForDefaultIndex = MutableLiveData<Int>()
     val paidToDefaultIndex = MutableLiveData<Int>()
     val amountDefault = MutableLiveData<BigDecimal>()
@@ -88,16 +92,34 @@ class NewPayoffViewModel(
         _eventNavigateToPayoff.value = null
         _status.value = Status(ApiStatus.DONE, null)
         _submitStatus.value = Status(ApiStatus.DONE, null)
-        balanceId?.let { initDataFromBalance(it) }
+        balanceId?.let { initDataFromBalance(it) } ?: run { initGroupMembers() }
+    }
+
+    private fun initGroupMembers() {
+        viewModelScope.launch {
+            groupMembers.value = groupRepository.getGroupMembers(groupId)
+        }
     }
 
     private fun initDataFromBalance(balanceId: Long) {
         viewModelScope.launch {
+            groupMembers.value = groupRepository.getGroupMembers(groupId)
             val balance = balanceRepository.getBalance(balanceId) ?: return@launch
             val paidForAppUser = currentAppUserRepository.currentAppUser()
             val paidToAppUser = balance.withAppUser
+            paidToDefault = paidForAppUser
+            paidToDefault = paidToAppUser
+            paidForDefaultIndex.value = getGroupMemberIndex(paidForAppUser)
+            paidToDefaultIndex.value = getGroupMemberIndex(paidToAppUser)
             amountDefault.value = balance.balance.negate()
         }
+    }
+
+    private fun getGroupMemberIndex(groupMember: AppUser): Int? {
+        val index = groupMembers.value?.let { groupMembers ->
+            groupMembers.indexOfFirst { it.appUser.id == groupMember.id }
+        }
+        return if (index != -1) index else null
     }
 
     fun onTotalAmountChanged(newTotalAmount: BigDecimal) {
@@ -117,6 +139,15 @@ class NewPayoffViewModel(
             _status.value = Status(ApiStatus.LOADING, null)
             try {
                 groupRepository.refreshGroupMembers(groupId)
+
+                groupMembers.value = groupRepository.getGroupMembers(groupId)
+
+                paidForDefault?.let {
+                    paidForDefaultIndex.value = getGroupMemberIndex(it)
+                }
+                paidToDefault?.let {
+                    paidToDefaultIndex.value = getGroupMemberIndex(it)
+                }
 
                 _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_group_members_upload))
                 delay(SUCCESS_STATUS_MILLISECONDS)

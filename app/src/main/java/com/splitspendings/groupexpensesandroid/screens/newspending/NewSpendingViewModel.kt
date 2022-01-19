@@ -48,7 +48,7 @@ class NewSpendingViewModel(
     private val groupRepository = GroupRepository.getInstance()
     private val spendingRepository = SpendingRepository.getInstance()
 
-    val groupMembers = groupRepository.getGroupMembers(groupId)
+    val groupMembers = groupRepository.getGroupMembersLive(groupId)
 
     private val _eventNavigateToSpending = MutableLiveData<Long>()
     val eventNavigateToSpending: LiveData<Long>
