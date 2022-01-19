@@ -78,6 +78,7 @@ class NewPayoffViewModel(
     val paidForDefaultIndex = MutableLiveData<Int>()
     val paidToDefaultIndex = MutableLiveData<Int>()
     val amountDefault = MutableLiveData<BigDecimal>()
+    val currencyDefaultIndex = MutableLiveData<Int>()
 
     val payoffTitleInputError = Transformations.map(title) {
         it?.let {
@@ -112,6 +113,7 @@ class NewPayoffViewModel(
             paidForDefaultIndex.value = getGroupMemberIndex(paidForAppUser)
             paidToDefaultIndex.value = getGroupMemberIndex(paidToAppUser)
             amountDefault.value = balance.balance.negate()
+            currencyDefaultIndex.value = Currency.values().indexOf(balance.currency)
         }
     }
 
