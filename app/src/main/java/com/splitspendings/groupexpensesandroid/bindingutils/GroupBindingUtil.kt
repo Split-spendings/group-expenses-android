@@ -1,5 +1,7 @@
 package com.splitspendings.groupexpensesandroid.bindingutils
 
+import android.view.View
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
@@ -38,4 +40,8 @@ fun RecyclerView.bindGroupsListAndFilter(groupsList: List<Group>?, groupsFilter:
     adapter.addHeaderAndSubmitList(groupsList, groupsFilter)
 }
 
+@BindingAdapter("currentGroup")
+fun ImageView.bindGroupsListItemForwardIcon(currentGroup: Boolean) {
+    visibility = if (currentGroup) View.VISIBLE else View.INVISIBLE
+}
 
