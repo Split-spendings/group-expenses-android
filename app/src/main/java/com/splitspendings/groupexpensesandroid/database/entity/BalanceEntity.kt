@@ -10,8 +10,8 @@ import com.splitspendings.groupexpensesandroid.model.Balance
 @Entity(tableName = "balance")
 data class BalanceEntity(
 
-    @PrimaryKey
-    var id: Long,
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0,
 
     @ColumnInfo(name = "balance")
     val balance: String,

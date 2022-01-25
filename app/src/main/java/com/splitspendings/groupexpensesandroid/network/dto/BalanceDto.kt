@@ -12,7 +12,6 @@ data class BalanceDto(
 
 fun BalanceDto.asEntity(groupId: Long): BalanceEntity {
     return BalanceEntity(
-        id = id,
         balance = balance,
         currency = currency.toString(),
         groupId = groupId,
