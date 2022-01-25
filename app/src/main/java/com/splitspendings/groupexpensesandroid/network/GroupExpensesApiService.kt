@@ -90,8 +90,8 @@ interface GroupExpensesApiService {
     @POST("/api/payoffs")
     suspend fun createPayoff(@Body newPayoffDto: NewPayoffDto): PayoffDto
 
-    @GET("/api/users/current")
-    suspend fun profileShort(): AppUserDto
+    @GET("/api/users/synchronise")
+    suspend fun synchroniseAppUser(): AppUserDto
 }
 
 object GroupExpensesApi {

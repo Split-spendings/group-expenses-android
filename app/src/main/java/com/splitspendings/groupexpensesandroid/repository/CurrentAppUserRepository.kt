@@ -37,7 +37,7 @@ class CurrentAppUserRepository(private val database: GroupExpensesDatabase) {
 
     suspend fun refreshCurrentAppUser() {
         withContext(Dispatchers.IO) {
-            val currentAppUser = GroupExpensesApi.retrofitService.profileShort()
+            val currentAppUser = GroupExpensesApi.retrofitService.synchroniseAppUser()
             if (database.currentAppUserDao.get(currentAppUser.id) == null) {
                 database.clearAllTables()
             } else {

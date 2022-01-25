@@ -111,7 +111,6 @@ class LoginViewModel(
                     Timber.d("accessToken: ${tokenResponse.accessToken}")
                     authStateManager.saveTokens(tokenResponse)
 
-                    //TODO check if user exists on back-end, create new user if not
                     currentAppUserRepository.refreshCurrentAppUser()
 
                     _eventNavigateToLoggedIn.value = true
