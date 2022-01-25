@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.splitspendings.groupexpensesandroid.R
 import com.splitspendings.groupexpensesandroid.common.ApiStatus
 import com.splitspendings.groupexpensesandroid.common.Currency
+import com.splitspendings.groupexpensesandroid.common.GroupMembersFilter
 import com.splitspendings.groupexpensesandroid.common.SUCCESS_STATUS_MILLISECONDS
 import com.splitspendings.groupexpensesandroid.model.GroupMember
 import com.splitspendings.groupexpensesandroid.model.Status
@@ -138,7 +139,7 @@ class NewSpendingViewModel(
         viewModelScope.launch {
             _status.value = Status(ApiStatus.LOADING, null)
             try {
-                groupRepository.refreshGroupMembers(groupId)
+                groupRepository.refreshGroupMembers(groupId, GroupMembersFilter.ALL)
 
                 _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_group_members_upload))
                 delay(SUCCESS_STATUS_MILLISECONDS)

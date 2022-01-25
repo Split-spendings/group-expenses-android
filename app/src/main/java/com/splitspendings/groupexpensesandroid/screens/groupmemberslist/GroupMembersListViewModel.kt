@@ -69,6 +69,7 @@ class GroupMembersListViewModel(
 
     fun onUpdateFilter(filter: GroupMembersFilter) {
         _filter.value = filter
+        onLoadGroupMembers()
     }
 
     fun onLoadGroupMembers() {
@@ -76,7 +77,7 @@ class GroupMembersListViewModel(
             try {
                 _filter.value?.let {
                     _status.value = Status(ApiStatus.LOADING, null)
-                    groupRepository.refreshGroupMembers(groupId)
+                    groupRepository.refreshGroupMembers(groupId, it)
 
                     _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_group_members_upload))
                     delay(SUCCESS_STATUS_MILLISECONDS)

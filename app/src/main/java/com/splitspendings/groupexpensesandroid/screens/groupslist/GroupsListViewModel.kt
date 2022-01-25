@@ -102,7 +102,7 @@ class GroupsListViewModel(
             try {
                 _filter.value?.let {
                     _status.value = Status(ApiStatus.LOADING, null)
-                    groupsRepository.refreshGroups(_filter.value!!)
+                    groupsRepository.refreshGroups(it)
 
                     _status.value = Status(ApiStatus.SUCCESS, app.getString(R.string.successful_groups_upload))
                     delay(SUCCESS_STATUS_MILLISECONDS)

@@ -3,6 +3,7 @@ package com.splitspendings.groupexpensesandroid.repository
 import android.content.Context
 import androidx.lifecycle.Transformations
 import com.splitspendings.groupexpensesandroid.common.Currency
+import com.splitspendings.groupexpensesandroid.common.GroupMembersFilter
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.common.InviteOption
 import com.splitspendings.groupexpensesandroid.database.GroupExpensesDatabase
@@ -107,10 +108,14 @@ class GroupRepository(private val database: GroupExpensesDatabase) {
 
     suspend fun getGroupMembers(groupId: Long) = database.groupMemberDao.getByGroupId(groupId).asModel()
 
-    suspend fun refreshGroupMembers(groupId: Long) {
+    suspend fun refreshGroupMembers(groupId: Long, filter: GroupMembersFilter) {
         withContext(Dispatchers.IO) {
-            val groupMembers = GroupExpensesApi.retrofitService.groupActiveMembers(groupId)
-            database.groupMemberDao.deleteByGroupId(groupId)
+            val groupMembers = GroupExpensesApi.retrofitService.getFilteredGroupMembers(groupId, filter)
+            when (filter) {
+                GroupMembersFilter.ALL -> database.groupMemberDao.deleteByGroupId(groupId)
+                GroupMembersFilter.CURRENT -> database.groupMemberDao.deleteByGroupIdAndActive(groupId, true)
+                GroupMembersFilter.FORMER -> database.groupMemberDao.deleteByGroupIdAndActive(groupId, false)
+            }
             database.groupMemberDao.insertAll(groupMembers.members.asEntity(groupId))
         }
     }

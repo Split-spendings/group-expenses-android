@@ -1,12 +1,13 @@
 package com.splitspendings.groupexpensesandroid.network
 
 import com.splitspendings.groupexpensesandroid.auth.AuthInterceptor
+import com.splitspendings.groupexpensesandroid.common.GroupMembersFilter
 import com.splitspendings.groupexpensesandroid.common.GroupsFilter
 import com.splitspendings.groupexpensesandroid.network.dto.AppUserDto
-import com.splitspendings.groupexpensesandroid.network.dto.GroupActiveMembersDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupBalancesDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupInviteCodeDto
+import com.splitspendings.groupexpensesandroid.network.dto.GroupMembersDto
 import com.splitspendings.groupexpensesandroid.network.dto.GroupSpendingsDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewGroupDto
 import com.splitspendings.groupexpensesandroid.network.dto.NewPayoffDto
@@ -68,8 +69,8 @@ interface GroupExpensesApiService {
     @POST("/api/spendings")
     suspend fun createSpending(@Body newSpending: NewSpendingDto): SpendingShortDto
 
-    @GET("/api/groups/{groupId}/members")
-    suspend fun groupActiveMembers(@Path("groupId") groupId: Long): GroupActiveMembersDto
+    @GET("/api/groups/{groupId}/members/filter/{filter}")
+    suspend fun getFilteredGroupMembers(@Path("groupId") groupId: Long, @Path("filter") filter: GroupMembersFilter): GroupMembersDto
 
     @PATCH("/api/groups/{groupId}/leave")
     suspend fun leaveGroup(@Path("groupId") groupId: Long)

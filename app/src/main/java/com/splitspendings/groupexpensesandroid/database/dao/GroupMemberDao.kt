@@ -43,6 +43,9 @@ interface GroupMemberDao {
     @Query("DELETE FROM group_member where groupId = :groupId")
     suspend fun deleteByGroupId(groupId: Long)
 
+    @Query("DELETE FROM group_member where groupId = :groupId and active = :active")
+    suspend fun deleteByGroupIdAndActive(groupId: Long, active: Boolean)
+
     @Query("SELECT * FROM group_member where groupId = :groupId")
     suspend fun getByGroupId(groupId: Long): List<GroupMemberEntity>
 }
