@@ -25,6 +25,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 private const val BASE_URL = "https://split-expenses-back.herokuapp.com"
@@ -90,7 +91,7 @@ interface GroupExpensesApiService {
     @POST("/api/payoffs")
     suspend fun createPayoff(@Body newPayoffDto: NewPayoffDto): PayoffDto
 
-    @GET("/api/users/synchronise")
+    @PUT("/api/users/synchronise")
     suspend fun synchroniseAppUser(): AppUserDto
 }
 
