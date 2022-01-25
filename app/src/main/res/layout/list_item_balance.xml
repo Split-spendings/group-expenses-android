@@ -48,7 +48,6 @@
             android:layout_marginEnd="@dimen/spacing_half"
             android:onClick="@{() -> clickListener.onClick(balance)}"
             android:text="@string/payoff_button"
-            app:balancePayoffButton="@{balance}"
             app:icon="@drawable/ic_baseline_add_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

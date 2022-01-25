@@ -107,13 +107,16 @@ class NewPayoffViewModel(
         viewModelScope.launch {
             groupMembers.value = groupRepository.getGroupMembers(groupId)
             val balance = balanceRepository.getBalance(balanceId) ?: return@launch
-            val paidForAppUser = currentAppUserRepository.currentAppUser()
-            val paidToAppUser = balance.withAppUser
-            paidToDefault = paidForAppUser
+            val currentAppUser = currentAppUserRepository.currentAppUser()
+            val negativeBalance = balance.balance < BigDecimal.ZERO
+            val paidForAppUser = if(negativeBalance) currentAppUser else balance.withAppUser
+            val paidToAppUser = if(negativeBalance)  balance.withAppUser else currentAppUser
+            val amount = if(negativeBalance) balance.balance.negate() else balance.balance
+            paidForDefault = paidForAppUser
             paidToDefault = paidToAppUser
             paidForDefaultIndex.value = getGroupMemberIndex(paidForAppUser)
             paidToDefaultIndex.value = getGroupMemberIndex(paidToAppUser)
-            amountDefault.value = balance.balance.negate()
+            amountDefault.value = amount
             currencyDefaultIndex.value = Currency.values().indexOf(balance.currency)
         }
     }

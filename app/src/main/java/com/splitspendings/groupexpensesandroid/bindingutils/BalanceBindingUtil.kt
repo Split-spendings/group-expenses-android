@@ -1,9 +1,6 @@
 package com.splitspendings.groupexpensesandroid.bindingutils
 
 import android.util.TypedValue
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
-import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -19,10 +16,10 @@ fun RecyclerView.bindBalancesList(balancesList: List<Balance>?) {
     adapter.addHeadersAndSubmitList(balancesList)
 }
 
-@BindingAdapter("balancePayoffButton")
+/*@BindingAdapter("balancePayoffButton")
 fun Button.bindBalancePayoffButton(balance: Balance) {
     visibility = if (balance.balance < BigDecimal.ZERO) VISIBLE else INVISIBLE
-}
+}*/
 
 @BindingAdapter("balanceAmount")
 fun TextView.bindBalanceAmount(balance: Balance) {
