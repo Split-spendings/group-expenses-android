@@ -27,7 +27,7 @@
     <string name="join_group_fragment_label">Join group</string>
     <string name="invite_to_group_fragment_label">Invite to group</string>
     <string name="new_spending_fragment_label">New spending</string>
-    <string name="new_payoff_fragment_label">Pay off</string>
+    <string name="new_payoff_fragment_label">New payoff</string>
     <string name="balances_fragment_label">Balances</string>
     <string name="spendings_label">Spendings</string>
     <string name="balances_label">Balances</string>
