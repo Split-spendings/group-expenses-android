@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_normal"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    android:hint="@string/group_name"
+                    android:hint="@string/payoff_title"
                     app:counterEnabled="true"
                     app:counterMaxLength="100"
                     app:endIconMode="clear_text"
